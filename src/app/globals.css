@@ -1,26 +1,286 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  --color-primary: var(--color-primary-val);
+  --color-primary-dark: #11d483;
+  --color-primary-light: #064e3b;
+  --color-accent: #f59e0b;
+  --color-gold: #C6A255;
+  --color-gold-light: #D4AF6A;
+  --color-emerald-hero: #047857;
+  --color-emerald-deep: #065F46;
+  --color-background-dark: #10221a;
+  --color-background-light: #ffffff;
+  --color-surface-dark: #162e24;
+  --color-surface-light: #ffffff;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  --font-display: var(--font-space-grotesk), sans-serif;
+  --font-body: var(--font-inter), sans-serif;
+  --font-calligraphy: var(--font-amiri), serif;
+
+  --radius-DEFAULT: 1rem;
+  --radius-lg: 2rem;
+  --radius-xl: 3rem;
+
+  --shadow-glow: 0 0 20px rgba(17, 212, 131, 0.15);
+  --shadow-glow-lg: 0 0 20px rgba(17, 212, 131, 0.4);
+  --shadow-glass: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+
+  --animate-pulse-slow: pulse-slow 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  --animate-marquee: marquee 25s linear infinite;
+  --animate-pulse-ring: pulse-ring 2.5s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+
+  @keyframes pulse-slow {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+  }
+
+  @keyframes marquee {
+    0% { transform: translateX(100%); }
+    100% { transform: translateX(-100%); }
+  }
+
+  @keyframes pulse-ring {
+    0% { transform: scale(0.33); opacity: 0.8; }
+    80%, 100% { opacity: 0; }
   }
 }
 
+/* Light mode (default root) */
+:root {
+  --color-primary-val: #064e3b;
+  --color-primary-rgb: 6, 78, 59;
+  --color-bg: #ffffff;
+  --color-surface: #ffffff;
+  --color-text: #1e293b;
+  --color-text-muted: #2d6a4f;
+  --color-border: rgba(6, 78, 59, 0.15);
+}
+
+/* Dark mode */
+.dark {
+  --color-primary-val: #11d483;
+  --color-primary-rgb: 17, 212, 131;
+  --color-bg: #10221a;
+  --color-surface: #162e24;
+  --color-text: #ffffff;
+  --color-text-muted: #9ca3af;
+  --color-border: rgba(255, 255, 255, 0.1);
+}
+
+/* Base styles */
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+:root:not(.dark) body {
+  background: linear-gradient(to bottom, #ffffff 0%, #dcfce7 100%);
+  background-attachment: fixed;
+  min-height: 100vh;
+}
+
+::selection {
+  background: var(--color-primary-val);
+  color: var(--color-bg);
+}
+
+/* Glass effects */
+.glass-nav {
+  background: rgba(16, 34, 26, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.dark .glass-nav {
+  background: rgba(16, 34, 26, 0.7);
+}
+
+:root:not(.dark) .glass-nav {
+  background: rgba(255, 255, 255, 0.85);
+  border-bottom: 1px solid rgba(6, 78, 59, 0.1);
+}
+
+.glass-panel {
+  background: rgba(16, 34, 26, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(17, 212, 131, 0.1);
+}
+
+:root:not(.dark) .glass-panel {
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(6, 78, 59, 0.12);
+}
+
+/* Prayer card active state */
+.prayer-card-active {
+  background: linear-gradient(135deg, rgba(var(--color-primary-rgb), 0.2) 0%, rgba(var(--color-primary-rgb), 0.05) 100%);
+  border: 1px solid rgba(var(--color-primary-rgb), 0.3);
+  box-shadow: 0 0 20px rgba(var(--color-primary-rgb), 0.15);
+}
+
+:root:not(.dark) .prayer-card-active {
+  background: #ffffff;
+  border: 1.5px solid rgba(var(--color-primary-rgb), 0.35);
+  box-shadow: 0 0 20px rgba(var(--color-primary-rgb), 0.12);
+}
+
+/* Text glow */
+.text-glow {
+  text-shadow: 0 0 15px rgba(var(--color-primary-rgb), 0.4);
+}
+
+/* Bento card hover */
+.bento-card {
+  transition: all 0.3s ease;
+}
+.bento-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 0 20px rgba(var(--color-primary-rgb), 0.2);
+}
+
+/* Green gradient border for light mode cards */
+:root:not(.dark) .card-glow-border {
+  border: 1.5px solid transparent;
+  background-clip: padding-box;
+  position: relative;
+}
+
+:root:not(.dark) .card-glow-border::before {
+  content: '';
+  position: absolute;
+  inset: -1.5px;
+  border-radius: inherit;
+  padding: 1.5px;
+  background: linear-gradient(135deg, #86efac 0%, #064e3b 50%, #86efac 100%);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+/* In dark mode, fall back to standard border */
+.dark .card-glow-border {
+  border: 1px solid var(--color-border);
+}
+
+/* Floating label for contact form */
+.floating-input:focus ~ label,
+.floating-input:not(:placeholder-shown) ~ label {
+  transform: translateY(-1.5rem) scale(0.85);
+  color: var(--color-primary-val);
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-bg);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-surface);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-primary-val);
+}
+
+/* Pulse ring animation for map pin */
+.pulse-ring {
+  position: absolute;
+  height: 100px;
+  width: 100px;
+  border: 3px solid var(--color-primary-val);
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation: pulse-ring 2.5s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+}
+
+/* Islamic geometric 8-point star pattern */
+.pattern-islamic {
+  background-image:
+    repeating-conic-gradient(
+      from 22.5deg at 50% 50%,
+      transparent 0deg,
+      rgba(198, 162, 85, 0.12) 1.5deg,
+      transparent 3deg,
+      transparent 45deg
+    );
+  background-size: 80px 80px;
+}
+
+/* Gold calligraphy — metallic gold-leaf effect */
+.gold-calligraphy {
+  background: linear-gradient(
+    170deg,
+    #BF953F 0%,
+    #FCF6BA 25%,
+    #D4A843 40%,
+    #B38728 55%,
+    #FCF6BA 70%,
+    #D4A843 85%,
+    #BF953F 100%
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 0 12px rgba(212, 168, 67, 0.4)) drop-shadow(0 0 40px rgba(212, 168, 67, 0.15)) drop-shadow(0 2px 3px rgba(0, 0, 0, 0.4));
+}
+
+/* ── Hero Aurora & Effects ── */
+
+@keyframes hero-fade-up {
+  0% { opacity: 0; transform: translateY(30px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes dashboard-rise {
+  0% { opacity: 0; transform: translateY(60px) scale(0.97); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes border-spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes countdown-pulse {
+  0%, 100% { opacity: 1; text-shadow: 0 0 8px rgba(17, 212, 131, 0.3); }
+  50% { opacity: 0.8; text-shadow: 0 0 20px rgba(17, 212, 131, 0.6); }
+}
+
+/* Hero glass card — enhanced for dashboard */
+.hero-glass {
+  background: rgba(16, 34, 26, 0.65);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(17, 212, 131, 0.08);
+}
+
+:root:not(.dark) .hero-glass {
+  background: rgba(255, 255, 255, 0.75);
+  border: 1px solid rgba(6, 78, 59, 0.1);
+}
+
+/* Hero glass card with subtle inner light */
+.hero-glass-card {
+  background: rgba(22, 46, 36, 0.55);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(17, 212, 131, 0.06);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03);
+}
+
+:root:not(.dark) .hero-glass-card {
+  background: rgba(255, 255, 255, 0.6);
+  border: 1px solid rgba(6, 78, 59, 0.08);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5);
 }
