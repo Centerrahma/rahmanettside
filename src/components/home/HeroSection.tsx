@@ -4,108 +4,13 @@ import { useTranslations } from 'next-intl';
 import { useCountdown } from '@/hooks/useCountdown';
 import { useNextPrayer } from '@/hooks/useNextPrayer';
 import { usePrayerTimes } from '@/hooks/usePrayerTimes';
-import { PRAYER_ICONS, PROJECTS } from '@/lib/constants';
+import { PRAYER_ICONS, PROJECTS, EVENTS } from '@/lib/constants';
 import { Link } from '@/i18n/navigation';
+import Badge from '@/components/ui/Badge';
 import CalendarCard from './CalendarCard';
 import PrayerCard from './PrayerCard';
 import type { PrayerName } from '@/types/prayer';
 import { useEffect, useState } from 'react';
-
-/* ─── Particle starfield ─── */
-const PARTICLES = Array.from({ length: 44 }, (_, i) => ({
-  id: i,
-  left: `${(i * 2.27) % 100}%`,
-  delay: `${(i * 0.34) % 15}s`,
-  duration: `${12 + (i * 0.57) % 18}s`,
-  size: `${1 + (i % 3)}px`,
-  opacity: 0.2 + (i % 5) * 0.08,
-}));
-
-function ParticleField() {
-  return (
-    <div className="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
-      {PARTICLES.map((p) => (
-        <div
-          key={p.id}
-          className="absolute rounded-full bg-[var(--color-gold)]"
-          style={{
-            left: p.left,
-            bottom: '-2%',
-            width: p.size,
-            height: p.size,
-            opacity: p.opacity,
-            animation: `particle-rise ${p.duration} ${p.delay} linear infinite`,
-          }}
-        />
-      ))}
-    </div>
-  );
-}
-
-/* ─── Aurora background blobs ─── */
-function AuroraBackground() {
-  return (
-    <div className="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
-      {/* Primary green — large center blob */}
-      <div
-        className="aurora-blob absolute rounded-full"
-        style={{
-          width: '700px',
-          height: '700px',
-          background: 'radial-gradient(circle, #11d483 0%, transparent 70%)',
-          top: '25%',
-          left: '50%',
-          transform: 'translate(-50%, -50%)',
-          filter: 'blur(130px)',
-          opacity: 0.22,
-          animation: 'aurora-drift 10s ease-in-out infinite',
-        }}
-      />
-      {/* Gold accent — left */}
-      <div
-        className="aurora-blob absolute rounded-full"
-        style={{
-          width: '500px',
-          height: '500px',
-          background: 'radial-gradient(circle, #C6A255 0%, transparent 70%)',
-          top: '45%',
-          left: '25%',
-          filter: 'blur(110px)',
-          opacity: 0.14,
-          animation: 'aurora-drift 14s ease-in-out infinite reverse',
-        }}
-      />
-      {/* Deep emerald — right */}
-      <div
-        className="aurora-blob absolute rounded-full"
-        style={{
-          width: '450px',
-          height: '450px',
-          background: 'radial-gradient(circle, #047857 0%, transparent 70%)',
-          top: '55%',
-          right: '15%',
-          filter: 'blur(100px)',
-          opacity: 0.16,
-          animation: 'aurora-drift 12s ease-in-out 3s infinite',
-        }}
-      />
-      {/* Subtle gold top highlight */}
-      <div
-        className="aurora-blob absolute rounded-full"
-        style={{
-          width: '300px',
-          height: '200px',
-          background: 'radial-gradient(ellipse, rgba(212,168,67,0.3) 0%, transparent 70%)',
-          top: '8%',
-          left: '45%',
-          filter: 'blur(80px)',
-          opacity: 0.12,
-          animation: 'aurora-drift 16s ease-in-out 5s infinite',
-        }}
-      />
-    </div>
-  );
-}
 
 /* ─── Animated border wrapper ─── */
 function GlassCard({
@@ -119,7 +24,7 @@ function GlassCard({
 }) {
   if (!animatedBorder) {
     return (
-      <div className={`hero-glass-card rounded-2xl p-5 h-full ${className}`}>
+      <div className={`hero-glass-card card-glow-border rounded-2xl p-5 h-full ${className}`}>
         {children}
       </div>
     );
@@ -137,7 +42,7 @@ function GlassCard({
         }}
       />
       {/* Card content */}
-      <div className="relative hero-glass-card rounded-2xl p-5 h-full flex flex-col transition-all duration-300 group-hover:shadow-[0_0_25px_rgba(17,212,131,0.15)]">
+      <div className="relative hero-glass-card card-glow-border rounded-2xl p-5 h-full flex flex-col transition-all duration-300 group-hover:shadow-[0_0_25px_rgba(17,212,131,0.15)]">
         {children}
       </div>
     </div>
@@ -353,10 +258,53 @@ function QuickActionsCard() {
           <span className="material-symbols-outlined text-lg">volunteer_activism</span>
           Donate
         </Link>
-        <Link href="/contact" className="flex-1 flex items-center justify-center gap-2 px-4 py-3 bg-[rgba(var(--color-primary-rgb),0.1)] hover:bg-[rgba(var(--color-primary-rgb),0.2)] text-[var(--color-text)] border border-[rgba(var(--color-primary-rgb),0.2)] font-semibold text-sm rounded-xl transition-all duration-200">
+        <Link href="/contact" className="flex-1 flex items-center justify-center gap-2 px-4 py-3 bg-primary/10 hover:bg-primary/20 text-primary border border-primary/20 font-semibold text-sm rounded-xl transition-all duration-200">
           <span className="material-symbols-outlined text-lg">mail</span>
           Contact Us
         </Link>
+      </div>
+    </GlassCard>
+  );
+}
+
+/* ─── Dashboard: Upcoming Activities ─── */
+function UpcomingActivityCard() {
+  const t = useTranslations('activities');
+  const upcomingEvents = EVENTS.slice(0, 2);
+
+  return (
+    <GlassCard className="col-span-12 sm:col-span-6">
+      <div className="flex flex-col gap-3 h-full">
+        {/* Header */}
+        <div className="flex items-center gap-2">
+          <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center flex-shrink-0">
+            <span className="material-symbols-outlined text-[var(--color-bg)] text-lg">event</span>
+          </div>
+          <h3 className="text-sm font-bold text-[var(--color-text)] uppercase tracking-wide">
+            {t('upcoming')}
+          </h3>
+        </div>
+
+        {/* Events list */}
+        <div className="flex flex-col gap-2 flex-1">
+          {upcomingEvents.map((event) => (
+            <div
+              key={event.id}
+              className="flex items-start gap-3 p-2.5 rounded-xl bg-[rgba(255,255,255,0.02)] hover:bg-[rgba(var(--color-primary-rgb),0.05)] border border-[rgba(255,255,255,0.05)] hover:border-[rgba(var(--color-primary-rgb),0.15)] transition-all duration-200 cursor-pointer"
+            >
+              <Badge variant={event.category === 'education' ? 'community' : event.category}>{event.category}</Badge>
+              <div className="flex-1 min-w-0">
+                <h4 className="text-sm font-semibold text-[var(--color-text)] leading-tight mb-1 line-clamp-1">
+                  {event.title}
+                </h4>
+                <div className="flex items-center gap-1 text-xs text-[var(--color-text-muted)]">
+                  <span className="material-symbols-outlined text-xs">schedule</span>
+                  {event.day} &bull; {event.time}
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
     </GlassCard>
   );
@@ -369,8 +317,8 @@ function JummahCard({ schedule, t }: { schedule: ReturnType<typeof usePrayerTime
       <div className="flex flex-col md:flex-row items-center justify-between gap-4">
         {/* Left: icon + info */}
         <div className="flex items-center gap-4">
-          <div className="w-12 h-12 rounded-full bg-[rgba(var(--color-primary-rgb),0.12)] flex items-center justify-center flex-shrink-0 border border-[rgba(var(--color-primary-rgb),0.2)]">
-            <span className="material-icons text-primary text-2xl">groups</span>
+          <div className="w-12 h-12 rounded-full bg-primary flex items-center justify-center flex-shrink-0">
+            <span className="material-icons text-[var(--color-bg)] text-2xl">groups</span>
           </div>
           <div>
             <h4 className="text-base font-bold text-[var(--color-text)]">
@@ -419,10 +367,6 @@ export default function HeroSection() {
 
   return (
     <section className="relative min-h-screen overflow-hidden bg-[var(--color-bg)]">
-      {/* Background layers */}
-      <ParticleField />
-      <AuroraBackground />
-
       {/* Subtle Islamic pattern overlay */}
       <div className="absolute inset-0 pattern-islamic opacity-10 pointer-events-none" aria-hidden="true" />
 
@@ -453,7 +397,7 @@ export default function HeroSection() {
 
             <Link
               href="/become-member"
-              className="group inline-flex items-center justify-center gap-2 w-full sm:w-64 py-4 bg-[rgba(var(--color-primary-rgb),0.1)] hover:bg-[rgba(var(--color-primary-rgb),0.2)] text-[var(--color-primary-val)] border border-[rgba(var(--color-primary-rgb),0.2)] font-semibold rounded-full transition-all duration-300"
+              className="group inline-flex items-center justify-center gap-2 w-full sm:w-64 py-4 bg-primary hover:bg-primary-dark text-[var(--color-bg)] border border-primary font-semibold rounded-full transition-all duration-300"
             >
               {t('ctaJoin')}
               <span className="material-symbols-outlined group-hover:translate-x-1 transition-transform duration-200">
@@ -465,7 +409,7 @@ export default function HeroSection() {
               href="/Rahma_Kalendar.pdf"
               target="_blank"
               rel="noopener noreferrer"
-              className="group inline-flex items-center justify-center gap-2 w-full sm:w-64 py-4 bg-[rgba(var(--color-primary-rgb),0.05)] hover:bg-[rgba(var(--color-primary-rgb),0.1)] text-[var(--color-text)] border border-[rgba(var(--color-primary-rgb),0.1)] font-semibold rounded-full transition-all duration-300"
+              className="group inline-flex items-center justify-center gap-2 w-full sm:w-64 py-4 bg-primary hover:bg-primary-dark text-[var(--color-bg)] border border-primary font-semibold rounded-full transition-all duration-300"
             >
               {t('ctaRamadan')}
               <span className="material-symbols-outlined group-hover:translate-x-1 transition-transform duration-200">
@@ -528,8 +472,9 @@ export default function HeroSection() {
                 <CalendarCard />
                 <CountdownCard />
 
-                {/* Row 4: Quick Actions */}
+                {/* Row 4: Quick Actions | Upcoming Activities */}
                 <QuickActionsCard />
+                <UpcomingActivityCard />
               </div>
             </div>
           </div>
