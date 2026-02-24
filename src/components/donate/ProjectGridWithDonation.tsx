@@ -52,7 +52,7 @@ export default function ProjectGridWithDonation({
             <Fragment key={project.id}>
               {/* Insert Vipps tile after first project */}
               {index === 1 && (
-                <CompactVippsTile key="vipps-compact" onClick={scrollToDonation} />
+                <CompactVippsTile onClick={scrollToDonation} />
               )}
               <CompactProjectTile
                 project={project}
@@ -64,7 +64,6 @@ export default function ProjectGridWithDonation({
           ))}
           {mihrab && (
             <CompactProjectTile
-              key={mihrab.id}
               project={mihrab}
               title={t.projectTitles[mihrab.id] ?? mihrab.titleKey}
               targetLabel={t.targetLabel}
@@ -84,7 +83,7 @@ export default function ProjectGridWithDonation({
                     <p className="text-5xl font-bold text-primary tracking-wider">77811</p>
                   </div>
                   <p className="text-sm font-medium text-[var(--color-text-muted)] mt-4">
-                    Pick the category you want to donate to
+                    Velg kategori du ønsker å donere til
                   </p>
                 </div>
               )}
@@ -102,7 +101,6 @@ export default function ProjectGridWithDonation({
           ))}
           {mihrab && (
             <ProjectCard
-              key={mihrab.id}
               project={mihrab}
               title={t.projectTitles[mihrab.id] ?? mihrab.titleKey}
               raisedLabel={t.raisedLabel}
@@ -118,7 +116,7 @@ export default function ProjectGridWithDonation({
 
       {/* Right column: Donation widget */}
       <div className="md:col-span-5 lg:col-span-4">
-        <div ref={donationRef} className="sticky top-24">
+        <div ref={donationRef} className="sticky top-24 scroll-mt-28">
           <DonationWidget
             title={t.makeADonation}
             subtitle={t.donationSubtitle}
