@@ -47,7 +47,7 @@ export default function NewMosquePage() {
             <p className="text-xs tracking-[0.3em] uppercase font-[family-name:var(--font-jakarta)] font-semibold text-primary mb-1.5">
               Fremtidens moské
             </p>
-            <h1 className="text-4xl font-bold tracking-tight leading-[1.1] font-[family-name:var(--font-display)] text-center text-white">
+            <h1 className="text-4xl font-bold tracking-tight leading-[1.1] font-[family-name:var(--font-display)] text-center text-[var(--color-text)]">
               Nye Masjid Rahma
             </h1>
             <p className="font-[family-name:var(--font-jakarta)] text-[var(--color-text)] text-sm max-w-md text-center mt-2 mx-auto font-normal leading-relaxed">

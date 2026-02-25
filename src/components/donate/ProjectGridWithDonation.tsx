@@ -79,7 +79,7 @@ export default function ProjectGridWithDonation({
               {index === 1 && (
                 <div className="glass-panel bento-card p-4 relative overflow-hidden flex flex-col justify-center items-center h-full group hover:bg-[rgba(var(--color-primary-rgb),0.05)] transition-colors duration-300 text-center">
                   <div className="flex flex-col items-center justify-center flex-1">
-                    <h3 className="text-2xl font-bold text-white mb-1.5">Vipps</h3>
+                    <h3 className="text-2xl font-bold text-[var(--color-text)] mb-1.5">Vipps</h3>
                     <p className="text-4xl font-bold text-primary tracking-wider">77811</p>
                   </div>
                   <p className="text-xs font-medium text-[var(--color-text-muted)] mt-3">
