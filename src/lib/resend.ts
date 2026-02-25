@@ -1,6 +1,16 @@
 import { Resend } from 'resend';
 
-const resend = new Resend(process.env.RESEND_API_KEY || '');
+let _resend: Resend | null = null;
+
+function getResend(): Resend {
+  if (!_resend) {
+    if (!process.env.RESEND_API_KEY) {
+      throw new Error('RESEND_API_KEY environment variable is not set');
+    }
+    _resend = new Resend(process.env.RESEND_API_KEY);
+  }
+  return _resend;
+}
 
 export async function sendContactEmail(data: {
   name: string;
@@ -10,7 +20,7 @@ export async function sendContactEmail(data: {
 }) {
   const to = process.env.CONTACT_EMAIL_TO || 'post@centerrahma.no';
 
-  return resend.emails.send({
+  return getResend().emails.send({
     from: 'Masjid Rahma <noreply@masjidrahma.no>',
     to,
     replyTo: data.email,
@@ -30,7 +40,7 @@ export async function sendMembershipEmail(data: {
 }) {
   const to = process.env.CONTACT_EMAIL_TO || 'post@centerrahma.no';
 
-  return resend.emails.send({
+  return getResend().emails.send({
     from: 'Masjid Rahma <noreply@masjidrahma.no>',
     to,
     replyTo: data.email,
