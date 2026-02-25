@@ -42,12 +42,12 @@ export default function ProjectGridWithDonation({
   const mihrab = projects.find(p => p.id === 'mihrab');
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-12 gap-6 auto-rows-min">
+    <div className="grid grid-cols-1 md:grid-cols-12 gap-5 auto-rows-min">
       {/* Left column: project cards */}
-      <div className="md:col-span-7 lg:col-span-8 flex flex-col gap-6">
+      <div className="md:col-span-7 lg:col-span-8 flex flex-col gap-5">
 
         {/* ===== MOBILE: Compact 2-col grid ===== */}
-        <div className="grid grid-cols-2 gap-3 md:hidden">
+        <div className="grid grid-cols-2 gap-2.5 md:hidden">
           {projectsWithoutMihrab.map((project, index) => (
             <Fragment key={project.id}>
               {/* Insert Vipps tile after first project */}
@@ -73,16 +73,16 @@ export default function ProjectGridWithDonation({
         </div>
 
         {/* ===== DESKTOP: Existing bento grid ===== */}
-        <div className="hidden md:grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div className="hidden md:grid grid-cols-1 lg:grid-cols-2 gap-5">
           {projectsWithoutMihrab.map((project, index) => (
             <Fragment key={project.id}>
               {index === 1 && (
-                <div className="glass-panel bento-card p-6 relative overflow-hidden flex flex-col justify-center items-center h-full group hover:bg-[rgba(var(--color-primary-rgb),0.05)] transition-colors duration-300 text-center">
+                <div className="glass-panel bento-card p-4 relative overflow-hidden flex flex-col justify-center items-center h-full group hover:bg-[rgba(var(--color-primary-rgb),0.05)] transition-colors duration-300 text-center">
                   <div className="flex flex-col items-center justify-center flex-1">
-                    <h3 className="text-3xl font-bold text-white mb-2">Vipps</h3>
-                    <p className="text-5xl font-bold text-primary tracking-wider">77811</p>
+                    <h3 className="text-2xl font-bold text-white mb-1.5">Vipps</h3>
+                    <p className="text-4xl font-bold text-primary tracking-wider">77811</p>
                   </div>
-                  <p className="text-sm font-medium text-[var(--color-text-muted)] mt-4">
+                  <p className="text-xs font-medium text-[var(--color-text-muted)] mt-3">
                     Velg kategori du ønsker å donere til
                   </p>
                 </div>
