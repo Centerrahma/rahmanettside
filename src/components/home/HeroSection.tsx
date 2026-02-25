@@ -5,7 +5,7 @@ import { useCountdown } from '@/hooks/useCountdown';
 import { useNextPrayer } from '@/hooks/useNextPrayer';
 import { usePrayerTimes } from '@/hooks/usePrayerTimes';
 import { PRAYER_ICONS, PROJECTS } from '@/lib/constants';
-import { Link } from '@/i18n/navigation';
+import Link from 'next/link';
 import CalendarCard from './CalendarCard';
 import PrayerCard from './PrayerCard';
 import type { PrayerName } from '@/types/prayer';
@@ -52,7 +52,7 @@ function AuroraBackground() {
         style={{
           width: '700px',
           height: '700px',
-          background: 'radial-gradient(circle, #11d483 0%, transparent 70%)',
+          background: 'radial-gradient(circle, var(--color-primary-val) 0%, transparent 70%)',
           top: '25%',
           left: '50%',
           transform: 'translate(-50%, -50%)',
@@ -119,7 +119,7 @@ function GlassCard({
 }) {
   if (!animatedBorder) {
     return (
-      <div className={`hero-glass-card rounded-2xl p-5 h-full ${className}`}>
+      <div className={`hero-glass-card rounded-2xl p-3 md:p-5 h-full ${className}`}>
         {children}
       </div>
     );
@@ -131,13 +131,13 @@ function GlassCard({
       <div
         className="absolute inset-[-50%]"
         style={{
-          background: 'conic-gradient(from 0deg, transparent 0%, #11d483 15%, transparent 30%, #C6A255 50%, transparent 65%, #047857 80%, transparent 100%)',
+          background: 'conic-gradient(from 0deg, transparent 0%, var(--color-primary-val) 15%, transparent 30%, #C6A255 50%, transparent 65%, #047857 80%, transparent 100%)',
           animation: 'border-spin 12s linear infinite',
-          opacity: 0.08,
+          opacity: 0.25,
         }}
       />
       {/* Card content */}
-      <div className="relative hero-glass-card rounded-2xl p-5 h-full flex flex-col transition-all duration-300 group-hover:shadow-[0_0_25px_rgba(17,212,131,0.15)]">
+      <div className="relative hero-glass-card rounded-2xl p-2 md:p-3 h-full flex flex-col transition-all duration-300 group-hover:shadow-[0_0_25px_rgba(var(--color-primary-rgb),0.15)]">
         {children}
       </div>
     </div>
@@ -165,7 +165,7 @@ function CircularProgress({ percentage, size = 64 }: { percentage: number; size?
         cy={size / 2}
         r={radius}
         fill="none"
-        stroke="rgba(255,255,255,0.06)"
+        stroke="var(--color-border)"
         strokeWidth={strokeWidth}
       />
       <circle
@@ -173,12 +173,12 @@ function CircularProgress({ percentage, size = 64 }: { percentage: number; size?
         cy={size / 2}
         r={radius}
         fill="none"
-        stroke="var(--color-primary-val)"
+        stroke="var(--color-text)"
         strokeWidth={strokeWidth}
         strokeLinecap="round"
         strokeDasharray={circumference}
         strokeDashoffset={offset}
-        style={{ filter: 'drop-shadow(0 0 6px rgba(17, 212, 131, 0.4))' }}
+        style={{ filter: 'none' }}
       />
     </svg>
   );
@@ -219,11 +219,11 @@ function ProjectShowcaseCard() {
         className={`flex items-center justify-center gap-5 flex-1 transition-all duration-300 ${isAnimating ? 'opacity-0 scale-95' : 'opacity-100 scale-100'}`}
       >
         {/* Large Circular Progress */}
-        <div className="relative flex-shrink-0 w-24 h-24">
-          <svg className="w-full h-full -rotate-90 transform drop-shadow-[0_0_10px_rgba(var(--color-primary-rgb),0.3)]" viewBox="0 0 36 36">
+        <div className="relative flex-shrink-0 w-10 h-10 md:w-16 md:h-16">
+          <svg className="w-full h-full -rotate-90 transform" viewBox="0 0 36 36">
             {/* Background Circle */}
             <path
-              className="text-[rgba(255,255,255,0.1)]"
+              className="text-[var(--color-border)]"
               d="M18 2.0845
                 a 15.9155 15.9155 0 0 1 0 31.831
                 a 15.9155 15.9155 0 0 1 0 -31.831"
@@ -233,7 +233,7 @@ function ProjectShowcaseCard() {
             />
             {/* Progress Circle */}
             <path
-              className="text-primary transition-all duration-1000 ease-out"
+              className="text-[var(--color-text)] transition-all duration-1000 ease-out"
               strokeDasharray={`${project.percentage}, 100`}
               d="M18 2.0845
                 a 15.9155 15.9155 0 0 1 0 31.831
@@ -246,7 +246,7 @@ function ProjectShowcaseCard() {
           </svg>
           {/* Percentage Text */}
           <div className="absolute inset-0 flex items-center justify-center">
-            <span className="text-2xl font-bold text-primary font-mono tracking-tighter">
+            <span className="text-xs md:text-sm font-bold text-[var(--color-text)] font-mono tracking-tighter">
               {project.percentage}%
             </span>
           </div>
@@ -254,14 +254,14 @@ function ProjectShowcaseCard() {
 
         {/* Project Details */}
         <div className="flex-1 min-w-0 flex flex-col justify-center">
-          <div className="text-[10px] uppercase tracking-widest text-[var(--color-text-muted)] mb-1">
+          <div className="text-[8px] uppercase tracking-widest text-[var(--color-text-muted)] mb-0.5">
             {t('donate.sectionTitle')}
           </div>
-          <h3 className="text-xl md:text-2xl font-bold text-[var(--color-text)] leading-none mb-2 line-clamp-2">
+          <h3 className="text-sm md:text-base font-bold text-[var(--color-text)] leading-none mb-1 line-clamp-2">
             {t(project.titleKey)}
           </h3>
           <div className="flex items-baseline gap-2">
-            <span className="text-primary font-bold">{project.raised.toLocaleString()}</span>
+            <span className="text-[var(--color-text)] font-bold">{project.raised.toLocaleString()}</span>
             <span className="text-xs text-[var(--color-text-muted)]">/ {project.target.toLocaleString()} kr</span>
           </div>
         </div>
@@ -320,18 +320,23 @@ function CountdownCard() {
   return (
     <GlassCard className="col-span-12 md:col-span-3 relative">
       <div className="flex flex-col justify-center items-center flex-1">
-        <div className="text-[10px] uppercase tracking-widest text-[var(--color-text-muted)] mb-2 text-center">
+        <div className="text-[8px] uppercase tracking-widest text-[var(--color-text-muted)] mb-1 text-center">
           {t('timeUntil')}
         </div>
 
         <div className="flex items-center justify-center relative">
           <div className="relative">
-            <CircularProgress percentage={100} size={110} />
+            <div className="hidden md:block">
+              <CircularProgress percentage={100} size={64} />
+            </div>
+            <div className="md:hidden">
+              <CircularProgress percentage={100} size={48} />
+            </div>
             <div className="absolute inset-0 flex flex-col items-center justify-center">
-              <div className="text-xl font-bold text-[var(--color-text)] font-mono tabular-nums tracking-tight">
+              <div className="text-sm md:text-base font-bold text-[var(--color-text)] font-mono tabular-nums tracking-tight">
                 {countdown.hours}:{countdown.minutes}
               </div>
-              <div className="text-xs text-[var(--color-text-muted)] font-mono">
+              <div className="text-[8px] md:text-[10px] text-[var(--color-text-muted)] font-mono">
                 {countdown.seconds}
               </div>
             </div>
@@ -366,17 +371,17 @@ function QuickActionsCard() {
 function JummahCard({ schedule, t }: { schedule: ReturnType<typeof usePrayerTimes>['schedule']; t: ReturnType<typeof useTranslations> }) {
   return (
     <GlassCard className="col-span-12">
-      <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+      <div className="flex flex-col md:flex-row items-center justify-between gap-3">
         {/* Left: icon + info */}
-        <div className="flex items-center gap-4">
-          <div className="w-12 h-12 rounded-full bg-[rgba(var(--color-primary-rgb),0.12)] flex items-center justify-center flex-shrink-0 border border-[rgba(var(--color-primary-rgb),0.2)]">
-            <span className="material-icons text-primary text-2xl">groups</span>
+        <div className="flex items-center gap-3">
+          <div className="w-8 h-8 md:w-9 md:h-9 rounded-full bg-[rgba(var(--color-primary-rgb),0.12)] flex items-center justify-center flex-shrink-0 border border-[rgba(var(--color-primary-rgb),0.2)]">
+            <span className="material-icons text-[var(--color-text)] text-lg md:text-xl">groups</span>
           </div>
           <div>
-            <h4 className="text-base font-bold text-[var(--color-text)]">
+            <h4 className="text-xs md:text-sm font-bold text-[var(--color-text)]">
               {t('jummah')}
             </h4>
-            <p className="text-sm text-[var(--color-text-muted)]">
+            <p className="text-[10px] md:text-xs text-[var(--color-text-muted)]">
               {t('khutbahAt', { time: schedule.jummah.khutbah })} •{' '}
               {t('prayerAt', { time: schedule.jummah.prayer })}
             </p>
@@ -384,23 +389,30 @@ function JummahCard({ schedule, t }: { schedule: ReturnType<typeof usePrayerTime
         </div>
 
         {/* Right: action buttons */}
-        <div className="flex flex-col sm:flex-row gap-3 w-full md:w-auto">
+        <div className="flex flex-col sm:flex-row gap-2 w-full md:w-auto">
           <a
             href="/Rahma_Kalendar.pdf"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex-1 md:flex-none flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl border border-[rgba(var(--color-primary-rgb),0.2)] text-[var(--color-text)] hover:bg-[rgba(var(--color-primary-rgb),0.08)] transition-all font-medium text-sm whitespace-nowrap"
+            download="Rahma Kalendar.pdf"
+            className="flex-1 md:flex-none flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-xl bg-primary text-[var(--color-bg)] hover:bg-primary-dark transition-colors font-bold text-xs whitespace-nowrap shadow-[0_0_15px_rgba(var(--color-primary-rgb),0.2)]"
           >
-            <span className="material-symbols-outlined text-base">calendar_today</span>
+            <span className="material-symbols-outlined text-sm">download</span>
+            {t('ramadanCalendar')}
+          </a>
+          <a
+            href="/Bonnetider_2026.xlsx"
+            download="Bønnetider 2026.xlsx"
+            className="flex-1 md:flex-none flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-xl border border-[rgba(var(--color-primary-rgb),0.2)] text-[var(--color-text)] hover:bg-[rgba(var(--color-primary-rgb),0.08)] transition-all font-medium text-xs whitespace-nowrap"
+          >
+            <span className="material-symbols-outlined text-sm">calendar_today</span>
             {t('downloadCalendar')}
           </a>
           <a
-            href="https://maps.google.com/?q=Gronland+12,Oslo"
+            href="https://www.google.com/maps/dir/?api=1&destination=Tvetenveien+54,+Oslo"
             target="_blank"
             rel="noopener noreferrer"
-            className="flex-1 md:flex-none flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-primary text-[var(--color-bg)] hover:bg-primary-dark transition-colors font-bold text-sm whitespace-nowrap shadow-[0_0_15px_rgba(var(--color-primary-rgb),0.2)]"
+            className="flex-1 md:flex-none flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-xl border border-[rgba(var(--color-primary-rgb),0.2)] text-[var(--color-text)] hover:bg-[rgba(var(--color-primary-rgb),0.08)] transition-all font-medium text-xs whitespace-nowrap"
           >
-            <span className="material-symbols-outlined text-base">location_on</span>
+            <span className="material-symbols-outlined text-sm">location_on</span>
             {t('getDirections')}
           </a>
         </div>
@@ -427,52 +439,68 @@ export default function HeroSection() {
       <div className="absolute inset-0 pattern-islamic opacity-10 pointer-events-none" aria-hidden="true" />
 
       {/* Content wrapper */}
-      <div className="relative z-10 flex flex-col items-center px-4 pt-28 pb-8 md:pt-36 md:pb-10">
+      <div className="relative z-10 flex flex-col items-center px-4 pt-24 pb-8 md:pt-36 md:pb-10">
 
         {/* ── Hero Text ── */}
-        <div
-          className="text-center max-w-3xl mx-auto mb-12 md:mb-16"
-          style={{ animation: 'hero-fade-up 0.8s ease-out both' }}
-        >
-          <h1 className="text-2xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-[var(--color-text)] mb-5 leading-[1.1] tracking-tight">
-            {t('welcome')}
-          </h1>
-          <p className="text-[var(--color-text-muted)] text-base sm:text-lg md:text-xl max-w-xl mx-auto mb-8 leading-relaxed">
-            {t('subtitle')}
+        <div className="text-center max-w-3xl mx-auto mb-10 md:mb-16">
+          {/* Label */}
+          <p
+            className="text-sm sm:text-base font-bold uppercase tracking-[0.25em] text-[var(--color-gold)]"
+            style={{ fontFamily: 'var(--font-jakarta)', animation: 'hero-fade-up 0.8s ease-out both' }}
+          >
+            {t('label')}
           </p>
-          <div className="flex flex-col sm:flex-row items-center gap-4 justify-center">
+
+          {/* Decorative gold line with diamond */}
+          <div
+            className="flex items-center justify-center my-4 md:my-5"
+            style={{ animation: 'hero-fade-up 0.8s ease-out 0.15s both' }}
+            aria-hidden="true"
+          >
+            <div className="relative w-24 md:w-32 h-[1px]">
+              <div
+                className="absolute inset-0"
+                style={{ background: 'linear-gradient(90deg, transparent, var(--color-gold), transparent)' }}
+              />
+              <div
+                className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-2 h-2 rotate-45"
+                style={{ backgroundColor: 'var(--color-gold)' }}
+              />
+            </div>
+          </div>
+
+          {/* Headline */}
+          <h1
+            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-[var(--color-text)] leading-[1.1] tracking-tight mb-8 md:mb-10"
+            style={{ fontFamily: 'var(--font-display)', animation: 'hero-fade-up 0.8s ease-out 0.3s both' }}
+          >
+            {t('headline')}
+          </h1>
+
+          {/* CTA Buttons */}
+          <div
+            className="flex items-center gap-3 justify-center"
+            style={{ animation: 'hero-fade-up 0.8s ease-out 0.45s both' }}
+          >
             <Link
               href="/contact"
-              className="group inline-flex items-center justify-center gap-2 w-full sm:w-64 py-4 bg-primary hover:bg-primary-dark text-[var(--color-bg)] font-semibold rounded-full transition-all duration-300 shadow-[0_0_20px_rgba(var(--color-primary-rgb),0.2)] hover:shadow-[0_0_35px_rgba(var(--color-primary-rgb),0.4)]"
+              className="inline-flex items-center justify-center px-6 py-2.5 bg-primary hover:bg-primary-dark text-[var(--color-bg)] font-semibold text-sm rounded-full transition-all duration-300 shadow-[0_0_20px_rgba(var(--color-primary-rgb),0.2)] hover:shadow-[0_0_35px_rgba(var(--color-primary-rgb),0.4)]"
             >
               {t('ctaVisit')}
-              <span className="material-symbols-outlined group-hover:translate-x-1 transition-transform duration-200">
-                arrow_forward
-              </span>
             </Link>
 
             <Link
-              href="/become-member"
-              className="group inline-flex items-center justify-center gap-2 w-full sm:w-64 py-4 bg-[rgba(var(--color-primary-rgb),0.1)] hover:bg-[rgba(var(--color-primary-rgb),0.2)] text-[var(--color-primary-val)] border border-[rgba(var(--color-primary-rgb),0.2)] font-semibold rounded-full transition-all duration-300"
+              href="/donate"
+              className="inline-flex items-center justify-center px-6 py-2.5 border border-[rgba(var(--color-primary-rgb),0.3)] text-[var(--color-text-muted)] hover:text-[var(--color-text)] hover:border-[rgba(var(--color-primary-rgb),0.6)] font-semibold text-sm rounded-full transition-all duration-300"
             >
-              {t('ctaJoin')}
-              <span className="material-symbols-outlined group-hover:translate-x-1 transition-transform duration-200">
-                person_add
-              </span>
+              {t('ctaSupport')}
             </Link>
-
-            <a
-              href="/Rahma_Kalendar.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group inline-flex items-center justify-center gap-2 w-full sm:w-64 py-4 bg-[rgba(var(--color-primary-rgb),0.05)] hover:bg-[rgba(var(--color-primary-rgb),0.1)] text-[var(--color-text)] border border-[rgba(var(--color-primary-rgb),0.1)] font-semibold rounded-full transition-all duration-300"
-            >
-              {t('ctaRamadan')}
-              <span className="material-symbols-outlined group-hover:translate-x-1 transition-transform duration-200">
-                calendar_today
-              </span>
-            </a>
           </div>
+        </div>
+
+        {/* ── Mobile-only: Project Showcase above dashboard ── */}
+        <div className="md:hidden w-full max-w-sm mx-auto mb-4 px-2">
+          <ProjectShowcaseCard />
         </div>
 
         {/* ── Dashboard Composite ── */}
@@ -486,27 +514,27 @@ export default function HeroSection() {
             <div
               className="absolute inset-[-50%]"
               style={{
-                background: 'conic-gradient(from 0deg, transparent 0%, #11d483 10%, transparent 20%, rgba(198,162,85,0.6) 35%, transparent 45%, #047857 60%, transparent 70%, rgba(17,212,131,0.4) 85%, transparent 100%)',
+                background: 'conic-gradient(from 0deg, transparent 0%, var(--color-primary-val) 10%, transparent 20%, rgba(198,162,85,0.6) 35%, transparent 45%, #047857 60%, transparent 70%, rgba(var(--color-primary-rgb),0.4) 85%, transparent 100%)',
                 animation: 'border-spin 16s linear infinite',
-                opacity: 0.08,
+                opacity: 0.25,
               }}
             />
 
             {/* Dashboard inner content */}
-            <div className="relative hero-glass rounded-3xl p-4 md:p-6">
+            <div className="relative hero-glass rounded-3xl p-2 md:p-3">
               {/* Top glow line */}
               <div
                 className="absolute top-0 left-1/2 -translate-x-1/2 w-2/3 h-[1px]"
                 style={{
-                  background: 'linear-gradient(90deg, transparent, rgba(17,212,131,0.3), rgba(198,162,85,0.2), rgba(17,212,131,0.3), transparent)',
+                  background: 'linear-gradient(90deg, transparent, rgba(var(--color-primary-rgb),0.3), rgba(198,162,85,0.2), rgba(var(--color-primary-rgb),0.3), transparent)',
                 }}
                 aria-hidden="true"
               />
 
               {/* Bento grid */}
-              <div className="grid grid-cols-12 gap-3 md:gap-4">
+              <div className="grid grid-cols-12 gap-1.5 md:gap-2.5">
                 {/* Row 1: 5 Prayer Time Cards */}
-                <div className="col-span-12 grid grid-cols-2 md:grid-cols-5 gap-3 md:gap-4">
+                <div className="col-span-12 grid grid-cols-5 gap-1 md:gap-2.5">
                   {PRAYER_ORDER.map((name) => (
                     <PrayerCard
                       key={name}
@@ -523,13 +551,17 @@ export default function HeroSection() {
                 {/* Row 2: Jummah full-width */}
                 <JummahCard schedule={schedule} t={tPrayer} />
 
-                {/* Row 3: Project Showcase | Calendar | Countdown */}
-                <ProjectShowcaseCard />
-                <CalendarCard />
-                <CountdownCard />
+                {/* Row 3: Project Showcase (desktop only) | Calendar | Countdown */}
+                <div className="hidden md:block md:col-span-4">
+                  <ProjectShowcaseCard />
+                </div>
+                <div className="hidden md:block md:col-span-5">
+                  <CalendarCard />
+                </div>
+                <div className="hidden md:block md:col-span-3">
+                  <CountdownCard />
+                </div>
 
-                {/* Row 4: Quick Actions */}
-                <QuickActionsCard />
               </div>
             </div>
           </div>
@@ -538,7 +570,7 @@ export default function HeroSection() {
           <div
             className="mx-auto mt-[-2px] w-3/4 h-16 opacity-30 pointer-events-none"
             style={{
-              background: 'radial-gradient(ellipse at center, rgba(17,212,131,0.25) 0%, transparent 70%)',
+              background: 'radial-gradient(ellipse at center, rgba(var(--color-primary-rgb),0.25) 0%, transparent 70%)',
               filter: 'blur(20px)',
             }}
             aria-hidden="true"

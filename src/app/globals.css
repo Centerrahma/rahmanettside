@@ -1,26 +1,272 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+/* ─── Dark mode: class-based strategy ─── */
+@custom-variant dark (&:where(.dark, .dark *));
 
+/* ─── Tailwind v4 theme tokens ─── */
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-primary: var(--color-primary-val);
+  --color-primary-dark: #065f46;
+  --font-sans: var(--font-jakarta), system-ui, sans-serif;
+  --font-display: var(--font-display), Georgia, serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* ═══════════════════════════════════════════════
+   LIGHT THEME (default)
+   ═══════════════════════════════════════════════ */
+:root {
+  --background: #f8f9fa;
+  --foreground: #171717;
+
+  --color-bg: #f8f9fa;
+  --color-surface: #ffffff;
+  --color-text: #1a1a2e;
+  --color-text-muted: #64748b;
+  --color-border: rgba(0, 0, 0, 0.1);
+  --color-primary-val: #047857;
+  --color-primary-rgb: 4, 120, 87;
+  --color-gold: #7A5C0E;
+
+  /* Glass effects — light */
+  --glass-bg: rgba(255, 255, 255, 0.75);
+  --glass-border: rgba(0, 0, 0, 0.08);
+  --glass-card-bg: rgba(255, 255, 255, 0.7);
+  --glass-card-border: rgba(0, 0, 0, 0.06);
+  --glass-shadow: 0 4px 30px rgba(0, 0, 0, 0.06);
+
+  /* Prayer card active */
+  --prayer-active-bg: linear-gradient(135deg, rgba(4, 120, 87, 0.12) 0%, rgba(4, 120, 87, 0.08) 100%);
+  --prayer-active-border: rgba(4, 120, 87, 0.3);
+  --prayer-active-shadow: 0 0 30px rgba(4, 120, 87, 0.15);
+
+  /* Card glow */
+  --card-glow-border: rgba(0, 0, 0, 0.06);
+
+  /* Particle / aurora opacity for light */
+  --particle-opacity-mult: 0.5;
+  --aurora-opacity-mult: 0.4;
 }
 
+/* ═══════════════════════════════════════════════
+   DARK THEME (.dark class on <html>)
+   ═══════════════════════════════════════════════ */
+.dark {
+  --background: #0a0a0a;
+  --foreground: #ededed;
+
+  --color-bg: #060b0e;
+  --color-surface: rgba(255, 255, 255, 0.04);
+  --color-text: #f1f5f9;
+  --color-text-muted: #94a3b8;
+  --color-border: rgba(255, 255, 255, 0.08);
+  --color-primary-val: #11d483;
+  --color-primary-rgb: 17, 212, 131;
+  --color-gold: #C6A255;
+
+  /* Glass effects — dark */
+  --glass-bg: rgba(6, 11, 14, 0.8);
+  --glass-border: rgba(255, 255, 255, 0.06);
+  --glass-card-bg: rgba(255, 255, 255, 0.03);
+  --glass-card-border: rgba(255, 255, 255, 0.06);
+  --glass-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+
+  /* Prayer card active */
+  --prayer-active-bg: linear-gradient(135deg, rgba(17, 212, 131, 0.15) 0%, rgba(4, 120, 87, 0.1) 100%);
+  --prayer-active-border: rgba(17, 212, 131, 0.4);
+  --prayer-active-shadow: 0 0 30px rgba(17, 212, 131, 0.2);
+
+  /* Card glow */
+  --card-glow-border: rgba(255, 255, 255, 0.06);
+
+  /* Particle / aurora opacity for dark */
+  --particle-opacity-mult: 1;
+  --aurora-opacity-mult: 1;
+}
+
+/* ═══════════════════════════════════════════════
+   BASE STYLES
+   ═══════════════════════════════════════════════ */
 body {
-  background: var(--background);
+  background: var(--color-bg);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-jakarta, system-ui, sans-serif);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* ═══════════════════════════════════════════════
+   GLASS COMPONENTS
+   ═══════════════════════════════════════════════ */
+
+/* Navbar glass */
+.glass-nav {
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
+}
+
+/* Hero dashboard outer glass container */
+.hero-glass {
+  background: var(--glass-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(var(--color-primary-rgb), 0.2);
+  box-shadow:
+    0 0 16px rgba(var(--color-primary-rgb), 0.08),
+    0 0 40px rgba(var(--color-primary-rgb), 0.04);
+}
+
+/* Individual glass cards inside the dashboard */
+.hero-glass-card {
+  background: var(--glass-card-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(var(--color-primary-rgb), 0.25);
+  box-shadow:
+    0 0 12px rgba(var(--color-primary-rgb), 0.08),
+    0 0 32px rgba(var(--color-primary-rgb), 0.04);
+}
+
+.hero-glass-card:hover {
+  border-color: rgba(var(--color-primary-rgb), 0.45);
+  box-shadow:
+    0 0 16px rgba(var(--color-primary-rgb), 0.14),
+    0 0 40px rgba(var(--color-primary-rgb), 0.07);
+}
+
+/* ═══════════════════════════════════════════════
+   GLASS PANEL & BENTO CARD (donation / project cards)
+   ═══════════════════════════════════════════════ */
+.glass-panel {
+  background: var(--glass-card-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(var(--color-primary-rgb), 0.25);
+  border-radius: 1rem;
+  box-shadow:
+    0 0 12px rgba(var(--color-primary-rgb), 0.08),
+    0 0 32px rgba(var(--color-primary-rgb), 0.04);
+}
+
+.glass-panel:hover {
+  border-color: rgba(var(--color-primary-rgb), 0.45);
+  box-shadow:
+    0 0 16px rgba(var(--color-primary-rgb), 0.14),
+    0 0 40px rgba(var(--color-primary-rgb), 0.07);
+}
+
+/* ═══════════════════════════════════════════════
+   PRAYER CARDS
+   ═══════════════════════════════════════════════ */
+
+/* Active / "Next" prayer card */
+.prayer-card-active {
+  background: var(--prayer-active-bg);
+  border: 1.5px solid var(--prayer-active-border);
+  box-shadow: var(--prayer-active-shadow);
+}
+
+/* Inactive prayer card border glow on hover */
+.card-glow-border {
+  border: 1px solid rgba(var(--color-primary-rgb), 0.2);
+  box-shadow: 0 0 8px rgba(var(--color-primary-rgb), 0.06);
+}
+
+/* Glowing text effect for active prayer time */
+.text-glow {
+  text-shadow: 0 0 20px rgba(var(--color-primary-rgb), 0.4);
+}
+
+/* ═══════════════════════════════════════════════
+   CUSTOM SHADOWS
+   ═══════════════════════════════════════════════ */
+.shadow-glow-lg {
+  box-shadow: 0 0 25px rgba(var(--color-primary-rgb), 0.25);
+}
+
+/* ═══════════════════════════════════════════════
+   SUBTLE ISLAMIC PATTERN OVERLAY
+   ═══════════════════════════════════════════════ */
+.pattern-islamic {
+  background-image: url("data:image/svg+xml,%3Csvg width='80' height='80' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M40 0L80 40L40 80L0 40Z' fill='none' stroke='%2311d483' stroke-width='0.5' opacity='0.3'/%3E%3Cpath d='M40 10L70 40L40 70L10 40Z' fill='none' stroke='%23C6A255' stroke-width='0.3' opacity='0.2'/%3E%3C/svg%3E");
+  background-size: 80px 80px;
+}
+
+/* ═══════════════════════════════════════════════
+   KEYFRAME ANIMATIONS
+   ═══════════════════════════════════════════════ */
+
+/* Conic gradient border spin for glass cards */
+@keyframes border-spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+/* Particle rising animation */
+@keyframes particle-rise {
+  0%   { transform: translateY(0) scale(1);   opacity: 0; }
+  10%  { opacity: 1; }
+  90%  { opacity: 1; }
+  100% { transform: translateY(-110vh) scale(0.5); opacity: 0; }
+}
+
+/* Aurora blob drift */
+@keyframes aurora-drift {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33%      { transform: translate(30px, -20px) scale(1.05); }
+  66%      { transform: translate(-20px, 15px) scale(0.95); }
+}
+
+/* Hero title fade up */
+@keyframes hero-fade-up {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Dashboard slide up on load */
+@keyframes dashboard-rise {
+  from { opacity: 0; transform: translateY(40px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Showcase geometric shape floating */
+@keyframes showcase-float {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  25%      { transform: translate(8px, -14px) rotate(2deg); }
+  50%      { transform: translate(-6px, -22px) rotate(-1.5deg); }
+  75%      { transform: translate(12px, -8px) rotate(1deg); }
+}
+
+/* Showcase content entrance */
+@keyframes showcase-fade-up {
+  from { opacity: 0; transform: translateY(28px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ═══════════════════════════════════════════════
+   SMOOTH THEME TRANSITIONS
+   ═══════════════════════════════════════════════ */
+*,
+*::before,
+*::after {
+  transition-property: background-color, border-color, box-shadow;
+  transition-duration: 0.2s;
+  transition-timing-function: ease;
+}
+
+/* Don't animate transforms/opacity on everything — only theme colors */
+a, button, input, textarea, select {
+  transition-property: background-color, border-color, box-shadow, color, opacity;
+  transition-duration: 0.2s;
+}
+
+/* Animations should not be throttled by theme transition */
+[style*="animation"],
+.aurora-blob,
+.absolute.rounded-full {
+  transition: none !important;
 }

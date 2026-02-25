@@ -1,0 +1,190 @@
+'use client';
+
+import { useState, FormEvent } from 'react';
+import { useTranslations } from 'next-intl';
+import Link from 'next/link';
+import { Logo } from './Logo';
+
+export function Footer() {
+  const t = useTranslations('footer');
+  const tn = useTranslations('nav');
+  const tc = useTranslations('common');
+
+  const currentYear = new Date().getFullYear();
+
+  const [email, setEmail] = useState('');
+  const [newsletterStatus, setNewsletterStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+
+  const handleNewsletterSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (!email || !email.includes('@')) return;
+
+    setNewsletterStatus('loading');
+    try {
+      const response = await fetch('/api/newsletter', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email }),
+      });
+
+      if (!response.ok) throw new Error('Failed to subscribe');
+
+      setNewsletterStatus('success');
+      setEmail('');
+      setTimeout(() => setNewsletterStatus('idle'), 5000);
+    } catch {
+      setNewsletterStatus('error');
+      setTimeout(() => setNewsletterStatus('idle'), 5000);
+    }
+  };
+
+  return (
+    <footer className="bg-[var(--color-bg)] border-t border-[var(--color-border)] pt-16 pb-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Main Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+          {/* Brand Column */}
+          <div className="space-y-6">
+            <Link href="/" className="flex items-center gap-3">
+              <Logo size="sm" />
+              <span className="text-lg font-bold text-[var(--color-text)]">
+                Masjid Rahma
+              </span>
+            </Link>
+            <p className="text-[var(--color-text-muted)] text-sm leading-relaxed">
+              {t('brand')}
+            </p>
+          </div>
+
+          {/* Quick Links Column */}
+          <div>
+            <h4 className="font-bold text-[var(--color-text)] mb-4">
+              {t('quickLinks')}
+            </h4>
+            <ul className="space-y-3">
+              <li>
+                <Link
+                  href="/#prayer-times"
+                  className="text-sm text-[var(--color-text-muted)] hover:text-[var(--color-primary-val)] transition-colors duration-200"
+                >
+                  {tn('prayerTimes')}
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/services"
+                  className="text-sm text-[var(--color-text-muted)] hover:text-[var(--color-primary-val)] transition-colors duration-200"
+                >
+                  {t('linkServices')}
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/contact"
+                  className="text-sm text-[var(--color-text-muted)] hover:text-[var(--color-primary-val)] transition-colors duration-200"
+                >
+                  {t('linkContact')}
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/new-mosque"
+                  className="text-sm text-[var(--color-text-muted)] hover:text-[var(--color-primary-val)] transition-colors duration-200"
+                >
+                  {t('linkNewMosque')}
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/become-member"
+                  className="text-sm text-[var(--color-text-muted)] hover:text-[var(--color-primary-val)] transition-colors duration-200"
+                >
+                  {t('linkBecomeMember')}
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* Contact Us Column */}
+          <div>
+            <h4 className="font-bold text-[var(--color-text)] mb-4">
+              {t('contactUs')}
+            </h4>
+            <ul className="space-y-4">
+              <li className="flex items-start gap-3">
+                <span className="material-icons text-[var(--color-primary-val)] text-lg mt-0.5">
+                  location_on
+                </span>
+                <span className="text-sm text-[var(--color-text-muted)]">
+                  Tvetenveien 154, 0671 Oslo
+                </span>
+              </li>
+              <li className="flex items-start gap-3">
+                <span className="material-icons text-[var(--color-primary-val)] text-lg mt-0.5">
+                  email
+                </span>
+                <span className="text-sm text-[var(--color-text-muted)]">
+                  post@centerrahma.no
+                </span>
+              </li>
+            </ul>
+          </div>
+
+          {/* Newsletter Column */}
+          <div>
+            <h4 className="font-bold text-[var(--color-text)] mb-4">
+              {t('newsletter')}
+            </h4>
+            <p className="text-sm text-[var(--color-text-muted)] mb-4">
+              {t('newsletterDesc')}
+            </p>
+            <form onSubmit={handleNewsletterSubmit} className="flex flex-col gap-3">
+              <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder={t('emailPlaceholder')}
+                required
+                className="w-full px-4 py-2.5 rounded-lg bg-[var(--color-surface)] border border-[var(--color-border)] text-[var(--color-text)] text-sm placeholder:text-[var(--color-text-muted)] focus:outline-none focus:border-[var(--color-primary-val)] transition-colors"
+              />
+              <button
+                type="submit"
+                disabled={newsletterStatus === 'loading'}
+                className="px-4 py-2.5 rounded-lg bg-primary/10 border border-primary text-primary text-sm font-medium hover:bg-primary hover:text-[var(--color-bg)] transition-colors duration-200 disabled:opacity-50"
+              >
+                {newsletterStatus === 'loading' ? '...' : tc('subscribe')}
+              </button>
+              {newsletterStatus === 'success' && (
+                <p className="text-xs text-green-500">Subscribed successfully!</p>
+              )}
+              {newsletterStatus === 'error' && (
+                <p className="text-xs text-red-500">Something went wrong. Please try again.</p>
+              )}
+            </form>
+          </div>
+        </div>
+
+        {/* Bottom Bar */}
+        <div className="border-t border-[var(--color-border)] pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <p className="text-sm text-[var(--color-text-muted)]">
+            {t('copyright', { year: currentYear })}
+          </p>
+          <div className="flex items-center gap-6">
+            <a
+              href="#"
+              className="text-sm text-[var(--color-text-muted)] hover:text-[var(--color-primary-val)] transition-colors duration-200"
+            >
+              {t('privacyPolicy')}
+            </a>
+            <a
+              href="#"
+              className="text-sm text-[var(--color-text-muted)] hover:text-[var(--color-primary-val)] transition-colors duration-200"
+            >
+              {t('termsOfService')}
+            </a>
+          </div>
+        </div>
+      </div>
+    </footer>
+  );
+}

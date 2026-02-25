@@ -16,13 +16,13 @@ function GlassCard({
             <div
                 className="absolute inset-[-50%]"
                 style={{
-                    background: 'conic-gradient(from 0deg, transparent 0%, #11d483 15%, transparent 30%, #C6A255 50%, transparent 65%, #047857 80%, transparent 100%)',
+                    background: 'conic-gradient(from 0deg, transparent 0%, var(--color-primary-val) 15%, transparent 30%, #C6A255 50%, transparent 65%, #047857 80%, transparent 100%)',
                     animation: 'border-spin 12s linear infinite',
                     opacity: 0.05,
                 }}
             />
             {/* Card content */}
-            <div className="relative hero-glass-card rounded-2xl p-5 h-full transition-all duration-300 group-hover:shadow-[0_0_25px_rgba(17,212,131,0.15)] flex flex-col justify-center">
+            <div className="relative hero-glass-card rounded-2xl p-2 md:p-3 h-full transition-all duration-300 group-hover:shadow-[0_0_25px_rgba(var(--color-primary-rgb),0.15)] flex flex-col justify-center">
                 {children}
             </div>
         </div>
@@ -43,8 +43,8 @@ export default function CalendarCard() {
         return (
             <GlassCard className="col-span-12 md:col-span-5 min-h-[100px]">
                 <div className="animate-pulse flex flex-col gap-2">
-                    <div className="h-4 bg-white/10 rounded w-1/2"></div>
-                    <div className="h-6 bg-white/10 rounded w-3/4"></div>
+                    <div className="h-4 bg-[var(--color-border)] rounded w-1/2"></div>
+                    <div className="h-6 bg-[var(--color-border)] rounded w-3/4"></div>
                 </div>
             </GlassCard>
         );
@@ -66,19 +66,19 @@ export default function CalendarCard() {
 
     return (
         <GlassCard className="col-span-12 md:col-span-5">
-            <div className="flex items-center gap-4">
-                <div className="w-12 h-12 rounded-xl bg-[rgba(var(--color-primary-rgb),0.15)] flex items-center justify-center shrink-0 border border-[rgba(var(--color-primary-rgb),0.2)]">
-                    <span className="material-symbols-outlined text-primary text-2xl">calendar_month</span>
+            <div className="flex items-center gap-2 md:gap-3">
+                <div className="w-8 h-8 md:w-9 md:h-9 rounded-xl bg-primary flex items-center justify-center shrink-0">
+                    <span className="material-symbols-outlined text-[var(--color-bg)] text-lg">calendar_month</span>
                 </div>
 
                 <div className="min-w-0 flex-1">
                     {/* Gregorian */}
-                    <div className="text-base font-bold text-[var(--color-text)]">
+                    <div className="text-xs md:text-sm font-bold text-[var(--color-text)]">
                         {gregorianFormatter.format(date)}
                     </div>
 
                     {/* Hijri */}
-                    <div className="text-sm text-[var(--color-text-muted)] mt-0.5 font-medium">
+                    <div className="text-[10px] md:text-xs text-[var(--color-text-muted)] mt-0.5 font-medium">
                         {hijriFormatter.format(date)}
                     </div>
                 </div>
