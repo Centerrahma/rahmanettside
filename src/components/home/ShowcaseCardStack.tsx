@@ -68,13 +68,15 @@ export default function ShowcaseCardStack() {
   return (
     <section className="pt-4 pb-4 md:py-24 bg-[var(--color-bg)]">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-        <SectionHeader
-          eyebrow={t('eyebrow')}
-          title="Utforsk Fellesskapet"
-          centered
-        />
+        <div className="hidden md:block relative z-10">
+          <SectionHeader
+            eyebrow={t('eyebrow')}
+            title="Utforsk Fellesskapet"
+            centered
+          />
+        </div>
 
-        <div className="mt-12">
+        <div className="md:mt-12">
           <CardStack cards={cards} />
         </div>
       </div>
