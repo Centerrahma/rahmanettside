@@ -53,7 +53,7 @@ export default function FacebookFeed() {
   const iframeSrc = `https://www.facebook.com/plugins/page.php?href=${encodeURIComponent(FB_PAGE_URL)}&tabs=timeline&width=500&height=500&small_header=true&adapt_container_width=true&hide_cover=false&show_facepile=false`;
 
   return (
-    <section className="pt-4 pb-24 md:py-24 bg-[var(--color-surface)] relative">
+    <section className="pt-[100px] pb-24 md:py-24 bg-[var(--color-surface)] relative">
       <Container>
         <SectionHeader
           eyebrow={t('eyebrow')}

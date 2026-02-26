@@ -439,7 +439,7 @@ export default function HeroSection() {
       <div className="absolute inset-0 pattern-islamic opacity-10 pointer-events-none" aria-hidden="true" />
 
       {/* Content wrapper */}
-      <div className="relative z-10 flex flex-col items-center px-4 pt-24 pb-4 md:pt-36 md:pb-10">
+      <div className="relative z-10 flex flex-col items-center px-4 pt-24 pb-[100px] md:pt-36 md:pb-10">
 
         {/* ── Hero Text ── */}
         <div className="text-center max-w-3xl mx-auto mb-10 md:mb-16">
