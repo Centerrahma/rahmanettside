@@ -29,12 +29,12 @@ export default function ProjectCard({
   const initial = title.charAt(0).toUpperCase();
 
   return (
-    <div className="glass-panel bento-card p-4 relative overflow-hidden flex flex-col justify-between h-full group hover:bg-[rgba(var(--color-primary-rgb),0.05)] transition-colors duration-300">
+    <div className="glass-panel bento-card p-3 md:p-4 relative overflow-hidden flex flex-col justify-between h-full group hover:bg-[rgba(var(--color-primary-rgb),0.05)] transition-colors duration-300">
 
       {/* Top Section: Circular Progress & Title */}
-      <div className="flex items-start gap-3 mb-4">
+      <div className="flex items-center gap-2.5 mb-2">
         {/* Circular Progress */}
-        <div className="flex-shrink-0 relative w-12 h-12">
+        <div className="flex-shrink-0 relative w-10 h-10">
           <svg className="w-full h-full -rotate-90" viewBox="0 0 36 36">
             {/* Background Circle */}
             <path
@@ -44,7 +44,7 @@ export default function ProjectCard({
                 a 15.9155 15.9155 0 0 1 0 -31.831"
               fill="none"
               stroke="currentColor"
-              strokeWidth="4" // Thicker stroke
+              strokeWidth="4"
             />
             {/* Progress Circle */}
             <path
@@ -55,25 +55,25 @@ export default function ProjectCard({
                 a 15.9155 15.9155 0 0 1 0 -31.831"
               fill="none"
               stroke="currentColor"
-              strokeWidth="4" // Thicker stroke
+              strokeWidth="4"
               strokeLinecap="round"
             />
           </svg>
           {/* Percentage Text */}
           <div className="absolute inset-0 flex items-center justify-center">
-            <span className="text-xs font-bold text-primary">
+            <span className="text-[10px] sm:text-xs font-bold text-primary">
               {project.percentage}%
             </span>
           </div>
         </div>
 
         {/* Title */}
-        <div className="pt-0.5 flex-1">
-          <h3 className="text-base font-bold leading-tight mb-1.5 group-hover:text-primary transition-colors duration-300">
+        <div className="flex-1 min-w-0">
+          <h3 className="text-sm sm:text-base font-bold leading-tight mb-1 group-hover:text-primary transition-colors duration-300 truncate">
             {title}
           </h3>
           {/* Progress Line */}
-          <div className="w-full h-2.5 bg-[var(--color-border)] rounded-full overflow-hidden">
+          <div className="w-full h-1.5 sm:h-2 bg-[var(--color-border)] rounded-full overflow-hidden mt-1">
             <div
               className="h-full bg-primary rounded-full transition-all duration-500"
               style={{ width: `${project.percentage}%` }}
@@ -86,20 +86,20 @@ export default function ProjectCard({
       <div className="mt-auto">
         <div className="flex items-end justify-between">
           <div>
-            <div className="text-xs text-[var(--color-text-muted)] font-medium mb-0.5">
+            <div className="text-[10px] text-[var(--color-text-muted)] font-medium mb-0">
               {targetLabel}
             </div>
             {/* Target Amount in Green/Primary */}
-            <div className="text-xl font-bold text-primary text-glow">
+            <div className="text-sm sm:text-base font-bold text-primary text-glow">
               {formatCurrency(project.target)} kr
             </div>
           </div>
 
           <div className="text-right">
-            <div className="text-xs text-[var(--color-text-muted)] font-medium mb-0.5">
+            <div className="text-[10px] text-[var(--color-text-muted)] font-medium mb-0">
               Remaining
             </div>
-            <div className="text-base font-semibold text-[var(--color-text-primary)]">
+            <div className="text-xs sm:text-sm font-semibold text-[var(--color-text-primary)]">
               {formatCurrency(remaining)} kr
             </div>
           </div>

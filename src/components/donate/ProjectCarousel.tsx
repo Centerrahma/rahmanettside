@@ -75,8 +75,8 @@ export default function ProjectCarousel({
                         onClick={() => scroll('left')}
                         disabled={!canScrollLeft}
                         className={`w-10 h-10 rounded-full flex items-center justify-center border transition-all ${canScrollLeft
-                                ? 'bg-[var(--color-surface)] border-[var(--color-border)] hover:border-primary text-[var(--color-text)]'
-                                : 'bg-transparent border-[var(--color-border)] opacity-30 cursor-not-allowed'
+                            ? 'bg-[var(--color-surface)] border-[var(--color-border)] hover:border-primary text-[var(--color-text)]'
+                            : 'bg-transparent border-[var(--color-border)] opacity-30 cursor-not-allowed'
                             }`}
                         aria-label="Scroll left"
                     >
@@ -86,8 +86,8 @@ export default function ProjectCarousel({
                         onClick={() => scroll('right')}
                         disabled={!canScrollRight}
                         className={`w-10 h-10 rounded-full flex items-center justify-center border transition-all ${canScrollRight
-                                ? 'bg-[var(--color-surface)] border-[var(--color-border)] hover:border-primary text-[var(--color-text)]'
-                                : 'bg-transparent border-[var(--color-border)] opacity-30 cursor-not-allowed'
+                            ? 'bg-[var(--color-surface)] border-[var(--color-border)] hover:border-primary text-[var(--color-text)]'
+                            : 'bg-transparent border-[var(--color-border)] opacity-30 cursor-not-allowed'
                             }`}
                         aria-label="Scroll right"
                     >
@@ -126,25 +126,25 @@ export default function ProjectCarousel({
             <div
                 ref={scrollRef}
                 onScroll={checkScroll}
-                className="hidden md:flex overflow-x-auto gap-5 pb-6 pt-2 snap-x snap-mandatory hide-scrollbar -mx-4 px-4 sm:mx-0 sm:px-0"
+                className="hidden md:flex overflow-x-auto gap-4 pb-6 pt-2 snap-x snap-mandatory hide-scrollbar -mx-4 px-4 sm:mx-0 sm:px-0"
                 style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
             >
                 {projectsWithoutMihrab.map((project, index) => (
                     <Fragment key={project.id}>
                         {index === 1 && (
-                            <div className="snap-start shrink-0 w-[300px] lg:w-[340px]">
-                                <div className="glass-panel bento-card p-4 relative overflow-hidden flex flex-col justify-center items-center h-full group hover:bg-[rgba(var(--color-primary-rgb),0.05)] transition-colors duration-300 text-center">
+                            <div className="snap-start shrink-0 w-[220px] lg:w-[260px]">
+                                <div className="glass-panel bento-card p-4 relative overflow-hidden flex flex-col justify-center items-center h-[140px] group hover:bg-[rgba(var(--color-primary-rgb),0.05)] transition-colors duration-300 text-center">
                                     <div className="flex flex-col items-center justify-center flex-1">
-                                        <h3 className="text-2xl font-bold text-[var(--color-text)] mb-1.5">Vipps</h3>
-                                        <p className="text-4xl font-bold text-primary tracking-wider">77811</p>
+                                        <h3 className="text-xl font-bold text-[var(--color-text)] mb-1">Vipps</h3>
+                                        <p className="text-2xl font-bold text-primary tracking-wider">77811</p>
                                     </div>
-                                    <p className="text-xs font-medium text-[var(--color-text-muted)] mt-3">
+                                    <p className="text-[10px] font-medium text-[var(--color-text-muted)] mt-2">
                                         Velg kategori du ønsker å donere til
                                     </p>
                                 </div>
                             </div>
                         )}
-                        <div className="snap-start shrink-0 w-[300px] lg:w-[340px] h-[220px]">
+                        <div className="snap-start shrink-0 w-[220px] lg:w-[260px] h-[140px]">
                             <ProjectCard
                                 project={project}
                                 title={t.projectTitles[project.id] ?? project.titleKey}
@@ -159,7 +159,7 @@ export default function ProjectCarousel({
                     </Fragment>
                 ))}
                 {mihrab && (
-                    <div className="snap-start shrink-0 w-[300px] lg:w-[340px] h-[220px]">
+                    <div className="snap-start shrink-0 w-[220px] lg:w-[260px] h-[140px]">
                         <ProjectCard
                             project={mihrab}
                             title={t.projectTitles[mihrab.id] ?? mihrab.titleKey}

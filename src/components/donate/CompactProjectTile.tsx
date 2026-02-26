@@ -17,17 +17,17 @@ export default function CompactProjectTile({
   return (
     <button
       onClick={onClick}
-      className={`glass-panel p-3 text-left w-full flex flex-col justify-between h-full
+      className={`glass-panel p-2.5 text-left w-full flex flex-col justify-between h-full
         hover:bg-[rgba(var(--color-primary-rgb),0.05)] transition-colors duration-200
         ${project.badge === 'urgent' ? 'border-l-2 border-l-red-500' : ''}`}
     >
       {/* Title */}
-      <h3 className="text-xs font-semibold leading-tight mb-2 line-clamp-2">
+      <h3 className="text-[11px] font-semibold leading-tight mb-1.5 line-clamp-2">
         {title}
       </h3>
 
       {/* Progress bar + percentage */}
-      <div className="mb-1.5">
+      <div className="mb-1">
         <div className="flex items-center justify-between mb-0.5">
           <span className="text-[10px] font-bold text-primary">{project.percentage}%</span>
         </div>
@@ -40,7 +40,7 @@ export default function CompactProjectTile({
       </div>
 
       {/* Target amount */}
-      <p className="text-[10px] text-[var(--color-text-muted)]">
+      <p className="text-[9px] text-[var(--color-text-muted)]">
         {targetLabel}: {formatCurrency(project.target)} kr
       </p>
     </button>
