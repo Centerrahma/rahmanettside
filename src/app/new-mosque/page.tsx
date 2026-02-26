@@ -45,7 +45,7 @@ export default function NewMosquePage() {
   }
 
   return (
-    <main className="min-h-screen pt-32 pb-20">
+    <main className="min-h-screen pt-24 pb-20">
       {/* Header — mobile: text above image; desktop: text overlaid on image */}
       <header className="mb-0 md:mb-8 relative w-full">
         {/* MOBILE: Text in grey area above the image */}
@@ -72,7 +72,7 @@ export default function NewMosquePage() {
         </div>
 
         {/* DESKTOP: Original overlaid layout but taking slightly less height */}
-        <div className="hidden md:block relative w-full h-[60vh] min-h-[500px] overflow-hidden rounded-b-[2.5rem]">
+        <div className="hidden md:block relative w-full h-[calc(100vh-6rem)] min-h-[500px] max-h-[900px] overflow-hidden rounded-b-[2.5rem]">
           <Image
             src="/nymoskeoversikt.png"
             alt="3D oversikt over nye Masjid Rahma"
@@ -81,12 +81,12 @@ export default function NewMosquePage() {
             priority
           />
           {/* Top grey gradient overlay so the text is fully legible */}
-          <div className="absolute top-0 left-0 right-0 h-48 bg-gradient-to-b from-[var(--color-bg)] via-[var(--color-bg)]/80 to-transparent pointer-events-none z-10" />
+          <div className="absolute top-0 left-0 right-0 h-40 bg-gradient-to-b from-[var(--color-bg)] via-[var(--color-bg)]/80 to-transparent pointer-events-none z-10" />
           <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[var(--color-bg)] to-transparent pointer-events-none z-10" />
 
           {/* Text Content placed near the top, in the grey gradient */}
-          <div className="absolute top-0 left-0 right-0 flex flex-col items-center justify-start pt-16 z-20">
-            <h1 className="text-5xl lg:text-7xl font-bold tracking-tighter leading-[1] font-[family-name:var(--font-display)] text-[var(--color-text)] mb-3">
+          <div className="absolute top-0 left-0 right-0 flex flex-col items-center justify-start pt-6 z-20">
+            <h1 className="text-5xl lg:text-7xl font-bold tracking-tighter leading-[1] font-[family-name:var(--font-display)] text-[var(--color-text)] mb-2">
               Nye Masjid Rahma
             </h1>
             <p className="font-[family-name:var(--font-jakarta)] text-[var(--color-text)] text-lg lg:text-xl font-medium tracking-wide">
