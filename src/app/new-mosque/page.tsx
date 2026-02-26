@@ -3,7 +3,9 @@ import { useTranslations } from 'next-intl';
 import { getTranslations } from 'next-intl/server';
 import Image from 'next/image';
 import Container from '@/components/ui/Container';
-import ProjectGridWithDonation from '@/components/donate/ProjectGridWithDonation';
+import VideoAndDonate from '@/components/donate/VideoAndDonate';
+import ProjectCarousel from '@/components/donate/ProjectCarousel';
+import GallerySection from '@/components/new-mosque/GallerySection';
 import StatsRow from '@/components/donate/StatsRow';
 import { PROJECTS } from '@/lib/constants';
 
@@ -45,7 +47,7 @@ export default function NewMosquePage() {
   return (
     <main className="min-h-screen pt-32 pb-20">
       {/* Header — mobile: text above image; desktop: text overlaid on image */}
-      <header className="mb-8 relative w-full">
+      <header className="mb-0 md:mb-8 relative w-full">
         {/* MOBILE: Text in grey area above the image */}
         <div className="md:hidden">
           <div className="bg-[var(--color-bg)] px-4 pt-3 pb-5 text-center">
@@ -59,54 +61,54 @@ export default function NewMosquePage() {
               {t('donate.pageSubtitle')}
             </p>
           </div>
-          <div className="w-full overflow-hidden">
+          <div className="w-full relative h-[40vh] min-h-[300px] overflow-hidden">
             <Image
               src="/nymoskeoversikt.png"
               alt="3D oversikt over nye Masjid Rahma"
-              width={1920}
-              height={1080}
-              className="w-full h-auto object-cover"
+              fill
+              className="object-cover"
               priority
             />
+            {/* Elegant fade to content */}
+            <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-[var(--color-bg)] to-transparent" />
           </div>
         </div>
 
-        {/* DESKTOP: Original overlaid layout */}
-        <div className="hidden md:block relative w-full overflow-hidden rounded-b-2xl">
+        {/* DESKTOP: Original overlaid layout but taking slightly less height */}
+        <div className="hidden md:block relative w-full h-[60vh] min-h-[500px] overflow-hidden rounded-b-[2.5rem]">
           <Image
             src="/nymoskeoversikt.png"
             alt="3D oversikt over nye Masjid Rahma"
-            width={1920}
-            height={1080}
-            className="w-full h-auto object-cover"
+            fill
+            className="object-cover"
             priority
           />
-          <div className="absolute top-0 left-0 right-0 h-[40%] bg-gradient-to-b from-white/60 via-white/40 to-transparent pointer-events-none" />
-          <div className="absolute top-0 left-0 right-0 flex flex-col items-center justify-center pt-14 pb-8">
-            <p className="text-xs tracking-[0.3em] uppercase font-[family-name:var(--font-jakarta)] font-medium text-gray-700 mb-3">
-              Fremtidens moské
-            </p>
-            <h1 className="text-6xl lg:text-7xl font-semibold tracking-tight leading-[1.1] font-[family-name:var(--font-display)] text-center text-gray-900">
-              Nye Masjid Rahma
+          <div className="absolute inset-0 bg-gradient-to-b from-[var(--color-bg)]/80 via-transparent to-transparent pointer-events-none" />
+          <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[var(--color-bg)] to-transparent pointer-events-none" />
+
+          <div className="absolute top-0 left-0 right-0 flex flex-col items-center justify-center pt-20 pb-8 drop-shadow-md">
+            <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[var(--glass-bg)] border border-[var(--color-border)] backdrop-blur-md mb-6 shadow-glow-lg">
+              <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
+              <p className="text-xs tracking-[0.2em] font-bold text-[var(--color-text)] uppercase font-[family-name:var(--font-jakarta)]">
+                Fremtidens moské
+              </p>
+            </span>
+            <h1 className="text-6xl lg:text-8xl font-black tracking-tighter leading-[1] font-[family-name:var(--font-display)] text-center text-[var(--color-text)] mb-6">
+              Nye Masjid<br />Rahma
             </h1>
-            <p className="font-[family-name:var(--font-jakarta)] text-gray-950 text-lg max-w-md text-center mt-4 px-4 font-light leading-relaxed">
+            <p className="font-[family-name:var(--font-jakarta)] text-[var(--color-text)] text-lg lg:text-xl max-w-xl text-center px-4 font-medium leading-relaxed bg-[var(--glass-bg)] backdrop-blur-md rounded-2xl py-4 border border-[var(--color-border)] shadow-lg">
               {t('donate.pageSubtitle')}
             </p>
           </div>
         </div>
       </header>
 
-      <Container>
-        <ProjectGridWithDonation
-          projects={PROJECTS}
+      {/* Main Content Areas */}
+      <Container className="mt-8 md:-mt-12 relative z-10">
+
+        {/* Video and Donate Side by Side */}
+        <VideoAndDonate
           translations={{
-            projectTitles,
-            raisedLabel: t('donate.raised'),
-            targetLabel: t('donate.target'),
-            fundedLabel: t('donate.funded'),
-            donorsLabel: t('donate.donors'),
-            vsLastMonthLabel: t('donate.vsLastMonth'),
-            raisedThisMonthLabel: t('donate.raisedThisMonth'),
             makeADonation: t('donate.makeADonation'),
             donationSubtitle: t('donate.donationSubtitle'),
             oneTimeLabel: t('donate.oneTime'),
@@ -116,6 +118,26 @@ export default function NewMosquePage() {
             securityNote: t('donate.securityNote'),
             processingLabel: t('donate.processing'),
           }}
+        />
+
+        {/* Project Carousel (Horizontal Scroll) */}
+        <ProjectCarousel
+          projects={PROJECTS}
+          translations={{
+            projectTitles,
+            raisedLabel: t('donate.raised'),
+            targetLabel: t('donate.target'),
+            fundedLabel: t('donate.funded'),
+            donorsLabel: t('donate.donors'),
+            vsLastMonthLabel: t('donate.vsLastMonth'),
+            raisedThisMonthLabel: t('donate.raisedThisMonth'),
+          }}
+        />
+
+        {/* Masonry Image Gallery */}
+        <GallerySection
+          title="Sniktitt av Fremtiden"
+          subtitle="Slik vil nye Masjid Rahma se ut, insha'Allah."
         />
 
         {/* Stats Row */}
