@@ -548,6 +548,23 @@ export default function HeroSection() {
                   ))}
                 </div>
 
+                {/* Row 1b: Mobile-only Iqamah row */}
+                <div className="col-span-12 grid grid-cols-5 gap-1 md:hidden">
+                  {PRAYER_ORDER.map((name) => (
+                    <div
+                      key={`iq-${name}`}
+                      className="bg-[var(--color-surface)] card-glow-border rounded-lg p-2 flex flex-col items-center justify-center"
+                    >
+                      <span className="text-[8px] uppercase tracking-wider text-[var(--color-text-muted)] mb-0.5">
+                        Ber
+                      </span>
+                      <span className="text-xs font-bold text-[var(--color-text)]">
+                        {schedule.prayers[name].iqamah || '—'}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+
                 {/* Row 2: Jummah full-width */}
                 <JummahCard schedule={schedule} t={tPrayer} />
 
