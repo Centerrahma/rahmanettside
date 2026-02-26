@@ -4,7 +4,6 @@ import { getTranslations } from 'next-intl/server';
 import Image from 'next/image';
 import Container from '@/components/ui/Container';
 import VideoAndDonate from '@/components/donate/VideoAndDonate';
-import ProjectCarousel from '@/components/donate/ProjectCarousel';
 import GallerySection from '@/components/new-mosque/GallerySection';
 import StatsRow from '@/components/donate/StatsRow';
 import { PROJECTS } from '@/lib/constants';
@@ -101,6 +100,7 @@ export default function NewMosquePage() {
 
         {/* Video and Donate Side by Side */}
         <VideoAndDonate
+          projects={PROJECTS}
           translations={{
             makeADonation: t('donate.makeADonation'),
             donationSubtitle: t('donate.donationSubtitle'),
@@ -110,20 +110,8 @@ export default function NewMosquePage() {
             confirmLabel: t('donate.confirmDonation'),
             securityNote: t('donate.securityNote'),
             processingLabel: t('donate.processing'),
-          }}
-        />
-
-        {/* Project Carousel (Horizontal Scroll) */}
-        <ProjectCarousel
-          projects={PROJECTS}
-          translations={{
             projectTitles,
-            raisedLabel: t('donate.raised'),
             targetLabel: t('donate.target'),
-            fundedLabel: t('donate.funded'),
-            donorsLabel: t('donate.donors'),
-            vsLastMonthLabel: t('donate.vsLastMonth'),
-            raisedThisMonthLabel: t('donate.raisedThisMonth'),
           }}
         />
 
