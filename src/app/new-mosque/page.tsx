@@ -70,12 +70,12 @@ export default function NewMosquePage() {
         </div>
 
         {/* DESKTOP: Original overlaid layout but taking slightly less height */}
-        <div className="hidden md:block relative w-full h-[calc(100vh-6rem)] min-h-[500px] max-h-[900px] overflow-hidden rounded-b-[2.5rem]">
+        <div className="hidden md:block relative w-full h-[60vh] min-h-[400px] max-h-[600px] overflow-hidden rounded-b-[2.5rem]">
           <Image
             src="/nymoskeoversikt.png"
             alt="3D oversikt over nye Masjid Rahma"
             fill
-            className="object-cover relative z-0"
+            className="object-cover object-[center_bottom] relative z-0"
             priority
           />
           {/* Top grey gradient overlay so the text is fully legible */}
