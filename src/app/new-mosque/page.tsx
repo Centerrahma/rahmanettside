@@ -68,7 +68,7 @@ export default function NewMosquePage() {
       </header>
 
       {/* Main Content Areas */}
-      <Container className="mt-8 md:-mt-12 relative z-10">
+      <Container className="pt-12 relative z-10">
 
         {/* Video and Donate Side by Side */}
         <VideoAndDonate
