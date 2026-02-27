@@ -18,10 +18,6 @@ export default function GallerySection({
     // Using the available high-res image and the newly added gallery images
     const images = [
         {
-            src: '/nymoskeoversikt.png',
-            alt: 'Nye Masjid Rahma oversikt',
-        },
-        {
             src: '/RahmaGalleri1.jpg',
             alt: 'Nye Masjid Rahma interiør 1',
         },
@@ -124,7 +120,7 @@ export default function GallerySection({
                 {/* Navigation Buttons */}
                 <button
                     onClick={(e) => { e.preventDefault(); handlePrev(); }}
-                    className="absolute left-4 top-1/2 -translate-y-1/2 p-2 rounded-full bg-white/10 hover:bg-white/20 text-white backdrop-blur-md transition-all opacity-0 group-hover:opacity-100 focus:opacity-100 z-10"
+                    className="absolute left-2 md:left-4 top-1/2 -translate-y-1/2 p-2 rounded-full bg-black/20 hover:bg-black/40 dark:bg-white/10 dark:hover:bg-white/20 text-white backdrop-blur-md transition-all z-50"
                     aria-label="Previous image"
                 >
                     <ChevronLeft className="w-6 h-6 md:w-8 md:h-8" />
@@ -132,7 +128,7 @@ export default function GallerySection({
 
                 <button
                     onClick={(e) => { e.preventDefault(); handleNext(); }}
-                    className="absolute right-4 top-1/2 -translate-y-1/2 p-2 rounded-full bg-white/10 hover:bg-white/20 text-white backdrop-blur-md transition-all opacity-0 group-hover:opacity-100 focus:opacity-100 z-10"
+                    className="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 p-2 rounded-full bg-black/20 hover:bg-black/40 dark:bg-white/10 dark:hover:bg-white/20 text-white backdrop-blur-md transition-all z-50"
                     aria-label="Next image"
                 >
                     <ChevronRight className="w-6 h-6 md:w-8 md:h-8" />
