@@ -43,14 +43,14 @@ export default function VideoAndDonate({ projects, translations: t, statsRowProp
             <div className="lg:col-span-7 xl:col-span-8 flex flex-col h-full gap-6">
 
                 {/* 4x2 Grid of Projects (2x4 on mobile) */}
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 flex-grow">
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                     {projectsWithoutMihrab.map((project, index) => (
                         <Fragment key={project.id}>
                             {/* Insert Vipps tile after first project */}
                             {index === 1 && (
                                 <CompactVippsTile onClick={() => { }} />
                             )}
-                            <div className="min-h-[120px] lg:min-h-[160px]">
+                            <div className="min-h-[140px] lg:min-h-[150px]">
                                 <CompactProjectTile
                                     project={project}
                                     title={t.projectTitles[project.id] ?? project.titleKey}
@@ -61,7 +61,7 @@ export default function VideoAndDonate({ projects, translations: t, statsRowProp
                         </Fragment>
                     ))}
                     {mihrab && (
-                        <div className="min-h-[120px] lg:min-h-[160px]">
+                        <div className="min-h-[140px] lg:min-h-[150px]">
                             <CompactProjectTile
                                 project={mihrab}
                                 title={t.projectTitles[mihrab.id] ?? mihrab.titleKey}
@@ -72,8 +72,8 @@ export default function VideoAndDonate({ projects, translations: t, statsRowProp
                     )}
                 </div>
 
-                {/* Video Container: Fixed smaller height */}
-                <div className="glass-panel p-2 md:p-3 h-[250px] lg:h-[300px] flex-shrink-0">
+                {/* Video Container: Fills remaining height on desktop */}
+                <div className="glass-panel p-2 md:p-3 flex-grow flex flex-col min-h-[300px] lg:min-h-[450px]">
                     <div className="relative w-full h-full rounded-lg overflow-hidden bg-black/5 flex-grow shadow-inner flex items-center justify-center">
                         <video
                             controls
