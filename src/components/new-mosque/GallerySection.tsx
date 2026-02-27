@@ -91,7 +91,7 @@ export default function GallerySection({
                 <p className="text-sm md:text-base text-[var(--color-text-muted)]">{subtitle}</p>
             </div>
 
-            <div className="relative w-full max-w-4xl mx-auto aspect-[5/4] rounded-2xl overflow-hidden glass-panel group">
+            <div className="relative w-full max-w-5xl mx-auto aspect-[16/8] max-h-[60vh] rounded-2xl overflow-hidden glass-panel group">
                 <AnimatePresence initial={false} custom={direction}>
                     <motion.div
                         key={currentIndex}
