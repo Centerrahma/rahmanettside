@@ -60,10 +60,18 @@ export default function CompactProjectTile({
         </div>
       </div>
 
-      {/* Target amount */}
-      <p className="text-[11px] md:text-xs text-[var(--color-text-muted)] mt-auto pt-2">
-        {targetLabel}: {formatCurrency(project.target)} kr
-      </p>
+      {/* Linear progress bar + Target amount */}
+      <div className="mt-auto pt-2">
+        <div className="w-full h-1.5 bg-[var(--color-border)] rounded-full overflow-hidden mb-2">
+          <div
+            className="h-full bg-primary rounded-full transition-all duration-500"
+            style={{ width: `${project.percentage}%` }}
+          />
+        </div>
+        <p className="text-[11px] md:text-xs text-[var(--color-text-muted)]">
+          {targetLabel}: {formatCurrency(project.target)} kr
+        </p>
+      </div>
     </button>
   );
 }
