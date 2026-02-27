@@ -54,12 +54,12 @@ export default function NewMosquePage() {
           priority
         />
         {/* Text placed over the image */}
-        <div className="absolute inset-0 flex flex-col items-center justify-start pt-[20vh] md:pt-[25vh] px-4 pointer-events-none">
-          <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tighter leading-[1] font-[family-name:var(--font-display)] text-[var(--color-text)] drop-shadow-md text-center mb-4">
+        <div className="absolute inset-0 flex flex-col items-center justify-start pt-[12vh] md:pt-[15vh] px-4 pointer-events-none">
+          <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold tracking-tighter leading-[1] font-[family-name:var(--font-display)] text-[var(--color-text)] drop-shadow-md text-center mb-3">
             Nye Masjid Rahma
           </h1>
-          <p className="font-[family-name:var(--font-jakarta)] text-[var(--color-text)] text-base md:text-lg lg:text-xl font-medium tracking-wide drop-shadow-md text-center max-w-md mx-auto">
-            Invest in your Akhira.
+          <p className="font-[family-name:var(--font-jakarta)] text-[var(--color-text)] text-sm md:text-base lg:text-lg font-medium tracking-wide drop-shadow-md text-center max-w-md mx-auto">
+            Invester i din Akhira.
           </p>
         </div>
 
