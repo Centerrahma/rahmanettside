@@ -32,9 +32,9 @@ export default function ProjectCard({
     <div className="glass-panel bento-card p-3 md:p-4 relative overflow-hidden flex flex-col justify-between h-full group hover:bg-[rgba(var(--color-primary-rgb),0.05)] transition-colors duration-300">
 
       {/* Top Section: Circular Progress & Title */}
-      <div className="flex items-center gap-2.5 mb-2">
+      <div className="flex items-start gap-3 mb-3">
         {/* Circular Progress */}
-        <div className="flex-shrink-0 relative w-10 h-10">
+        <div className="flex-shrink-0 relative w-12 h-12">
           <svg className="w-full h-full -rotate-90" viewBox="0 0 36 36">
             {/* Background Circle */}
             <path
@@ -61,19 +61,19 @@ export default function ProjectCard({
           </svg>
           {/* Percentage Text */}
           <div className="absolute inset-0 flex items-center justify-center">
-            <span className="text-[10px] sm:text-xs font-bold text-primary">
+            <span className="text-[11px] sm:text-xs font-bold text-primary">
               {project.percentage}%
             </span>
           </div>
         </div>
 
         {/* Title */}
-        <div className="flex-1 min-w-0">
-          <h3 className="text-sm sm:text-base font-bold leading-tight mb-1 group-hover:text-primary transition-colors duration-300 truncate">
+        <div className="flex-1 min-w-0 pt-0.5">
+          <h3 className="text-sm sm:text-base font-bold leading-tight mb-1.5 group-hover:text-primary transition-colors duration-300 truncate">
             {title}
           </h3>
           {/* Progress Line */}
-          <div className="w-full h-1.5 sm:h-2 bg-[var(--color-border)] rounded-full overflow-hidden mt-1">
+          <div className="w-full h-2 sm:h-2.5 bg-[var(--color-border)] rounded-full overflow-hidden mt-1">
             <div
               className="h-full bg-primary rounded-full transition-all duration-500"
               style={{ width: `${project.percentage}%` }}
