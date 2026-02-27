@@ -62,9 +62,6 @@ export default function NewMosquePage() {
             Invester i din Akhira.
           </p>
         </div>
-
-        {/* Soft fade at the bottom to transition to content */}
-        <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[var(--color-bg)] to-transparent pointer-events-none" />
       </header>
 
       {/* Main Content Areas */}
