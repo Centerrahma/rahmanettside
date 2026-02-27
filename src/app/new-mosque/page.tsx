@@ -43,54 +43,28 @@ export default function NewMosquePage() {
   }
 
   return (
-    <main className="min-h-screen pt-24 pb-20">
-      {/* Header — mobile: text above image; desktop: text overlaid on image */}
-      <header className="mb-0 md:mb-8 relative w-full">
-        {/* MOBILE: Text in grey area above the image */}
-        <div className="md:hidden">
-          <div className="bg-[var(--color-bg)] px-4 pt-4 pb-5 text-center">
-            <h1 className="text-3xl font-bold tracking-tight leading-[1.1] font-[family-name:var(--font-display)] text-center text-[var(--color-text)]">
-              Nye Masjid Rahma
-            </h1>
-            <p className="font-[family-name:var(--font-jakarta)] text-[var(--color-text-muted)] text-sm max-w-md text-center mt-2 mx-auto font-normal">
-              Invest in your Akhira.
-            </p>
-          </div>
-          <div className="w-full relative h-[40vh] min-h-[300px] overflow-hidden">
-            <Image
-              src="/nymoskeoversikt.png"
-              alt="3D oversikt over nye Masjid Rahma"
-              fill
-              className="object-cover"
-              priority
-            />
-            {/* Elegant fade to content */}
-            <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-[var(--color-bg)] to-transparent" />
-          </div>
+    <main className="min-h-screen pb-20">
+      {/* Header — full screen image with text overlaid in the grey area */}
+      <header className="relative w-full h-[100svh] overflow-hidden bg-[var(--color-bg)]">
+        <Image
+          src="/nymoskeoversikt.png"
+          alt="3D oversikt over nye Masjid Rahma"
+          fill
+          className="object-cover"
+          priority
+        />
+        {/* Text placed over the image */}
+        <div className="absolute inset-0 flex flex-col items-center justify-start pt-[20vh] md:pt-[25vh] px-4 pointer-events-none">
+          <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tighter leading-[1] font-[family-name:var(--font-display)] text-[var(--color-text)] drop-shadow-md text-center mb-4">
+            Nye Masjid Rahma
+          </h1>
+          <p className="font-[family-name:var(--font-jakarta)] text-[var(--color-text)] text-base md:text-lg lg:text-xl font-medium tracking-wide drop-shadow-md text-center max-w-md mx-auto">
+            Invest in your Akhira.
+          </p>
         </div>
 
-        {/* DESKTOP: Text above the image to show full uncropped picture */}
-        <div className="hidden md:block w-full">
-          <div className="bg-[var(--color-bg)] w-full py-8 text-center flex flex-col items-center justify-center">
-            <h1 className="text-5xl lg:text-7xl font-bold tracking-tighter leading-[1] font-[family-name:var(--font-display)] text-[var(--color-text)] mb-2">
-              Nye Masjid Rahma
-            </h1>
-            <p className="font-[family-name:var(--font-jakarta)] text-[var(--color-text-muted)] text-lg lg:text-xl font-medium tracking-wide">
-              Invest in your Akhira.
-            </p>
-          </div>
-          <div className="relative w-full">
-            {/* Show the image fully without cropping via responsive Next/Image */}
-            <Image
-              src="/nymoskeoversikt.png"
-              alt="3D oversikt over nye Masjid Rahma"
-              width={1920}
-              height={1080}
-              className="w-full h-auto object-cover"
-              priority
-            />
-          </div>
-        </div>
+        {/* Soft fade at the bottom to transition to content */}
+        <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[var(--color-bg)] to-transparent pointer-events-none" />
       </header>
 
       {/* Main Content Areas */}
