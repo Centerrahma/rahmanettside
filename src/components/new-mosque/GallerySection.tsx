@@ -15,23 +15,35 @@ export default function GallerySection({
     subtitle = "Slik vil nye Masjid Rahma se ut, insha'Allah."
 }: GallerySectionProps) {
 
-    // Using the available high-res image and some placeholders to demonstrate a beautiful carousel layout
+    // Using the available high-res image and the newly added gallery images
     const images = [
         {
             src: '/nymoskeoversikt.png',
             alt: 'Nye Masjid Rahma oversikt',
         },
         {
-            src: 'https://images.unsplash.com/photo-1572949645841-094f3a9c4c94?q=80&w=1200&auto=format&fit=crop', // Beautiful Mosque Interior
-            alt: 'Mosque Interior details placeholder',
+            src: '/RahmaGalleri1.jpg',
+            alt: 'Nye Masjid Rahma interiør 1',
         },
         {
-            src: 'https://images.unsplash.com/photo-1564121211835-e88c852648ab?q=80&w=1200&auto=format&fit=crop', // Mosque Architecture
-            alt: 'Architecture details',
+            src: '/RahmaGalleri2.jpg',
+            alt: 'Nye Masjid Rahma klasserom',
         },
         {
-            src: 'https://images.unsplash.com/photo-1519817914152-2a640c547cba?q=80&w=1200&auto=format&fit=crop', // Islamic Geometry
-            alt: 'Islamic geometry details',
+            src: '/RahmaGalleri3.jpg',
+            alt: 'Nye Masjid Rahma tak og lys detaljer',
+        },
+        {
+            src: '/RahmaGalleri4.jpg',
+            alt: 'Nye Masjid Rahma bønnesal',
+        },
+        {
+            src: '/RahmaGalleri5.jpg',
+            alt: 'Nye Masjid Rahma bueganger',
+        },
+        {
+            src: '/RahmaGalleri6.jpg',
+            alt: 'Nye Masjid Rahma interiørdetalj',
         }
     ];
 
@@ -94,22 +106,14 @@ export default function GallerySection({
                         }}
                         className="absolute inset-0 w-full h-full"
                     >
-                        {images[currentIndex].src.startsWith('http') ? (
-                            <img
-                                src={images[currentIndex].src}
-                                alt={images[currentIndex].alt}
-                                className="w-full h-full object-cover"
-                            />
-                        ) : (
-                            <Image
-                                src={images[currentIndex].src}
-                                alt={images[currentIndex].alt}
-                                fill
-                                className="object-cover"
-                                sizes="100vw"
-                                priority={currentIndex === 0}
-                            />
-                        )}
+                        <Image
+                            src={images[currentIndex].src}
+                            alt={images[currentIndex].alt}
+                            fill
+                            className="object-cover"
+                            sizes="100vw"
+                            priority={currentIndex === 0}
+                        />
                         {/* Elegant gradient overlay for text readability if needed in the future */}
                         <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none" />
                     </motion.div>
