@@ -45,12 +45,12 @@ export default function NewMosquePage() {
   return (
     <main className="min-h-screen pb-20">
       {/* Header — full screen image with text overlaid in the grey area */}
-      <header className="relative w-full h-[100svh] overflow-hidden bg-[var(--color-bg)]">
+      <header className="relative w-full h-[45svh] md:h-[100svh] overflow-hidden bg-[var(--color-bg)]">
         <Image
           src="/nymoskeoversikt.png"
           alt="3D oversikt over nye Masjid Rahma"
           fill
-          className="object-cover"
+          className="object-contain md:object-cover"
           priority
         />
         {/* Text placed over the image */}

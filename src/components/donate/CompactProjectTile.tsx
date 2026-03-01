@@ -17,18 +17,18 @@ export default function CompactProjectTile({
   return (
     <button
       onClick={onClick}
-      className={`glass-panel p-3.5 text-left w-full flex flex-col justify-between h-full
+      className={`glass-panel p-2.5 md:p-3.5 text-left w-full flex flex-col justify-between h-full
         hover:bg-[rgba(var(--color-primary-rgb),0.05)] transition-colors duration-200
         ${project.badge === 'urgent' ? 'border-l-2 border-l-red-500' : ''}`}
     >
       {/* Top half: Title & Circular Progress */}
-      <div className="flex items-start justify-between gap-3 mb-2">
-        <h3 className="text-[13px] md:text-sm font-semibold leading-snug line-clamp-2">
+      <div className="flex items-start justify-between gap-2 md:gap-3 mb-1 md:mb-2">
+        <h3 className="text-[12px] md:text-sm font-semibold leading-snug line-clamp-2">
           {title}
         </h3>
 
         {/* Circular Progress */}
-        <div className="flex-shrink-0 relative w-8 h-8 md:w-10 md:h-10 mt-1">
+        <div className="flex-shrink-0 relative w-7 h-7 md:w-10 md:h-10 mt-0.5 md:mt-1">
           <svg className="w-full h-full -rotate-90" viewBox="0 0 36 36">
             <path
               className="text-[var(--color-border)]"
@@ -61,8 +61,8 @@ export default function CompactProjectTile({
       </div>
 
       {/* Linear progress bar + Target amount */}
-      <div className="mt-auto pt-2">
-        <div className="w-full h-1.5 bg-[var(--color-border)] rounded-full overflow-hidden mb-2">
+      <div className="mt-auto pt-1 md:pt-2">
+        <div className="w-full h-1 md:h-1.5 bg-[var(--color-border)] rounded-full overflow-hidden mb-1 md:mb-2">
           <div
             className="h-full bg-primary rounded-full transition-all duration-500"
             style={{ width: `${project.percentage}%` }}

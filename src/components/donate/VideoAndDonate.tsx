@@ -54,14 +54,14 @@ export default function VideoAndDonate({ projects, translations: t, statsRowProp
             <div className="lg:col-span-7 xl:col-span-8 flex flex-col h-full gap-6">
 
                 {/* 4x2 Grid of Projects (2x4 on mobile) */}
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-4">
                     {projectsWithoutMihrab.map((project, index) => (
                         <Fragment key={project.id}>
                             {/* Insert Vipps tile after first project */}
                             {index === 1 && (
                                 <CompactVippsTile onClick={() => { }} />
                             )}
-                            <div className="min-h-[140px] lg:min-h-[150px]">
+                            <div className="min-h-0 lg:min-h-[150px]">
                                 <CompactProjectTile
                                     project={project}
                                     title={t.projectTitles[project.id] ?? project.titleKey}
@@ -72,7 +72,7 @@ export default function VideoAndDonate({ projects, translations: t, statsRowProp
                         </Fragment>
                     ))}
                     {mihrab && (
-                        <div className="min-h-[140px] lg:min-h-[150px]">
+                        <div className="min-h-0 lg:min-h-[150px]">
                             <CompactProjectTile
                                 project={mihrab}
                                 title={t.projectTitles[mihrab.id] ?? mihrab.titleKey}
