@@ -136,9 +136,9 @@ export default function VideoAndDonate({ projects, translations: t, statsRowProp
                 </div>
 
                 {/* Under construction notice */}
-                <div className="flex items-start gap-3 rounded-xl border border-amber-500/30 bg-amber-500/10 px-4 py-3">
-                    <span className="material-icons text-amber-400 text-lg mt-0.5 flex-shrink-0">construction</span>
-                    <p className="text-xs text-amber-300 leading-relaxed">
+                <div className="flex items-start gap-3 rounded-xl border border-amber-500/40 bg-amber-500/15 px-4 py-3">
+                    <span className="material-icons text-amber-600 text-lg mt-0.5 flex-shrink-0">construction</span>
+                    <p className="text-xs text-amber-800 leading-relaxed">
                         <span className="font-bold block mb-0.5">Betalingssystemet er under utvikling</span>
                         Vi jobber med å ferdigstille betalingsløsningen. Bruk gjerne Vipps eller bankoverføring i mellomtiden.
                     </p>
