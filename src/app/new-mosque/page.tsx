@@ -24,11 +24,13 @@ export async function generateMetadata(): Promise<Metadata> {
       siteName: 'Masjid Rahma',
       locale: 'nb_NO',
       type: 'website',
+      images: [{ url: '/nymoskeoversikt.png', width: 1200, height: 630, alt: 'Nye Masjid Rahma' }],
     },
     twitter: {
       card: 'summary_large_image',
       title: `${t('sectionTitle')} — Masjid Rahma`,
       description: t('pageSubtitle'),
+      images: ['/nymoskeoversikt.png'],
     },
   };
 }

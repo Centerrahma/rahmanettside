@@ -1,4 +1,5 @@
 import type { CommunityEvent } from '@/types/event';
+import Image from 'next/image';
 import Badge from '@/components/ui/Badge';
 
 interface EventCardProps {
@@ -13,10 +14,12 @@ export default function EventCard({ event }: EventCardProps) {
       {/* Background - conditional based on event type */}
       {isYouthEvent ? (
         <>
-          <img
+          <Image
             src={event.image || 'https://lh3.googleusercontent.com/aida-public/AB6AXuDKqwdOCnGwhZ73w8VV-wYPTcY08buhvxAJDy9S2i6YlpISEqqf5FKAVsk5YzTCaHiWCb0wUP8VyyqW4NQb9yOjIa8CwFZ-ipJj53hfeOcYvFfQjda9CF5HR9Sepqf182Jo1OT1E8iCn80Yi7qL4Jb54gt7eac9yHtUQbATs4Tnd1o6OlFoCqEmNs4UdlIaSUTxJrlhwrLgJEb1rbVL3iaoKPR9Y0xBNL5rEwBodgvXVf1K-ZN-tf3BVcPmnOpAHsyw7G1PNop9k'}
             alt={event.title}
-            className="absolute inset-0 w-full h-full object-cover"
+            fill
+            className="object-cover"
+            sizes="(max-width: 768px) 100vw, 50vw"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-bg)] via-[var(--color-bg)]/80 to-transparent"></div>
         </>

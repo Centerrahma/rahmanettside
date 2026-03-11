@@ -1,4 +1,5 @@
 import { useTranslations } from 'next-intl';
+import Image from 'next/image';
 import Button from '@/components/ui/Button';
 
 export default function VirtualTourPreview() {
@@ -22,10 +23,12 @@ export default function VirtualTourPreview() {
 
       {/* Video Thumbnail */}
       <div className="relative aspect-video rounded-lg overflow-hidden mb-6 group cursor-pointer">
-        <img
+        <Image
           src={mosqueImageUrl}
-          alt="Mosque Interior"
-          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+          alt="Interiør av Masjid Rahma moské i Oslo"
+          fill
+          className="object-cover transition-transform duration-500 group-hover:scale-105"
+          sizes="(max-width: 1024px) 100vw, 50vw"
         />
 
         {/* Play Button Overlay */}

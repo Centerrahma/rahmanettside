@@ -2,10 +2,27 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 
 export const metadata: Metadata = {
-  title: 'Rahma Skole — Masjid Rahma',
+  title: 'Rahma Skole — Koranundervisning og Islamske Studier i Oslo',
   description:
-    'Strukturert koranundervisning, arabisk språk og islamske studier for barn og ungdom i et trygt og omsorgsfullt miljø.',
+    'Rahma Skole tilbyr strukturert koranundervisning, arabisk språk og islamske studier for barn og ungdom i Oslo. Kvalifiserte lærere i et trygt miljø.',
   alternates: { canonical: 'https://masjidrahma.no/rahma-skole' },
+  openGraph: {
+    title: 'Rahma Skole — Koranundervisning i Oslo',
+    description:
+      'Strukturert koranundervisning, arabisk språk og islamske studier for barn og ungdom ved Masjid Rahma i Oslo.',
+    url: 'https://masjidrahma.no/rahma-skole',
+    siteName: 'Masjid Rahma',
+    locale: 'nb_NO',
+    type: 'website',
+    images: [{ url: '/Rahmaskole.jpeg', width: 1200, height: 630, alt: 'Rahma Skole' }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Rahma Skole — Koranundervisning i Oslo',
+    description:
+      'Strukturert koranundervisning, arabisk språk og islamske studier for barn og ungdom ved Masjid Rahma.',
+    images: ['/Rahmaskole.jpeg'],
+  },
 };
 
 export default function RahmaSkole() {

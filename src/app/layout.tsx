@@ -29,26 +29,69 @@ export const metadata: Metadata = {
   metadataBase: new URL('https://masjidrahma.no'),
   title: {
     template: '%s | Masjid Rahma',
-    default: 'Masjid Rahma - Oslo',
+    default: 'Masjid Rahma — Moske i Oslo | Bønn, Fellesskap og Utdanning',
   },
   description:
-    'Et moderne senter for tilbedelse, fellesskap og utdanning i hjertet av Oslo.',
+    'Masjid Rahma er en moske i Oslo som tilbyr daglige bønner, koranundervisning, ungdomsaktiviteter og fellesskap. Besøk oss på Tvetenveien 154.',
   openGraph: {
-    title: 'Masjid Rahma - Oslo',
+    title: 'Masjid Rahma — Moske i Oslo',
     description:
-      'Et moderne senter for tilbedelse, fellesskap og utdanning i hjertet av Oslo.',
+      'Masjid Rahma er en moske i Oslo som tilbyr daglige bønner, koranundervisning, ungdomsaktiviteter og fellesskap. Besøk oss på Tvetenveien 154.',
     url: 'https://masjidrahma.no',
     siteName: 'Masjid Rahma',
     locale: 'nb_NO',
     type: 'website',
+    images: [
+      {
+        url: '/nymoskeoversikt.png',
+        width: 1200,
+        height: 630,
+        alt: 'Masjid Rahma — Moske i Oslo',
+      },
+    ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Masjid Rahma - Oslo',
+    title: 'Masjid Rahma — Moske i Oslo',
     description:
-      'Et moderne senter for tilbedelse, fellesskap og utdanning i hjertet av Oslo.',
+      'Masjid Rahma er en moske i Oslo som tilbyr daglige bønner, koranundervisning, ungdomsaktiviteter og fellesskap.',
+    images: ['/nymoskeoversikt.png'],
+  },
+  alternates: {
+    canonical: 'https://masjidrahma.no',
   },
 };
+
+function OrganizationJsonLd() {
+  // All values are hardcoded constants — no user input, safe from XSS
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    name: 'Masjid Rahma',
+    alternateName: 'Masjid Rahma Oslo',
+    url: 'https://masjidrahma.no',
+    logo: 'https://masjidrahma.no/logo.png',
+    telephone: '+47 22 12 34 56',
+    email: 'contact@masjidrahma.no',
+    address: {
+      '@type': 'PostalAddress',
+      streetAddress: 'Tvetenveien 154',
+      addressLocality: 'Oslo',
+      postalCode: '0671',
+      addressCountry: 'NO',
+    },
+    sameAs: [
+      'https://www.facebook.com/masjidrahmaoslo',
+    ],
+  };
+
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+    />
+  );
+}
 
 export default async function RootLayout({
   children,
@@ -60,6 +103,7 @@ export default async function RootLayout({
   return (
     <html lang="no" className="" suppressHydrationWarning>
       <head>
+        <OrganizationJsonLd />
         <link
           href="https://fonts.googleapis.com/icon?family=Material+Icons"
           rel="stylesheet"

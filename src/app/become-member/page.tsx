@@ -19,11 +19,13 @@ export async function generateMetadata(): Promise<Metadata> {
       siteName: 'Masjid Rahma',
       locale: 'nb_NO',
       type: 'website',
+      images: [{ url: '/BliMedlem.jpeg', width: 1200, height: 630, alt: 'Bli medlem i Masjid Rahma' }],
     },
     twitter: {
       card: 'summary_large_image',
       title: `${t('pageTitle')} — Masjid Rahma`,
       description: t('pageDescription'),
+      images: ['/BliMedlem.jpeg'],
     },
   };
 }

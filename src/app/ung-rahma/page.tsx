@@ -2,10 +2,27 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 
 export const metadata: Metadata = {
-  title: 'Ung Rahma — Masjid Rahma',
+  title: 'Ung Rahma — Ungdomsprogram for Muslimsk Ungdom i Oslo',
   description:
-    'Styrker neste generasjon gjennom tro, læring og lederskap. Aktiviteter, turer og mentorordning for ungdom 13–25 år.',
+    'Ung Rahma styrker neste generasjon gjennom tro, læring og lederskap. Sport, aktiviteter, turer og mentorordning for ungdom 13–25 år i Oslo.',
   alternates: { canonical: 'https://masjidrahma.no/ung-rahma' },
+  openGraph: {
+    title: 'Ung Rahma — Ungdomsprogram i Oslo',
+    description:
+      'Aktiviteter, turer og mentorordning for ungdom 13–25 år ved Masjid Rahma i Oslo. Styrker neste generasjon gjennom tro og fellesskap.',
+    url: 'https://masjidrahma.no/ung-rahma',
+    siteName: 'Masjid Rahma',
+    locale: 'nb_NO',
+    type: 'website',
+    images: [{ url: '/UngRahma.jpeg', width: 1200, height: 630, alt: 'Ung Rahma ungdomsprogram' }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Ung Rahma — Ungdomsprogram i Oslo',
+    description:
+      'Aktiviteter, turer og mentorordning for ungdom 13–25 år ved Masjid Rahma.',
+    images: ['/UngRahma.jpeg'],
+  },
 };
 
 export default function UngRahmaPage() {
