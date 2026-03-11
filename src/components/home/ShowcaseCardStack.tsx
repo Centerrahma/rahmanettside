@@ -1,6 +1,8 @@
 'use client';
 
+import { useState } from 'react';
 import { useTranslations } from 'next-intl';
+import Link from 'next/link';
 import CardStack, { type CardStackItem } from '@/components/ui/card-stack';
 import SectionHeader from '@/components/ui/SectionHeader';
 
@@ -14,29 +16,25 @@ const CATEGORIES = [
     id: 'ungRahma',
     href: '/ung-rahma',
     icon: 'group',
-    image:
-      'https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=900&h=560&fit=crop',
+    image: '/UngRahma.jpeg',
   },
   {
     id: 'rahmaSkole',
     href: '/rahma-skole',
     icon: 'school',
-    image:
-      'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=900&h=560&fit=crop',
+    image: '/Rahmaskole.jpeg',
   },
   {
     id: 'bliMedlem',
     href: '/become-member',
     icon: 'person_add',
-    image:
-      'https://images.unsplash.com/photo-1511632765486-a01980e01a18?w=900&h=560&fit=crop',
+    image: '/BliMedlem.jpeg',
   },
   {
     id: 'nyMoske',
     href: '/new-mosque',
     icon: 'mosque',
-    image:
-      'https://images.unsplash.com/photo-1585129777188-94600bc7b4b3?w=900&h=560&fit=crop',
+    image: '/nymoskeoversikt.png',
   },
 ] as const;
 
@@ -46,6 +44,7 @@ const CATEGORIES = [
 
 export default function ShowcaseCardStack() {
   const t = useTranslations('showcase');
+  const [activeIndex, setActiveIndex] = useState(0);
 
   const cards: CardStackItem[] = CATEGORIES.map((cat) => ({
     id: cat.id,
@@ -65,6 +64,8 @@ export default function ShowcaseCardStack() {
     ),
   }));
 
+  const activeCard = cards[activeIndex % cards.length];
+
   return (
     <section className="pt-[100px] pb-[100px] md:pt-24 md:pb-32 bg-[var(--color-bg)]">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -77,7 +78,25 @@ export default function ShowcaseCardStack() {
         </div>
 
         <div className="md:mt-52">
-          <CardStack cards={cards} />
+          <CardStack cards={cards} onCardChange={setActiveIndex} />
+        </div>
+
+        {/* Desktop CTA — outside the draggable card so clicks always work */}
+        <div className="hidden md:flex justify-center mt-6">
+          <Link
+            href={activeCard.href ?? '#'}
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-full
+                       bg-[var(--color-primary-val)] text-white font-bold text-sm
+                       hover:opacity-90 transition-opacity"
+          >
+            {activeCard.ctaText}
+            <span
+              className="material-symbols-outlined"
+              style={{ fontSize: '18px' }}
+            >
+              arrow_forward
+            </span>
+          </Link>
         </div>
       </div>
     </section>
