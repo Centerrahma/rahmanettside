@@ -233,9 +233,9 @@ export default function CardStack({
                   {/* Gradient overlay */}
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
 
-                  {/* Card content overlay */}
+                  {/* Card content overlay (hover - desktop) */}
                   <motion.div
-                    className="absolute bottom-0 left-0 right-0 p-5 sm:p-8"
+                    className="absolute bottom-0 left-0 right-0 p-5 sm:p-8 hidden md:block"
                     initial={{ opacity: 0, y: 20 }}
                     animate={{
                       opacity: isFront && showInfo ? 1 : 0,
@@ -258,6 +258,7 @@ export default function CardStack({
                     {card.href && card.ctaText && (
                       <Link
                         href={card.href}
+                        onPointerDown={(e) => e.stopPropagation()}
                         className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full
                                    bg-[var(--color-primary-val)] text-white
                                    font-bold text-sm hover:opacity-90 transition-opacity"
@@ -273,9 +274,9 @@ export default function CardStack({
                     )}
                   </motion.div>
 
-                  {/* Always-visible title (when info overlay is hidden) */}
+                  {/* Always-visible title (desktop - no hover) */}
                   <motion.div
-                    className="absolute bottom-0 left-0 right-0 p-5 sm:p-8"
+                    className="absolute bottom-0 left-0 right-0 p-5 sm:p-8 hidden md:block"
                     animate={{
                       opacity: isFront && !showInfo ? 1 : 0,
                     }}
@@ -289,6 +290,34 @@ export default function CardStack({
                       <p className="text-sm text-white/70">{card.subtitle}</p>
                     )}
                   </motion.div>
+
+                  {/* Always-visible content (mobile) */}
+                  <div className="absolute bottom-0 left-0 right-0 p-5 md:hidden">
+                    {card.icon && <div className="mb-2">{card.icon}</div>}
+                    <h3 className="text-xl font-bold text-white mb-1">
+                      {card.title}
+                    </h3>
+                    {card.subtitle && (
+                      <p className="text-sm text-white/70 mb-3">{card.subtitle}</p>
+                    )}
+                    {card.href && card.ctaText && (
+                      <Link
+                        href={card.href}
+                        onPointerDown={(e) => e.stopPropagation()}
+                        className="inline-flex items-center gap-2 px-4 py-2 rounded-full
+                                   bg-[var(--color-primary-val)] text-white
+                                   font-bold text-sm hover:opacity-90 transition-opacity"
+                      >
+                        {card.ctaText}
+                        <span
+                          className="material-symbols-outlined"
+                          style={{ fontSize: '18px' }}
+                        >
+                          arrow_forward
+                        </span>
+                      </Link>
+                    )}
+                  </div>
                 </motion.li>
               );
             })}

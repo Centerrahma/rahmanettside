@@ -110,25 +110,6 @@ export default function MembershipForm() {
 
   return (
     <div>
-      {/* Important notice about checking existing membership */}
-      <div className="mb-8 p-5 rounded-lg bg-amber-500/10 border border-amber-500/30">
-        <div className="flex gap-3">
-          <span className="material-symbols-outlined text-amber-500 mt-0.5 shrink-0">info</span>
-          <p className="text-sm text-[var(--color-text)] leading-relaxed">
-            Før du registrerer deg, ber vi deg logge inn på &quot;Min side&quot; hos Brønnøysundregistrene (
-            <a
-              href="https://person.brreg.no/nb/minside"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-[var(--color-primary-val)] underline hover:no-underline"
-            >
-              person.brreg.no/nb/minside
-            </a>
-            ) for å sjekke om du allerede står oppført som medlem av et annet tros- eller livssynssamfunn. Hvis du er registrert et annet sted, må du melde deg ut der før du kan melde deg inn hos oss.
-          </p>
-        </div>
-      </div>
-
       <div className="mb-8">
         <h2 className="text-3xl md:text-4xl font-bold text-[var(--color-text)] font-[family-name:var(--font-display)] mb-4">
           {t('formTitle')}

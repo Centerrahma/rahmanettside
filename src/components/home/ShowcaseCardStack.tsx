@@ -14,25 +14,29 @@ const CATEGORIES = [
     id: 'ungRahma',
     href: '/ung-rahma',
     icon: 'group',
-    image: '/UngRahma.jpeg',
+    image:
+      'https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=900&h=560&fit=crop',
   },
   {
     id: 'rahmaSkole',
     href: '/rahma-skole',
     icon: 'school',
-    image: '/Rahmaskole.jpeg',
+    image:
+      'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=900&h=560&fit=crop',
   },
   {
     id: 'bliMedlem',
     href: '/become-member',
     icon: 'person_add',
-    image: '/BliMedlem.jpeg',
+    image:
+      'https://images.unsplash.com/photo-1511632765486-a01980e01a18?w=900&h=560&fit=crop',
   },
   {
     id: 'nyMoske',
     href: '/new-mosque',
     icon: 'mosque',
-    image: '/nymoskeoversikt.png',
+    image:
+      'https://images.unsplash.com/photo-1585129777188-94600bc7b4b3?w=900&h=560&fit=crop',
   },
 ] as const;
 
