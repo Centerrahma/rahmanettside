@@ -1,8 +1,6 @@
 'use client';
 
-import { useState } from 'react';
 import { useTranslations } from 'next-intl';
-import Link from 'next/link';
 import CardStack, { type CardStackItem } from '@/components/ui/card-stack';
 import SectionHeader from '@/components/ui/SectionHeader';
 
@@ -28,13 +26,13 @@ const CATEGORIES = [
     id: 'bliMedlem',
     href: '/become-member',
     icon: 'person_add',
-    image: '/BliMedlem.jpeg',
+    image: '/RahmaGalleri3.jpg',
   },
   {
     id: 'nyMoske',
     href: '/new-mosque',
     icon: 'mosque',
-    image: '/nymoskeoversikt.png',
+    image: '/RahmaGalleri1.jpg',
   },
 ] as const;
 
@@ -44,7 +42,6 @@ const CATEGORIES = [
 
 export default function ShowcaseCardStack() {
   const t = useTranslations('showcase');
-  const [activeIndex, setActiveIndex] = useState(0);
 
   const cards: CardStackItem[] = CATEGORIES.map((cat) => ({
     id: cat.id,
@@ -64,8 +61,6 @@ export default function ShowcaseCardStack() {
     ),
   }));
 
-  const activeCard = cards[activeIndex % cards.length];
-
   return (
     <section className="pt-[100px] pb-[100px] md:pt-24 md:pb-32 bg-[var(--color-bg)]">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -78,25 +73,7 @@ export default function ShowcaseCardStack() {
         </div>
 
         <div className="md:mt-52">
-          <CardStack cards={cards} onCardChange={setActiveIndex} />
-        </div>
-
-        {/* Desktop CTA — outside the draggable card so clicks always work */}
-        <div className="hidden md:flex justify-center mt-6">
-          <Link
-            href={activeCard.href ?? '#'}
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-full
-                       bg-[var(--color-primary-val)] text-white font-bold text-sm
-                       hover:opacity-90 transition-opacity"
-          >
-            {activeCard.ctaText}
-            <span
-              className="material-symbols-outlined"
-              style={{ fontSize: '18px' }}
-            >
-              arrow_forward
-            </span>
-          </Link>
+          <CardStack cards={cards} />
         </div>
       </div>
     </section>
