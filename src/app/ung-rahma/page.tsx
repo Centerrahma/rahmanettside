@@ -23,13 +23,18 @@ export default function UngRahmaPage() {
           </h1>
           <p className="text-lg text-[var(--color-text-muted)] leading-relaxed max-w-2xl mx-auto">
             Styrker neste generasjon gjennom tro, læring og lederskap.
-            Aktiviteter, turer og mentorordning for ungdom 13–25 år.
+            Aktiviteter, turer og mentorordning for ungdom.
           </p>
         </div>
       </section>
 
       {/* Content */}
       <section className="max-w-4xl mx-auto px-6 pb-20">
+        <div className="flex items-center gap-3 px-5 py-4 rounded-xl border border-amber-400/40 bg-amber-400/10 text-amber-700 dark:text-amber-300 mb-8">
+          <span className="material-symbols-outlined text-xl shrink-0">info</span>
+          <p className="text-sm font-medium">Oppdatert informasjon kommer snart!</p>
+        </div>
+
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
           {[
             {
