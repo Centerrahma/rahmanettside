@@ -41,7 +41,7 @@ function MosqueJsonLd() {
     email: 'contact@masjidrahma.no',
     address: {
       '@type': 'PostalAddress',
-      streetAddress: 'Tvetenveien 54',
+      streetAddress: 'Tvetenveien 154',
       addressLocality: 'Oslo',
       postalCode: '0188',
       addressCountry: 'NO',

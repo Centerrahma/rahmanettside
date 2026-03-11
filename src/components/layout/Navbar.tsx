@@ -14,14 +14,14 @@ const desktopLinks = [
 ];
 
 const dropdownLinks = [
-  { key: 'rahmaSchool', href: '/services' as const },
-  { key: 'ungRahma', href: '/services' as const },
+  { key: 'rahmaSchool', href: '/rahma-skole' as const },
+  { key: 'ungRahma', href: '/ung-rahma' as const },
   { key: 'aboutUs', href: '/heritage' as const },
 ];
 
 const allLinks = [
-  { key: 'rahmaSchool', href: '/services' as const },
-  { key: 'ungRahma', href: '/services' as const },
+  { key: 'rahmaSchool', href: '/rahma-skole' as const },
+  { key: 'ungRahma', href: '/ung-rahma' as const },
   { key: 'newMosque', href: '/new-mosque' as const },
   { key: 'becomeMember', href: '/become-member' as const },
   { key: 'prayerTimes', href: '/#prayer-times' as const },

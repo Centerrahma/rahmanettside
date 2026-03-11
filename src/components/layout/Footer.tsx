@@ -26,6 +26,9 @@ export function Footer() {
             <p className="text-[var(--color-text-muted)] text-sm leading-relaxed">
               {t('brand')}
             </p>
+            <p className="text-[var(--color-text-muted)] text-xs">
+              Organisasjonsnummer: 974444216
+            </p>
           </div>
 
           {/* Quick Links Column */}
@@ -40,14 +43,6 @@ export function Footer() {
                   className="text-sm text-[var(--color-text-muted)] hover:text-[var(--color-primary-val)] transition-colors duration-200"
                 >
                   {tn('prayerTimes')}
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/services"
-                  className="text-sm text-[var(--color-text-muted)] hover:text-[var(--color-primary-val)] transition-colors duration-200"
-                >
-                  {t('linkServices')}
                 </Link>
               </li>
               <li>

@@ -407,7 +407,7 @@ function JummahCard({ schedule, t }: { schedule: ReturnType<typeof usePrayerTime
             {t('downloadCalendar')}
           </a>
           <a
-            href="https://www.google.com/maps/dir/?api=1&destination=Tvetenveien+54,+Oslo"
+            href="https://www.google.com/maps/dir/?api=1&destination=Tvetenveien+154,+Oslo"
             target="_blank"
             rel="noopener noreferrer"
             className="flex-1 md:flex-none flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-xl border border-[rgba(var(--color-primary-rgb),0.2)] text-[var(--color-text)] hover:bg-[rgba(var(--color-primary-rgb),0.08)] transition-all font-medium text-xs whitespace-nowrap"
