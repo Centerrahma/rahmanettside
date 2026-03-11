@@ -245,14 +245,14 @@ export default function CardStack({
                   >
                     {card.icon && <div className="mb-2">{card.icon}</div>}
                     {card.subtitle && (
-                      <p className="text-xs font-bold tracking-widest uppercase text-white/70 mb-1">
+                      <p className="text-xs font-bold tracking-widest uppercase text-white/90 mb-1">
                         {card.subtitle}
                       </p>
                     )}
                     <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-white mb-1">
                       {card.title}
                     </h3>
-                    <p className="text-sm text-white/80 line-clamp-2 mb-4 max-w-lg">
+                    <p className="text-sm text-white/90 line-clamp-2 mb-4 max-w-lg">
                       {card.description}
                     </p>
                     {card.href && card.ctaText && (
@@ -287,7 +287,7 @@ export default function CardStack({
                       {card.title}
                     </h3>
                     {card.subtitle && (
-                      <p className="text-sm text-white/70">{card.subtitle}</p>
+                      <p className="text-sm text-white/90">{card.subtitle}</p>
                     )}
                   </motion.div>
 
@@ -298,7 +298,7 @@ export default function CardStack({
                       {card.title}
                     </h3>
                     {card.subtitle && (
-                      <p className="text-sm text-white/70 mb-3">{card.subtitle}</p>
+                      <p className="text-sm text-white/90 mb-3">{card.subtitle}</p>
                     )}
                     {card.href && card.ctaText && (
                       <Link
