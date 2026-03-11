@@ -26,13 +26,13 @@ const CATEGORIES = [
     id: 'bliMedlem',
     href: '/become-member',
     icon: 'person_add',
-    image: '/RahmaGalleri3.jpg',
+    image: '/BliMedlem.jpeg',
   },
   {
     id: 'nyMoske',
     href: '/new-mosque',
     icon: 'mosque',
-    image: '/RahmaGalleri1.jpg',
+    image: '/nymoskeoversikt.png',
   },
 ] as const;
 

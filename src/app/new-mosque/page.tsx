@@ -47,7 +47,7 @@ export default function NewMosquePage() {
       {/* Header — full screen image with text overlaid in the grey area */}
       <header className="relative w-full h-[45svh] md:h-[100svh] overflow-hidden bg-[var(--color-bg)]">
         <Image
-          src="/RahmaGalleri1.jpg"
+          src="/nymoskeoversikt.png"
           alt="3D oversikt over nye Masjid Rahma"
           fill
           className="object-contain md:object-cover"

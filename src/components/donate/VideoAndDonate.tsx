@@ -1,8 +1,7 @@
 'use client';
 
-import { Fragment } from 'react';
-import { CheckCircle2 } from 'lucide-react';
-import Image from 'next/image';
+import { Fragment, useState, useRef } from 'react';
+import { Play, CheckCircle2 } from 'lucide-react';
 import type { DonationProject } from '@/types/donation';
 import DonationWidget from './DonationWidget';
 import CompactProjectTile from './CompactProjectTile';
@@ -35,6 +34,15 @@ interface VideoAndDonateProps {
 }
 
 export default function VideoAndDonate({ projects, translations: t, statsRowProps }: VideoAndDonateProps) {
+    const [isPlaying, setIsPlaying] = useState(false);
+    const videoRef = useRef<HTMLVideoElement>(null);
+
+    const handlePlayClick = () => {
+        if (videoRef.current) {
+            videoRef.current.play();
+            setIsPlaying(true);
+        }
+    };
 
     return (
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-stretch mb-16">
@@ -80,15 +88,34 @@ export default function VideoAndDonate({ projects, translations: t, statsRowProp
                     </div>
                 </div>
 
-                {/* Image Container: Fills remaining height on desktop */}
+                {/* Video Container: Fills remaining height on desktop */}
                 <div className="glass-panel p-2 md:p-3 flex-grow flex flex-col min-h-[300px] lg:min-h-[450px]">
-                    <div className="relative w-full h-full rounded-lg overflow-hidden bg-black/5 flex-grow shadow-inner">
-                        <Image
-                            src="/RahmaGalleri1.jpg"
-                            alt="Nye Masjid Rahma"
-                            fill
-                            className="object-cover"
-                        />
+                    <div className="relative w-full h-full rounded-lg overflow-hidden bg-black/5 flex-grow shadow-inner flex items-center justify-center group">
+                        <video
+                            ref={videoRef}
+                            controls
+                            className="absolute inset-0 w-full h-full object-cover"
+                            poster="/nymoskeoversikt.png"
+                            onPlay={() => setIsPlaying(true)}
+                            onPause={() => setIsPlaying(false)}
+                            onEnded={() => setIsPlaying(false)}
+                        >
+                            <source src="/NyRahmavideo.mp4" type="video/mp4" />
+                            Your browser does not support the video tag.
+                        </video>
+
+                        {/* Custom Play Button Overlay */}
+                        {!isPlaying && (
+                            <button
+                                onClick={handlePlayClick}
+                                className="absolute inset-0 w-full h-full flex items-center justify-center bg-black/20 group-hover:bg-black/30 transition-colors z-10"
+                                aria-label="Play video"
+                            >
+                                <div className="w-16 h-16 md:w-20 md:h-20 bg-white/90 rounded-full flex items-center justify-center shadow-lg transform transition-transform group-hover:scale-110">
+                                    <Play className="w-8 h-8 md:w-10 md:h-10 text-primary ml-1.5" fill="currentColor" />
+                                </div>
+                            </button>
+                        )}
                     </div>
                 </div>
             </div>
