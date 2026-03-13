@@ -135,6 +135,19 @@ export default function VideoAndDonate({ projects, translations: t, statsRowProp
                     />
                 </div>
 
+                {/* Legal info */}
+                <div className="rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] px-4 py-3.5">
+                    <div className="flex items-center gap-2 mb-2">
+                        <span className="material-icons text-[var(--color-text-muted)] text-base">info</span>
+                        <span className="text-xs font-bold text-[var(--color-text)] uppercase tracking-wide">Juridisk informasjon</span>
+                    </div>
+                    <p className="text-xs leading-relaxed text-[var(--color-text)]">
+                        Mottaker er <span className="font-bold">Center Rahma</span>. Org. nr: <span className="font-bold">974 444 216</span>.
+                        Det er ingen bindingstid på avtaler om faste trekk. Enhver avtale kan sies opp ved å kontakte oss på{' '}
+                        <a href="mailto:post@centerrahma.no" className="font-bold text-primary hover:underline">post@centerrahma.no</a>.
+                    </p>
+                </div>
+
                 {/* Under construction notice */}
                 <div className="flex items-start gap-3 rounded-xl border border-amber-500/40 bg-amber-500/15 px-4 py-3">
                     <span className="material-icons text-amber-600 text-lg mt-0.5 flex-shrink-0">construction</span>
