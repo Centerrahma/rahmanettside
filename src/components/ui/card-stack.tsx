@@ -138,12 +138,12 @@ export default function CardStack({
       aria-roledescription="carousel"
       aria-label="Showcase cards"
     >
-      {/* Navigation arrows */}
+      {/* Navigation arrows — desktop overlay */}
       <button
         onClick={moveToStart}
         aria-label="Previous card"
-        className="absolute left-0 sm:-left-14 top-1/2 -translate-y-1/2 z-20
-                   w-10 h-10 rounded-full flex items-center justify-center cursor-pointer
+        className="hidden md:flex absolute -left-14 top-1/2 -translate-y-1/2 z-20
+                   w-10 h-10 rounded-full items-center justify-center cursor-pointer
                    border transition-colors
                    bg-[var(--glass-card-bg)] border-[var(--glass-card-border)]
                    backdrop-blur-md text-[var(--color-text)]
@@ -154,8 +154,8 @@ export default function CardStack({
       <button
         onClick={moveToEnd}
         aria-label="Next card"
-        className="absolute right-0 sm:-right-14 top-1/2 -translate-y-1/2 z-20
-                   w-10 h-10 rounded-full flex items-center justify-center cursor-pointer
+        className="hidden md:flex absolute -right-14 top-1/2 -translate-y-1/2 z-20
+                   w-10 h-10 rounded-full items-center justify-center cursor-pointer
                    border transition-colors
                    bg-[var(--glass-card-bg)] border-[var(--glass-card-border)]
                    backdrop-blur-md text-[var(--color-text)]
@@ -325,8 +325,34 @@ export default function CardStack({
         </ul>
       </div>
 
+      {/* Mobile navigation arrows — below the card */}
+      <div className="flex md:hidden justify-center gap-4 mt-4">
+        <button
+          onClick={moveToStart}
+          aria-label="Previous card"
+          className="w-10 h-10 rounded-full flex items-center justify-center cursor-pointer
+                     border transition-colors
+                     bg-[var(--glass-card-bg)] border-[var(--glass-card-border)]
+                     backdrop-blur-md text-[var(--color-text)]
+                     hover:border-[var(--color-primary-val)]"
+        >
+          <ChevronLeft className="w-5 h-5" />
+        </button>
+        <button
+          onClick={moveToEnd}
+          aria-label="Next card"
+          className="w-10 h-10 rounded-full flex items-center justify-center cursor-pointer
+                     border transition-colors
+                     bg-[var(--glass-card-bg)] border-[var(--glass-card-border)]
+                     backdrop-blur-md text-[var(--color-text)]
+                     hover:border-[var(--color-primary-val)]"
+        >
+          <ChevronRight className="w-5 h-5" />
+        </button>
+      </div>
+
       {/* Progress dots */}
-      <div className="flex justify-center gap-2 mt-6">
+      <div className="flex justify-center gap-2 mt-4 md:mt-6">
         {cards.map((card, i) => (
           <div
             key={card.id}

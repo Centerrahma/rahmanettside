@@ -86,7 +86,7 @@ export default function ShowcaseCardStack() {
         </div>
 
         {/* ── CTA button below the carousel ── */}
-        <div className="flex justify-center mt-8">
+        <div className="hidden md:flex justify-center mt-8">
           <Link
             href={currentCat.href}
             className="group inline-flex items-center gap-3 rounded-full font-bold text-white text-sm transition-all duration-200 hover:scale-[1.03] active:scale-[0.97]"
