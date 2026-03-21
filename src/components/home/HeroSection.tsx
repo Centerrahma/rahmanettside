@@ -12,19 +12,19 @@ import type { PrayerName } from '@/types/prayer';
 import { useEffect, useState } from 'react';
 
 /* ─── Particle starfield ─── */
-const PARTICLES = Array.from({ length: 44 }, (_, i) => ({
+const PARTICLES_DESKTOP = Array.from({ length: 24 }, (_, i) => ({
   id: i,
-  left: `${(i * 2.27) % 100}%`,
-  delay: `${(i * 0.34) % 15}s`,
-  duration: `${12 + (i * 0.57) % 18}s`,
+  left: `${(i * 4.17) % 100}%`,
+  delay: `${(i * 0.6) % 15}s`,
+  duration: `${14 + (i * 0.7) % 16}s`,
   size: `${1 + (i % 3)}px`,
   opacity: 0.2 + (i % 5) * 0.08,
 }));
 
 function ParticleField() {
   return (
-    <div className="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
-      {PARTICLES.map((p) => (
+    <div className="absolute inset-0 overflow-hidden pointer-events-none hidden md:block" aria-hidden="true">
+      {PARTICLES_DESKTOP.map((p) => (
         <div
           key={p.id}
           className="absolute rounded-full bg-[var(--color-gold)]"

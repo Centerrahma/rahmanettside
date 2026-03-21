@@ -248,25 +248,22 @@ body {
 }
 
 /* ═══════════════════════════════════════════════
-   SMOOTH THEME TRANSITIONS
+   SMOOTH THEME TRANSITIONS (scoped to interactive elements only)
    ═══════════════════════════════════════════════ */
-*,
-*::before,
-*::after {
-  transition-property: background-color, border-color, box-shadow;
+a, button, input, textarea, select {
+  transition-property: background-color, border-color, box-shadow, color, opacity;
   transition-duration: 0.2s;
   transition-timing-function: ease;
 }
 
-/* Don't animate transforms/opacity on everything — only theme colors */
-a, button, input, textarea, select {
-  transition-property: background-color, border-color, box-shadow, color, opacity;
-  transition-duration: 0.2s;
-}
-
-/* Animations should not be throttled by theme transition */
-[style*="animation"],
-.aurora-blob,
-.absolute.rounded-full {
-  transition: none !important;
+/* ═══════════════════════════════════════════════
+   REDUCED MOTION
+   ═══════════════════════════════════════════════ */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

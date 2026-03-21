@@ -24,13 +24,13 @@ export async function generateMetadata(): Promise<Metadata> {
       siteName: 'Masjid Rahma',
       locale: 'nb_NO',
       type: 'website',
-      images: [{ url: '/nymoskeoversikt.png', width: 1200, height: 630, alt: 'Nye Masjid Rahma' }],
+      images: [{ url: '/nymoskeoversikt_opt.jpg', width: 1200, height: 630, alt: 'Nye Masjid Rahma' }],
     },
     twitter: {
       card: 'summary_large_image',
       title: `${t('sectionTitle')} — Masjid Rahma`,
       description: t('pageSubtitle'),
-      images: ['/nymoskeoversikt.png'],
+      images: ['/nymoskeoversikt_opt.jpg'],
     },
   };
 }
@@ -49,9 +49,10 @@ export default function NewMosquePage() {
       {/* Header — full screen image with text overlaid in the grey area */}
       <header className="relative w-full h-[45svh] md:h-[100svh] overflow-hidden bg-[var(--color-bg)]">
         <Image
-          src="/nymoskeoversikt.png"
+          src="/nymoskeoversikt_opt.jpg"
           alt="3D oversikt over nye Masjid Rahma"
           fill
+          sizes="100vw"
           className="object-contain md:object-cover"
           priority
         />

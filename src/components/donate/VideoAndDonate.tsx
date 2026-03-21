@@ -95,7 +95,7 @@ export default function VideoAndDonate({ projects, translations: t, statsRowProp
                             ref={videoRef}
                             controls
                             className="absolute inset-0 w-full h-full object-cover"
-                            poster="/nymoskeoversikt.png"
+                            poster="/nymoskeoversikt_opt.jpg"
                             onPlay={() => setIsPlaying(true)}
                             onPause={() => setIsPlaying(false)}
                             onEnded={() => setIsPlaying(false)}

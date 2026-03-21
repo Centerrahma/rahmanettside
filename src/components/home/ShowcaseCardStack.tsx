@@ -11,9 +11,9 @@ import CardStack, { type CardStackItem } from '@/components/ui/card-stack';
 
 const CATEGORIES = [
   { id: 'ungRahma',   href: '/ung-rahma',     icon: 'group',      image: '/UngRahma.jpeg' },
-  { id: 'rahmaSkole', href: '/rahma-skole',   icon: 'school',     image: '/Rahmaskole.jpeg' },
-  { id: 'bliMedlem',  href: '/become-member', icon: 'person_add', image: '/BliMedlem.jpeg' },
-  { id: 'nyMoske',    href: '/new-mosque',    icon: 'mosque',     image: '/nymoskeoversikt.png' },
+  { id: 'rahmaSkole', href: '/rahma-skole',   icon: 'school',     image: '/Rahmaskole_opt.jpg' },
+  { id: 'bliMedlem',  href: '/become-member', icon: 'person_add', image: '/BliMedlem_opt.jpg' },
+  { id: 'nyMoske',    href: '/new-mosque',    icon: 'mosque',     image: '/nymoskeoversikt_opt.jpg' },
 ] as const;
 
 type CategoryId = (typeof CATEGORIES)[number]['id'];

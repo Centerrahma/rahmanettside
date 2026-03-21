@@ -18,16 +18,20 @@ export function Logo({ size = 'md', className = '' }: LogoProps) {
     <div className={`relative overflow-hidden ${sizeMap[size]} ${className}`}>
       {/* Light mode logo (white background) */}
       <Image
-        src="/hvit rahma oppskalert.png"
+        src="/hvit_rahma_300.png"
         alt="Masjid Rahma Logo"
         fill
+        sizes="(max-width: 768px) 112px, 176px"
+        priority
         className="object-contain block dark:hidden"
       />
       {/* Dark mode logo (transparent background) */}
       <Image
-        src="/gjennomsiktig rahma oppskalert.png"
+        src="/gjennomsiktig_rahma_300.png"
         alt="Masjid Rahma Logo"
         fill
+        sizes="(max-width: 768px) 112px, 176px"
+        priority
         className="object-contain hidden dark:block"
       />
     </div>

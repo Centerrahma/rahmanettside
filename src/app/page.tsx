@@ -1,8 +1,10 @@
 import type { Metadata } from 'next';
+import { Suspense, lazy } from 'react';
 import { getTranslations } from 'next-intl/server';
 import HeroSection from '@/components/home/HeroSection';
 import ShowcaseCardStack from '@/components/home/ShowcaseCardStack';
-import FacebookFeed from '@/components/home/FacebookFeed';
+
+const FacebookFeed = lazy(() => import('@/components/home/FacebookFeed'));
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations({ locale: 'no', namespace: 'hero' });
@@ -21,13 +23,13 @@ export async function generateMetadata(): Promise<Metadata> {
       siteName: 'Masjid Rahma',
       locale: 'nb_NO',
       type: 'website',
-      images: [{ url: '/nymoskeoversikt.png', width: 1200, height: 630, alt: 'Masjid Rahma Oslo' }],
+      images: [{ url: '/nymoskeoversikt_opt.jpg', width: 1200, height: 630, alt: 'Masjid Rahma Oslo' }],
     },
     twitter: {
       card: 'summary_large_image',
       title: 'Masjid Rahma Oslo',
       description: t('subtitle'),
-      images: ['/nymoskeoversikt.png'],
+      images: ['/nymoskeoversikt_opt.jpg'],
     },
   };
 }
@@ -45,7 +47,7 @@ function MosqueJsonLd() {
       '@type': 'PostalAddress',
       streetAddress: 'Tvetenveien 154',
       addressLocality: 'Oslo',
-      postalCode: '0188',
+      postalCode: '0671',
       addressCountry: 'NO',
     },
     geo: {
@@ -83,7 +85,9 @@ export default function HomePage() {
       <MosqueJsonLd />
       <HeroSection />
       <ShowcaseCardStack />
-      <FacebookFeed />
+      <Suspense>
+        <FacebookFeed />
+      </Suspense>
     </>
   );
 }

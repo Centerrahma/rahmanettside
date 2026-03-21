@@ -70,7 +70,7 @@ export default function FacebookFeed() {
     }
 
     updateScale();
-    window.addEventListener('resize', updateScale);
+    window.addEventListener('resize', updateScale, { passive: true });
     return () => window.removeEventListener('resize', updateScale);
   }, []);
 
