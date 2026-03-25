@@ -17,60 +17,89 @@ const PARTICLES_DESKTOP = Array.from({ length: 24 }, (_, i) => ({
 export default function PageBackground() {
   return (
     <div className="fixed inset-0 overflow-hidden pointer-events-none z-0" aria-hidden="true">
-      {/* Aurora blobs */}
-      {/* Primary green — large center blob */}
+      {/* Aurora blobs — spread across both sides */}
+      {/* Large emerald — center top */}
+      <div
+        className="aurora-blob absolute rounded-full"
+        style={{
+          width: '900px',
+          height: '900px',
+          background: 'radial-gradient(circle, var(--color-primary-val) 0%, transparent 70%)',
+          top: '15%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
+          filter: 'blur(150px)',
+          opacity: 0.2,
+          animation: 'aurora-drift 10s ease-in-out infinite',
+        }}
+      />
+      {/* Gold accent — left side */}
       <div
         className="aurora-blob absolute rounded-full"
         style={{
           width: '700px',
           height: '700px',
-          background: 'radial-gradient(circle, var(--color-primary-val) 0%, transparent 70%)',
-          top: '25%',
-          left: '50%',
-          transform: 'translate(-50%, -50%)',
-          filter: 'blur(130px)',
-          opacity: 0.22,
-          animation: 'aurora-drift 10s ease-in-out infinite',
-        }}
-      />
-      {/* Gold accent — left */}
-      <div
-        className="aurora-blob absolute rounded-full"
-        style={{
-          width: '500px',
-          height: '500px',
           background: 'radial-gradient(circle, #C6A255 0%, transparent 70%)',
-          top: '45%',
-          left: '25%',
-          filter: 'blur(110px)',
+          top: '35%',
+          left: '10%',
+          filter: 'blur(130px)',
           opacity: 0.14,
           animation: 'aurora-drift 14s ease-in-out infinite reverse',
         }}
       />
-      {/* Deep emerald — right */}
+      {/* Gold accent — right side (mirror) */}
       <div
         className="aurora-blob absolute rounded-full"
         style={{
-          width: '450px',
-          height: '450px',
+          width: '600px',
+          height: '600px',
+          background: 'radial-gradient(circle, #C6A255 0%, transparent 70%)',
+          top: '60%',
+          right: '8%',
+          filter: 'blur(120px)',
+          opacity: 0.12,
+          animation: 'aurora-drift 16s ease-in-out 2s infinite',
+        }}
+      />
+      {/* Deep emerald — right side */}
+      <div
+        className="aurora-blob absolute rounded-full"
+        style={{
+          width: '700px',
+          height: '700px',
           background: 'radial-gradient(circle, #047857 0%, transparent 70%)',
-          top: '55%',
-          right: '15%',
-          filter: 'blur(100px)',
+          top: '50%',
+          right: '5%',
+          filter: 'blur(130px)',
           opacity: 0.16,
           animation: 'aurora-drift 12s ease-in-out 3s infinite',
         }}
       />
-      {/* Subtle gold top highlight */}
+      {/* Deep emerald — left side (mirror) */}
       <div
         className="aurora-blob absolute rounded-full"
         style={{
-          width: '300px',
-          height: '200px',
+          width: '600px',
+          height: '600px',
+          background: 'radial-gradient(circle, #047857 0%, transparent 70%)',
+          top: '75%',
+          left: '5%',
+          filter: 'blur(120px)',
+          opacity: 0.14,
+          animation: 'aurora-drift 13s ease-in-out 5s infinite reverse',
+        }}
+      />
+      {/* Gold top highlight — center */}
+      <div
+        className="aurora-blob absolute rounded-full"
+        style={{
+          width: '400px',
+          height: '300px',
           background: 'radial-gradient(ellipse, rgba(212,168,67,0.3) 0%, transparent 70%)',
-          top: '8%',
-          left: '45%',
-          filter: 'blur(80px)',
+          top: '5%',
+          left: '50%',
+          transform: 'translateX(-50%)',
+          filter: 'blur(90px)',
           opacity: 0.12,
           animation: 'aurora-drift 16s ease-in-out 5s infinite',
         }}
