@@ -47,9 +47,9 @@ export default function VideoAndDonate({ projects, translations: t, statsRowProp
     };
 
     return (
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-stretch mb-16">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-8 items-stretch mb-16">
             {/* Left: Projects Grid & Video Section */}
-            <div className="lg:col-span-7 xl:col-span-8 flex flex-col h-full gap-6">
+            <div className="lg:col-span-7 xl:col-span-8 flex flex-col h-full gap-4 lg:gap-6">
 
                 {/* 3x2 Grid of Projects (hidden on mobile) */}
                 <div className="hidden md:grid md:grid-cols-3 gap-2 md:gap-4">
@@ -118,7 +118,7 @@ export default function VideoAndDonate({ projects, translations: t, statsRowProp
             </div>
 
             {/* Right: Donation Widget and StatsRow */}
-            <div className="lg:col-span-5 xl:col-span-4 flex flex-col gap-6 sticky top-24 h-full">
+            <div className="lg:col-span-5 xl:col-span-4 flex flex-col gap-4 lg:gap-6 sticky top-24 h-full">
                 {/* Vipps Donation Section */}
                 <div className="glass-panel p-4 md:p-6">
                     {/* Header */}
