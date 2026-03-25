@@ -2,9 +2,9 @@ import type { Metadata } from 'next';
 import { Suspense, lazy } from 'react';
 import { getTranslations } from 'next-intl/server';
 import HeroSection from '@/components/home/HeroSection';
-import ShowcaseCardStack from '@/components/home/ShowcaseCardStack';
+import ShowcaseSections from '@/components/home/ShowcaseSections';
 
-const FacebookFeed = lazy(() => import('@/components/home/FacebookFeed'));
+const BottomRow = lazy(() => import('@/components/home/BottomRow'));
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations({ locale: 'no', namespace: 'hero' });
@@ -84,9 +84,9 @@ export default function HomePage() {
     <>
       <MosqueJsonLd />
       <HeroSection />
-      <ShowcaseCardStack />
+      <ShowcaseSections />
       <Suspense>
-        <FacebookFeed />
+        <BottomRow />
       </Suspense>
     </>
   );
