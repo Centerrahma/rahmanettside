@@ -189,26 +189,34 @@
     "title": "Utforsk Fellesskapet",
     "ungRahma": {
       "title": "Ung Rahma",
-      "subtitle": "Ungdomsprogram",
-      "description": "Styrker neste generasjon gjennom tro, l\u00e6ring og lederskap. Aktiviteter, turer og mentorordning for ungdom 13\u201325 \u00e5r.",
+      "description": "Ung Rahma er ungdomsprogrammet til Masjid Rahma, rettet mot unge muslimer mellom 13 og 25 \u00e5r i Oslo. Programmet bygger p\u00e5 tre s\u00f8yler: aktiviteter som sport, turer og sosiale arrangementer som skaper vennskap og tilh\u00f8righet; l\u00e6ring gjennom islamske studier, koranundervisning og personlig utvikling; og en mentorordning der erfarne forbilder veileder ungdom i tro og hverdag.",
+      "highlight1": "Sport, turer og sosiale arrangementer",
+      "highlight2": "Koranstudier og personlig utvikling",
+      "highlight3": "Mentorordning med erfarne forbilder",
       "cta": "Utforsk Ung Rahma"
     },
     "rahmaSkole": {
       "title": "Rahma Skole",
-      "subtitle": "Islamsk utdanning",
-      "description": "Strukturert koranundervisning, arabisk spr\u00e5k og islamske studier for barn og ungdom i et trygt og omsorgsfullt milj\u00f8.",
+      "description": "Rahma Skole tilbyr strukturert islamsk utdanning for barn og ungdom i et trygt og omsorgsfullt milj\u00f8. Elevene f\u00e5r undervisning i koranlesing med tajwid og memorering under kvalifiserte l\u00e6rere, arabisk spr\u00e5k fra nybegynnerniv\u00e5 til viderekommet med fokus p\u00e5 forst\u00e5else og kommunikasjon, samt islamske studier som dekker fiqh, aqidah og seerah i alderstilpassede klasser.",
+      "highlight1": "Tajwid og koranmemorering",
+      "highlight2": "Arabisk fra nybegynner til viderekommet",
+      "highlight3": "Fiqh, aqidah og profetens livshistorie",
       "cta": "Oppdag Rahma Skole"
     },
     "bliMedlem": {
       "title": "Bli Medlem",
-      "subtitle": "Bli en del av fellesskapet",
-      "description": "V\u00e6r en del av Oslos voksende muslimske fellesskap. Ditt medlemskap st\u00f8tter programmer, tjenester og visjonen for v\u00e5r nye mosk\u00e9.",
+      "description": "Masjid Rahma er et voksende fellesskap i hjertet av Oslo, og ditt medlemskap gj\u00f8r en reell forskjell. Som medlem st\u00f8tter du direkte driften av moskeen, undervisningsprogrammene for barn og ungdom, sosiale tiltak og visjonen om \u00e5 bygge et nytt, moderne islamsk senter. Registreringen er enkel og sikker \u2014 informasjonen din sendes kryptert og lagres ikke p\u00e5 v\u00e5re servere.",
+      "highlight1": "St\u00f8tt moskeen og programmene v\u00e5re",
+      "highlight2": "Enkel og sikker registrering",
+      "highlight3": "V\u00e6r med \u00e5 bygge fremtidens mosk\u00e9",
       "cta": "Bli med i dag"
     },
     "nyMoske": {
-      "title": "Ny Mosk\u00e9",
-      "subtitle": "Bygger fremtiden",
-      "description": "Hjelp oss \u00e5 bygge et moderne islamsk senter for Oslo. Et sted for tilbedelse, utdanning og fellesskap for kommende generasjoner.",
+      "title": "Nye Masjid Rahma",
+      "description": "Vi bygger et nytt, moderne islamsk senter for Oslo \u2014 et sted som forener tilbedelse, utdanning og fellesskap under \u00e9tt tak for kommende generasjoner. Prosjektet omfatter b\u00f8nnesaler, klasserom, wudhu-omr\u00e5der, en vakker mihrab og fasiliteter for hele familien. Du kan bidra til alt fra byggefond og lydanlegg til innredning av enkeltrom. Invester i din akhira.",
+      "highlight1": "B\u00f8nnesaler, klasserom og familieomr\u00e5der",
+      "highlight2": "Bidra til spesifikke deler av bygget",
+      "highlight3": "En investering i kommende generasjoner",
       "cta": "St\u00f8tt prosjektet"
     }
   },

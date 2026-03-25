@@ -33,9 +33,9 @@
   /* Glass effects — light */
   --glass-bg: rgba(255, 255, 255, 0.75);
   --glass-border: rgba(0, 0, 0, 0.08);
-  --glass-card-bg: rgba(255, 255, 255, 0.7);
-  --glass-card-border: rgba(0, 0, 0, 0.06);
-  --glass-shadow: 0 4px 30px rgba(0, 0, 0, 0.06);
+  --glass-card-bg: rgba(255, 255, 255, 0.18);
+  --glass-card-border: rgba(255, 255, 255, 0.45);
+  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.12), 0 2px 8px rgba(0, 0, 0, 0.08);
 
   /* Prayer card active */
   --prayer-active-bg: linear-gradient(135deg, rgba(4, 120, 87, 0.12) 0%, rgba(4, 120, 87, 0.08) 100%);
@@ -69,9 +69,9 @@
   /* Glass effects — dark */
   --glass-bg: rgba(6, 11, 14, 0.8);
   --glass-border: rgba(255, 255, 255, 0.06);
-  --glass-card-bg: rgba(255, 255, 255, 0.03);
-  --glass-card-border: rgba(255, 255, 255, 0.06);
-  --glass-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+  --glass-card-bg: rgba(255, 255, 255, 0.06);
+  --glass-card-border: rgba(255, 255, 255, 0.12);
+  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.5), 0 2px 8px rgba(0, 0, 0, 0.3);
 
   /* Prayer card active */
   --prayer-active-bg: linear-gradient(135deg, rgba(17, 212, 131, 0.15) 0%, rgba(4, 120, 87, 0.1) 100%);
@@ -143,20 +143,22 @@ body {
    ═══════════════════════════════════════════════ */
 .glass-panel {
   background: var(--glass-card-bg);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(var(--color-primary-rgb), 0.25);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid var(--glass-card-border);
   border-radius: 1rem;
   box-shadow:
-    0 0 12px rgba(var(--color-primary-rgb), 0.08),
-    0 0 32px rgba(var(--color-primary-rgb), 0.04);
+    0 8px 32px rgba(0, 0, 0, 0.12),
+    0 2px 8px rgba(0, 0, 0, 0.08),
+    0 0 12px rgba(var(--color-primary-rgb), 0.08);
 }
 
 .glass-panel:hover {
-  border-color: rgba(var(--color-primary-rgb), 0.45);
+  border-color: rgba(var(--color-primary-rgb), 0.35);
   box-shadow:
-    0 0 16px rgba(var(--color-primary-rgb), 0.14),
-    0 0 40px rgba(var(--color-primary-rgb), 0.07);
+    0 12px 48px rgba(0, 0, 0, 0.16),
+    0 4px 16px rgba(0, 0, 0, 0.1),
+    0 0 16px rgba(var(--color-primary-rgb), 0.14);
 }
 
 /* ═══════════════════════════════════════════════

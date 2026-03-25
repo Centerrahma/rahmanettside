@@ -193,26 +193,34 @@
     "title": "Explore the Community",
     "ungRahma": {
       "title": "Ung Rahma",
-      "subtitle": "Youth Program",
-      "description": "Empowering the next generation through faith, learning and leadership. Activities, trips and mentoring for youth aged 13–25.",
+      "description": "Ung Rahma is Masjid Rahma's youth program, designed for young Muslims aged 13 to 25 in Oslo. The program is built on three pillars: activities such as sports, trips and social events that foster friendship and belonging; learning through Islamic studies, Quran education and personal development; and a mentorship program where experienced role models guide youth in faith and everyday life.",
+      "highlight1": "Sports, trips and social events",
+      "highlight2": "Quran studies and personal growth",
+      "highlight3": "Mentorship with experienced role models",
       "cta": "Explore Ung Rahma"
     },
     "rahmaSkole": {
       "title": "Rahma School",
-      "subtitle": "Islamic Education",
-      "description": "Structured Quran teaching, Arabic language and Islamic studies for children and youth in a safe and caring environment.",
+      "description": "Rahma School offers structured Islamic education for children and youth in a safe and nurturing environment. Students receive Quran instruction with tajwid and memorization under qualified teachers, Arabic language courses from beginner to advanced levels with a focus on comprehension and communication, and Islamic studies covering fiqh, aqidah and seerah in age-appropriate classes.",
+      "highlight1": "Tajwid and Quran memorization",
+      "highlight2": "Arabic from beginner to advanced",
+      "highlight3": "Fiqh, aqidah and the Prophet's biography",
       "cta": "Discover Rahma School"
     },
     "bliMedlem": {
       "title": "Become a Member",
-      "subtitle": "Join the Community",
-      "description": "Be part of Oslo's growing Muslim community. Your membership supports programs, services and the vision for our new mosque.",
+      "description": "Masjid Rahma is a growing community in the heart of Oslo, and your membership makes a real difference. As a member, you directly support the mosque's operations, educational programs for children and youth, social initiatives and the vision of building a new, modern Islamic center. Registration is simple and secure — your information is sent encrypted and is not stored on our servers.",
+      "highlight1": "Support the mosque and our programs",
+      "highlight2": "Simple and secure registration",
+      "highlight3": "Help build the mosque of the future",
       "cta": "Join Today"
     },
     "nyMoske": {
-      "title": "New Mosque",
-      "subtitle": "Building the Future",
-      "description": "Help us build a modern Islamic center for Oslo. A place for worship, education and community for generations to come.",
+      "title": "The New Masjid Rahma",
+      "description": "We are building a new, modern Islamic center for Oslo — a place that unites worship, education and community under one roof for generations to come. The project includes prayer halls, classrooms, wudhu areas, a beautiful mihrab and facilities for the whole family. You can contribute to everything from the construction fund and sound system to furnishing individual rooms. Invest in your akhirah.",
+      "highlight1": "Prayer halls, classrooms and family areas",
+      "highlight2": "Contribute to specific parts of the building",
+      "highlight3": "An investment in future generations",
       "cta": "Support the Project"
     }
   },

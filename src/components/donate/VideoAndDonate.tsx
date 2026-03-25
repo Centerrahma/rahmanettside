@@ -2,8 +2,8 @@
 
 import { Fragment, useState, useRef } from 'react';
 import { Play, CheckCircle2 } from 'lucide-react';
+import Image from 'next/image';
 import type { DonationProject } from '@/types/donation';
-import DonationWidget from './DonationWidget';
 import CompactProjectTile from './CompactProjectTile';
 import StatsRow from './StatsRow';
 
@@ -32,6 +32,8 @@ interface VideoAndDonateProps {
         secureDesc: string;
     };
 }
+
+const VIPPS_DONATION_URL = 'https://qr.vipps.no/donations/43392';
 
 export default function VideoAndDonate({ projects, translations: t, statsRowProps }: VideoAndDonateProps) {
     const [isPlaying, setIsPlaying] = useState(false);
@@ -122,43 +124,94 @@ export default function VideoAndDonate({ projects, translations: t, statsRowProp
 
             {/* Right: Donation Widget and StatsRow */}
             <div className="lg:col-span-5 xl:col-span-4 flex flex-col gap-6 sticky top-24 h-full">
-                <div className="">
-                    <DonationWidget
-                        title={t.makeADonation}
-                        subtitle={t.donationSubtitle}
-                        oneTimeLabel={t.oneTimeLabel}
-                        monthlyLabel={t.monthlyLabel}
-                        customAmountLabel={t.customAmountLabel}
-                        confirmLabel={t.confirmLabel}
-                        securityNote={t.securityNote}
-                        processingLabel={t.processingLabel}
-                    />
+                {/* Vipps Donation Section */}
+                <div className="glass-panel p-4 md:p-6">
+                    {/* Header */}
+                    <div className="flex items-center gap-2 md:gap-3 mb-4 md:mb-5">
+                        <span className="material-icons text-primary text-2xl md:text-3xl">
+                            volunteer_activism
+                        </span>
+                        <div>
+                            <h2 className="text-lg md:text-xl font-bold">{t.makeADonation}</h2>
+                            <p className="text-[10px] md:text-xs text-[var(--color-text-muted)]">{t.donationSubtitle}</p>
+                        </div>
+                    </div>
+
+                    {/* Info box */}
+                    <div className="rounded-xl bg-primary/10 border border-primary/20 px-4 py-3.5 mb-5">
+                        <div className="flex items-start gap-2.5">
+                            <span className="material-icons text-primary text-lg mt-0.5 flex-shrink-0">info</span>
+                            <p className="text-sm leading-relaxed text-[var(--color-text)]">
+                                Bruk QR-koden eller knappen nedenfor for å donere via Vipps. Du kan velge mellom <span className="font-bold">engangsbetaling</span> eller <span className="font-bold">månedlig trekk</span> med valgfritt beløp.
+                            </p>
+                        </div>
+                    </div>
+
+                    {/* QR Code */}
+                    <div className="flex justify-center mb-5">
+                        <div className="rounded-2xl bg-white p-3 shadow-md">
+                            <Image
+                                src="/vippsdonasjon.png"
+                                alt="Vipps donasjon QR-kode"
+                                width={220}
+                                height={220}
+                                className="rounded-lg"
+                            />
+                        </div>
+                    </div>
+
+                    {/* Vipps button */}
+                    <a
+                        href={VIPPS_DONATION_URL}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="w-full bg-[#ff5b24] hover:bg-[#e64f1e] text-white py-3 px-6 rounded-xl text-base font-bold flex items-center justify-center gap-2.5 transition-colors shadow-md"
+                    >
+                        <span>Doner med Vipps</span>
+                        <span className="material-icons text-lg">open_in_new</span>
+                    </a>
+                </div>
+
+                {/* Vipps numbers */}
+                <div className="rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] p-4">
+                    <p className="text-xs font-bold text-[var(--color-text)] uppercase tracking-wide text-center mb-3">Send via Vipps</p>
+                    <div className="grid grid-cols-2 gap-3">
+                        <div className="rounded-lg bg-[#ff5b24]/10 border border-[#ff5b24]/25 py-3 px-3 text-center">
+                            <p className="text-2xl md:text-3xl font-black text-[#ff5b24] tracking-wide">77811</p>
+                            <p className="text-[10px] md:text-xs text-[var(--color-text-muted)] mt-1 font-medium">Vipps nr. 1</p>
+                        </div>
+                        <div className="rounded-lg bg-[#ff5b24]/10 border border-[#ff5b24]/25 py-3 px-3 text-center">
+                            <p className="text-2xl md:text-3xl font-black text-[#ff5b24] tracking-wide">43392</p>
+                            <p className="text-[10px] md:text-xs text-[var(--color-text-muted)] mt-1 font-medium">Vipps nr. 2</p>
+                        </div>
+                    </div>
                 </div>
 
                 {/* Legal info */}
-                <div className="rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] px-4 py-3.5">
-                    <div className="flex items-center gap-2 mb-2">
-                        <span className="material-icons text-[var(--color-text-muted)] text-base">info</span>
-                        <span className="text-xs font-bold text-[var(--color-text)] uppercase tracking-wide">Juridisk informasjon</span>
+                <div className="rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] px-5 py-4">
+                    <div className="flex items-center gap-2.5 mb-2.5">
+                        <span className="material-icons text-[var(--color-text-muted)] text-lg">info</span>
+                        <span className="text-sm font-bold text-[var(--color-text)] uppercase tracking-wide">Juridisk informasjon</span>
                     </div>
-                    <p className="text-xs leading-relaxed text-[var(--color-text)]">
+                    <p className="text-sm leading-relaxed text-[var(--color-text)]">
                         Mottaker er <span className="font-bold">Center Rahma</span>. Org. nr: <span className="font-bold">974 444 216</span>.
                         Det er ingen bindingstid på avtaler om faste trekk. Enhver avtale kan sies opp ved å kontakte oss på{' '}
                         <a href="mailto:post@centerrahma.no" className="font-bold text-primary hover:underline">post@centerrahma.no</a>.
                     </p>
                 </div>
 
-                {/* Under construction notice */}
-                <div className="flex items-start gap-3 rounded-xl border border-amber-500/40 bg-amber-500/15 px-4 py-3">
-                    <span className="material-icons text-amber-600 text-lg mt-0.5 flex-shrink-0">construction</span>
-                    <p className="text-xs text-amber-800 leading-relaxed">
-                        <span className="font-bold block mb-0.5">Betalingssystemet er under utvikling</span>
-                        Vi jobber med å ferdigstille betalingsløsningen. Bruk gjerne Vipps eller bankoverføring i mellomtiden.
+                {/* Motivational message */}
+                <div className="rounded-xl bg-gradient-to-br from-primary/10 via-primary/5 to-primary/15 border border-primary/20 px-5 py-5 text-center">
+                    <p className="text-sm italic leading-relaxed text-[var(--color-text)] font-bold">
+                        &ldquo;Den som bygger en moské for Allahs skyld, Allah vil bygge et hus for ham i Paradis.&rdquo;
+                    </p>
+                    <p className="text-xs text-[var(--color-text)] mt-1.5 font-bold">
+                        — Sahih al-Bukhari &amp; Muslim
                     </p>
                 </div>
 
+                {/* Stats grid */}
                 <div className="grid grid-cols-2 gap-2 mt-auto">
-                    {/* Embedded StatsRow under payment system configured as 2x2 grid */}
                     <StatsRow {...statsRowProps} className="col-span-2 !grid-cols-2" />
                 </div>
             </div>

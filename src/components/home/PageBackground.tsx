@@ -106,6 +106,34 @@ export default function PageBackground() {
         }}
       />
 
+      {/* Emerald glow — lower left (visible behind showcase cards as user scrolls) */}
+      <div
+        className="aurora-blob absolute rounded-full opacity-[0.25] dark:opacity-[0.16]"
+        style={{
+          width: '800px',
+          height: '800px',
+          background: 'radial-gradient(circle, #047857 0%, transparent 70%)',
+          top: '55%',
+          left: '5%',
+          filter: 'blur(140px)',
+          animation: 'aurora-drift 15s ease-in-out 2s infinite',
+        }}
+      />
+
+      {/* Gold glow — lower right (visible behind showcase cards as user scrolls) */}
+      <div
+        className="aurora-blob absolute rounded-full opacity-[0.18] dark:opacity-[0.10]"
+        style={{
+          width: '700px',
+          height: '700px',
+          background: 'radial-gradient(circle, #C6A255 0%, transparent 70%)',
+          top: '70%',
+          right: '10%',
+          filter: 'blur(130px)',
+          animation: 'aurora-drift 13s ease-in-out 4s infinite reverse',
+        }}
+      />
+
       {/* Particle starfield — desktop only */}
       <div className="hidden md:block">
         {PARTICLES_DESKTOP.map((p) => (
