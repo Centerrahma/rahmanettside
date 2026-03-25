@@ -205,8 +205,8 @@ export default function VideoAndDonate({ projects, translations: t, statsRowProp
                     </p>
                 </div>
 
-                {/* Stats grid */}
-                <div className="grid grid-cols-2 gap-2 mt-auto">
+                {/* Stats grid — hidden on mobile */}
+                <div className="hidden md:grid grid-cols-2 gap-2 mt-auto">
                     <StatsRow {...statsRowProps} className="col-span-2 !grid-cols-2" />
                 </div>
             </div>

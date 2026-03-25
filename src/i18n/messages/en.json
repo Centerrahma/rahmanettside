@@ -194,6 +194,7 @@
     "ungRahma": {
       "title": "Ung Rahma",
       "description": "Ung Rahma is Masjid Rahma's youth program, designed for young Muslims aged 13 to 25 in Oslo. The program is built on three pillars: activities such as sports, trips and social events that foster friendship and belonging; learning through Islamic studies, Quran education and personal development; and a mentorship program where experienced role models guide youth in faith and everyday life.",
+      "mobileDescription": "Youth program for ages 13–25. Sports, trips, Quran studies and mentorship.",
       "highlight1": "Sports, trips and social events",
       "highlight2": "Quran studies and personal growth",
       "highlight3": "Mentorship with experienced role models",
@@ -202,6 +203,7 @@
     "rahmaSkole": {
       "title": "Rahma School",
       "description": "Rahma School offers structured Islamic education for children and youth in a safe and nurturing environment. Students receive Quran instruction with tajwid and memorization under qualified teachers, Arabic language courses from beginner to advanced levels with a focus on comprehension and communication, and Islamic studies covering fiqh, aqidah and seerah in age-appropriate classes.",
+      "mobileDescription": "Islamic education for children and youth. Quran, Arabic and Islamic studies.",
       "highlight1": "Tajwid and Quran memorization",
       "highlight2": "Arabic from beginner to advanced",
       "highlight3": "Fiqh, aqidah and the Prophet's biography",
@@ -210,6 +212,7 @@
     "bliMedlem": {
       "title": "Become a Member",
       "description": "Masjid Rahma is a growing community in the heart of Oslo, and your membership makes a real difference. As a member, you directly support the mosque's operations, educational programs for children and youth, social initiatives and the vision of building a new, modern Islamic center. Registration is simple and secure — your information is sent encrypted and is not stored on our servers.",
+      "mobileDescription": "Support the mosque, programs and the vision for a new Islamic center in Oslo.",
       "highlight1": "Support the mosque and our programs",
       "highlight2": "Simple and secure registration",
       "highlight3": "Help build the mosque of the future",
@@ -218,6 +221,7 @@
     "nyMoske": {
       "title": "The New Masjid Rahma",
       "description": "We are building a new, modern Islamic center for Oslo — a place that unites worship, education and community under one roof for generations to come. The project includes prayer halls, classrooms, wudhu areas, a beautiful mihrab and facilities for the whole family. You can contribute to everything from the construction fund and sound system to furnishing individual rooms. Invest in your akhirah.",
+      "mobileDescription": "New Islamic center with prayer halls, classrooms and family facilities. Invest in your akhirah.",
       "highlight1": "Prayer halls, classrooms and family areas",
       "highlight2": "Contribute to specific parts of the building",
       "highlight3": "An investment in future generations",

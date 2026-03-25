@@ -95,7 +95,7 @@ function ShowcaseCard({
             {t(`${id}.title`)}
           </h3>
           <p className="text-sm text-[var(--color-text)] opacity-70 leading-relaxed mb-3">
-            {t(`${id}.description`)}
+            {t(`${id}.mobileDescription`)}
           </p>
 
           <Link
