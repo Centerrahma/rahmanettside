@@ -1,7 +1,7 @@
 'use client';
 
 import { Fragment, useState, useRef } from 'react';
-import { Play, CheckCircle2 } from 'lucide-react';
+import { Play } from 'lucide-react';
 import Image from 'next/image';
 import type { DonationProject } from '@/types/donation';
 import CompactProjectTile from './CompactProjectTile';
@@ -51,8 +51,8 @@ export default function VideoAndDonate({ projects, translations: t, statsRowProp
             {/* Left: Projects Grid & Video Section */}
             <div className="lg:col-span-7 xl:col-span-8 flex flex-col h-full gap-6">
 
-                {/* 3x2 Grid of Projects (2x3 on mobile) */}
-                <div className="grid grid-cols-2 md:grid-cols-3 gap-2 md:gap-4">
+                {/* 3x2 Grid of Projects (hidden on mobile) */}
+                <div className="hidden md:grid md:grid-cols-3 gap-2 md:gap-4">
                     {projects.map((project, index) => (
                         <Fragment key={project.id}>
                             <div className="min-h-0 lg:min-h-[150px]">
@@ -74,18 +74,13 @@ export default function VideoAndDonate({ projects, translations: t, statsRowProp
                         <div className="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/2" />
                         <div className="absolute bottom-0 left-0 w-24 h-24 bg-white/[0.03] rounded-full translate-y-1/2 -translate-x-1/2" />
 
-                        <div className="relative flex items-start gap-3 md:gap-4">
-                            <div className="flex-shrink-0 w-10 h-10 md:w-12 md:h-12 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center">
-                                <CheckCircle2 className="w-5 h-5 md:w-6 md:h-6 text-emerald-300" />
-                            </div>
-                            <div className="flex-1 min-w-0">
-                                <span className="text-[10px] md:text-xs font-bold uppercase tracking-wider text-emerald-400 mb-1 block">
-                                    Alhamdulillah
-                                </span>
-                                <p className="text-emerald-100 text-sm md:text-[15px] leading-relaxed font-medium">
-                                    Ventilasjon, Nytt kjøkken, Belysning og Minbar er nå fullfinansiert! Måtte Allah <span className="text-emerald-300">subhanahu wa ta&apos;ala</span> belønne alle som har bidratt og delt dette prosjektet.
-                                </p>
-                            </div>
+                        <div className="relative">
+                            <span className="text-[10px] md:text-xs font-bold uppercase tracking-wider text-emerald-400 mb-1 block">
+                                Alhamdulillah
+                            </span>
+                            <p className="text-emerald-100 text-sm md:text-[15px] leading-relaxed font-medium">
+                                Ventilasjon, Nytt kjøkken, Belysning og Minbar er nå fullfinansiert! Måtte Allah <span className="text-emerald-300">subhanahu wa ta&apos;ala</span> belønne alle som har bidratt og delt dette prosjektet.
+                            </p>
                         </div>
                     </div>
                 </div>
