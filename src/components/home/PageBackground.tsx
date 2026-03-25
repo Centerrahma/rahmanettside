@@ -75,17 +75,17 @@ export default function PageBackground() {
           animation: 'aurora-drift 12s ease-in-out 3s infinite',
         }}
       />
-      {/* Deep emerald — left side (mirrors right-side green glow) */}
+      {/* Deep emerald — left side (stronger to match right which gets center blob bleed) */}
       <div
         className="aurora-blob absolute rounded-full"
         style={{
-          width: '700px',
-          height: '700px',
+          width: '900px',
+          height: '900px',
           background: 'radial-gradient(circle, #047857 0%, transparent 70%)',
-          top: '50%',
-          left: '5%',
+          top: '45%',
+          left: '0%',
           filter: 'blur(130px)',
-          opacity: 0.16,
+          opacity: 0.22,
           animation: 'aurora-drift 13s ease-in-out 5s infinite reverse',
         }}
       />
