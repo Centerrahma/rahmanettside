@@ -75,17 +75,17 @@ export default function PageBackground() {
           animation: 'aurora-drift 12s ease-in-out 3s infinite',
         }}
       />
-      {/* Deep emerald — left side (mirror) */}
+      {/* Deep emerald — left side (mirrors right-side green glow) */}
       <div
         className="aurora-blob absolute rounded-full"
         style={{
-          width: '600px',
-          height: '600px',
+          width: '700px',
+          height: '700px',
           background: 'radial-gradient(circle, #047857 0%, transparent 70%)',
-          top: '75%',
+          top: '50%',
           left: '5%',
-          filter: 'blur(120px)',
-          opacity: 0.14,
+          filter: 'blur(130px)',
+          opacity: 0.16,
           animation: 'aurora-drift 13s ease-in-out 5s infinite reverse',
         }}
       />
