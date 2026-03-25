@@ -3,6 +3,7 @@ import { Suspense, lazy } from 'react';
 import { getTranslations } from 'next-intl/server';
 import HeroSection from '@/components/home/HeroSection';
 import ShowcaseSections from '@/components/home/ShowcaseSections';
+import PageBackground from '@/components/home/PageBackground';
 
 const BottomRow = lazy(() => import('@/components/home/BottomRow'));
 
@@ -83,6 +84,7 @@ export default function HomePage() {
   return (
     <>
       <MosqueJsonLd />
+      <PageBackground />
       <HeroSection />
       <ShowcaseSections />
       <Suspense>
