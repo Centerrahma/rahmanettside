@@ -118,10 +118,10 @@ export default function ShowcaseSections() {
   const t = useTranslations('showcase');
 
   return (
-    <section className="relative py-16 md:py-24">
+    <section className="relative py-10 md:py-24">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section header */}
-        <div className="text-center mb-12 md:mb-16">
+        <div className="text-center mb-8 md:mb-16">
           <p className="text-xs font-bold tracking-[0.2em] uppercase mb-3 text-[var(--color-text-muted)]">
             {t('eyebrow')}
           </p>
@@ -131,7 +131,7 @@ export default function ShowcaseSections() {
         </div>
 
         {/* 4 showcase sections */}
-        <div className="flex flex-col gap-10 md:gap-12">
+        <div className="flex flex-col gap-6 md:gap-12">
           {SECTIONS.map((section, i) => (
             <ShowcaseCard key={section.id} {...section} index={i} />
           ))}

@@ -432,10 +432,10 @@ export default function HeroSection() {
   return (
     <section className="relative md:min-h-screen overflow-hidden">
       {/* Content wrapper */}
-      <div className="relative z-10 flex flex-col items-center px-4 pt-24 pb-[100px] md:pt-36 md:pb-10">
+      <div className="relative z-10 flex flex-col items-center px-4 pt-20 pb-12 md:pt-36 md:pb-10">
 
         {/* ── Hero Text ── */}
-        <div className="text-center max-w-3xl mx-auto mb-10 md:mb-16">
+        <div className="text-center max-w-3xl mx-auto mb-6 md:mb-16">
           {/* Label */}
           <p
             className="text-sm sm:text-base font-bold uppercase tracking-[0.25em] text-[var(--color-gold)]"
@@ -464,7 +464,7 @@ export default function HeroSection() {
 
           {/* Headline */}
           <h1
-            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-[var(--color-text)] leading-[1.1] tracking-tight mb-8 md:mb-10"
+            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-[var(--color-text)] leading-[1.1] tracking-tight mb-5 md:mb-10"
             style={{ fontFamily: 'var(--font-display)', animation: 'hero-fade-up 0.8s ease-out 0.3s both' }}
           >
             {t('headline')}
