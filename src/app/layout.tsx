@@ -104,8 +104,15 @@ export default async function RootLayout({
   const messages = await getMessages();
 
   return (
-    <html lang="no" className="" suppressHydrationWarning>
+    <html lang="no" className="dark" suppressHydrationWarning>
       <head>
+        {/* Blocking script to apply saved theme before first paint — prevents light flash.
+            All values are hardcoded string literals — no user input, safe from XSS. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var t=localStorage.getItem('theme');if(t==='light'){document.documentElement.classList.remove('dark')}else{document.documentElement.classList.add('dark')}}catch(e){}})()`,
+          }}
+        />
         <OrganizationJsonLd />
         <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
         <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
