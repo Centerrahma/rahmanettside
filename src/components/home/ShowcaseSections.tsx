@@ -23,62 +23,53 @@ function ShowcaseCard({
 
   return (
     <article className="relative rounded-2xl overflow-hidden group">
-      {/* ── Desktop: full image background with floating glass card ── */}
-      <div className="hidden md:block relative min-h-[450px]">
-        <Image
-          src={image}
-          alt={t(`${id}.title`)}
-          fill
-          className="object-cover"
-          sizes="100vw"
-        />
-        {/* Gradient overlay — direction alternates, opacity adapts to theme */}
+      {/* ── Desktop: side-by-side image + glass card ── */}
+      <div className={`hidden md:grid md:grid-cols-2 min-h-[400px] ${
+        isEven ? '' : 'direction-rtl'
+      }`} style={isEven ? undefined : { direction: 'rtl' }}>
+        {/* Image side */}
+        <div className="relative" style={{ direction: 'ltr' }}>
+          <Image
+            src={image}
+            alt={t(`${id}.title`)}
+            fill
+            className="object-cover"
+            sizes="50vw"
+          />
+        </div>
+        {/* Glass card side */}
         <div
-          className={`absolute inset-0 ${
-            isEven
-              ? 'bg-gradient-to-r'
-              : 'bg-gradient-to-l'
-          } from-black/50 dark:from-black/55 via-black/20 to-transparent`}
-        />
-        {/* Floating glass card */}
-        <div
-          className={`absolute inset-y-0 flex items-center p-8 md:p-12 ${
-            isEven ? 'left-0' : 'right-0'
-          }`}
-          style={{ maxWidth: '50%' }}
+          className="bg-[var(--glass-card-bg)] backdrop-blur-[16px] [-webkit-backdrop-filter:blur(16px)]
+                      border border-[var(--glass-card-border)]
+                      flex flex-col justify-center p-8 lg:p-12
+                      transition-shadow duration-300
+                      group-hover:shadow-[0_0_25px_rgba(var(--color-primary-rgb),0.15)]"
+          style={{ direction: 'ltr' }}
         >
-          <div
-            className="bg-[var(--glass-card-bg)] backdrop-blur-[16px] [-webkit-backdrop-filter:blur(16px)]
-                        border border-[var(--glass-card-border)] rounded-2xl p-7
-                        shadow-[0_8px_32px_rgba(0,0,0,0.3)]
-                        transition-shadow duration-300
-                        group-hover:shadow-[0_8px_32px_rgba(0,0,0,0.3),0_0_25px_rgba(var(--color-primary-rgb),0.15)]"
-          >
-            <div className="flex items-center gap-2 mb-3">
-              <span className="material-symbols-outlined text-[var(--color-gold)] text-xl">
-                {icon}
-              </span>
-              <span className="text-xs font-bold tracking-[0.2em] uppercase text-[var(--color-gold)]">
-                {t(`${id}.subtitle`)}
-              </span>
-            </div>
-            <h3 className="text-2xl md:text-3xl font-bold text-white mb-3 font-[family-name:var(--font-display)]">
-              {t(`${id}.title`)}
-            </h3>
-            <p className="text-sm text-white/85 leading-relaxed mb-5">
-              {t(`${id}.description`)}
-            </p>
-            <Link
-              href={href}
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-bold
-                         bg-[rgba(var(--color-primary-rgb),0.15)] border border-[rgba(var(--color-primary-rgb),0.35)]
-                         text-[var(--color-primary-val)] hover:bg-[rgba(var(--color-primary-rgb),0.25)]
-                         transition-colors duration-200"
-            >
-              {t(`${id}.cta`)}
-              <span className="material-symbols-outlined text-lg">arrow_forward</span>
-            </Link>
+          <div className="flex items-center gap-2 mb-3">
+            <span className="material-symbols-outlined text-[var(--color-gold)] text-xl">
+              {icon}
+            </span>
+            <span className="text-xs font-bold tracking-[0.2em] uppercase text-[var(--color-gold)]">
+              {t(`${id}.subtitle`)}
+            </span>
           </div>
+          <h3 className="text-2xl md:text-3xl font-bold text-[var(--color-text)] mb-3 font-[family-name:var(--font-display)]">
+            {t(`${id}.title`)}
+          </h3>
+          <p className="text-sm text-[var(--color-text-muted)] leading-relaxed mb-5">
+            {t(`${id}.description`)}
+          </p>
+          <Link
+            href={href}
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-bold w-fit
+                       bg-[rgba(var(--color-primary-rgb),0.15)] border border-[rgba(var(--color-primary-rgb),0.35)]
+                       text-[var(--color-primary-val)] hover:bg-[rgba(var(--color-primary-rgb),0.25)]
+                       transition-colors duration-200"
+          >
+            {t(`${id}.cta`)}
+            <span className="material-symbols-outlined text-lg">arrow_forward</span>
+          </Link>
         </div>
       </div>
 
