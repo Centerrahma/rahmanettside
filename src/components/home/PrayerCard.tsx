@@ -25,7 +25,7 @@ export default function PrayerCard({
         </h4>
         <p className="text-sm md:text-lg font-bold text-[var(--color-text)]">{time}</p>
         {iqamah && (
-          <p className="hidden md:block text-[10px] text-[var(--color-text-muted)] mt-1 whitespace-nowrap">
+          <p className="hidden md:block text-[10px] text-[var(--color-text)] opacity-60 mt-1 whitespace-nowrap">
             Iqamah {iqamah}
           </p>
         )}
@@ -42,7 +42,7 @@ export default function PrayerCard({
         {time}
       </p>
       {iqamah && (
-        <p className="hidden md:block text-[10px] text-[var(--color-text-muted)] mt-1 whitespace-nowrap">
+        <p className="hidden md:block text-[10px] text-[var(--color-text)] opacity-60 mt-1 whitespace-nowrap">
           Iqamah {iqamah}
         </p>
       )}

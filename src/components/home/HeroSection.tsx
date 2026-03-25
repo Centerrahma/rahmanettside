@@ -254,7 +254,7 @@ function ProjectShowcaseCard() {
 
         {/* Project Details */}
         <div className="flex-1 min-w-0 flex flex-col justify-center">
-          <div className="text-[8px] uppercase tracking-widest text-[var(--color-text-muted)] mb-0.5">
+          <div className="text-[8px] uppercase tracking-widest text-[var(--color-text)] opacity-60 mb-0.5">
             {t('donate.sectionTitle')}
           </div>
           <h3 className="text-sm md:text-base font-bold text-[var(--color-text)] leading-none mb-1 line-clamp-2">
@@ -262,7 +262,7 @@ function ProjectShowcaseCard() {
           </h3>
           <div className="flex items-baseline gap-2">
             <span className="text-[var(--color-text)] font-bold">{project.raised.toLocaleString()}</span>
-            <span className="text-xs text-[var(--color-text-muted)]">/ {project.target.toLocaleString()} kr</span>
+            <span className="text-xs text-[var(--color-text)] opacity-60">/ {project.target.toLocaleString()} kr</span>
           </div>
         </div>
       </div>
@@ -320,7 +320,7 @@ function CountdownCard() {
   return (
     <GlassCard className="col-span-12 md:col-span-3 relative">
       <div className="flex flex-col justify-center items-center flex-1">
-        <div className="text-[8px] uppercase tracking-widest text-[var(--color-text-muted)] mb-1 text-center">
+        <div className="text-[8px] uppercase tracking-widest text-[var(--color-text)] opacity-60 mb-1 text-center">
           {t('timeUntil')}
         </div>
 
@@ -336,7 +336,7 @@ function CountdownCard() {
               <div className="text-sm md:text-base font-bold text-[var(--color-text)] font-mono tabular-nums tracking-tight">
                 {countdown.hours}:{countdown.minutes}
               </div>
-              <div className="text-[8px] md:text-[10px] text-[var(--color-text-muted)] font-mono">
+              <div className="text-[8px] md:text-[10px] text-[var(--color-text)] opacity-60 font-mono">
                 {countdown.seconds}
               </div>
             </div>
@@ -381,7 +381,7 @@ function JummahCard({ schedule, t }: { schedule: ReturnType<typeof usePrayerTime
             <h4 className="text-xs md:text-sm font-bold text-[var(--color-text)]">
               {t('jummah')}
             </h4>
-            <p className="text-[10px] md:text-xs text-[var(--color-text-muted)]">
+            <p className="text-[10px] md:text-xs text-[var(--color-text)] opacity-60">
               {t('khutbahAt', { time: schedule.jummah.khutbah })} •{' '}
               {t('prayerAt', { time: schedule.jummah.prayer })}
             </p>
@@ -548,7 +548,7 @@ export default function HeroSection() {
                       key={`iq-${name}`}
                       className="bg-[var(--color-surface)] card-glow-border rounded-lg p-2 flex flex-col items-center justify-center min-h-[48px] overflow-visible"
                     >
-                      <span className="text-[7px] uppercase tracking-wide text-[var(--color-text-muted)] leading-none mb-1">
+                      <span className="text-[7px] uppercase tracking-wide text-[var(--color-text)] opacity-60 leading-none mb-1">
                         Iqamah
                       </span>
                       <span className="text-sm font-bold text-[var(--color-text)] leading-none">
