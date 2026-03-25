@@ -13,14 +13,16 @@ const PARTICLES_DESKTOP = Array.from({ length: 24 }, (_, i) => ({
 /**
  * Full-page aurora background with particles and Islamic pattern.
  * Renders as a fixed layer behind all page content.
+ * Light mode gets stronger opacity so the effect is visible on white.
  */
 export default function PageBackground() {
   return (
     <div className="fixed inset-0 overflow-hidden pointer-events-none z-0" aria-hidden="true">
       {/* Aurora blobs — spread across both sides */}
+
       {/* Large emerald — center top */}
       <div
-        className="aurora-blob absolute rounded-full"
+        className="aurora-blob absolute rounded-full opacity-[0.30] dark:opacity-[0.20]"
         style={{
           width: '900px',
           height: '900px',
@@ -29,13 +31,13 @@ export default function PageBackground() {
           left: '50%',
           transform: 'translate(-50%, -50%)',
           filter: 'blur(150px)',
-          opacity: 0.2,
           animation: 'aurora-drift 10s ease-in-out infinite',
         }}
       />
+
       {/* Gold accent — left side */}
       <div
-        className="aurora-blob absolute rounded-full"
+        className="aurora-blob absolute rounded-full opacity-[0.22] dark:opacity-[0.14]"
         style={{
           width: '700px',
           height: '700px',
@@ -43,13 +45,13 @@ export default function PageBackground() {
           top: '35%',
           left: '10%',
           filter: 'blur(130px)',
-          opacity: 0.14,
           animation: 'aurora-drift 14s ease-in-out infinite reverse',
         }}
       />
+
       {/* Gold accent — right side (mirror) */}
       <div
-        className="aurora-blob absolute rounded-full"
+        className="aurora-blob absolute rounded-full opacity-[0.20] dark:opacity-[0.12]"
         style={{
           width: '600px',
           height: '600px',
@@ -57,13 +59,13 @@ export default function PageBackground() {
           top: '60%',
           right: '8%',
           filter: 'blur(120px)',
-          opacity: 0.12,
           animation: 'aurora-drift 16s ease-in-out 2s infinite',
         }}
       />
+
       {/* Deep emerald — right side */}
       <div
-        className="aurora-blob absolute rounded-full"
+        className="aurora-blob absolute rounded-full opacity-25 dark:opacity-[0.16]"
         style={{
           width: '700px',
           height: '700px',
@@ -71,13 +73,13 @@ export default function PageBackground() {
           top: '50%',
           right: '5%',
           filter: 'blur(130px)',
-          opacity: 0.16,
           animation: 'aurora-drift 12s ease-in-out 3s infinite',
         }}
       />
+
       {/* Deep emerald — left side (stronger to match right which gets center blob bleed) */}
       <div
-        className="aurora-blob absolute rounded-full"
+        className="aurora-blob absolute rounded-full opacity-[0.35] dark:opacity-25"
         style={{
           width: '900px',
           height: '900px',
@@ -85,13 +87,13 @@ export default function PageBackground() {
           top: '45%',
           left: '0%',
           filter: 'blur(130px)',
-          opacity: 0.22,
           animation: 'aurora-drift 13s ease-in-out 5s infinite reverse',
         }}
       />
+
       {/* Gold top highlight — center */}
       <div
-        className="aurora-blob absolute rounded-full"
+        className="aurora-blob absolute rounded-full opacity-[0.18] dark:opacity-[0.12]"
         style={{
           width: '400px',
           height: '300px',
@@ -100,7 +102,6 @@ export default function PageBackground() {
           left: '50%',
           transform: 'translateX(-50%)',
           filter: 'blur(90px)',
-          opacity: 0.12,
           animation: 'aurora-drift 16s ease-in-out 5s infinite',
         }}
       />
