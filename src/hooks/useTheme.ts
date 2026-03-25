@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback } from 'react';
 
 export function useTheme() {
-  const [theme, setTheme] = useState<'dark' | 'light'>('light');
+  const [theme, setTheme] = useState<'dark' | 'light'>('dark');
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -13,7 +13,7 @@ export function useTheme() {
       setTheme(saved);
       document.documentElement.classList.toggle('dark', saved === 'dark');
     } else {
-      document.documentElement.classList.remove('dark');
+      document.documentElement.classList.add('dark');
     }
   }, []);
 
