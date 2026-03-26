@@ -167,18 +167,11 @@ export default function VideoAndDonate({ projects, translations: t, statsRowProp
                     </a>
                 </div>
 
-                {/* Vipps numbers */}
+                {/* Vipps number */}
                 <div className="rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] p-4">
                     <p className="text-xs font-bold text-[var(--color-text)] uppercase tracking-wide text-center mb-3">Send via Vipps</p>
-                    <div className="grid grid-cols-2 gap-3">
-                        <div className="rounded-lg bg-[#ff5b24]/10 border border-[#ff5b24]/25 py-3 px-3 text-center">
-                            <p className="text-2xl md:text-3xl font-black text-[#ff5b24] tracking-wide">77811</p>
-                            <p className="text-[10px] md:text-xs text-[var(--color-text-muted)] mt-1 font-medium">Vipps nr. 1</p>
-                        </div>
-                        <div className="rounded-lg bg-[#ff5b24]/10 border border-[#ff5b24]/25 py-3 px-3 text-center">
-                            <p className="text-2xl md:text-3xl font-black text-[#ff5b24] tracking-wide">43392</p>
-                            <p className="text-[10px] md:text-xs text-[var(--color-text-muted)] mt-1 font-medium">Vipps nr. 2</p>
-                        </div>
+                    <div className="rounded-lg bg-[#ff5b24]/10 border border-[#ff5b24]/25 py-3 px-3 text-center">
+                        <p className="text-2xl md:text-3xl font-black text-[#ff5b24] tracking-wide">77811</p>
                     </div>
                 </div>
 
