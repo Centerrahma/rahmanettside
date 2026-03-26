@@ -4,7 +4,7 @@ export default function MapHero() {
   const mapImageUrl = 'https://lh3.googleusercontent.com/aida-public/AB6AXuBecMwP1M_1vmn-nHFdZuzzG_GFFCU9IC4WyTy2ROy1oW1QY0tE0i-VCPKacSkhwXvNws35w-DzZmYrq_viUeCbBvGjOzJ0XsR6q0I-WZQpiL_ea7cn4WFr5eOkrCSOU4uM0w-XSF9V4hLaH-q_LMV0ieIYXsC0mfgkq6xIAouttuJrgCsSTYnWj0_6j2AhkyryRL_-hU-CJYFZQxJXD3c8sVkTJmePJPstC7PiV5LvbAckQbzBTd0VIm9uhSzw0S4xJU8j4zwJoTg';
 
   return (
-    <section className="relative h-[85vh] w-full overflow-hidden">
+    <section className="relative h-[60vh] w-full overflow-hidden">
       {/* Map Background */}
       <div
         className="absolute inset-0 bg-cover bg-center filter grayscale contrast-125 brightness-50"

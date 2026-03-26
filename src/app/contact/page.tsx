@@ -1,7 +1,6 @@
 import type { Metadata } from 'next';
 import { getTranslations } from 'next-intl/server';
 import MapHero from '@/components/contact/MapHero';
-import VirtualTourPreview from '@/components/contact/VirtualTourPreview';
 import ContactForm from '@/components/contact/ContactForm';
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -38,12 +37,9 @@ export default function ContactPage() {
       {/* Map Hero with ContactInfoCard overlaid */}
       <MapHero />
 
-      {/* Content Grid: Virtual Tour & Form */}
-      <section className="max-w-7xl mx-auto px-6 py-20">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
-          <VirtualTourPreview />
-          <ContactForm />
-        </div>
+      {/* Contact Form */}
+      <section className="max-w-2xl mx-auto px-6 py-12">
+        <ContactForm />
       </section>
     </main>
   );
