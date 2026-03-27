@@ -118,7 +118,7 @@ export default function ShowcaseSections() {
   const t = useTranslations('showcase');
 
   return (
-    <section className="relative py-10 md:py-24">
+    <section className="relative py-10 md:py-14 lg:py-24">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section header */}
         <div className="text-center mb-8 md:mb-16">

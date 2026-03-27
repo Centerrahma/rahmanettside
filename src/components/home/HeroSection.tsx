@@ -430,9 +430,9 @@ export default function HeroSection() {
   const PRAYER_ORDER: PrayerName[] = ['fajr', 'dhuhr', 'asr', 'maghrib', 'isha'];
 
   return (
-    <section className="relative md:min-h-screen overflow-hidden">
+    <section className="relative lg:min-h-screen overflow-hidden">
       {/* Content wrapper */}
-      <div className="relative z-10 flex flex-col items-center px-4 pt-20 pb-12 md:pt-36 md:pb-10">
+      <div className="relative z-10 flex flex-col items-center px-4 pt-20 pb-8 md:pt-24 md:pb-6 lg:pt-36 lg:pb-10">
 
         {/* ── Hero Text ── */}
         <div className="text-center max-w-3xl mx-auto mb-6 md:mb-16">
