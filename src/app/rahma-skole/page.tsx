@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import { GraduationCap, Info, BookOpen, Languages, Building2, ArrowRight } from 'lucide-react';
 
 export const metadata: Metadata = {
   title: 'Rahma Skole — Koranundervisning og Islamske Studier i Oslo',
@@ -32,7 +33,7 @@ export default function RahmaSkole() {
       <section className="pt-32 pb-16 px-6">
         <div className="max-w-3xl mx-auto text-center">
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[var(--color-primary-val)]/10 text-[var(--color-primary-val)] text-sm font-medium mb-6">
-            <span className="material-symbols-outlined text-lg">school</span>
+            <GraduationCap className="w-5 h-5" />
             Islamsk utdanning
           </div>
           <h1 className="text-4xl md:text-5xl font-bold text-[var(--color-text)] font-[family-name:var(--font-display)] mb-4">
@@ -48,24 +49,24 @@ export default function RahmaSkole() {
       {/* Content */}
       <section className="max-w-4xl mx-auto px-6 pb-20">
         <div className="flex items-center gap-3 px-5 py-4 rounded-xl border border-amber-400/40 bg-amber-400/10 text-amber-700 dark:text-amber-300 mb-8">
-          <span className="material-symbols-outlined text-xl shrink-0">info</span>
+          <Info className="w-5 h-5 shrink-0" />
           <p className="text-sm font-medium">Oppdatert informasjon kommer snart!</p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
           {[
             {
-              icon: 'auto_stories',
+              icon: BookOpen,
               title: 'Koranundervisning',
               desc: 'Tajwid og memorering av Koranen under veiledning av kvalifiserte lærere.',
             },
             {
-              icon: 'translate',
+              icon: Languages,
               title: 'Arabisk språk',
               desc: 'Lær arabisk fra grunnnivå til avansert med fokus på forståelse og kommunikasjon.',
             },
             {
-              icon: 'mosque',
+              icon: Building2,
               title: 'Islamske studier',
               desc: 'Fiqh, aqidah og seerah i et strukturert og alderstilpasset undervisningsopplegg.',
             },
@@ -75,9 +76,7 @@ export default function RahmaSkole() {
               className="bg-[var(--color-surface)] border border-[var(--color-border)] rounded-xl p-6 hover:border-[var(--color-primary-val)] transition-all duration-300"
             >
               <div className="w-12 h-12 rounded-xl bg-[var(--color-primary-val)]/10 flex items-center justify-center mb-4">
-                <span className="material-symbols-outlined text-[var(--color-primary-val)] text-2xl">
-                  {item.icon}
-                </span>
+                <item.icon className="w-6 h-6 text-[var(--color-primary-val)]" />
               </div>
               <h2 className="text-lg font-bold text-[var(--color-text)] mb-2">
                 {item.title}
@@ -95,9 +94,7 @@ export default function RahmaSkole() {
             className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[var(--color-primary-val)] text-white font-bold hover:opacity-90 transition-opacity"
           >
             Kontakt oss for mer info
-            <span className="material-symbols-outlined" style={{ fontSize: '18px' }}>
-              arrow_forward
-            </span>
+            <ArrowRight className="w-[18px] h-[18px]" />
           </Link>
         </div>
       </section>

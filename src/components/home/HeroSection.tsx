@@ -12,38 +12,6 @@ import PrayerCard from './PrayerCard';
 import type { PrayerName } from '@/types/prayer';
 import { useEffect, useState } from 'react';
 
-/* ─── Particle starfield ─── */
-const PARTICLES_DESKTOP = Array.from({ length: 24 }, (_, i) => ({
-  id: i,
-  left: `${(i * 4.17) % 100}%`,
-  delay: `${(i * 0.6) % 15}s`,
-  duration: `${14 + (i * 0.7) % 16}s`,
-  size: `${1 + (i % 3)}px`,
-  opacity: 0.2 + (i % 5) * 0.08,
-}));
-
-function ParticleField() {
-  return (
-    <div className="absolute inset-0 overflow-hidden pointer-events-none hidden md:block" aria-hidden="true">
-      {PARTICLES_DESKTOP.map((p) => (
-        <div
-          key={p.id}
-          className="absolute rounded-full bg-[var(--color-gold)]"
-          style={{
-            left: p.left,
-            bottom: '-2%',
-            width: p.size,
-            height: p.size,
-            opacity: p.opacity,
-            animation: `particle-rise ${p.duration} ${p.delay} linear infinite`,
-          }}
-        />
-      ))}
-    </div>
-  );
-}
-
-
 /* ─── Animated border wrapper ─── */
 function GlassCard({
   children,

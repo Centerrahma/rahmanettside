@@ -3,6 +3,7 @@
 import { useState, FormEvent } from 'react';
 import { useTranslations } from 'next-intl';
 import { z } from 'zod';
+import { ChevronDown, CheckCircle2, AlertCircle, Loader2, Send } from 'lucide-react';
 import Button from '@/components/ui/Button';
 
 const contactSchema = z.object({
@@ -166,9 +167,7 @@ export default function ContactForm() {
           >
             {t('selectTopic')}
           </label>
-          <span className="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 text-[var(--color-text-muted)] pointer-events-none">
-            expand_more
-          </span>
+          <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 w-5 h-5 text-[var(--color-text-muted)] pointer-events-none" />
           {errors.topic && <p className="text-xs text-red-500 mt-1">{errors.topic}</p>}
         </div>
 
@@ -196,7 +195,7 @@ export default function ContactForm() {
         {status === 'success' && (
           <div className="p-4 rounded-lg bg-green-500/10 border border-green-500/30 text-green-500">
             <div className="flex items-center gap-2">
-              <span className="material-symbols-outlined">check_circle</span>
+              <CheckCircle2 className="w-5 h-5" />
               <span>Message sent successfully!</span>
             </div>
           </div>
@@ -205,7 +204,7 @@ export default function ContactForm() {
         {status === 'error' && (
           <div className="p-4 rounded-lg bg-red-500/10 border border-red-500/30 text-red-500">
             <div className="flex items-center gap-2">
-              <span className="material-symbols-outlined">error</span>
+              <AlertCircle className="w-5 h-5" />
               <span>{errorMessage || 'Failed to send message. Please try again.'}</span>
             </div>
           </div>
@@ -220,12 +219,12 @@ export default function ContactForm() {
         >
           {status === 'loading' ? (
             <>
-              <span className="material-symbols-outlined animate-spin">refresh</span>
+              <Loader2 className="w-5 h-5 animate-spin" />
               Sending...
             </>
           ) : (
             <>
-              <span className="material-symbols-outlined">send</span>
+              <Send className="w-5 h-5" />
               {tCommon('sendMessage')}
             </>
           )}

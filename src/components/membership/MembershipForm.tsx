@@ -3,6 +3,7 @@
 import { useState, FormEvent } from 'react';
 import { useTranslations } from 'next-intl';
 import { z } from 'zod';
+import { CheckCircle2, Info, Lock, AlertCircle, Loader2, UserPlus } from 'lucide-react';
 import Button from '@/components/ui/Button';
 
 const membershipSchema = z.object({
@@ -101,7 +102,7 @@ export default function MembershipForm() {
   if (status === 'success') {
     return (
       <div className="p-8 rounded-lg bg-green-500/10 border border-green-500/30 text-center">
-        <span className="material-symbols-outlined text-green-500 text-5xl mb-4 block">check_circle</span>
+        <CheckCircle2 className="w-12 h-12 text-green-500 mb-4 mx-auto" />
         <h3 className="text-xl font-bold text-[var(--color-text)] mb-2">{t('successTitle')}</h3>
         <p className="text-[var(--color-text-muted)]">{t('successMessage')}</p>
       </div>
@@ -113,7 +114,7 @@ export default function MembershipForm() {
       {/* Important notice about checking existing membership */}
       <div className="mb-8 p-5 rounded-lg bg-amber-500/10 border border-amber-500/30">
         <div className="flex gap-3">
-          <span className="material-symbols-outlined text-amber-500 mt-0.5 shrink-0">info</span>
+          <Info className="w-5 h-5 text-amber-500 mt-0.5 shrink-0" />
           <p className="text-sm text-[var(--color-text)] leading-relaxed">
             Før du registrerer deg, ber vi deg logge inn på &quot;Min side&quot; hos Brønnøysundregistrene (
             <a
@@ -262,7 +263,7 @@ export default function MembershipForm() {
           </label>
           {errors.fodselsnummer && <p className="text-xs text-red-500 mt-1">{errors.fodselsnummer}</p>}
           <p className="text-xs text-[var(--color-text-muted)] mt-2">
-            <span className="material-symbols-outlined text-xs align-middle mr-1">lock</span>
+            <Lock className="w-3 h-3 inline align-middle mr-1" />
             {t('privacyNote')}
           </p>
         </div>
@@ -271,7 +272,7 @@ export default function MembershipForm() {
         {status === 'error' && (
           <div className="p-4 rounded-lg bg-red-500/10 border border-red-500/30 text-red-500">
             <div className="flex items-center gap-2">
-              <span className="material-symbols-outlined">error</span>
+              <AlertCircle className="w-5 h-5" />
               <span>{errorMessage || t('errorGeneral')}</span>
             </div>
           </div>
@@ -286,12 +287,12 @@ export default function MembershipForm() {
         >
           {status === 'loading' ? (
             <>
-              <span className="material-symbols-outlined animate-spin">refresh</span>
+              <Loader2 className="w-5 h-5 animate-spin" />
               {t('submitting')}
             </>
           ) : (
             <>
-              <span className="material-symbols-outlined">person_add</span>
+              <UserPlus className="w-5 h-5" />
               {t('submitButton')}
             </>
           )}

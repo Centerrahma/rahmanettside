@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { getTranslations } from 'next-intl/server';
+import { UserPlus } from 'lucide-react';
 import MembershipForm from '@/components/membership/MembershipForm';
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -39,7 +40,7 @@ export default async function BecomeMemberPage() {
       <section className="pt-32 pb-16 px-6">
         <div className="max-w-3xl mx-auto text-center">
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[var(--color-primary-val)]/10 text-[var(--color-primary-val)] text-sm font-medium mb-6">
-            <span className="material-symbols-outlined text-lg">group_add</span>
+            <UserPlus className="w-5 h-5" />
             {t('badge')}
           </div>
           <h1 className="text-4xl md:text-5xl font-bold text-[var(--color-text)] font-[family-name:var(--font-display)] mb-4">

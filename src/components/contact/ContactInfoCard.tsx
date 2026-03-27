@@ -1,4 +1,5 @@
 import { useTranslations } from 'next-intl';
+import { MapPin, Mail } from 'lucide-react';
 import { CONTACT_INFO } from '@/lib/constants';
 
 export default function ContactInfoCard() {
@@ -6,12 +7,12 @@ export default function ContactInfoCard() {
 
   const contactItems = [
     {
-      icon: 'location_on',
+      icon: MapPin,
       label: t('address'),
       value: `${CONTACT_INFO.address}, ${CONTACT_INFO.city}`,
     },
     {
-      icon: 'email',
+      icon: Mail,
       label: t('inquiries'),
       value: CONTACT_INFO.email,
     },
@@ -37,9 +38,7 @@ export default function ContactInfoCard() {
         {contactItems.map((item, index) => (
           <div key={index} className="flex items-start gap-4">
             <div className="w-12 h-12 rounded-full bg-[var(--color-primary-val)]/10 flex items-center justify-center flex-shrink-0">
-              <span className="material-symbols-outlined text-[var(--color-primary-val)]">
-                {item.icon}
-              </span>
+              <item.icon className="w-5 h-5 text-[var(--color-primary-val)]" />
             </div>
             <div>
               <p className="text-xs text-[var(--color-text-muted)] mb-1 uppercase tracking-wide">
