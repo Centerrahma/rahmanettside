@@ -28,7 +28,9 @@ const nextConfig: NextConfig = {
     optimizePackageImports: ['framer-motion', 'lucide-react'],
   },
   images: {
+    formats: ['image/avif', 'image/webp'],
     qualities: [60, 75],
+    minimumCacheTTL: 31536000,
     remotePatterns: [
       {
         protocol: 'https',

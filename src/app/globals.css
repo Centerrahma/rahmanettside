@@ -103,10 +103,16 @@ body {
 /* Navbar glass */
 .glass-nav {
   background: var(--glass-bg);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   border-bottom: 1px solid var(--glass-border);
   box-shadow: var(--glass-shadow);
+}
+@media (min-width: 768px) {
+  .glass-nav {
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+  }
 }
 
 /* Hero dashboard outer glass container */

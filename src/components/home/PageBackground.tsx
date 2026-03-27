@@ -72,12 +72,12 @@ export default function PageBackground() {
         }}
       />
 
-      {/* Particle starfield — desktop only */}
-      <div className="hidden md:block">
+      {/* Particle starfield — desktop only (SSR-safe: rendered only on md+) */}
+      <div className="contents max-md:hidden">
         {PARTICLES.map((p) => (
           <div
             key={p.id}
-            className="absolute rounded-full bg-[var(--color-gold)]"
+            className="hidden md:block absolute rounded-full bg-[var(--color-gold)]"
             style={{
               left: p.left,
               bottom: '-2%',

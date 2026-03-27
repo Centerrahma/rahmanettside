@@ -115,6 +115,7 @@ export default function FacebookFeed() {
                 scrolling="no"
                 frameBorder="0"
                 allowFullScreen
+                loading="lazy"
                 allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
                 title="Masjid Rahma Facebook"
                 onLoad={() => setLoaded(true)}

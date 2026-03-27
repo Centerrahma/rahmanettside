@@ -1,26 +1,45 @@
 'use client';
 
-import useSWR from 'swr';
+import { useState, useEffect, useCallback } from 'react';
 import type { PrayerSchedule } from '@/types/prayer';
 import { MOCK_PRAYER_TIMES } from '@/lib/constants';
 
-const fetcher = (url: string) => fetch(url).then((res) => res.json());
-
 export function usePrayerTimes(initialData?: PrayerSchedule) {
-  const { data, error, isLoading } = useSWR<PrayerSchedule>(
-    '/api/prayer-times',
-    fetcher,
-    {
-      fallbackData: initialData,
-      refreshInterval: 1800000, // Refresh every 30 minutes
-      revalidateOnFocus: true, // Re-fetch when user returns to tab
-      revalidateOnReconnect: true, // Re-fetch on reconnect
-      dedupingInterval: 60000, // Dedupe requests within 1 minute
+  const [data, setData] = useState<PrayerSchedule | undefined>(initialData);
+  const [error, setError] = useState<Error | undefined>();
+  const [isLoading, setIsLoading] = useState(!initialData);
+
+  const fetchTimes = useCallback(async () => {
+    try {
+      const res = await fetch('/api/prayer-times');
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const json = await res.json();
+      setData(json);
+      setError(undefined);
+    } catch (e) {
+      setError(e instanceof Error ? e : new Error(String(e)));
+    } finally {
+      setIsLoading(false);
     }
-  );
+  }, []);
+
+  useEffect(() => {
+    fetchTimes();
+
+    // Refresh every 30 minutes
+    const interval = setInterval(fetchTimes, 1800000);
+
+    // Re-fetch when user returns to tab
+    const onFocus = () => fetchTimes();
+    window.addEventListener('focus', onFocus);
+
+    return () => {
+      clearInterval(interval);
+      window.removeEventListener('focus', onFocus);
+    };
+  }, [fetchTimes]);
 
   return {
-    // Use API data when available, fall back to mock only as last resort
     schedule: data || MOCK_PRAYER_TIMES,
     error,
     isLoading,

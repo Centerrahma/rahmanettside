@@ -40,7 +40,7 @@ function ShowcaseCard({
             alt={t(`${id}.title`)}
             fill
             className="object-cover"
-            sizes="50vw"
+            sizes="(max-width: 768px) 100vw, 50vw"
             quality={60}
           />
         </div>
