@@ -14,14 +14,14 @@ export const metadata: Metadata = {
     siteName: 'Masjid Rahma',
     locale: 'nb_NO',
     type: 'website',
-    images: [{ url: '/UngRahma.jpeg', width: 1200, height: 630, alt: 'Ung Rahma ungdomsprogram' }],
+    images: [{ url: '/UngRahma_opt.jpg', width: 1200, height: 630, alt: 'Ung Rahma ungdomsprogram' }],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Ung Rahma — Ungdomsprogram i Oslo',
     description:
       'Aktiviteter, turer og mentorordning for ungdom 13–25 år ved Masjid Rahma.',
-    images: ['/UngRahma.jpeg'],
+    images: ['/UngRahma_opt.jpg'],
   },
 };
 

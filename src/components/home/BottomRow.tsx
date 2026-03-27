@@ -38,8 +38,27 @@ function FeedSkeleton() {
 function CompactFacebookFeed() {
   const t = useTranslations('facebook');
   const [loaded, setLoaded] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
+  const sentinelRef = useRef<HTMLDivElement>(null);
   const [scale, setScale] = useState(1);
+
+  // Lazy-load: only render iframe when section scrolls into view
+  useEffect(() => {
+    const el = sentinelRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: '200px' },
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
 
   useEffect(() => {
     function updateScale() {
@@ -58,7 +77,7 @@ function CompactFacebookFeed() {
   )}&tabs=timeline&width=${IFRAME_WIDTH}&height=${IFRAME_HEIGHT}&small_header=true&adapt_container_width=true&hide_cover=false&show_facepile=false`;
 
   return (
-    <div className="glass-panel p-4 md:p-6 flex flex-col h-full">
+    <div ref={sentinelRef} className="glass-panel p-4 md:p-6 flex flex-col h-full">
       {/* Header */}
       <div className="flex items-center gap-2 mb-4">
         <FacebookIcon />
@@ -67,29 +86,31 @@ function CompactFacebookFeed() {
 
       {/* Iframe container */}
       <div ref={containerRef} className="flex-1 overflow-hidden rounded-lg">
-        {!loaded && <FeedSkeleton />}
-        <div
-          style={{
-            width: `${IFRAME_WIDTH}px`,
-            height: `${IFRAME_HEIGHT}px`,
-            transform: `scale(${scale})`,
-            transformOrigin: 'top left',
-          }}
-        >
-          <iframe
-            src={iframeSrc}
-            width={IFRAME_WIDTH}
-            height={IFRAME_HEIGHT}
-            className={`border-none overflow-hidden rounded-lg ${loaded ? '' : 'h-0'}`}
-            scrolling="no"
-            frameBorder="0"
-            allowFullScreen
-            allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
-            title="Masjid Rahma Facebook"
-            onLoad={() => setLoaded(true)}
-          />
-        </div>
-        {scale < 1 && (
+        {(!isVisible || !loaded) && <FeedSkeleton />}
+        {isVisible && (
+          <div
+            style={{
+              width: `${IFRAME_WIDTH}px`,
+              height: `${IFRAME_HEIGHT}px`,
+              transform: `scale(${scale})`,
+              transformOrigin: 'top left',
+            }}
+          >
+            <iframe
+              src={iframeSrc}
+              width={IFRAME_WIDTH}
+              height={IFRAME_HEIGHT}
+              className={`border-none overflow-hidden rounded-lg ${loaded ? '' : 'h-0'}`}
+              scrolling="no"
+              frameBorder="0"
+              allowFullScreen
+              allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+              title="Masjid Rahma Facebook"
+              onLoad={() => setLoaded(true)}
+            />
+          </div>
+        )}
+        {isVisible && scale < 1 && (
           <div style={{ marginTop: `${-(IFRAME_HEIGHT * (1 - scale))}px` }} />
         )}
       </div>

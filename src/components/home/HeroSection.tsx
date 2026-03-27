@@ -5,6 +5,7 @@ import { useCountdown } from '@/hooks/useCountdown';
 import { useNextPrayer } from '@/hooks/useNextPrayer';
 import { usePrayerTimes } from '@/hooks/usePrayerTimes';
 import { PRAYER_ICONS, PROJECTS } from '@/lib/constants';
+import { HeartHandshake, Mail, Users, Download, Calendar, MapPin } from 'lucide-react';
 import Link from 'next/link';
 import CalendarCard from './CalendarCard';
 import PrayerCard from './PrayerCard';
@@ -355,11 +356,11 @@ function QuickActionsCard() {
     <GlassCard className="col-span-12 sm:col-span-6">
       <div className="flex items-center gap-3 h-full">
         <Link href="/donate" className="flex-1 flex items-center justify-center gap-2 px-4 py-3 bg-primary hover:bg-primary-dark text-[var(--color-bg)] font-semibold text-sm rounded-xl transition-all duration-200 hover:shadow-glow-lg">
-          <span className="material-symbols-outlined text-lg">volunteer_activism</span>
+          <HeartHandshake className="w-[18px] h-[18px]" />
           Donate
         </Link>
         <Link href="/contact" className="flex-1 flex items-center justify-center gap-2 px-4 py-3 bg-[rgba(var(--color-primary-rgb),0.1)] hover:bg-[rgba(var(--color-primary-rgb),0.2)] text-[var(--color-text)] border border-[rgba(var(--color-primary-rgb),0.2)] font-semibold text-sm rounded-xl transition-all duration-200">
-          <span className="material-symbols-outlined text-lg">mail</span>
+          <Mail className="w-[18px] h-[18px]" />
           Contact Us
         </Link>
       </div>
@@ -375,7 +376,7 @@ function JummahCard({ schedule, t }: { schedule: ReturnType<typeof usePrayerTime
         {/* Left: icon + info */}
         <div className="flex items-center gap-3">
           <div className="w-8 h-8 md:w-9 md:h-9 rounded-full bg-[rgba(var(--color-primary-rgb),0.12)] flex items-center justify-center flex-shrink-0 border border-[rgba(var(--color-primary-rgb),0.2)]">
-            <span className="material-icons text-[var(--color-text)] text-lg md:text-xl">groups</span>
+            <Users className="w-[18px] h-[18px] md:w-5 md:h-5 text-[var(--color-text)]" />
           </div>
           <div>
             <h4 className="text-xs md:text-sm font-bold text-[var(--color-text)]">
@@ -395,7 +396,7 @@ function JummahCard({ schedule, t }: { schedule: ReturnType<typeof usePrayerTime
             download="Rahma Kalendar.pdf"
             className="flex-1 md:flex-none flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-xl bg-primary text-[var(--color-bg)] hover:bg-primary-dark transition-colors font-bold text-xs whitespace-nowrap shadow-[0_0_15px_rgba(var(--color-primary-rgb),0.2)]"
           >
-            <span className="material-symbols-outlined text-sm">download</span>
+            <Download className="w-3.5 h-3.5" />
             {t('ramadanCalendar')}
           </a>
           <a
@@ -403,7 +404,7 @@ function JummahCard({ schedule, t }: { schedule: ReturnType<typeof usePrayerTime
             download="Bønnetider 2026.xlsx"
             className="flex-1 md:flex-none flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-xl border border-[rgba(var(--color-primary-rgb),0.2)] text-[var(--color-text)] hover:bg-[rgba(var(--color-primary-rgb),0.08)] transition-all font-medium text-xs whitespace-nowrap"
           >
-            <span className="material-symbols-outlined text-sm">calendar_today</span>
+            <Calendar className="w-3.5 h-3.5" />
             {t('downloadCalendar')}
           </a>
           <a
@@ -412,7 +413,7 @@ function JummahCard({ schedule, t }: { schedule: ReturnType<typeof usePrayerTime
             rel="noopener noreferrer"
             className="flex-1 md:flex-none flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-xl border border-[rgba(var(--color-primary-rgb),0.2)] text-[var(--color-text)] hover:bg-[rgba(var(--color-primary-rgb),0.08)] transition-all font-medium text-xs whitespace-nowrap"
           >
-            <span className="material-symbols-outlined text-sm">location_on</span>
+            <MapPin className="w-3.5 h-3.5" />
             {t('getDirections')}
           </a>
         </div>

@@ -2,10 +2,11 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
+import { ArrowRight } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 
 const SECTIONS = [
-  { id: 'ungRahma',   href: '/ung-rahma',    image: '/UngRahma.jpeg' },
+  { id: 'ungRahma',   href: '/ung-rahma',    image: '/UngRahma_opt.jpg' },
   { id: 'rahmaSkole', href: '/rahma-skole',   image: '/Rahmaskole_opt.jpg' },
   { id: 'bliMedlem',  href: '/become-member', image: '/BliMedlem_opt.jpg' },
   { id: 'nyMoske',    href: '/new-mosque',    image: '/nymoskeoversikt_opt.jpg' },
@@ -69,7 +70,7 @@ function ShowcaseCard({
                        transition-colors duration-200"
           >
             {t(`${id}.cta`)}
-            <span className="material-symbols-outlined text-lg">arrow_forward</span>
+            <ArrowRight className="w-[18px] h-[18px]" />
           </Link>
         </div>
       </div>
@@ -82,7 +83,7 @@ function ShowcaseCard({
             alt={t(`${id}.title`)}
             fill
             className="object-cover rounded-t-2xl"
-            sizes="100vw"
+            sizes="(max-width: 768px) 100vw, 50vw"
           />
         </div>
         <div
@@ -106,7 +107,7 @@ function ShowcaseCard({
                        transition-colors duration-200"
           >
             {t(`${id}.cta`)}
-            <span className="material-symbols-outlined text-base">arrow_forward</span>
+            <ArrowRight className="w-4 h-4" />
           </Link>
         </div>
       </div>

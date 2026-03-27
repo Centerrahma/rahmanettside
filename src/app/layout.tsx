@@ -4,7 +4,6 @@ import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
-import { DeferredIconFonts } from '@/components/layout/DeferredIconFonts';
 import './globals.css';
 
 const sourceSerif = Source_Serif_4({
@@ -134,7 +133,6 @@ export default async function RootLayout({
           <Navbar />
           <main id="main-content">{children}</main>
           <Footer />
-          <DeferredIconFonts />
         </NextIntlClientProvider>
       </body>
     </html>

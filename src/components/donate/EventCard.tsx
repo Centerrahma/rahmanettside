@@ -1,5 +1,6 @@
 import type { CommunityEvent } from '@/types/event';
 import Image from 'next/image';
+import { Mic, Calendar, Clock } from 'lucide-react';
 import Badge from '@/components/ui/Badge';
 
 interface EventCardProps {
@@ -26,9 +27,7 @@ export default function EventCard({ event }: EventCardProps) {
       ) : (
         <>
           <div className="absolute inset-0 bg-gradient-to-br from-indigo-600 to-purple-700"></div>
-          <span className="material-icons absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-white/10 pointer-events-none" style={{ fontSize: '8rem' }}>
-            mic
-          </span>
+          <Mic className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-32 h-32 text-white/10 pointer-events-none" />
         </>
       )}
 
@@ -47,11 +46,11 @@ export default function EventCard({ event }: EventCardProps) {
           </p>
           <div className="flex items-center gap-3 text-xs font-mono text-primary">
             <span className="flex items-center gap-1">
-              <span className="material-icons text-sm">calendar_today</span>
+              <Calendar className="w-3.5 h-3.5" />
               {event.day}
             </span>
             <span className="flex items-center gap-1">
-              <span className="material-icons text-sm">schedule</span>
+              <Clock className="w-3.5 h-3.5" />
               {event.time}
             </span>
           </div>

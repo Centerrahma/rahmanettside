@@ -1,9 +1,10 @@
 import Image from 'next/image';
+import { ArrowRight } from 'lucide-react';
 
 interface ServiceCardProps {
   title: string;
   description: string;
-  icon: string; // Material icon name
+  icon: React.ReactNode;
   imageUrl: string;
   ctaText: string;
 }
@@ -33,7 +34,7 @@ export default function ServiceCard({
       <div className="absolute bottom-0 left-0 p-8 w-full transform transition-transform duration-300 translate-y-2 group-hover:translate-y-0">
         {/* Icon circle */}
         <div className="w-12 h-12 bg-primary rounded-full flex items-center justify-center mb-4 text-[var(--color-bg)]">
-          <span className="material-icons">{icon}</span>
+          {icon}
         </div>
 
         <h3 className="text-2xl font-bold text-[var(--color-text)] mb-2">{title}</h3>
@@ -44,7 +45,7 @@ export default function ServiceCard({
         </p>
 
         <span className="text-[var(--color-text)] text-sm font-bold flex items-center gap-2">
-          {ctaText} <span className="material-icons text-xs">arrow_forward</span>
+          {ctaText} <ArrowRight className="w-3 h-3" />
         </span>
       </div>
     </div>

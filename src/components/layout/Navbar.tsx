@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { useTranslations } from 'next-intl';
 import Link from 'next/link';
+import { ChevronDown, Menu, X } from 'lucide-react';
 import { ThemeToggle } from './ThemeToggle';
 import { Logo } from './Logo';
 
@@ -97,11 +98,9 @@ export function Navbar() {
                   aria-haspopup="true"
                 >
                   {t('more')}
-                  <span
-                    className={`material-icons text-base transition-transform duration-200 ${isDropdownOpen ? 'rotate-180' : ''}`}
-                  >
-                    expand_more
-                  </span>
+                  <ChevronDown
+                    className={`w-4 h-4 transition-transform duration-200 ${isDropdownOpen ? 'rotate-180' : ''}`}
+                  />
                 </button>
 
                 {isDropdownOpen && (
@@ -138,7 +137,7 @@ export function Navbar() {
               className="md:hidden w-10 h-10 flex items-center justify-center text-[var(--color-text)] hover:text-[var(--color-primary-val)] transition-colors"
               aria-label="Open menu"
             >
-              <span className="material-icons">menu</span>
+              <Menu className="w-6 h-6" />
             </button>
           </div>
         </div>
@@ -168,7 +167,7 @@ export function Navbar() {
                 className="w-10 h-10 flex items-center justify-center text-[var(--color-text-muted)] hover:text-[var(--color-text)] transition-colors"
                 aria-label="Close menu"
               >
-                <span className="material-icons">close</span>
+                <X className="w-6 h-6" />
               </button>
             </div>
 

@@ -1,6 +1,7 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
+import { MapPin, Mail } from 'lucide-react';
 import Link from 'next/link';
 import { Logo } from './Logo';
 
@@ -79,17 +80,13 @@ export function Footer() {
             </h4>
             <ul className="space-y-4">
               <li className="flex items-start gap-3">
-                <span className="material-icons text-[var(--color-primary-val)] text-lg mt-0.5">
-                  location_on
-                </span>
+                <MapPin className="w-[18px] h-[18px] text-[var(--color-primary-val)] mt-0.5 flex-shrink-0" />
                 <span className="text-sm text-[var(--color-text-muted)]">
                   Tvetenveien 154, 0671 Oslo
                 </span>
               </li>
               <li className="flex items-start gap-3">
-                <span className="material-icons text-[var(--color-primary-val)] text-lg mt-0.5">
-                  email
-                </span>
+                <Mail className="w-[18px] h-[18px] text-[var(--color-primary-val)] mt-0.5 flex-shrink-0" />
                 <span className="text-sm text-[var(--color-text-muted)]">
                   post@centerrahma.no
                 </span>

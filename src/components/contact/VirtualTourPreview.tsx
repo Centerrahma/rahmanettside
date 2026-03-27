@@ -1,5 +1,6 @@
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
+import { Play, Images } from 'lucide-react';
 import Button from '@/components/ui/Button';
 
 export default function VirtualTourPreview() {
@@ -41,9 +42,7 @@ export default function VirtualTourPreview() {
             <div className="relative w-20 h-20 rounded-full bg-[var(--color-bg)]/90 backdrop-blur-sm border border-[var(--color-primary-val)]/30 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
               {/* Inner circle with play icon */}
               <div className="w-14 h-14 rounded-full bg-[var(--color-primary-val)] flex items-center justify-center">
-                <span className="material-symbols-outlined text-[var(--color-bg)] text-2xl ml-1">
-                  play_arrow
-                </span>
+                <Play className="w-6 h-6 text-[var(--color-bg)] ml-1" fill="currentColor" />
               </div>
             </div>
           </div>
@@ -59,7 +58,7 @@ export default function VirtualTourPreview() {
 
       {/* View Gallery Button */}
       <Button variant="secondary" className="w-full sm:w-auto">
-        <span className="material-symbols-outlined">collections</span>
+        <Images className="w-5 h-5" />
         {t('viewGallery')}
       </Button>
     </div>
