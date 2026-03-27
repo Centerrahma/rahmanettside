@@ -1,10 +1,11 @@
 import type { Metadata } from 'next';
 import { Suspense, lazy } from 'react';
+import dynamic from 'next/dynamic';
 import { getTranslations } from 'next-intl/server';
 import HeroSection from '@/components/home/HeroSection';
-import ShowcaseSections from '@/components/home/ShowcaseSections';
 import PageBackground from '@/components/home/PageBackground';
 
+const ShowcaseSections = dynamic(() => import('@/components/home/ShowcaseSections'), { ssr: true });
 const BottomRow = lazy(() => import('@/components/home/BottomRow'));
 
 export async function generateMetadata(): Promise<Metadata> {

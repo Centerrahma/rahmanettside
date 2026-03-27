@@ -16,7 +16,7 @@ const sourceSerif = Source_Serif_4({
 const plusJakarta = Plus_Jakarta_Sans({
   variable: '--font-jakarta',
   subsets: ['latin'],
-  weight: ['300', '400', '500', '600', '700'],
+  weight: ['400', '500', '600', '700'],
   display: 'swap',
 });
 
@@ -113,10 +113,6 @@ export default async function RootLayout({
           }}
         />
         <OrganizationJsonLd />
-        <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
-        <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
-        <link rel="preconnect" href="https://fonts.googleapis.com" crossOrigin="anonymous" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <meta name="theme-color" content="#047857" media="(prefers-color-scheme: light)" />
         <meta name="theme-color" content="#060b0e" media="(prefers-color-scheme: dark)" />
       </head>

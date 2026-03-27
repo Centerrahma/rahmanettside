@@ -24,7 +24,11 @@ const securityHeaders = [
 ];
 
 const nextConfig: NextConfig = {
+  experimental: {
+    optimizePackageImports: ['framer-motion', 'lucide-react'],
+  },
   images: {
+    qualities: [60, 75],
     remotePatterns: [
       {
         protocol: 'https',

@@ -40,6 +40,7 @@ function ShowcaseCard({
             fill
             className="object-cover"
             sizes="50vw"
+            quality={60}
           />
         </div>
         {/* Content card side */}
@@ -84,6 +85,7 @@ function ShowcaseCard({
             fill
             className="object-cover rounded-t-2xl"
             sizes="(max-width: 768px) 100vw, 50vw"
+            quality={60}
           />
         </div>
         <div
