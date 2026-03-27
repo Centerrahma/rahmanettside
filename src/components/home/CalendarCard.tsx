@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { CalendarDays } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 
 function GlassCard({
@@ -68,7 +69,7 @@ export default function CalendarCard() {
         <GlassCard className="col-span-12 md:col-span-5">
             <div className="flex items-center gap-2 md:gap-3">
                 <div className="w-8 h-8 md:w-9 md:h-9 rounded-xl bg-primary flex items-center justify-center shrink-0">
-                    <span className="material-symbols-outlined text-[var(--color-bg)] text-lg">calendar_month</span>
+                    <CalendarDays className="w-[18px] h-[18px] text-[var(--color-bg)]" />
                 </div>
 
                 <div className="min-w-0 flex-1">

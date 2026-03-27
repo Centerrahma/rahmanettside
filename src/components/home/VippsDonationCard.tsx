@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import { HeartHandshake, Info, ExternalLink } from 'lucide-react';
 
 const VIPPS_DONATION_URL = 'https://qr.vipps.no/donations/43392';
 
@@ -7,9 +8,7 @@ export default function VippsDonationCard() {
     <div className="glass-panel p-4 md:p-6 flex flex-col h-full">
       {/* Header */}
       <div className="flex items-center gap-2 md:gap-3 mb-4">
-        <span className="material-symbols-outlined text-primary text-2xl">
-          volunteer_activism
-        </span>
+        <HeartHandshake className="w-6 h-6 text-primary" />
         <div>
           <h3 className="text-lg font-bold text-[var(--color-text)]">Støtt Masjid Rahma</h3>
           <p className="text-[10px] md:text-xs text-[var(--color-text-muted)]">Doner enkelt via Vipps</p>
@@ -19,7 +18,7 @@ export default function VippsDonationCard() {
       {/* Info box */}
       <div className="rounded-xl bg-primary/10 border border-primary/20 px-4 py-3 mb-4">
         <div className="flex items-start gap-2.5">
-          <span className="material-symbols-outlined text-primary text-lg mt-0.5 flex-shrink-0">info</span>
+          <Info className="w-[18px] h-[18px] text-primary mt-0.5 flex-shrink-0" />
           <p className="text-sm leading-relaxed text-[var(--color-text)]">
             Bruk QR-koden eller knappen nedenfor for å donere via Vipps. Du kan velge mellom{' '}
             <span className="font-bold">engangsbetaling</span> eller{' '}
@@ -51,7 +50,7 @@ export default function VippsDonationCard() {
                    transition-colors shadow-md mb-4"
       >
         <span>Doner med Vipps</span>
-        <span className="material-symbols-outlined text-lg">open_in_new</span>
+        <ExternalLink className="w-[18px] h-[18px]" />
       </a>
 
       {/* Vipps number */}
