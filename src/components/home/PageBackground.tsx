@@ -22,7 +22,7 @@ export default function PageBackground() {
 
       {/* Large emerald — center top */}
       <div
-        className="aurora-blob absolute rounded-full opacity-[0.30] dark:opacity-[0.20]"
+        className="hidden md:block aurora-blob absolute rounded-full opacity-[0.30] dark:opacity-[0.20]"
         style={{
           width: '900px',
           height: '900px',
@@ -37,7 +37,7 @@ export default function PageBackground() {
 
       {/* Gold accent — left side */}
       <div
-        className="aurora-blob absolute rounded-full opacity-[0.22] dark:opacity-[0.14]"
+        className="hidden md:block aurora-blob absolute rounded-full opacity-[0.22] dark:opacity-[0.14]"
         style={{
           width: '700px',
           height: '700px',
@@ -51,7 +51,7 @@ export default function PageBackground() {
 
       {/* Gold accent — right side (mirror) */}
       <div
-        className="aurora-blob absolute rounded-full opacity-[0.20] dark:opacity-[0.12]"
+        className="hidden md:block aurora-blob absolute rounded-full opacity-[0.20] dark:opacity-[0.12]"
         style={{
           width: '600px',
           height: '600px',
@@ -65,7 +65,7 @@ export default function PageBackground() {
 
       {/* Deep emerald — right side */}
       <div
-        className="aurora-blob absolute rounded-full opacity-25 dark:opacity-[0.16]"
+        className="hidden md:block aurora-blob absolute rounded-full opacity-25 dark:opacity-[0.16]"
         style={{
           width: '700px',
           height: '700px',
@@ -79,7 +79,7 @@ export default function PageBackground() {
 
       {/* Deep emerald — left side (stronger to match right which gets center blob bleed) */}
       <div
-        className="aurora-blob absolute rounded-full opacity-[0.35] dark:opacity-25"
+        className="hidden md:block aurora-blob absolute rounded-full opacity-[0.35] dark:opacity-25"
         style={{
           width: '900px',
           height: '900px',
@@ -93,7 +93,7 @@ export default function PageBackground() {
 
       {/* Gold top highlight — center */}
       <div
-        className="aurora-blob absolute rounded-full opacity-[0.18] dark:opacity-[0.12]"
+        className="hidden md:block aurora-blob absolute rounded-full opacity-[0.18] dark:opacity-[0.12]"
         style={{
           width: '400px',
           height: '300px',
@@ -108,7 +108,7 @@ export default function PageBackground() {
 
       {/* Emerald glow — lower left (visible behind showcase cards as user scrolls) */}
       <div
-        className="aurora-blob absolute rounded-full opacity-[0.25] dark:opacity-[0.16]"
+        className="hidden md:block aurora-blob absolute rounded-full opacity-[0.25] dark:opacity-[0.16]"
         style={{
           width: '800px',
           height: '800px',
@@ -122,7 +122,7 @@ export default function PageBackground() {
 
       {/* Gold glow — lower right (visible behind showcase cards as user scrolls) */}
       <div
-        className="aurora-blob absolute rounded-full opacity-[0.18] dark:opacity-[0.10]"
+        className="hidden md:block aurora-blob absolute rounded-full opacity-[0.18] dark:opacity-[0.10]"
         style={{
           width: '700px',
           height: '700px',
@@ -131,6 +131,21 @@ export default function PageBackground() {
           right: '10%',
           filter: 'blur(130px)',
           animation: 'aurora-drift 13s ease-in-out 4s infinite reverse',
+        }}
+      />
+
+      {/* ─── Mobile Optimized Background ─── */}
+      <div
+        className="md:hidden aurora-blob absolute rounded-[100%] opacity-[0.25] dark:opacity-[0.20]"
+        style={{
+          width: '150vw',
+          height: '80vh',
+          background: 'radial-gradient(ellipse, var(--color-primary-val) 0%, rgba(198,162,85,0.4) 40%, transparent 70%)',
+          top: '10%',
+          left: '50%',
+          transform: 'translateX(-50%)',
+          filter: 'blur(60px)',
+          animation: 'aurora-drift 20s ease-in-out infinite',
         }}
       />
 

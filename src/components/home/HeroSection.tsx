@@ -43,70 +43,6 @@ function ParticleField() {
   );
 }
 
-/* ─── Aurora background blobs ─── */
-function AuroraBackground() {
-  return (
-    <div className="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
-      {/* Primary green — large center blob */}
-      <div
-        className="aurora-blob absolute rounded-full"
-        style={{
-          width: '700px',
-          height: '700px',
-          background: 'radial-gradient(circle, var(--color-primary-val) 0%, transparent 70%)',
-          top: '25%',
-          left: '50%',
-          transform: 'translate(-50%, -50%)',
-          filter: 'blur(130px)',
-          opacity: 0.22,
-          animation: 'aurora-drift 10s ease-in-out infinite',
-        }}
-      />
-      {/* Gold accent — left */}
-      <div
-        className="aurora-blob absolute rounded-full"
-        style={{
-          width: '500px',
-          height: '500px',
-          background: 'radial-gradient(circle, #C6A255 0%, transparent 70%)',
-          top: '45%',
-          left: '25%',
-          filter: 'blur(110px)',
-          opacity: 0.14,
-          animation: 'aurora-drift 14s ease-in-out infinite reverse',
-        }}
-      />
-      {/* Deep emerald — right */}
-      <div
-        className="aurora-blob absolute rounded-full"
-        style={{
-          width: '450px',
-          height: '450px',
-          background: 'radial-gradient(circle, #047857 0%, transparent 70%)',
-          top: '55%',
-          right: '15%',
-          filter: 'blur(100px)',
-          opacity: 0.16,
-          animation: 'aurora-drift 12s ease-in-out 3s infinite',
-        }}
-      />
-      {/* Subtle gold top highlight */}
-      <div
-        className="aurora-blob absolute rounded-full"
-        style={{
-          width: '300px',
-          height: '200px',
-          background: 'radial-gradient(ellipse, rgba(212,168,67,0.3) 0%, transparent 70%)',
-          top: '8%',
-          left: '45%',
-          filter: 'blur(80px)',
-          opacity: 0.12,
-          animation: 'aurora-drift 16s ease-in-out 5s infinite',
-        }}
-      />
-    </div>
-  );
-}
 
 /* ─── Animated border wrapper ─── */
 function GlassCard({
@@ -128,17 +64,20 @@ function GlassCard({
 
   return (
     <div className={`relative rounded-2xl p-[1px] overflow-hidden group ${className}`}>
-      {/* Spinning conic gradient behind the card */}
+      {/* Spinning conic gradient behind the card (desktop only) */}
       <div
-        className="absolute inset-[-50%]"
+        className="hidden md:block absolute inset-[-50%]"
         style={{
           background: 'conic-gradient(from 0deg, transparent 0%, var(--color-primary-val) 15%, transparent 30%, #C6A255 50%, transparent 65%, #047857 80%, transparent 100%)',
           animation: 'border-spin 12s linear infinite',
           opacity: 0.25,
         }}
       />
+      {/* Static gradient border fallback (mobile only) */}
+      <div className="md:hidden absolute inset-0 bg-gradient-to-br from-[rgba(var(--color-primary-rgb),0.3)] via-transparent to-[rgba(198,162,85,0.2)]" />
+
       {/* Card content */}
-      <div className="relative hero-glass-card rounded-2xl p-2 md:p-3 h-full flex flex-col transition-all duration-300 group-hover:shadow-[0_0_25px_rgba(var(--color-primary-rgb),0.15)]">
+      <div className="relative hero-glass-card rounded-2xl p-2 md:p-3 h-full flex flex-col transition-all duration-300 md:group-hover:shadow-[0_0_25px_rgba(var(--color-primary-rgb),0.15)]">
         {children}
       </div>
     </div>
@@ -504,15 +443,17 @@ export default function HeroSection() {
         >
           {/* Outer glass container with animated border */}
           <div className="relative rounded-3xl p-[1px] overflow-hidden">
-            {/* Outer spinning border */}
+            {/* Outer spinning border (desktop only) */}
             <div
-              className="absolute inset-[-50%]"
+              className="hidden md:block absolute inset-[-50%]"
               style={{
                 background: 'conic-gradient(from 0deg, transparent 0%, var(--color-primary-val) 10%, transparent 20%, rgba(198,162,85,0.6) 35%, transparent 45%, #047857 60%, transparent 70%, rgba(var(--color-primary-rgb),0.4) 85%, transparent 100%)',
                 animation: 'border-spin 16s linear infinite',
                 opacity: 0.25,
               }}
             />
+            {/* Static outer border (mobile only) */}
+            <div className="md:hidden absolute inset-0 bg-gradient-to-tr from-[rgba(var(--color-primary-rgb),0.4)] via-[rgba(0,0,0,0.05)] to-[rgba(198,162,85,0.3)] opacity-40" />
 
             {/* Dashboard inner content */}
             <div className="relative hero-glass rounded-3xl p-2 md:p-3">

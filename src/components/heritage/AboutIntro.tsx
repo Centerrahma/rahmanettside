@@ -2,6 +2,7 @@
 
 import { useTranslations } from 'next-intl';
 import { motion } from 'framer-motion';
+import { Building2 } from 'lucide-react';
 
 export default function AboutIntro() {
   const t = useTranslations('heritage');
@@ -39,7 +40,7 @@ export default function AboutIntro() {
         {/* Icon */}
         <div className="flex items-center gap-3 mb-6">
           <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center">
-            <span className="material-icons text-primary text-2xl">mosque</span>
+            <Building2 className="text-primary w-6 h-6" />
           </div>
           <div className="h-px flex-1 bg-gradient-to-r from-primary/20 to-transparent" />
         </div>

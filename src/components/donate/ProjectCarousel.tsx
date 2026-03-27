@@ -1,6 +1,7 @@
 'use client';
 
 import { Fragment, useRef, useState, useEffect } from 'react';
+import { Landmark, ChevronLeft, ChevronRight } from 'lucide-react';
 import type { DonationProject } from '@/types/donation';
 import ProjectCard from './ProjectCard';
 import CompactProjectTile from './CompactProjectTile';
@@ -61,7 +62,7 @@ export default function ProjectCarousel({
             <div className="flex items-center justify-between mb-4 md:mb-6">
                 <div>
                     <h2 className="text-xl md:text-2xl font-bold flex items-center gap-2">
-                        <span className="material-icons text-primary">foundation</span>
+                        <Landmark className="text-primary w-6 h-6" />
                         Pågående Prosjekter
                     </h2>
                     <p className="text-xs md:text-sm text-[var(--color-text-muted)] mt-1">
@@ -80,7 +81,7 @@ export default function ProjectCarousel({
                             }`}
                         aria-label="Scroll left"
                     >
-                        <span className="material-icons">chevron_left</span>
+                        <ChevronLeft className="w-6 h-6" />
                     </button>
                     <button
                         onClick={() => scroll('right')}
@@ -91,7 +92,7 @@ export default function ProjectCarousel({
                             }`}
                         aria-label="Scroll right"
                     >
-                        <span className="material-icons">chevron_right</span>
+                        <ChevronRight className="w-6 h-6" />
                     </button>
                 </div>
             </div>

@@ -1,23 +1,25 @@
 import { useTranslations } from 'next-intl';
+import type { LucideIcon } from 'lucide-react';
+import { Users, GraduationCap, HeartHandshake } from 'lucide-react';
 
 export default function MissionSection() {
   const t = useTranslations('heritage');
 
-  const missionCards = [
+  const missionCards: { title: string; description: string; icon: LucideIcon }[] = [
     {
       title: t('community.title'),
       description: t('community.desc'),
-      icon: 'groups',
+      icon: Users,
     },
     {
       title: t('education.title'),
       description: t('education.desc'),
-      icon: 'school',
+      icon: GraduationCap,
     },
     {
       title: t('service.title'),
       description: t('service.desc'),
-      icon: 'volunteer_activism',
+      icon: HeartHandshake,
     },
   ];
 
@@ -40,7 +42,7 @@ export default function MissionSection() {
             {/* Icon Circle */}
             <div className="flex justify-center mb-6">
               <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors duration-300">
-                <span className="material-icons text-primary text-4xl">{card.icon}</span>
+                <card.icon className="text-primary w-9 h-9" />
               </div>
             </div>
 

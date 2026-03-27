@@ -1,11 +1,12 @@
 import Link from 'next/link';
+import { Building2, Home } from 'lucide-react';
 
 export default function NotFound() {
   return (
     <div className="min-h-[80vh] flex items-center justify-center">
       <div className="text-center px-4">
         <div className="mb-8">
-          <span className="material-icons text-primary text-7xl">mosque</span>
+          <Building2 className="w-16 h-16 text-primary mx-auto" />
         </div>
         <h1 className="text-8xl font-bold text-primary mb-4 font-[family-name:var(--font-display)]">
           404
@@ -17,7 +18,7 @@ export default function NotFound() {
           href="/"
           className="inline-flex items-center gap-2 px-8 py-4 bg-primary text-[var(--color-bg)] font-semibold rounded-full hover:opacity-90 transition-opacity"
         >
-          <span className="material-icons">home</span>
+          <Home className="w-6 h-6" />
           Go Home
         </Link>
       </div>

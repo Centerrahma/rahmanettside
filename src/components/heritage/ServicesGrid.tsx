@@ -2,31 +2,42 @@
 
 import { useTranslations } from 'next-intl';
 import { motion } from 'framer-motion';
+import type { LucideIcon } from 'lucide-react';
+import {
+  Building2,
+  Calendar,
+  PartyPopper,
+  Users,
+  Headphones,
+  DoorOpen,
+  GraduationCap,
+  Heart,
+} from 'lucide-react';
 
 type TileSize = 'large' | 'small' | 'contact';
 
 interface ServiceTile {
   key: string;
-  icon: string;
+  icon: LucideIcon;
   size: TileSize;
 }
 
 const tiles: ServiceTile[] = [
   // Row 1
-  { key: 'prayer', icon: 'mosque', size: 'large' },
-  { key: 'friday', icon: 'event', size: 'small' },
-  { key: 'eid', icon: 'celebration', size: 'small' },
+  { key: 'prayer', icon: Building2, size: 'large' },
+  { key: 'friday', icon: Calendar, size: 'small' },
+  { key: 'eid', icon: PartyPopper, size: 'small' },
   // Row 2
-  { key: 'safespace', icon: 'diversity_3', size: 'small' },
-  { key: 'social', icon: 'groups', size: 'small' },
-  { key: 'guidance', icon: 'support_agent', size: 'small' },
-  { key: 'venue', icon: 'meeting_room', size: 'small' },
+  { key: 'safespace', icon: Users, size: 'small' },
+  { key: 'social', icon: Users, size: 'small' },
+  { key: 'guidance', icon: Headphones, size: 'small' },
+  { key: 'venue', icon: DoorOpen, size: 'small' },
   // Row 3
-  { key: 'education', icon: 'school', size: 'large' },
-  { key: 'contact', icon: 'favorite', size: 'contact' },
+  { key: 'education', icon: GraduationCap, size: 'large' },
+  { key: 'contact', icon: Heart, size: 'contact' },
 ];
 
-function LargeTile({ icon, text, delay }: { icon: string; text: string; delay: number }) {
+function LargeTile({ icon: Icon, text, delay }: { icon: LucideIcon; text: string; delay: number }) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 24 }}
@@ -37,7 +48,7 @@ function LargeTile({ icon, text, delay }: { icon: string; text: string; delay: n
     >
       <div className="flex items-start gap-4">
         <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center shrink-0 group-hover:bg-primary/20 transition-colors duration-300">
-          <span className="material-icons text-primary text-xl">{icon}</span>
+          <Icon className="text-primary w-5 h-5" />
         </div>
         <p className="text-[var(--color-text)] text-sm md:text-base leading-relaxed font-medium pt-1.5">
           {text}
@@ -47,7 +58,7 @@ function LargeTile({ icon, text, delay }: { icon: string; text: string; delay: n
   );
 }
 
-function SmallTile({ icon, text, delay }: { icon: string; text: string; delay: number }) {
+function SmallTile({ icon: Icon, text, delay }: { icon: LucideIcon; text: string; delay: number }) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 24 }}
@@ -58,7 +69,7 @@ function SmallTile({ icon, text, delay }: { icon: string; text: string; delay: n
     >
       <div className="flex items-center gap-3">
         <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center shrink-0 group-hover:bg-primary/20 transition-colors duration-300">
-          <span className="material-icons text-primary text-lg">{icon}</span>
+          <Icon className="text-primary w-5 h-5" />
         </div>
         <p className="text-[var(--color-text)] text-sm leading-snug font-medium">
           {text}
@@ -79,7 +90,7 @@ function ContactTile({ text, delay }: { text: string; delay: number }) {
     >
       <div className="flex items-start gap-4">
         <div className="w-10 h-10 rounded-xl bg-[var(--color-gold)]/10 flex items-center justify-center shrink-0">
-          <span className="material-icons text-[var(--color-gold)] text-xl">favorite</span>
+          <Heart className="text-[var(--color-gold)] w-5 h-5" />
         </div>
         <p className="text-[var(--color-text-muted)] text-sm leading-relaxed italic pt-1.5">
           {text}

@@ -5,6 +5,7 @@ import { useTranslations } from 'next-intl';
 import Container from '@/components/ui/Container';
 import Button from '@/components/ui/Button';
 import { DONATION_AMOUNTS, DEFAULT_AMOUNT } from '@/lib/constants';
+import { Check, Lock } from 'lucide-react';
 
 export default function DonationCTA() {
   const t = useTranslations();
@@ -51,7 +52,7 @@ export default function DonationCTA() {
             <div className="space-y-6">
               <div className="flex items-center gap-4">
                 <div className="w-12 h-12 rounded-full bg-[rgba(var(--color-primary-rgb),0.1)] flex items-center justify-center text-[var(--color-text)]">
-                  <span className="material-icons">check</span>
+                  <Check className="w-6 h-6" />
                 </div>
                 <div>
                   <h4 className="font-bold text-[var(--color-text)]">
@@ -65,7 +66,7 @@ export default function DonationCTA() {
 
               <div className="flex items-center gap-4">
                 <div className="w-12 h-12 rounded-full bg-[rgba(var(--color-primary-rgb),0.1)] flex items-center justify-center text-[var(--color-text)]">
-                  <span className="material-icons">check</span>
+                  <Check className="w-6 h-6" />
                 </div>
                 <div>
                   <h4 className="font-bold text-[var(--color-text)]">
@@ -131,7 +132,7 @@ export default function DonationCTA() {
 
             {/* Security note */}
             <p className="text-center text-[var(--color-text-muted)] text-xs mt-4 flex items-center justify-center gap-1">
-              <span className="material-icons text-xs">lock</span>{' '}
+              <Lock className="w-3 h-3" />{' '}
               {t('common.securePay')}
             </p>
           </div>

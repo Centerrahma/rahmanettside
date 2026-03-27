@@ -23,11 +23,12 @@ function ShowcaseCard({
 
   return (
     <article className="relative rounded-2xl overflow-hidden group
-                        shadow-[0_4px_24px_rgba(0,0,0,0.10),0_1px_6px_rgba(0,0,0,0.06)]
-                        dark:shadow-[0_4px_24px_rgba(0,0,0,0.4),0_1px_6px_rgba(0,0,0,0.2)]
+                        shadow-md dark:shadow-[0_4px_12px_rgba(0,0,0,0.3)]
+                        md:shadow-[0_4px_24px_rgba(0,0,0,0.10),0_1px_6px_rgba(0,0,0,0.06)]
+                        md:dark:shadow-[0_4px_24px_rgba(0,0,0,0.4),0_1px_6px_rgba(0,0,0,0.2)]
                         transition-shadow duration-300
-                        hover:shadow-[0_8px_40px_rgba(0,0,0,0.15),0_2px_12px_rgba(0,0,0,0.1)]
-                        dark:hover:shadow-[0_8px_40px_rgba(0,0,0,0.6),0_2px_12px_rgba(0,0,0,0.3)]">
+                        md:hover:shadow-[0_8px_40px_rgba(0,0,0,0.15),0_2px_12px_rgba(0,0,0,0.1)]
+                        md:dark:hover:shadow-[0_8px_40px_rgba(0,0,0,0.6),0_2px_12px_rgba(0,0,0,0.3)]">
       {/* ── Desktop: side-by-side image + content card ── */}
       <div className={`hidden md:grid md:grid-cols-2 min-h-[336px] ${
         isEven ? '' : 'direction-rtl'
@@ -91,8 +92,7 @@ function ShowcaseCard({
         <div
           className="bg-[var(--glass-card-bg)]
                       border border-[var(--glass-card-border)] border-t-0 rounded-b-2xl p-4
-                      shadow-[0_8px_32px_rgba(0,0,0,0.12),0_2px_8px_rgba(0,0,0,0.08)]
-                      dark:shadow-[0_8px_32px_rgba(0,0,0,0.5),0_2px_8px_rgba(0,0,0,0.3)]"
+                      shadow-sm dark:shadow-md"
         >
           <h3 className="text-xl font-bold text-[var(--color-text)] mb-2 font-[family-name:var(--font-display)]">
             {t(`${id}.title`)}

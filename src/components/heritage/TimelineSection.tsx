@@ -2,12 +2,14 @@
 
 import { useTranslations } from 'next-intl';
 import { motion } from 'framer-motion';
+import type { LucideIcon } from 'lucide-react';
+import { Landmark, Building, Home } from 'lucide-react';
 
-const timelineItems = [
-  { key: 'founding', icon: 'foundation', isLeft: true },
-  { key: 'move', icon: 'apartment', isLeft: false },
-  { key: 'permanent', icon: 'home', isLeft: true },
-] as const;
+const timelineItems: { key: string; icon: LucideIcon; isLeft: boolean }[] = [
+  { key: 'founding', icon: Landmark, isLeft: true },
+  { key: 'move', icon: Building, isLeft: false },
+  { key: 'permanent', icon: Home, isLeft: true },
+];
 
 export default function TimelineSection() {
   const t = useTranslations('heritage');
@@ -74,9 +76,7 @@ export default function TimelineSection() {
             {/* Timeline dot */}
             <div className="absolute left-6 md:left-1/2 -translate-x-1/2 flex flex-col items-center z-10">
               <div className="w-12 h-12 rounded-full bg-primary/10 border-2 border-primary flex items-center justify-center shadow-lg shadow-primary/20">
-                <span className="material-icons text-primary text-xl">
-                  {item.icon}
-                </span>
+                <item.icon className="text-primary w-5 h-5" />
               </div>
             </div>
 

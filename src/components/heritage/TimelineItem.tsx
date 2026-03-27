@@ -1,19 +1,21 @@
+import type { LucideIcon } from 'lucide-react';
+
 interface TimelineItemProps {
   year: string;
   title: string;
   description: string;
   isLeft: boolean;
-  icon: string;
+  icon: LucideIcon;
 }
 
-export default function TimelineItem({ year, title, description, isLeft, icon }: TimelineItemProps) {
+export default function TimelineItem({ year, title, description, isLeft, icon: Icon }: TimelineItemProps) {
   return (
     <div className={`relative flex items-center mb-16 md:mb-24 ${isLeft ? 'md:flex-row' : 'md:flex-row-reverse'}`}>
       {/* Content Card */}
       <div className={`w-full md:w-5/12 ${isLeft ? 'md:text-right md:pr-12' : 'md:text-left md:pl-12'}`}>
         <div className="bg-[var(--color-surface)] border border-[var(--color-border)] rounded-lg p-6 md:p-8 shadow-lg hover:shadow-xl transition-shadow duration-300">
           <div className={`flex items-center gap-3 mb-4 ${isLeft ? 'md:justify-end' : 'md:justify-start'}`}>
-            <span className="material-icons text-primary text-3xl">{icon}</span>
+            <Icon className="text-primary w-7 h-7" />
             <h3 className="text-2xl font-bold text-[var(--color-text)] font-[family-name:var(--font-display)]">
               {title}
             </h3>

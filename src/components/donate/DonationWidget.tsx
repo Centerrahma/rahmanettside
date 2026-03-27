@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { HeartHandshake, CreditCard, Apple, Wallet, Loader2, ArrowRight, Lock } from 'lucide-react';
 import { useLocale } from 'next-intl';
 import { DONATION_AMOUNTS, DEFAULT_AMOUNT, CURRENCY } from '@/lib/constants';
 
@@ -97,9 +98,7 @@ export default function DonationWidget({
     <div className="glass-panel p-3 md:p-6">
       {/* Header */}
       <div className="flex items-center gap-2 md:gap-3 mb-3 md:mb-4">
-        <span className="material-icons text-primary text-2xl md:text-3xl">
-          volunteer_activism
-        </span>
+        <HeartHandshake className="text-primary w-6 h-6 md:w-7 md:h-7" />
         <div>
           <h2 className="text-lg md:text-xl font-bold">{title}</h2>
           <p className="text-[10px] md:text-xs text-[var(--color-text-muted)]">{subtitle}</p>
@@ -189,7 +188,7 @@ export default function DonationWidget({
               onChange={(e) => setPaymentMethod(e.target.value as PaymentMethod)}
               className="sr-only"
             />
-            <span className="material-icons text-primary text-lg md:text-2xl">credit_card</span>
+            <CreditCard className="text-primary w-5 h-5 md:w-6 md:h-6" />
             <span className="flex-1 font-semibold text-xs md:text-sm">Card</span>
           </label>
 
@@ -205,9 +204,7 @@ export default function DonationWidget({
               disabled
               className="sr-only"
             />
-            <span className="material-icons text-[var(--color-text-muted)] text-lg md:text-2xl">
-              apple
-            </span>
+            <Apple className="text-[var(--color-text-muted)] w-5 h-5 md:w-6 md:h-6" />
             <span className="flex-1 font-semibold text-xs md:text-sm text-[var(--color-text-muted)]">
               Apple Pay
             </span>
@@ -228,9 +225,7 @@ export default function DonationWidget({
               disabled
               className="sr-only"
             />
-            <span className="material-icons text-[var(--color-text-muted)] text-lg md:text-2xl">
-              payment
-            </span>
+            <Wallet className="text-[var(--color-text-muted)] w-5 h-5 md:w-6 md:h-6" />
             <span className="flex-1 font-semibold text-xs md:text-sm text-[var(--color-text-muted)]">
               Vipps
             </span>
@@ -256,15 +251,15 @@ export default function DonationWidget({
       >
         <span>{isProcessing ? processingLabel : confirmLabel}</span>
         {isProcessing ? (
-          <span className="material-icons text-sm animate-spin">refresh</span>
+          <Loader2 className="w-4 h-4 animate-spin" />
         ) : (
-          <span className="material-icons text-sm">arrow_forward</span>
+          <ArrowRight className="w-4 h-4" />
         )}
       </button>
 
       {/* Security note */}
       <div className="flex items-start gap-2 mt-3 md:mt-4 text-[10px] md:text-xs text-[var(--color-text-muted)]">
-        <span className="material-icons text-xs md:text-sm text-primary">lock</span>
+        <Lock className="w-3 h-3 md:w-4 md:h-4 text-primary" />
         <span>{securityNote}</span>
       </div>
     </div>

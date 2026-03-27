@@ -1,7 +1,7 @@
 'use client';
 
 import { Fragment, useState, useRef } from 'react';
-import { Play } from 'lucide-react';
+import { Play, HeartHandshake, Info, ExternalLink } from 'lucide-react';
 import Image from 'next/image';
 import type { DonationProject } from '@/types/donation';
 import CompactProjectTile from './CompactProjectTile';
@@ -123,9 +123,7 @@ export default function VideoAndDonate({ projects, translations: t, statsRowProp
                 <div className="glass-panel p-4 md:p-6">
                     {/* Header */}
                     <div className="flex items-center gap-2 md:gap-3 mb-4 md:mb-5">
-                        <span className="material-icons text-primary text-2xl md:text-3xl">
-                            volunteer_activism
-                        </span>
+                        <HeartHandshake className="text-primary w-6 h-6 md:w-7 md:h-7" />
                         <div>
                             <h2 className="text-lg md:text-xl font-bold">{t.makeADonation}</h2>
                             <p className="text-[10px] md:text-xs text-[var(--color-text-muted)]">{t.donationSubtitle}</p>
@@ -135,7 +133,7 @@ export default function VideoAndDonate({ projects, translations: t, statsRowProp
                     {/* Info box */}
                     <div className="rounded-xl bg-primary/10 border border-primary/20 px-4 py-3.5 mb-5">
                         <div className="flex items-start gap-2.5">
-                            <span className="material-icons text-primary text-lg mt-0.5 flex-shrink-0">info</span>
+                            <Info className="text-primary w-5 h-5 mt-0.5 flex-shrink-0" />
                             <p className="text-sm leading-relaxed text-[var(--color-text)]">
                                 Bruk QR-koden eller knappen nedenfor for å donere via Vipps. Du kan velge mellom <span className="font-bold">engangsbetaling</span> eller <span className="font-bold">månedlig trekk</span> med valgfritt beløp.
                             </p>
@@ -163,7 +161,7 @@ export default function VideoAndDonate({ projects, translations: t, statsRowProp
                         className="w-full bg-[#ff5b24] hover:bg-[#e64f1e] text-white py-3 px-6 rounded-xl text-base font-bold flex items-center justify-center gap-2.5 transition-colors shadow-md"
                     >
                         <span>Doner med Vipps</span>
-                        <span className="material-icons text-lg">open_in_new</span>
+                        <ExternalLink className="w-5 h-5" />
                     </a>
                 </div>
 
@@ -178,7 +176,7 @@ export default function VideoAndDonate({ projects, translations: t, statsRowProp
                 {/* Legal info */}
                 <div className="rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] px-5 py-4">
                     <div className="flex items-center gap-2.5 mb-2.5">
-                        <span className="material-icons text-[var(--color-text-muted)] text-lg">info</span>
+                        <Info className="text-[var(--color-text-muted)] w-5 h-5" />
                         <span className="text-sm font-bold text-[var(--color-text)] uppercase tracking-wide">Juridisk informasjon</span>
                     </div>
                     <p className="text-sm leading-relaxed text-[var(--color-text)]">
