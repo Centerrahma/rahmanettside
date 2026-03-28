@@ -5,7 +5,26 @@ import { getTranslations } from 'next-intl/server';
 import HeroSection from '@/components/home/HeroSection';
 import PageBackground from '@/components/home/PageBackground';
 
-const ShowcaseSections = dynamic(() => import('@/components/home/ShowcaseSections'), { ssr: true });
+const ShowcaseSections = dynamic(() => import('@/components/home/ShowcaseSections'), {
+  ssr: true,
+  loading: () => (
+    <section className="relative py-10 md:py-14 lg:py-24">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-8 md:mb-16">
+          <div className="h-4 w-48 mx-auto rounded bg-[var(--color-border)] mb-3" />
+          <div className="h-9 w-72 mx-auto rounded bg-[var(--color-border)]" />
+        </div>
+        <div className="flex flex-col gap-6 md:gap-12">
+          {[1, 2, 3, 4].map((i) => (
+            <div key={i} className="rounded-2xl overflow-hidden bg-[var(--glass-card-bg)] border border-[var(--glass-card-border)]">
+              <div className="h-[160px] md:h-[336px] bg-[var(--color-border)] animate-pulse" />
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  ),
+});
 const BottomRow = lazy(() => import('@/components/home/BottomRow'));
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -88,7 +107,7 @@ export default function HomePage() {
       <PageBackground />
       <HeroSection />
       <ShowcaseSections />
-      <Suspense>
+      <Suspense fallback={<div className="min-h-[400px]" />}>
         <BottomRow />
       </Suspense>
     </>
