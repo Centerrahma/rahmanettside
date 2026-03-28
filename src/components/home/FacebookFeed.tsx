@@ -49,17 +49,35 @@ function FeedSkeleton() {
 export default function FacebookFeed() {
   const t = useTranslations('facebook');
   const [loaded, setLoaded] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
+  const sectionRef = useRef<HTMLElement>(null);
   const [scale, setScale] = useState(1);
 
   const IFRAME_WIDTH = 500;
   const IFRAME_HEIGHT = 500;
 
+  // Only mount the iframe when the section is near the viewport
+  useEffect(() => {
+    const el = sectionRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: '200px' }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
   useEffect(() => {
     function updateScale() {
       if (containerRef.current) {
         const containerWidth = containerRef.current.offsetWidth;
-        // Account for padding (p-4 = 32px total, sm:p-6 = 48px total)
         const availableWidth = containerWidth;
         if (availableWidth < IFRAME_WIDTH) {
           setScale(availableWidth / IFRAME_WIDTH);
@@ -77,7 +95,7 @@ export default function FacebookFeed() {
   const iframeSrc = `https://www.facebook.com/plugins/page.php?href=${encodeURIComponent(FB_PAGE_URL)}&tabs=timeline&width=${IFRAME_WIDTH}&height=${IFRAME_HEIGHT}&small_header=true&adapt_container_width=true&hide_cover=false&show_facepile=false`;
 
   return (
-    <section className="pt-[100px] pb-24 md:py-24 bg-[var(--color-surface)] relative">
+    <section ref={sectionRef} className="pt-[100px] pb-24 md:py-24 bg-[var(--color-surface)] relative">
       <Container>
         <SectionHeader
           eyebrow={t('eyebrow')}
@@ -91,36 +109,37 @@ export default function FacebookFeed() {
           <div
             ref={containerRef}
             className="w-full max-w-xl rounded-2xl overflow-hidden
-                        bg-[var(--glass-card-bg)] backdrop-blur-[12px]
+                        bg-[var(--color-surface)] dark:bg-[rgba(10,20,25,0.85)]
                         border border-[var(--glass-card-border)]
                         p-4 sm:p-6"
           >
             {/* Skeleton while iframe loads */}
             {!loaded && <FeedSkeleton />}
 
-            {/* Facebook Page Plugin via iframe — scaled to fit container */}
-            <div
-              style={{
-                width: `${IFRAME_WIDTH}px`,
-                height: `${IFRAME_HEIGHT}px`,
-                transform: `scale(${scale})`,
-                transformOrigin: 'top left',
-              }}
-            >
-              <iframe
-                src={iframeSrc}
-                width={IFRAME_WIDTH}
-                height={IFRAME_HEIGHT}
-                className={`border-none overflow-hidden rounded-lg ${loaded ? '' : 'h-0'}`}
-                scrolling="no"
-                frameBorder="0"
-                allowFullScreen
-                loading="lazy"
-                allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
-                title="Masjid Rahma Facebook"
-                onLoad={() => setLoaded(true)}
-              />
-            </div>
+            {/* Facebook Page Plugin via iframe — only mounts when near viewport */}
+            {isVisible && (
+              <div
+                style={{
+                  width: `${IFRAME_WIDTH}px`,
+                  height: `${IFRAME_HEIGHT}px`,
+                  transform: `scale(${scale})`,
+                  transformOrigin: 'top left',
+                }}
+              >
+                <iframe
+                  src={iframeSrc}
+                  width={IFRAME_WIDTH}
+                  height={IFRAME_HEIGHT}
+                  className={`border-none overflow-hidden rounded-lg ${loaded ? '' : 'h-0'}`}
+                  scrolling="no"
+                  frameBorder="0"
+                  allowFullScreen
+                  allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+                  title="Masjid Rahma Facebook"
+                  onLoad={() => setLoaded(true)}
+                />
+              </div>
+            )}
             {/* Spacer to maintain correct layout height when scaled */}
             {scale < 1 && (
               <div style={{ marginTop: `${-(IFRAME_HEIGHT * (1 - scale))}px` }} />

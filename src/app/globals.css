@@ -222,6 +222,16 @@ body {
   100% { transform: translateY(-110vh) scale(0.5); opacity: 0; }
 }
 
+/* Aurora blobs: lighter blur on mobile to reduce GPU cost */
+.aurora-blob {
+  filter: blur(50px);
+}
+@media (min-width: 768px) {
+  .aurora-blob {
+    filter: blur(100px);
+  }
+}
+
 /* Aurora blob drift */
 @keyframes aurora-drift {
   0%, 100% { transform: translate(0, 0) scale(1); }

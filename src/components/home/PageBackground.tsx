@@ -36,7 +36,6 @@ export default function PageBackground() {
           top: '10%',
           left: '50%',
           transform: 'translate(-50%, -50%)',
-          filter: 'blur(100px)',
           willChange: 'transform',
           animation: 'aurora-drift 14s ease-in-out infinite',
         }}
@@ -51,7 +50,6 @@ export default function PageBackground() {
           background: 'radial-gradient(circle, #C6A255 0%, transparent 70%)',
           top: '40%',
           left: '5%',
-          filter: 'blur(100px)',
           willChange: 'transform',
           animation: 'aurora-drift 18s ease-in-out infinite reverse',
         }}
@@ -66,7 +64,6 @@ export default function PageBackground() {
           background: 'radial-gradient(circle, #047857 0%, transparent 70%)',
           top: '55%',
           right: '0%',
-          filter: 'blur(100px)',
           willChange: 'transform',
           animation: 'aurora-drift 16s ease-in-out 3s infinite',
         }}
