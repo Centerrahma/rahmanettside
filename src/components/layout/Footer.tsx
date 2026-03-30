@@ -116,6 +116,21 @@ export function Footer() {
             </a>
           </div>
         </div>
+
+        {/* Credit */}
+        <div className="text-center mt-6">
+          <p className="text-xs text-[var(--color-text-muted)]">
+            Nettsiden er laget av{' '}
+            <a
+              href="https://www.idweb.no"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-[var(--color-primary-val)] transition-colors duration-200"
+            >
+              IDweb
+            </a>
+          </p>
+        </div>
       </div>
     </footer>
   );
