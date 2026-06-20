@@ -9,6 +9,7 @@ import { HeartHandshake, Mail, Users, Download, Calendar, MapPin } from 'lucide-
 import Link from 'next/link';
 import CalendarCard from './CalendarCard';
 import PrayerCard from './PrayerCard';
+import { AnnouncementBanner } from '@/components/layout/AnnouncementBanner';
 import type { PrayerName } from '@/types/prayer';
 import { useEffect, useState } from 'react';
 
@@ -402,6 +403,14 @@ export default function HeroSection() {
         {/* ── Mobile-only: Project Showcase above dashboard ── */}
         <div className="md:hidden w-full max-w-sm mx-auto mb-4 px-2">
           <ProjectShowcaseCard />
+        </div>
+
+        {/* ── Announcement: mosque temporarily closed during move ── */}
+        <div
+          className="w-full max-w-5xl mx-auto mb-3 md:mb-4"
+          style={{ animation: 'dashboard-rise 1s ease-out 0.2s both' }}
+        >
+          <AnnouncementBanner />
         </div>
 
         {/* ── Dashboard Composite ── */}
