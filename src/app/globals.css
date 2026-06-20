@@ -129,9 +129,9 @@ body {
   align-items: center;
   overflow: hidden;
   border-radius: 9999px;
-  background: #047857;
+  background: #022c22;
   color: #ffffff;
-  box-shadow: 0 0 24px rgba(4, 120, 87, 0.3);
+  box-shadow: 0 0 24px rgba(2, 44, 34, 0.4);
   /* Fade the marquee edges so text doesn't hard-clip at the pill ends */
   -webkit-mask-image: linear-gradient(
     90deg,
