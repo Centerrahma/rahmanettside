@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { sendMembershipEmail } from '@/lib/resend';
+import { sendMembershipEmail } from '@/lib/mail';
 import { isValidFodselsnummer } from '@/lib/fodselsnummer';
 
 const rateLimit = new Map<string, { count: number; resetTime: number }>();
