@@ -5,6 +5,7 @@ import { useTranslations } from 'next-intl';
 import { z } from 'zod';
 import { CheckCircle2, Info, Lock, AlertCircle, Loader2, UserPlus } from 'lucide-react';
 import Button from '@/components/ui/Button';
+import { isValidFodselsnummer } from '@/lib/fodselsnummer';
 
 const membershipSchema = z.object({
   fullName: z.string().min(2, 'Name must be at least 2 characters'),
@@ -13,7 +14,10 @@ const membershipSchema = z.object({
   city: z.string().min(1, 'City is required'),
   phone: z.string().min(8, 'Phone number must be at least 8 digits'),
   email: z.string().email('Please enter a valid email address'),
-  fodselsnummer: z.string().regex(/^\d{11}$/, 'Must be exactly 11 digits'),
+  fodselsnummer: z
+    .string()
+    .regex(/^\d{11}$/, 'Must be exactly 11 digits')
+    .refine(isValidFodselsnummer, 'Invalid fødselsnummer'),
 });
 
 type FormState = z.infer<typeof membershipSchema>;
@@ -86,7 +90,13 @@ export default function MembershipForm() {
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
+    const { name } = e.target;
+    // People often type or paste the number as "010190 12345"; keep only
+    // the digits so a space doesn't push it past 11 characters.
+    const value =
+      name === 'fodselsnummer'
+        ? e.target.value.replace(/\D/g, '').slice(0, 11)
+        : e.target.value;
     setFormData(prev => ({ ...prev, [name]: value }));
     if (errors[name as keyof FormState]) {
       setErrors(prev => ({ ...prev, [name]: undefined }));
@@ -254,7 +264,6 @@ export default function MembershipForm() {
             onChange={handleChange}
             inputMode="numeric"
             autoComplete="off"
-            maxLength={11}
             className={inputClass('fodselsnummer')}
             placeholder=" "
           />
