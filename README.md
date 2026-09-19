@@ -20,6 +20,19 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
+## Environment variables
+
+The contact and membership forms send email through the mosque's one.com mailbox. Set these in Vercel (Settings → Environment Variables, Production) and redeploy:
+
+| Variable | Required | Description |
+|---|---|---|
+| `SMTP_USER` | yes | Full address of the one.com mailbox that sends, e.g. `nettside@centerrahma.no`. Also used as the From address. |
+| `SMTP_PASSWORD` | yes | That mailbox's password. Mark it **Sensitive** in Vercel. |
+| `CONTACT_EMAIL_TO` | no | Where form submissions are delivered. Defaults to `post@centerrahma.no`. |
+| `SMTP_HOST` / `SMTP_PORT` | no | Default `send.one.com` / `465`. Only change if the mailbox moves off one.com. |
+
+Locally, put them in `.env.local` (gitignored). Without them the forms return a 500 and log `SMTP_USER and SMTP_PASSWORD environment variables must be set`.
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:
