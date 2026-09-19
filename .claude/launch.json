@@ -1,12 +1,7 @@
 {
   "version": "0.0.1",
   "configurations": [
-    {
-      "name": "dev",
-      "runtimeExecutable": "/usr/local/bin/node",
-      "runtimeArgs": ["node_modules/.bin/next", "dev"],
-      "port": 3001,
-      "autoPort": true
-    }
+    { "name": "app",     "runtimeExecutable": "npm", "runtimeArgs": ["run", "start"], "port": 3000 },
+    { "name": "app-dev", "runtimeExecutable": "npm", "runtimeArgs": ["run", "dev"],   "port": 3001, "autoPort": true }
   ]
 }
