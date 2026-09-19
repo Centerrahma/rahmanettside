@@ -1,7 +1,7 @@
 import type { MetadataRoute } from 'next';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://masjidrahma.no';
+  const baseUrl = 'https://www.centerrahma.no';
   const pages = ['', '/new-mosque', '/contact', '/become-member', '/heritage', '/rahma-skole', '/ung-rahma'];
 
   return pages.map((page) => ({

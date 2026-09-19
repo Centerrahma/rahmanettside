@@ -6,12 +6,12 @@ export const metadata: Metadata = {
   title: 'Ung Rahma — Ungdomsprogram for Muslimsk Ungdom i Oslo',
   description:
     'Ung Rahma styrker neste generasjon gjennom tro, læring og lederskap. Sport, aktiviteter, turer og mentorordning for ungdom 13–25 år i Oslo.',
-  alternates: { canonical: 'https://masjidrahma.no/ung-rahma' },
+  alternates: { canonical: 'https://www.centerrahma.no/ung-rahma' },
   openGraph: {
     title: 'Ung Rahma — Ungdomsprogram i Oslo',
     description:
       'Aktiviteter, turer og mentorordning for ungdom 13–25 år ved Masjid Rahma i Oslo. Styrker neste generasjon gjennom tro og fellesskap.',
-    url: 'https://masjidrahma.no/ung-rahma',
+    url: 'https://www.centerrahma.no/ung-rahma',
     siteName: 'Masjid Rahma',
     locale: 'nb_NO',
     type: 'website',

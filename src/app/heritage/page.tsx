@@ -8,7 +8,7 @@ import TimelineSection from '@/components/heritage/TimelineSection';
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations({ locale: 'no', namespace: 'heritage' });
-  const baseUrl = 'https://masjidrahma.no';
+  const baseUrl = 'https://www.centerrahma.no';
 
   return {
     title: `${t('pageTitle')} — Masjid Rahma`,
