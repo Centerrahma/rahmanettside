@@ -6,12 +6,12 @@ export const metadata: Metadata = {
   title: 'Rahma Skole — Koranundervisning og Islamske Studier i Oslo',
   description:
     'Rahma Skole tilbyr strukturert koranundervisning, arabisk språk og islamske studier for barn og ungdom i Oslo. Kvalifiserte lærere i et trygt miljø.',
-  alternates: { canonical: 'https://masjidrahma.no/rahma-skole' },
+  alternates: { canonical: 'https://www.centerrahma.no/rahma-skole' },
   openGraph: {
     title: 'Rahma Skole — Koranundervisning i Oslo',
     description:
       'Strukturert koranundervisning, arabisk språk og islamske studier for barn og ungdom ved Masjid Rahma i Oslo.',
-    url: 'https://masjidrahma.no/rahma-skole',
+    url: 'https://www.centerrahma.no/rahma-skole',
     siteName: 'Masjid Rahma',
     locale: 'nb_NO',
     type: 'website',

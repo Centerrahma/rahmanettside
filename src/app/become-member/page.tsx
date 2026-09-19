@@ -5,7 +5,7 @@ import MembershipForm from '@/components/membership/MembershipForm';
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations({ locale: 'no', namespace: 'membership' });
-  const baseUrl = 'https://masjidrahma.no';
+  const baseUrl = 'https://www.centerrahma.no';
 
   return {
     title: `${t('pageTitle')} — Masjid Rahma`,

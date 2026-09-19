@@ -28,7 +28,7 @@ const amiri = Amiri({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://masjidrahma.no'),
+  metadataBase: new URL('https://www.centerrahma.no'),
   title: {
     template: '%s | Masjid Rahma',
     default: 'Masjid Rahma — Moske i Oslo | Bønn, Fellesskap og Utdanning',
@@ -39,7 +39,7 @@ export const metadata: Metadata = {
     title: 'Masjid Rahma — Moske i Oslo',
     description:
       'Masjid Rahma er en moske i Oslo som tilbyr daglige bønner, koranundervisning, ungdomsaktiviteter og fellesskap. Besøk oss på Tvetenveien 154.',
-    url: 'https://masjidrahma.no',
+    url: 'https://www.centerrahma.no',
     siteName: 'Masjid Rahma',
     locale: 'nb_NO',
     type: 'website',
@@ -60,7 +60,7 @@ export const metadata: Metadata = {
     images: ['/nymoskeoversikt_opt.jpg'],
   },
   alternates: {
-    canonical: 'https://masjidrahma.no',
+    canonical: 'https://www.centerrahma.no',
   },
 };
 
@@ -71,10 +71,10 @@ function OrganizationJsonLd() {
     '@type': 'Organization',
     name: 'Masjid Rahma',
     alternateName: 'Masjid Rahma Oslo',
-    url: 'https://masjidrahma.no',
-    logo: 'https://masjidrahma.no/logo.png',
+    url: 'https://www.centerrahma.no',
+    logo: 'https://www.centerrahma.no/logo.png',
     telephone: '+47 22 12 34 56',
-    email: 'contact@masjidrahma.no',
+    email: 'post@centerrahma.no',
     address: {
       '@type': 'PostalAddress',
       streetAddress: 'Tvetenveien 154',

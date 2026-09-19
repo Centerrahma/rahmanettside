@@ -29,7 +29,7 @@ const BottomRow = lazy(() => import('@/components/home/BottomRow'));
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations({ locale: 'no', namespace: 'hero' });
-  const baseUrl = 'https://masjidrahma.no';
+  const baseUrl = 'https://www.centerrahma.no';
 
   return {
     title: `Masjid Rahma Oslo — ${t('subtitle')}`,
@@ -61,9 +61,9 @@ function MosqueJsonLd() {
     '@type': 'Mosque',
     name: 'Masjid Rahma',
     alternateName: 'Masjid Rahma Oslo',
-    url: 'https://masjidrahma.no',
+    url: 'https://www.centerrahma.no',
     telephone: '+47 22 12 34 56',
-    email: 'contact@masjidrahma.no',
+    email: 'post@centerrahma.no',
     address: {
       '@type': 'PostalAddress',
       streetAddress: 'Tvetenveien 154',

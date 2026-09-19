@@ -5,7 +5,7 @@ import ContactForm from '@/components/contact/ContactForm';
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations({ locale: 'no', namespace: 'contact' });
-  const baseUrl = 'https://masjidrahma.no';
+  const baseUrl = 'https://www.centerrahma.no';
 
   return {
     title: `${t('directInquiry')} — Masjid Rahma`,

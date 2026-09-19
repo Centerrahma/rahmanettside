@@ -9,7 +9,7 @@ import { PROJECTS } from '@/lib/constants';
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations({ locale: 'no', namespace: 'donate' });
-  const baseUrl = 'https://masjidrahma.no';
+  const baseUrl = 'https://www.centerrahma.no';
 
   return {
     title: `${t('sectionTitle')} — Masjid Rahma`,
