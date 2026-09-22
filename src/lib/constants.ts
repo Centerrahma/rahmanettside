@@ -99,6 +99,11 @@ export const EVENTS: CommunityEvent[] = [
   },
 ];
 
+// Membership sign-up is handled by StyreWeb (the mosque's membership system).
+// Replace with the organisation's own innmelding link from StyreWeb:
+// https://<organisasjon>.portal.styreweb.com/arrangement/Register?ID=<skjema-id>
+export const MEMBERSHIP_SIGNUP_URL = 'REPLACE_WITH_STYREWEB_INNMELDING_URL';
+
 export const CONTACT_INFO = {
   address: 'Tvetenveien 152A',
   city: '0671 Oslo, Norway',
