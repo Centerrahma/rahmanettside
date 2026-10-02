@@ -25,7 +25,7 @@
 /* ── hero: Fem himler ── */
 .hero{padding:28px 0 0;overflow:hidden}
 /* the drawing gives way on short screens so the name and buttons stay above the fold */
-.facade{position:relative;width:min(1080px,max(760px,(100svh - 300px) * 1.714),100%);margin:0 auto;aspect-ratio:1200/700}
+.facade{position:relative;width:min(1080px,max(760px,(100svh - 360px) * 1.714),100%);margin:0 auto;aspect-ratio:1200/700}
 .facade > svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
 .facade text{font-family:var(--font-amiri),serif}
 .bays{list-style:none;margin:0;padding:0}
@@ -40,7 +40,10 @@
 .badge.on{opacity:1}
 .skyfx{transition:opacity .6s}
 .name{text-align:center;margin-top:30px}
-.name h1{font-weight:600;font-size:clamp(34px,3.6vw,48px);line-height:1;letter-spacing:-.04em;margin:0 0 22px;color:var(--ink)}
+/* the name sits on a plaque: italic Cormorant inside a gold frame with pointed ends */
+.plaque{position:relative;display:inline-block;margin:0 0 22px;padding:clamp(14px,1.6vw,22px) clamp(56px,6vw,96px)}
+.plaque > svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible;color:var(--gold)}
+.plaque h1{position:relative;font-family:var(--font-cormorant),serif;font-style:italic;font-weight:600;font-size:clamp(40px,4.6vw,64px);letter-spacing:.01em;line-height:1.05;margin:0;color:var(--emerald-ink)}
 .ctas{display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
 .gloss{display:flex;justify-content:center;gap:6px 16px;flex-wrap:wrap;max-width:1080px;margin:40px auto 0;padding:0 32px;font-size:14px;color:var(--muted);text-align:center}
 .gloss q{font-style:normal;color:var(--ink-2)}
@@ -52,7 +55,7 @@
   /* the whole mosque, scaled to the screen width */
   .facade{width:100%}
   .name{margin-top:22px;padding:0 16px}
-  .name h1{margin-bottom:18px}
+  .plaque{margin-bottom:18px;padding:12px 44px}
   .ctas{gap:10px}
   .ctas .btn{flex:1 1 auto;justify-content:center;padding:0 18px}
   .list{display:grid;gap:0;margin:32px 16px 0;padding:0;list-style:none;border-top:1.5px solid var(--emerald)}
