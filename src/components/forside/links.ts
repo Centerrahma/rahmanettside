@@ -2,8 +2,8 @@
 
 export const YEAR_PDF = { href: '/Bonnetider_2026.pdf', filename: 'Bønnetider 2026.pdf' };
 
-export const ADDRESS = { street: 'Tvetenveien 154', city: '0671 Oslo' };
-const QUERY = 'Tvetenveien+154,+0671+Oslo';
+export const ADDRESS = { street: 'Tvetenveien 152A', city: '0671 Oslo' };
+const QUERY = 'Tvetenveien+152A,+0671+Oslo';
 export const MAPS = {
   directions: `https://www.google.com/maps/dir/?api=1&destination=${QUERY}`,
   open: `https://www.google.com/maps?q=${QUERY}`,
