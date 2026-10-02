@@ -7,9 +7,9 @@ import { YEAR_PDF } from '@/components/forside/links';
 import s from './chrome.module.css';
 
 const LINKS = [
-  { href: '/#besok', label: 'Besøk oss' },
   { href: '/#fellesskapet', label: 'Fellesskapet' },
   { href: '/#stott', label: 'Støtt oss' },
+  { href: '/#besok', label: 'Besøk oss' },
 ];
 
 export function Navbar() {

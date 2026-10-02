@@ -42,17 +42,17 @@ export interface Slot {
   time: string;
   /** Minutes after midnight; isha after midnight in summer counts past 24:00. */
   at: number;
-  /** The line under the time: iqamah, or the prayer time on Fridays. */
+  /** The line under the time: iqamah, or the khutbah on Fridays. */
   note: string;
 }
 
-/** Today's five slots. On Fridays dhuhr is Jumu'ah, shown at the khutbah. */
+/** Today's five slots. On Fridays dhuhr is Jumu'ah: the prayer time, with the khutbah under it. */
 export function slotsFor(schedule: PrayerSchedule, friday: boolean): Slot[] {
   let prev = 0;
   return PRAYERS.map((p) => {
     const jumuah = friday && p.key === 'dhuhr';
     const { time, iqamah } = schedule.prayers[p.key];
-    const shown = jumuah ? schedule.jummah.khutbah : time;
+    const shown = jumuah ? schedule.jummah.prayer : time;
     let at = toMin(shown);
     if (at < prev) at += 24 * 60;
     prev = at;
@@ -62,7 +62,7 @@ export function slotsFor(schedule: PrayerSchedule, friday: boolean): Slot[] {
       ar: jumuah ? 'الجمعة' : p.ar,
       time: shown,
       at,
-      note: jumuah ? `Bønn ${schedule.jummah.prayer}` : iqamah ? `Iqamah ${iqamah}` : '',
+      note: jumuah ? `Khutbah ${schedule.jummah.khutbah}` : iqamah ? `Iqamah ${iqamah}` : '',
     };
   });
 }
