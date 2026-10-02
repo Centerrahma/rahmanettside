@@ -23,35 +23,44 @@
 @keyframes fade{to{opacity:1}}
 
 /* ── hero: Fem himler ── */
-.hero{padding:28px 0 0;overflow:hidden;display:flex;flex-direction:column}
-/* the drawing is the page's centrepiece: as wide as the screen allows, up to 1360px */
-.facade{position:relative;width:min(1360px,100%);margin:0 auto;aspect-ratio:1200/700}
+.hero{padding:16px 0 0;overflow:hidden;display:flex;flex-direction:column}
+/* the drawing is the page's centrepiece: as big as the screen allows, up to 1360px wide, but never so tall
+   that plaque, mosque and buttons stop fitting in one screen. 312px is everything else above the fold:
+   nav 84, padding 16, plaque about 111, gaps 10 + 20, buttons 50, and 20 to spare. 1.714 = 1200/700. */
+.facade{position:relative;width:min(1360px,100%,max(600px,(100svh - 312px) * 1.714));margin:0 auto;aspect-ratio:1200/700;container-type:inline-size}
 .facade > svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
 .facade text{font-family:var(--font-amiri),serif}
+/* the text in the arches is sized in cqw, the drawing's own width, so it shrinks with it */
 .bays{list-style:none;margin:0;padding:0}
 .bay{position:absolute;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;opacity:0;animation:fade .8s ease forwards;animation-delay:var(--d)}
-.bay .ar{font-family:var(--font-amiri),serif;font-size:clamp(15px,1.75vw,26px);color:var(--gold);line-height:1.2}
-.bay .nm{font-size:clamp(13px,1.3vw,19px);font-weight:600;margin-top:2px}
-.bay .tm{font-size:clamp(24px,3.6vw,54px);font-weight:600;letter-spacing:-.045em;line-height:1.08}
-.bay .iq{font-size:clamp(11px,1vw,15px);font-weight:600;color:var(--muted)}
+.bay .ar{font-family:var(--font-amiri),serif;font-size:clamp(11px,1.75cqw,26px);color:var(--gold);line-height:1.2}
+.bay .nm{font-size:clamp(10px,1.3cqw,19px);font-weight:600;margin-top:2px}
+.bay .tm{font-size:clamp(18px,3.7cqw,54px);font-weight:600;letter-spacing:-.045em;line-height:1.08}
+.bay .iq{font-size:clamp(10px,1cqw,15px);font-weight:600;color:var(--muted)}
 .bay.next .nm,.bay.next .tm{color:var(--emerald-ink)}
 .bay.past{color:var(--muted)}
 .badge{position:absolute;transform:translate(-50%,-50%);white-space:nowrap;font-size:14px;font-weight:600;color:var(--emerald-ink);background:#fff;border-radius:999px;padding:6px 12px;box-shadow:0 8px 20px -8px rgba(40,30,0,.45);opacity:0;transition:opacity .4s}
 .badge.on{opacity:1}
 .skyfx{transition:opacity .6s}
-.name{text-align:center;margin:0 0 14px}
+.name{text-align:center;margin:0 0 10px}
 /* the name sits on a plaque: italic Cormorant inside a gold frame with pointed ends */
 .plaque{position:relative;display:inline-block;margin:0;padding:clamp(14px,1.6vw,22px) clamp(56px,6vw,96px)}
 .plaque > svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible;color:var(--gold)}
 .plaque h1{position:relative;font-family:var(--font-cormorant),serif;font-style:italic;font-weight:600;font-size:clamp(40px,4.6vw,64px);letter-spacing:.01em;line-height:1.05;margin:0;color:var(--emerald-ink)}
-.ctas{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-top:30px}
+.ctas{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-top:20px}
 .gloss{display:flex;justify-content:center;gap:6px 16px;flex-wrap:wrap;max-width:1080px;margin:40px auto 0;padding:0 32px;font-size:14px;color:var(--muted);text-align:center}
 .gloss q{font-style:normal;color:var(--ink-2)}
 .list{display:none}
 
 @media (max-width:860px){
   .hero{padding-top:36px}
-  .bays,.badge{display:none}
+  .badge{display:none}
+  /* each arch is only about 50px wide here: keep the Arabic name, the name and the time;
+     the iqamah is in the list below */
+  .bay .iq{display:none}
+  .bay .ar{font-size:min(11px,3.2cqw);line-height:1.05}
+  .bay .nm{font-size:min(10px,2.9cqw);margin-top:0;line-height:1.2}
+  .bay .tm{font-size:clamp(13px,4.2cqw,20px)}
   /* the whole mosque, scaled to the screen width, and above the name */
   .facade{width:100%;order:-1}
   .name{margin:22px 0 0;padding:0 16px}
