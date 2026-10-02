@@ -5,10 +5,12 @@ import type { PrayerSchedule } from '@/types/prayer';
 import { nextSlot, osloNow, slotsFor, until } from '@/lib/prayer-clock';
 import { DownloadIcon } from './icons';
 import { YEAR_PDF } from './links';
+import { Grand, Lawn, Pool, SceneDefs, Sky, Wings, isDark, type Mood } from './Omgivelser';
 import s from './forside.module.css';
 
-/* The mosque front, drawn on a 1200 × 700 grid (y runs from -120); the roof is raised so the verse can be read on a phone. Each of the five
-   arches holds the sky of one prayer: dawn, high sun, low sun, sunset, night. */
+/* The mosque front, drawn on a 1200 × 830 grid (y runs from -120; the ground is at 580, the lawn and pool below it).
+   The roof is raised so the verse can be read on a phone. Each of the five arches holds the sky of one prayer:
+   dawn, high sun, low sun, sunset, night. Around it (Omgivelser.tsx) a painted sky follows the time of day. */
 
 const SKIES = [
   { stops: [['0', '#22305b'], ['.55', '#5d6aa0'], ['1', '#f2c3b0']], hill: 'rgba(20,24,60,.35)' },
@@ -33,12 +35,27 @@ const crescent = (cx: number, cy: number, r: number) =>
 const delay = (d: number | string) => ({ '--d': `${d}s` }) as CSSProperties;
 const bayX = (i: number) => 150 + 180 * i;
 const pct = (v: number, total: number, off = 0) => (((v + off) / total) * 100).toFixed(3) + '%';
+const H = 830;
+/** The five arch openings, for the clip paths and the reflection in the pool. */
+const BAYS = SKIES.map((_, i) => {
+  const L = bayX(i) + 12;
+  const R = bayX(i) + 168;
+  const C = bayX(i) + 90;
+  return `M${L},560 V300 C${L},262 ${C - 28},238 ${C},212 C${C + 28},238 ${R},262 ${R},300 V560 Z`;
+});
+const PIERS = [0, 1, 2, 3, 4, 5].map(bayX);
+const REFLECTED = ['#5d6aa0', '#86c0e8', '#a6cde6', '#d8707a', '#243a6c'];
+const MOODS: Mood[] = ['night', 'morning', 'day', 'afternoon', 'dusk'];
+/** The time of day the scene shows: the period that ends at the next prayer. */
+const moodOf = (n: { index: number; tomorrow: boolean }): Mood => (n.tomorrow ? 'night' : MOODS[n.index]);
+/** Ivory stone, lighter at the top, for the walls. */
+const W = 'url(#fh-stone)';
 
 interface LineOpts { fill?: string; stroke?: string; w?: number; d?: string; op?: number }
 
 /** The whole drawing. `next` and `past` only change fills and opacities, so React
     keeps the same elements and the draw-on never replays. */
-function Facade({ next, past }: { next: number | null; past: boolean[] }) {
+function Facade({ next, past, mood }: { next: number | null; past: boolean[]; mood: Mood }) {
   const out: ReactNode[] = [];
   let di = 0;
   const line = (d: string, o: LineOpts = {}) =>
@@ -59,14 +76,14 @@ function Facade({ next, past }: { next: number | null; past: boolean[] }) {
     );
 
   // dome and drum
-  line('M528,64 V30 H672 V64', { fill: '#fff' });
+  line('M528,64 V30 H672 V64', { fill: W });
   [548, 574, 600, 626, 652].forEach((c) => line(`M${c - 4},56 V44 C${c - 4},40 ${c},36 ${c},34 C${c},36 ${c + 4},40 ${c + 4},44 V56`, { w: 1 }));
   line('M520,30 C498,10 504,-26 540,-46 C568,-62 594,-68 600,-90 C606,-68 632,-62 660,-46 C696,-26 702,10 680,30 Z', { fill: 'var(--mint)', w: 1.8 });
   line('M600,-90 C590,-50 572,-6 562,30 M600,-90 C610,-50 628,-6 638,30 M600,-90 V30', { w: 1, op: 0.35 });
   line('M512,30 H688', { w: 1.5 });
   line('M600,-90 V-102', { w: 1.4 });
   line(crescent(600, -108, 7), { fill: 'var(--gold)', stroke: 'var(--gold)', w: 1 });
-  line(star(600, -18, 12), { stroke: 'var(--gold)', fill: '#fff', w: 1.1 });
+  line(star(600, -18, 12), { stroke: 'var(--gold)', fill: W, w: 1.1 });
   // side domes
   [240, 960].forEach((c) => {
     line(`M${c - 34},64 C${c - 42},44 ${c - 26},28 ${c},14 C${c + 26},28 ${c + 42},44 ${c + 34},64 Z`, { fill: 'var(--mint)' });
@@ -75,18 +92,18 @@ function Facade({ next, past }: { next: number | null; past: boolean[] }) {
   });
   // minarets, each tied to the arcade by a wall
   [90, 1110].forEach((x) => {
-    line(`M${x - 30},580 V548 H${x + 30} V580`, { fill: '#fff' });
-    line(`M${x - 18},548 V56 H${x + 18} V548`, { fill: '#fff' });
+    line(`M${x - 30},580 V548 H${x + 30} V580`, { fill: W });
+    line(`M${x - 18},548 V56 H${x + 18} V548`, { fill: W });
     line(`M${x - 30},250 H${x + 30} M${x - 28},258 H${x + 28} M${x - 26},258 L${x - 18},268 M${x + 26},258 L${x + 18},268 M${x - 10},258 V266 M${x + 10},258 V266`, { w: 1.2 });
     line(`M${x - 29},56 H${x + 29} M${x - 25},63 H${x + 25}`, { w: 1.2 });
-    line(`M${x - 11},56 V18 H${x + 11} V56`, { fill: '#fff' });
+    line(`M${x - 11},56 V18 H${x + 11} V56`, { fill: W });
     line(`M${x - 15},18 C${x - 16},2 ${x},-8 ${x},-30 C${x},-8 ${x + 16},2 ${x + 15},18 Z`, { fill: 'var(--mint)' });
     line(`M${x},-30 V-42`, { w: 1.2 });
     line(crescent(x, -47, 5), { fill: 'var(--gold)', stroke: 'var(--gold)', w: 1 });
     [170, 330, 430].forEach((y) => line(`M${x - 6},${y + 16} V${y + 4} C${x - 6},${y} ${x},${y - 5} ${x},${y - 8} C${x},${y - 5} ${x + 6},${y} ${x + 6},${y + 4} V${y + 16}`, { w: 1 }));
     const a = x < 600 ? x + 18 : 1062;
     const b = x < 600 ? 138 : x - 18;
-    line(`M${a},580 V330 H${b} V580`, { fill: '#fff' });
+    line(`M${a},580 V330 H${b} V580`, { fill: W });
     const c = (a + b) / 2;
     line(`M${c - 8},560 V470 C${c - 8},458 ${c},450 ${c},446 C${c},450 ${c + 8},458 ${c + 8},470 V560`, { w: 1.1 });
   });
@@ -94,7 +111,7 @@ function Facade({ next, past }: { next: number | null; past: boolean[] }) {
   let cren = '';
   for (let x = 138; x < 1062; x += 14) cren += `M${x + 1},80 V73 L${x + 7},66 L${x + 13},73 V80 `;
   line(cren, { w: 1 });
-  line('M138,80 H1062 V176 H138 Z', { fill: '#fff', w: 1.6 });
+  line('M138,80 H1062 V176 H138 Z', { fill: W, w: 1.6 });
   line('M146,88 H1054 M146,168 H1054', { stroke: 'var(--gold-2)', w: 1 });
   out.push(
     <text key={out.length} x={600} y={143} textAnchor="middle" fontSize={44} fill="var(--gold)" direction="rtl" lang="ar" className={s.fade} style={delay(1.1)}>
@@ -117,7 +134,7 @@ function Facade({ next, past }: { next: number | null; past: boolean[] }) {
     const isNext = next === i;
     out.push(
       <g key={out.length} clipPath={`url(#fh-c${i})`}>
-        <rect x={L} y={392} width={156} height={168} fill={isNext ? 'url(#fh-glow)' : '#f5f8f6'} />
+        <rect x={L} y={392} width={156} height={168} fill={isNext ? 'url(#fh-glow)' : '#fbf6ea'} />
         <g className={s.fade} style={delay((1.1 + i * 0.22).toFixed(2))}>
           <rect x={L} y={200} width={156} height={192} fill={`url(#fh-sky${i})`} />
           {i === 0 && (
@@ -168,8 +185,13 @@ function Facade({ next, past }: { next: number | null; past: boolean[] }) {
   line('M40,580 H1160 M60,588 H1140', { w: 1.6 });
 
   return (
-    <svg viewBox="0 -120 1200 700" role="img" aria-label="Moskeens fasade med fem buer. Hver bue viser himmelen ved en av dagens bønner.">
+    <svg viewBox={`0 -120 1200 ${H}`} role="img" aria-label="Moskeens fasade med fem buer. Hver bue viser himmelen ved en av dagens bønner.">
       <defs>
+        <linearGradient id="fh-stone" gradientUnits="userSpaceOnUse" x1={0} y1={-100} x2={0} y2={590}>
+          <stop offset={0} stopColor="#fdf9f0" />
+          <stop offset={1} stopColor="#ecdcbd" />
+        </linearGradient>
+        <SceneDefs mood={mood} />
         {SKIES.map((sky, i) => (
           <linearGradient key={i} id={`fh-sky${i}`} x1={0} y1={0} x2={0} y2={1}>
             {sky.stops.map(([o, c]) => <stop key={o} offset={o} stopColor={c} />)}
@@ -183,18 +205,23 @@ function Facade({ next, past }: { next: number | null; past: boolean[] }) {
           <stop offset={0} stopColor="#ffe9b0" stopOpacity={0.9} />
           <stop offset={1} stopColor="#fff6df" stopOpacity={0.4} />
         </radialGradient>
-        {SKIES.map((_, i) => {
-          const L = bayX(i) + 12;
-          const R = bayX(i) + 168;
-          const C = bayX(i) + 90;
-          return (
-            <clipPath key={i} id={`fh-c${i}`}>
-              <path d={`M${L},560 V300 C${L},262 ${C - 28},238 ${C},212 C${C + 28},238 ${R},262 ${R},300 V560 Z`} />
-            </clipPath>
-          );
-        })}
+        {BAYS.map((d, i) => (
+          <clipPath key={i} id={`fh-c${i}`}>
+            <path d={d} />
+          </clipPath>
+        ))}
       </defs>
+      {/* the sky across the band on wide screens, inside an arch on phones */}
+      <g className={s.wide}><Sky arch={false} mood={mood} /></g>
+      <g className={s.narrow}><Sky arch mood={mood} /></g>
+      {/* the arcade wall is solid, so the sky does not show through the lattice */}
+      <rect x={138} y={176} width={924} height={404} fill={W} />
+      <g className={s.wide}><Wings wall={W} /></g>
       {out}
+      <Grand />
+      <g className={s.wide}><Lawn arch={false} /></g>
+      <g className={s.narrow}><Lawn arch /></g>
+      <Pool bays={BAYS} piers={PIERS} colours={REFLECTED} />
     </svg>
   );
 }
@@ -203,9 +230,13 @@ interface Props {
   schedule: PrayerSchedule;
   /** Whether it is Friday in Oslo when the page was rendered; the browser checks again. */
   friday: boolean;
+  /** Minutes past midnight in Oslo when the page was rendered, for the first sky; the browser checks again. */
+  minute: number;
+  /** Fixes the time of day, for previews; otherwise it follows the next prayer. */
+  sky?: Mood;
 }
 
-export default function FemHimler({ schedule, friday: renderedFriday }: Props) {
+export default function FemHimler({ schedule, friday: renderedFriday, minute: renderedMinute, sky }: Props) {
   // Nothing time-dependent is marked until the browser knows the time, so the
   // server and the first client render agree.
   const [clock, setClock] = useState<{ min: number; friday: boolean } | null>(null);
@@ -228,9 +259,11 @@ export default function FemHimler({ schedule, friday: renderedFriday }: Props) {
   const slots = slotsFor(schedule, clock?.friday ?? renderedFriday);
   const nx = clock ? nextSlot(slots, clock.min, schedule.tomorrowFajr) : null;
   const past = slots.map((slot) => !!clock && !nx?.tomorrow && slot.at <= clock.min);
+  // the sky can use the rendered minute straight away: server and first client render agree on it
+  const mood = sky ?? moodOf(nx ?? nextSlot(slots, renderedMinute, schedule.tomorrowFajr));
 
   return (
-    <section className={s.hero} aria-labelledby="forside-h1">
+    <section className={s.hero} data-sky={isDark(mood) ? 'dark' : 'light'} aria-labelledby="forside-h1">
       {/* the name comes first: above the drawing on desktop; the phone layout moves the drawing up */}
       <div className={s.name}>
         <div className={s.plaque}>
@@ -244,7 +277,7 @@ export default function FemHimler({ schedule, friday: renderedFriday }: Props) {
       </div>
 
       <div className={s.facade}>
-        <Facade next={nx?.index ?? null} past={past} />
+        <Facade next={nx?.index ?? null} past={past} mood={mood} />
         <ul className={s.bays} aria-label="Bønnetider i dag">
           {slots.map((slot, i) => (
             <li
@@ -253,8 +286,8 @@ export default function FemHimler({ schedule, friday: renderedFriday }: Props) {
               style={{
                 left: pct(bayX(i) + 12, 1200),
                 width: pct(156, 1200),
-                top: pct(400, 700, 120),
-                height: pct(150, 700),
+                top: pct(400, H, 120),
+                height: pct(150, H),
                 ...delay((1.3 + i * 0.22).toFixed(2)),
               }}
             >
@@ -268,7 +301,7 @@ export default function FemHimler({ schedule, friday: renderedFriday }: Props) {
         {nx && (
           <span
             className={`${s.badge} ${badgeOn ? s.on : ''}`}
-            style={{ left: pct(bayX(nx.index) + 90, 1200), top: pct(204, 700, 120) }}
+            style={{ left: pct(bayX(nx.index) + 90, 1200), top: pct(204, H, 120) }}
           >
             Neste, {nx.tomorrow ? 'i morgen om ' : 'om '}
             {until(nx.left)}
