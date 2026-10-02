@@ -70,12 +70,12 @@
 /* ── sections ── */
 .block{padding:128px 0;scroll-margin-top:24px}
 .tint{background:var(--wash)}
-.head{max-width:680px;margin-bottom:48px}
-.head h2{font-weight:600;font-size:clamp(32px,4vw,50px);line-height:1.04;letter-spacing:-.04em;margin:0 0 14px;color:var(--ink)}
-.head p{margin:0;color:var(--ink-2)}
+/* section headings sit centred, like the name under the drawing */
+.head{max-width:680px;margin:0 auto 48px;text-align:center}
+.head h2{font-weight:600;font-size:clamp(32px,4vw,50px);line-height:1.04;letter-spacing:-.04em;margin:0;color:var(--ink)}
 
 /* Besøk oss */
-.visit{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:72px;align-items:end}
+.visit{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:72px;align-items:center}
 .jbox{border-top:1.5px solid var(--emerald)}
 .jrow{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:16px;align-items:center;padding:20px 0;border-bottom:1px solid var(--hair)}
 .jrow h3{margin:0;font-size:22px;font-weight:600;letter-spacing:-.025em}
@@ -120,6 +120,9 @@
 .fbcard p{margin:0 0 14px;color:var(--ink-2);max-width:30ch}
 .fb{background:#1877f2;color:#fff}
 .fb:hover{background:#0d65d9}
+.fbbox{display:none;min-height:540px;border-radius:14px;background:var(--wash);overflow:hidden}
+.fbbox iframe{border:0;overflow:hidden;display:block;margin:0 auto}
+.phoneOnly{display:none}
 .give{display:flex;flex-direction:column}
 .give p{margin:0 0 26px;color:var(--ink-2)}
 .qr{display:grid;place-items:center;margin:4px auto 20px;width:280px;aspect-ratio:1;border-radius:50%;background:conic-gradient(from 0deg,#ff5b24 0 var(--p,0%),#fde3d8 0);padding:14px}
@@ -140,6 +143,12 @@
   .boxes{grid-template-columns:1fr}
   .box figure{aspect-ratio:5/4}
   .qr{width:240px}
+}
+/* phones get the Facebook feed instead of the card; after the base rules so it wins */
+@media (max-width:860px){
+  .fbcard{display:none}
+  .fbbox{display:block}
+  .phoneOnly{display:inline}
 }
 @media (prefers-reduced-motion:reduce){
   .draw{animation:none;stroke-dashoffset:0}

@@ -6,9 +6,12 @@ import Link from 'next/link';
 import { FACEBOOK, VIPPS } from './links';
 import s from './forside.module.css';
 
+/** Same breakpoint as the phone layout in forside.module.css. */
+const PHONE = '(max-width: 860px)';
+
 /* Facebook's page plugin shows posts only to visitors logged in to Facebook in a
    browser that lets it set cookies; everyone else gets a blank frame or a login
-   wall. So the panel is a plain card that sends people to the page. */
+   wall. The owner's call: phones get the feed anyway, desktops get a plain card. */
 function FacebookCard() {
   return (
     <div className={s.fbcard}>
@@ -20,6 +23,32 @@ function FacebookCard() {
       <a className={`${s.btn} ${s.fb}`} href={FACEBOOK} target="_blank" rel="noopener noreferrer">Følg oss på Facebook</a>
     </div>
   );
+}
+
+/** On phones only: mounts the page plugin when the panel comes close to the screen. */
+function FacebookFeed() {
+  const box = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const el = box.current;
+    if (!el || !matchMedia(PHONE).matches) return;
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting) return;
+        io.disconnect();
+        const w = Math.min(500, Math.max(180, Math.round(el.clientWidth)));
+        const h = Math.max(380, Math.round(el.clientHeight));
+        const src = `https://www.facebook.com/plugins/page.php?href=${encodeURIComponent(FACEBOOK)}&tabs=timeline&width=${w}&height=${h}&small_header=true&adapt_container_width=true&hide_cover=false&show_facepile=false`;
+        const frame = document.createElement('iframe');
+        Object.assign(frame, { title: 'Masjid Rahma på Facebook', src, width: String(w), height: String(h) });
+        frame.allow = 'autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share';
+        el.replaceChildren(frame);
+      },
+      { rootMargin: '300px' },
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+  return <div className={s.fbbox} ref={box} />;
 }
 
 /** The orange ring round the QR code fills once, the first time it is seen. */
@@ -73,8 +102,10 @@ export default function StottOss() {
           <article className={`${s.panel} ${s.follow}`}>
             <header>
               <h3>Følg med</h3>
+              <a className={`${s.link} ${s.phoneOnly}`} href={FACEBOOK} target="_blank" rel="noopener noreferrer">Åpne siden</a>
             </header>
             <FacebookCard />
+            <FacebookFeed />
           </article>
           <article className={`${s.panel} ${s.give}`}>
             <header>
