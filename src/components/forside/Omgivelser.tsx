@@ -116,33 +116,34 @@ const PALETTES: Record<Mood, Palette> = {
 /** Whether the sky is dark enough for light lettering on the name plaque. */
 export const isDark = (mood: Mood) => mood === 'night' || mood === 'dusk';
 
-/** Gradients the scene shares, coloured for the time of day; rendered inside the facade's <defs>. */
+/** Gradients the scene shares, coloured for the time of day; rendered inside the facade's <defs>.
+    The colours are set as styles so they ease from one time of day to the next (see .stop). */
 export function SceneDefs({ mood }: { mood: Mood }) {
   const p = PALETTES[mood];
   return (
     <>
       <linearGradient id="nt-sky" x1={0} y1={0} x2={0} y2={1}>
-        {[0, 0.55, 0.85, 1].map((o, i) => <stop key={o} offset={o} stopColor={p.sky[i]} />)}
+        {[0, 0.55, 0.85, 1].map((o, i) => <stop key={o} offset={o} className={s.stop} style={{ stopColor: p.sky[i] }} />)}
       </linearGradient>
       <radialGradient id="nt-moon" cx={0.5} cy={0.5} r={0.5}>
-        <stop offset={0} stopColor={p.orb.kind === 'moon' ? '#fff3c9' : '#fff6d8'} stopOpacity={p.orb.kind === 'moon' ? 0.45 : 0.7} />
-        <stop offset={1} stopColor="#fff3c9" stopOpacity={0} />
+        <stop offset={0} className={s.stop} style={{ stopColor: p.orb.kind === 'moon' ? '#fff3c9' : '#fff6d8', stopOpacity: p.orb.kind === 'moon' ? 0.45 : 0.7 }} />
+        <stop offset={1} className={s.stop} style={{ stopColor: "#fff3c9", stopOpacity: 0 }} />
       </radialGradient>
       <linearGradient id="nt-grass" x1={0} y1={0} x2={0} y2={1}>
-        <stop offset={0} stopColor={p.grass[0]} />
-        <stop offset={1} stopColor={p.grass[1]} />
+        <stop offset={0} className={s.stop} style={{ stopColor: p.grass[0] }} />
+        <stop offset={1} className={s.stop} style={{ stopColor: p.grass[1] }} />
       </linearGradient>
       <radialGradient id="nt-flood" cx={0.5} cy={1} r={1}>
-        <stop offset={0} stopColor="#ffd88a" stopOpacity={0.55 * p.glow} />
-        <stop offset={1} stopColor="#ffd88a" stopOpacity={0} />
+        <stop offset={0} className={s.stop} style={{ stopColor: "#ffd88a", stopOpacity: 0.55 * p.glow }} />
+        <stop offset={1} className={s.stop} style={{ stopColor: "#ffd88a", stopOpacity: 0 }} />
       </radialGradient>
       <linearGradient id="nt-lit" x1={0} y1={0} x2={0} y2={1}>
-        <stop offset={0} stopColor={p.glow > 0.5 ? '#ffe9b8' : '#efe6d3'} />
-        <stop offset={1} stopColor={p.glow > 0.5 ? '#f2c06c' : '#d9c8a6'} />
+        <stop offset={0} className={s.stop} style={{ stopColor: p.glow > 0.5 ? '#ffe9b8' : '#efe6d3' }} />
+        <stop offset={1} className={s.stop} style={{ stopColor: p.glow > 0.5 ? '#f2c06c' : '#d9c8a6' }} />
       </linearGradient>
       <linearGradient id="nt-water" x1={0} y1={0} x2={0} y2={1}>
-        <stop offset={0} stopColor={p.water[0]} />
-        <stop offset={1} stopColor={p.water[1]} />
+        <stop offset={0} className={s.stop} style={{ stopColor: p.water[0] }} />
+        <stop offset={1} className={s.stop} style={{ stopColor: p.water[1] }} />
       </linearGradient>
       <clipPath id="nt-arch"><path d={ARCH} /></clipPath>
       <clipPath id="nt-pool"><path d="M40,594 H1160 L1180,690 H20 Z" /></clipPath>

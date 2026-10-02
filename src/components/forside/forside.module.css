@@ -29,6 +29,8 @@
    nav 84, padding 16, plaque about 111, gaps 10 + 20, buttons 50, and 20 to spare. 1.446 = 1200/830.
    The sky, lawn and wings reach past this box into the sides; .hero clips them at the screen's edges. */
 .facade{position:relative;width:min(1360px,100%,max(600px,(100svh - 312px) * 1.446));margin:0 auto;aspect-ratio:1200/830;container-type:inline-size}
+/* the sky's colours ease from one time of day to the next, at a prayer time or as the page loads */
+.stop{transition:stop-color 1.6s ease,stop-opacity 1.6s ease}
 /* parts of the drawing for wide screens only, and for phones only */
 .narrow{display:none}
 /* on wide screens the sky runs behind the plaque, so the plaque sits above the drawing and is filled */
@@ -180,5 +182,6 @@
 @media (prefers-reduced-motion:reduce){
   .draw{animation:none;stroke-dashoffset:0}
   .fade,.bay{animation:none;opacity:1}
+  .stop{transition:none}
   .badge,.skyfx,.btn,.box img{transition:none}
 }
