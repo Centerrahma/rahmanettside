@@ -27,7 +27,7 @@ export const metadata: Metadata = {
     siteName: 'Masjid Rahma',
     locale: 'nb_NO',
     type: 'website',
-    images: [{ url: '/og-forside.png', width: 1200, height: 630, alt: 'Tegning av moskeens fasade med fem buer' }],
+    images: [{ url: '/og-forside.png', width: 1200, height: 630, alt: 'Tegning av moskeen med fem buer under nattehimmelen' }],
   },
   twitter: {
     card: 'summary_large_image',
@@ -83,7 +83,7 @@ export default async function HomePage() {
   return (
     <>
       <MosqueJsonLd />
-      <FemHimler schedule={schedule} friday={now.friday} />
+      <FemHimler schedule={schedule} friday={now.friday} minute={now.min} />
       <Fellesskapet />
       <StottOss />
       <Besok jummah={schedule.jummah} />

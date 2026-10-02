@@ -26,8 +26,18 @@
 .hero{padding:16px 0 0;overflow:hidden;display:flex;flex-direction:column}
 /* the drawing is the page's centrepiece: as big as the screen allows, up to 1360px wide, but never so tall
    that plaque, mosque and buttons stop fitting in one screen. 312px is everything else above the fold:
-   nav 84, padding 16, plaque about 111, gaps 10 + 20, buttons 50, and 20 to spare. 1.714 = 1200/700. */
-.facade{position:relative;width:min(1360px,100%,max(600px,(100svh - 312px) * 1.714));margin:0 auto;aspect-ratio:1200/700;container-type:inline-size}
+   nav 84, padding 16, plaque about 111, gaps 10 + 20, buttons 50, and 20 to spare. 1.446 = 1200/830.
+   The sky, lawn and wings reach past this box into the sides; .hero clips them at the screen's edges. */
+.facade{position:relative;width:min(1360px,100%,max(600px,(100svh - 312px) * 1.446));margin:0 auto;aspect-ratio:1200/830;container-type:inline-size}
+/* parts of the drawing for wide screens only, and for phones only */
+.narrow{display:none}
+/* on wide screens the sky runs behind the plaque, so the plaque sits above the drawing and is filled */
+@media (min-width:861px){
+  .name{position:relative;z-index:2}
+  .plaque > svg path:first-child{fill:#fff}
+  .hero[data-sky=dark] .plaque > svg path:first-child{fill:#0f1d44}
+  .hero[data-sky=dark] .plaque h1{color:#f6ecc9}
+}
 .facade > svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
 .facade text{font-family:var(--font-amiri),serif}
 /* the text in the arches is sized in cqw, the drawing's own width, so it shrinks with it */
@@ -53,6 +63,8 @@
 .list{display:none}
 
 @media (max-width:860px){
+  .wide{display:none}
+  .narrow{display:inline}
   .hero{padding-top:36px}
   .badge{display:none}
   /* each arch is only about 50px wide here: keep the Arabic name, the name and the time;
