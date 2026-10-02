@@ -110,7 +110,7 @@ export default function StottOss() {
           <article className={`${s.panel} ${s.give}`}>
             <header>
               <h3>Støtt moskeen</h3>
-              <Link className={s.link} href="/donate">Flere måter å gi</Link>
+              <Link className={s.link} href="/stott-oss">Flere måter å gi</Link>
             </header>
             <p>Gavene går til driften av moskeen og undervisningen for barn og unge.</p>
             <VippsRing />

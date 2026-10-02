@@ -42,6 +42,13 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  // the old English addresses lead to the new pages
+  async redirects() {
+    return [
+      { source: '/donate', destination: '/stott-oss', permanent: true },
+      { source: '/contact', destination: '/kontakt', permanent: true },
+    ];
+  },
   async headers() {
     return [
       {
