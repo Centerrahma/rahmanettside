@@ -1,59 +1,41 @@
 import type { Metadata } from 'next';
-import { Suspense, lazy } from 'react';
-import dynamic from 'next/dynamic';
-import { getTranslations } from 'next-intl/server';
-import HeroSection from '@/components/home/HeroSection';
-import PageBackground from '@/components/home/PageBackground';
+import { fetchPrayerTimes } from '@/lib/mymasjid';
+import { osloNow } from '@/lib/prayer-clock';
+import FemHimler from '@/components/forside/FemHimler';
+import Besok from '@/components/forside/Besok';
+import Fellesskapet from '@/components/forside/Fellesskapet';
+import StottOss from '@/components/forside/StottOss';
 
-const ShowcaseSections = dynamic(() => import('@/components/home/ShowcaseSections'), {
-  ssr: true,
-  loading: () => (
-    <section className="relative py-10 md:py-14 lg:py-24">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-8 md:mb-16">
-          <div className="h-4 w-48 mx-auto rounded bg-[var(--color-border)] mb-3" />
-          <div className="h-9 w-72 mx-auto rounded bg-[var(--color-border)]" />
-        </div>
-        <div className="flex flex-col gap-6 md:gap-12">
-          {[1, 2, 3, 4].map((i) => (
-            <div key={i} className="rounded-2xl overflow-hidden bg-[var(--glass-card-bg)] border border-[var(--glass-card-border)]">
-              <div className="h-[160px] md:h-[336px] bg-[var(--color-border)] animate-pulse" />
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  ),
-});
-const BottomRow = lazy(() => import('@/components/home/BottomRow'));
+// Rebuilt every five minutes, so the day's times turn over shortly after midnight.
+export const revalidate = 300;
 
-export async function generateMetadata(): Promise<Metadata> {
-  const t = await getTranslations({ locale: 'no', namespace: 'hero' });
-  const baseUrl = 'https://www.centerrahma.no';
+const BASE_URL = 'https://www.centerrahma.no';
+const TITLE = 'Masjid Rahma – moské i Oslo';
+const DESCRIPTION =
+  'Masjid Rahma er moskeen i Tvetenveien 154 i Oslo. Se dagens bønnetider, tidene for fredagsbønnen og hvordan du finner fram.';
 
-  return {
-    title: `Masjid Rahma Oslo — ${t('subtitle')}`,
-    description: t('subtitle'),
-    alternates: {
-      canonical: baseUrl,
-    },
-    openGraph: {
-      title: 'Masjid Rahma Oslo',
-      description: t('subtitle'),
-      url: baseUrl,
-      siteName: 'Masjid Rahma',
-      locale: 'nb_NO',
-      type: 'website',
-      images: [{ url: '/nymoskeoversikt_opt.jpg', width: 1200, height: 630, alt: 'Masjid Rahma Oslo' }],
-    },
-    twitter: {
-      card: 'summary_large_image',
-      title: 'Masjid Rahma Oslo',
-      description: t('subtitle'),
-      images: ['/nymoskeoversikt_opt.jpg'],
-    },
-  };
-}
+export const metadata: Metadata = {
+  title: { absolute: TITLE },
+  description: DESCRIPTION,
+  alternates: {
+    canonical: BASE_URL,
+  },
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    url: BASE_URL,
+    siteName: 'Masjid Rahma',
+    locale: 'nb_NO',
+    type: 'website',
+    images: [{ url: '/og-forside.png', width: 1200, height: 630, alt: 'Tegning av moskeens fasade med fem buer' }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: TITLE,
+    description: DESCRIPTION,
+    images: ['/og-forside.png'],
+  },
+};
 
 function MosqueJsonLd() {
   const jsonLd = {
@@ -62,7 +44,6 @@ function MosqueJsonLd() {
     name: 'Masjid Rahma',
     alternateName: 'Masjid Rahma Oslo',
     url: 'https://www.centerrahma.no',
-    telephone: '+47 22 12 34 56',
     email: 'post@centerrahma.no',
     address: {
       '@type': 'PostalAddress',
@@ -70,11 +51,6 @@ function MosqueJsonLd() {
       addressLocality: 'Oslo',
       postalCode: '0671',
       addressCountry: 'NO',
-    },
-    geo: {
-      '@type': 'GeoCoordinates',
-      latitude: 59.9127,
-      longitude: 10.7601,
     },
     openingHoursSpecification: {
       '@type': 'OpeningHoursSpecification',
@@ -100,16 +76,25 @@ function MosqueJsonLd() {
   );
 }
 
-export default function HomePage() {
+/** "I dag" on a Friday in Oslo, otherwise the date of the coming Friday. */
+function nextFridayLabel(now: ReturnType<typeof osloNow>) {
+  if (now.friday) return 'I dag';
+  const date = new Date(Date.UTC(now.year, now.month - 1, now.day));
+  date.setUTCDate(date.getUTCDate() + ((5 - date.getUTCDay() + 7) % 7));
+  return 'Neste: ' + new Intl.DateTimeFormat('nb-NO', { day: 'numeric', month: 'long', timeZone: 'UTC' }).format(date);
+}
+
+export default async function HomePage() {
+  const schedule = await fetchPrayerTimes();
+  const now = osloNow();
+
   return (
     <>
       <MosqueJsonLd />
-      <PageBackground />
-      <HeroSection />
-      <ShowcaseSections />
-      <Suspense fallback={<div className="min-h-[400px]" />}>
-        <BottomRow />
-      </Suspense>
+      <FemHimler schedule={schedule} friday={now.friday} />
+      <Besok jummah={schedule.jummah} nextFriday={nextFridayLabel(now)} />
+      <Fellesskapet />
+      <StottOss />
     </>
   );
 }

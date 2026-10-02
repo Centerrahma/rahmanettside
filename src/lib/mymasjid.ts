@@ -51,9 +51,9 @@ export async function fetchPrayerTimes(): Promise<PrayerSchedule> {
   try {
     const res = await fetch(url, {
       headers: { 'Content-Type': 'application/json' },
-      // Don't cache — we want fresh data on each server request.
-      // The Next.js API route handles caching for clients.
-      cache: 'no-store',
+      // The response is the whole year, so an hour-old copy is as good as a fresh one.
+      // Today's entry is picked out of it on every render.
+      next: { revalidate: 3600 },
     });
 
     if (!res.ok) {
@@ -80,19 +80,34 @@ export async function fetchPrayerTimes(): Promise<PrayerSchedule> {
   }
 }
 
+/** Day, month and ISO date in Oslo — the server runs in UTC, which is a day behind after midnight here. */
+function osloDate(at: Date) {
+  const [year, month, day] = new Intl.DateTimeFormat('en-CA', {
+    timeZone: 'Europe/Oslo',
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+  })
+    .format(at)
+    .split('-');
+  return { iso: `${year}-${month}-${day}`, day: Number(day), month: Number(month) };
+}
+
 /**
  * Find today's prayer times from the yearly salahTimings array
  * and normalize to our PrayerSchedule type.
  * Trims whitespace/newlines from all time strings.
  */
 function normalizePrayerData(data: MyMasjidResponse): PrayerSchedule {
-  const now = new Date();
-  const today = now.getDate();
-  const currentMonth = now.getMonth() + 1; // JS months are 0-indexed
+  const now = osloDate(new Date());
+  const tomorrow = osloDate(new Date(Date.now() + 24 * 60 * 60 * 1000));
 
   const timings = data.model.salahTimings;
   const todayTiming = timings.find(
-    (t) => t.day === today && t.month === currentMonth
+    (t) => t.day === now.day && t.month === now.month
+  );
+  const tomorrowTiming = timings.find(
+    (t) => t.day === tomorrow.day && t.month === tomorrow.month
   );
 
   // Fall back to first entry if today not found
@@ -100,7 +115,7 @@ function normalizePrayerData(data: MyMasjidResponse): PrayerSchedule {
 
   if (!todayTiming) {
     console.warn(
-      `[PrayerTimes] Could not find entry for day=${today} month=${currentMonth}, using first entry (day=${timing.day}, month=${timing.month})`
+      `[PrayerTimes] Could not find entry for day=${now.day} month=${now.month}, using first entry (day=${timing.day}, month=${timing.month})`
     );
   }
 
@@ -109,7 +124,7 @@ function normalizePrayerData(data: MyMasjidResponse): PrayerSchedule {
   const primaryJummah = jummahTimings?.find((j) => j.isPrimary) || jummahTimings?.[0];
 
   return {
-    date: now.toISOString().split('T')[0],
+    date: now.iso,
     prayers: {
       fajr: {
         time: timing.fajr.trim(),
@@ -136,5 +151,6 @@ function normalizePrayerData(data: MyMasjidResponse): PrayerSchedule {
       khutbah: primaryJummah?.time?.trim() || '13:30',
       prayer: primaryJummah?.iqamahTime?.trim() || '14:00',
     },
+    tomorrowFajr: tomorrowTiming?.fajr.trim(),
   };
 }

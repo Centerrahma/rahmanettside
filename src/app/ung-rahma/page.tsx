@@ -30,7 +30,7 @@ export default function UngRahmaPage() {
   return (
     <main className="min-h-screen">
       {/* Hero */}
-      <section className="pt-32 pb-16 px-6">
+      <section className="pt-12 pb-16 px-6">
         <div className="max-w-3xl mx-auto text-center">
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[var(--color-primary-val)]/10 text-[var(--color-primary-val)] text-sm font-medium mb-6">
             <Users className="w-5 h-5" />
