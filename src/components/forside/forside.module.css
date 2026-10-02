@@ -23,7 +23,7 @@
 @keyframes fade{to{opacity:1}}
 
 /* ── hero: Fem himler ── */
-.hero{padding:28px 0 0;overflow:hidden}
+.hero{padding:28px 0 0;overflow:hidden;display:flex;flex-direction:column}
 /* the drawing is the page's centrepiece: as wide as the screen allows, up to 1360px */
 .facade{position:relative;width:min(1360px,100%);margin:0 auto;aspect-ratio:1200/700}
 .facade > svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
@@ -39,12 +39,12 @@
 .badge{position:absolute;transform:translate(-50%,-50%);white-space:nowrap;font-size:14px;font-weight:600;color:var(--emerald-ink);background:#fff;border-radius:999px;padding:6px 12px;box-shadow:0 8px 20px -8px rgba(40,30,0,.45);opacity:0;transition:opacity .4s}
 .badge.on{opacity:1}
 .skyfx{transition:opacity .6s}
-.name{text-align:center;margin-top:30px}
+.name{text-align:center;margin:0 0 14px}
 /* the name sits on a plaque: italic Cormorant inside a gold frame with pointed ends */
-.plaque{position:relative;display:inline-block;margin:0 0 22px;padding:clamp(14px,1.6vw,22px) clamp(56px,6vw,96px)}
+.plaque{position:relative;display:inline-block;margin:0;padding:clamp(14px,1.6vw,22px) clamp(56px,6vw,96px)}
 .plaque > svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible;color:var(--gold)}
 .plaque h1{position:relative;font-family:var(--font-cormorant),serif;font-style:italic;font-weight:600;font-size:clamp(40px,4.6vw,64px);letter-spacing:.01em;line-height:1.05;margin:0;color:var(--emerald-ink)}
-.ctas{display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
+.ctas{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-top:30px}
 .gloss{display:flex;justify-content:center;gap:6px 16px;flex-wrap:wrap;max-width:1080px;margin:40px auto 0;padding:0 32px;font-size:14px;color:var(--muted);text-align:center}
 .gloss q{font-style:normal;color:var(--ink-2)}
 .list{display:none}
@@ -52,11 +52,11 @@
 @media (max-width:860px){
   .hero{padding-top:36px}
   .bays,.badge{display:none}
-  /* the whole mosque, scaled to the screen width */
-  .facade{width:100%}
-  .name{margin-top:22px;padding:0 16px}
-  .plaque{margin-bottom:18px;padding:12px 44px}
-  .ctas{gap:10px}
+  /* the whole mosque, scaled to the screen width, and above the name */
+  .facade{width:100%;order:-1}
+  .name{margin:22px 0 0;padding:0 16px}
+  .plaque{padding:12px 44px}
+  .ctas{gap:10px;margin-top:18px;padding:0 16px}
   .ctas .btn{flex:1 1 auto;justify-content:center;padding:0 18px}
   .list{display:grid;gap:0;margin:32px 16px 0;padding:0;list-style:none;border-top:1.5px solid var(--emerald)}
   .list li{display:grid;grid-template-columns:44px 1fr auto;gap:14px;align-items:center;padding:12px 4px;border-bottom:1px solid var(--hair)}

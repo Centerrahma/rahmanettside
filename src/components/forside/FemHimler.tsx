@@ -231,6 +231,18 @@ export default function FemHimler({ schedule, friday: renderedFriday }: Props) {
 
   return (
     <section className={s.hero} aria-labelledby="forside-h1">
+      {/* the name comes first: above the drawing on desktop; the phone layout moves the drawing up */}
+      <div className={s.name}>
+        <div className={s.plaque}>
+          {/* a gold double frame with pointed ends, stretched to the name; it fades in once */}
+          <svg viewBox="0 0 400 100" preserveAspectRatio="none" aria-hidden="true" className={s.fade} style={delay(1.4)}>
+            <path vectorEffect="non-scaling-stroke" d="M40,2 H360 C372,2 382,22 398,50 C382,78 372,98 360,98 H40 C28,98 18,78 2,50 C18,22 28,2 40,2 Z" fill="none" stroke="currentColor" strokeWidth={1.5} />
+            <path vectorEffect="non-scaling-stroke" d="M44,9 H356 C366,9 374,26 388,50 C374,74 366,91 356,91 H44 C34,91 26,74 12,50 C26,26 34,9 44,9 Z" fill="none" stroke="currentColor" strokeWidth={1} strokeOpacity={0.6} />
+          </svg>
+          <h1 id="forside-h1">Center Rahma</h1>
+        </div>
+      </div>
+
       <div className={s.facade}>
         <Facade next={nx?.index ?? null} past={past} />
         <ul className={s.bays} aria-label="Bønnetider i dag">
@@ -264,22 +276,12 @@ export default function FemHimler({ schedule, friday: renderedFriday }: Props) {
         )}
       </div>
 
-      <div className={s.name}>
-        <div className={s.plaque}>
-          {/* a gold double frame with pointed ends, stretched to the name; it fades in once */}
-          <svg viewBox="0 0 400 100" preserveAspectRatio="none" aria-hidden="true" className={s.fade} style={delay(1.4)}>
-            <path vectorEffect="non-scaling-stroke" d="M40,2 H360 C372,2 382,22 398,50 C382,78 372,98 360,98 H40 C28,98 18,78 2,50 C18,22 28,2 40,2 Z" fill="none" stroke="currentColor" strokeWidth={1.5} />
-            <path vectorEffect="non-scaling-stroke" d="M44,9 H356 C366,9 374,26 388,50 C374,74 366,91 356,91 H44 C34,91 26,74 12,50 C26,26 34,9 44,9 Z" fill="none" stroke="currentColor" strokeWidth={1} strokeOpacity={0.6} />
-          </svg>
-          <h1 id="forside-h1">Center Rahma</h1>
-        </div>
-        <div className={s.ctas}>
-          <a className={`${s.btn} ${s.primary}`} href="#besok">Finn fram</a>
-          <a className={`${s.btn} ${s.quiet}`} href={YEAR_PDF.href} download={YEAR_PDF.filename}>
-            <DownloadIcon />
-            Bønnetider 2026
-          </a>
-        </div>
+      <div className={s.ctas}>
+        <a className={`${s.btn} ${s.primary}`} href="#besok">Finn fram</a>
+        <a className={`${s.btn} ${s.quiet}`} href={YEAR_PDF.href} download={YEAR_PDF.filename}>
+          <DownloadIcon />
+          Bønnetider 2026
+        </a>
       </div>
 
       <ul className={s.list} aria-label="Bønnetider i dag">
