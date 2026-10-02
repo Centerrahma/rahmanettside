@@ -8,8 +8,8 @@ import s from './chrome.module.css';
 
 const LINKS = [
   { href: '/#fellesskapet', label: 'Fellesskapet' },
-  { href: '/#stott', label: 'Støtt oss' },
-  { href: '/#besok', label: 'Besøk og kontakt' },
+  { href: '/stott-oss', label: 'Støtt oss' },
+  { href: '/kontakt', label: 'Besøk og kontakt' },
 ];
 
 export function Navbar() {

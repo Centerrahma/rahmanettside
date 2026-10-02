@@ -42,11 +42,12 @@ const nextConfig: NextConfig = {
       },
     ],
   },
-  // the old English addresses lead to the new pages
+  // the old addresses lead to the new pages
   async redirects() {
     return [
       { source: '/donate', destination: '/stott-oss', permanent: true },
       { source: '/contact', destination: '/kontakt', permanent: true },
+      { source: '/new-mosque', destination: '/stott-oss', permanent: true },
     ];
   },
   async headers() {

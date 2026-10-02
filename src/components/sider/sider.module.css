@@ -28,6 +28,13 @@
 .label{font-size:14px;color:var(--muted)}
 .big{display:block;font-size:46px;font-weight:600;letter-spacing:-.04em;line-height:1.05}
 .account{font-size:26px;font-weight:600;letter-spacing:-.02em}
+/* the hadith under the cards, between two gold rules, and the legal note below it */
+.hadith{max-width:760px;margin:96px auto 0;padding:32px 0;text-align:center;border-top:1px solid var(--gold-2);border-bottom:1px solid var(--gold-2)}
+.hadith p{margin:0;font-size:clamp(21px,2.3vw,28px);font-weight:500;line-height:1.4;letter-spacing:-.02em;color:var(--ink)}
+.hadith footer{margin-top:12px;font-size:14px;color:var(--gold);font-weight:600}
+.legal{max-width:760px;margin:56px auto 0;font-size:14px;line-height:1.6;color:var(--muted);text-align:center}
+.legal h3{margin:0 0 6px;font-size:14px;font-weight:600;color:var(--ink-2)}
+.legal p{margin:0}
 
 /* ── Kontakt: five ways in, in the arches ── */
 .fem{padding-top:112px}
