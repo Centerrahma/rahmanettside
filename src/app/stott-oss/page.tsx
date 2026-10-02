@@ -3,7 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import Porten from '@/components/sider/Porten';
 import { BankIcon, HeartIcon, PhoneIcon } from '@/components/sider/icons';
-import { BANK_ACCOUNT, ORG_NR, VIPPS } from '@/components/forside/links';
+import { BANK_ACCOUNT, EMAIL, ORG_NR, VIPPS } from '@/components/forside/links';
 import f from '@/components/forside/forside.module.css';
 import s from '@/components/sider/sider.module.css';
 
@@ -53,22 +53,39 @@ export default function StottOssPage() {
               <b className={`${s.big} ${f.num}`}>{VIPPS.number}</b>
               <a className={`${f.btn} ${f.vipps} ${s.push}`} href={VIPPS.url} target="_blank" rel="noopener noreferrer">Gi med Vipps</a>
             </article>
-            {BANK_ACCOUNT && (
-              <article className={s.way}>
-                <BankIcon />
-                <h3>Bankoverføring</h3>
-                <span className={s.label}>Kontonummer</span>
-                <b className={`${s.account} ${f.num}`}>{BANK_ACCOUNT}</b>
-                <p>Skriv «Gave» i meldingsfeltet.</p>
-                <p className={s.label}>Center Rahma · Org.nr. {ORG_NR}</p>
-              </article>
-            )}
+            <article className={s.way}>
+              <BankIcon />
+              <h3>Bankoverføring</h3>
+              {BANK_ACCOUNT ? (
+                <>
+                  <span className={s.label}>Kontonummer</span>
+                  <b className={`${s.account} ${f.num}`}>{BANK_ACCOUNT}</b>
+                </>
+              ) : (
+                <p>Be om kontonummeret på <a className={f.link} href={`mailto:${EMAIL}`}>{EMAIL}</a>.</p>
+              )}
+              <p>Skriv «Gave» i meldingsfeltet.</p>
+              <p className={`${s.label} ${s.push}`}>Center Rahma · Org.nr. {ORG_NR}</p>
+            </article>
             <article className={s.way}>
               <HeartIcon />
               <h3>Bli medlem</h3>
               <p>Medlemskapet støtter driften av moskeen og programmene, år etter år.</p>
               <Link className={`${f.btn} ${f.primary} ${s.push}`} href="/become-member">Bli medlem</Link>
             </article>
+          </div>
+
+          <blockquote className={s.hadith}>
+            <p>«Den som bygger en moské for Allahs skyld, Allah vil bygge et hus for ham i Paradis.»</p>
+            <footer>Sahih al-Bukhari &amp; Muslim</footer>
+          </blockquote>
+
+          <div className={s.legal}>
+            <h3>Juridisk informasjon</h3>
+            <p>
+              Mottaker er Center Rahma. Org. nr: {ORG_NR}. Det er ingen bindingstid på avtaler om faste trekk. Enhver avtale
+              kan sies opp ved å kontakte oss på <a className={f.link} href={`mailto:${EMAIL}`}>{EMAIL}</a>.
+            </p>
           </div>
         </section>
       </div>

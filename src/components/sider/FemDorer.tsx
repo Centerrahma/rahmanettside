@@ -65,8 +65,7 @@ export default function FemDorer({ jummah }: { jummah: PrayerSchedule['jummah'] 
     { icon: <FacebookIcon />, label: 'Facebook', body: <>Masjid Rahma</>, link: <a href={FACEBOOK} target="_blank" rel="noopener noreferrer">Følg oss</a> },
   ];
   return (
-    <section className={s.fem} aria-labelledby="fem-h2">
-      <h2 id="fem-h2" className={s.h2}>Fem veier til oss</h2>
+    <section className={s.fem} aria-label="Slik når du oss">
       <div className={s.arcade}>
         <Arcade />
         {/* on phones the arches keep only their icons; the list below carries the text */}
