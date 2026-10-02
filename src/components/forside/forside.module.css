@@ -25,7 +25,7 @@
 /* ── hero: Fem himler ── */
 .hero{padding:28px 0 0;overflow:hidden}
 /* the drawing gives way on short screens so the name and buttons stay above the fold */
-.facade{position:relative;width:min(1080px,max(760px,(100svh - 300px) * 1.818),100%);margin:0 auto;aspect-ratio:1200/660}
+.facade{position:relative;width:min(1080px,max(760px,(100svh - 300px) * 1.714),100%);margin:0 auto;aspect-ratio:1200/700}
 .facade > svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
 .facade text{font-family:var(--font-amiri),serif}
 .bays{list-style:none;margin:0;padding:0}

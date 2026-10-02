@@ -7,7 +7,7 @@ import { DownloadIcon } from './icons';
 import { YEAR_PDF } from './links';
 import s from './forside.module.css';
 
-/* The mosque front, drawn on a 1200 × 660 grid (y runs from -80). Each of the five
+/* The mosque front, drawn on a 1200 × 700 grid (y runs from -120); the roof is raised so the verse can be read on a phone. Each of the five
    arches holds the sky of one prayer: dawn, high sun, low sun, sunset, night. */
 
 const SKIES = [
@@ -59,30 +59,30 @@ function Facade({ next, past }: { next: number | null; past: boolean[] }) {
     );
 
   // dome and drum
-  line('M528,104 V70 H672 V104', { fill: '#fff' });
-  [548, 574, 600, 626, 652].forEach((c) => line(`M${c - 4},96 V84 C${c - 4},80 ${c},76 ${c},74 C${c},76 ${c + 4},80 ${c + 4},84 V96`, { w: 1 }));
-  line('M520,70 C498,50 504,14 540,-6 C568,-22 594,-28 600,-50 C606,-28 632,-22 660,-6 C696,14 702,50 680,70 Z', { fill: 'var(--mint)', w: 1.8 });
-  line('M600,-50 C590,-10 572,34 562,70 M600,-50 C610,-10 628,34 638,70 M600,-50 V70', { w: 1, op: 0.35 });
-  line('M512,70 H688', { w: 1.5 });
-  line('M600,-50 V-62', { w: 1.4 });
-  line(crescent(600, -68, 7), { fill: 'var(--gold)', stroke: 'var(--gold)', w: 1 });
-  line(star(600, 22, 12), { stroke: 'var(--gold)', fill: '#fff', w: 1.1 });
+  line('M528,64 V30 H672 V64', { fill: '#fff' });
+  [548, 574, 600, 626, 652].forEach((c) => line(`M${c - 4},56 V44 C${c - 4},40 ${c},36 ${c},34 C${c},36 ${c + 4},40 ${c + 4},44 V56`, { w: 1 }));
+  line('M520,30 C498,10 504,-26 540,-46 C568,-62 594,-68 600,-90 C606,-68 632,-62 660,-46 C696,-26 702,10 680,30 Z', { fill: 'var(--mint)', w: 1.8 });
+  line('M600,-90 C590,-50 572,-6 562,30 M600,-90 C610,-50 628,-6 638,30 M600,-90 V30', { w: 1, op: 0.35 });
+  line('M512,30 H688', { w: 1.5 });
+  line('M600,-90 V-102', { w: 1.4 });
+  line(crescent(600, -108, 7), { fill: 'var(--gold)', stroke: 'var(--gold)', w: 1 });
+  line(star(600, -18, 12), { stroke: 'var(--gold)', fill: '#fff', w: 1.1 });
   // side domes
   [240, 960].forEach((c) => {
-    line(`M${c - 34},104 C${c - 42},84 ${c - 26},68 ${c},54 C${c + 26},68 ${c + 42},84 ${c + 34},104 Z`, { fill: 'var(--mint)' });
-    line(`M${c},54 V44`, { w: 1.2 });
-    line(crescent(c, 39, 4.5), { fill: 'var(--gold)', stroke: 'var(--gold)', w: 1 });
+    line(`M${c - 34},64 C${c - 42},44 ${c - 26},28 ${c},14 C${c + 26},28 ${c + 42},44 ${c + 34},64 Z`, { fill: 'var(--mint)' });
+    line(`M${c},14 V4`, { w: 1.2 });
+    line(crescent(c, -1, 4.5), { fill: 'var(--gold)', stroke: 'var(--gold)', w: 1 });
   });
   // minarets, each tied to the arcade by a wall
   [90, 1110].forEach((x) => {
     line(`M${x - 22},580 V548 H${x + 22} V580`, { fill: '#fff' });
-    line(`M${x - 12},548 V96 H${x + 12} V548`, { fill: '#fff' });
+    line(`M${x - 12},548 V56 H${x + 12} V548`, { fill: '#fff' });
     line(`M${x - 22},250 H${x + 22} M${x - 20},258 H${x + 20} M${x - 18},258 L${x - 12},268 M${x + 18},258 L${x + 12},268 M${x - 7},258 V266 M${x + 7},258 V266`, { w: 1.2 });
-    line(`M${x - 21},96 H${x + 21} M${x - 18},103 H${x + 18}`, { w: 1.2 });
-    line(`M${x - 7},96 V58 H${x + 7} V96`, { fill: '#fff' });
-    line(`M${x - 10},58 C${x - 11},42 ${x},32 ${x},10 C${x},32 ${x + 11},42 ${x + 10},58 Z`, { fill: 'var(--mint)' });
-    line(`M${x},10 V-2`, { w: 1.2 });
-    line(crescent(x, -7, 5), { fill: 'var(--gold)', stroke: 'var(--gold)', w: 1 });
+    line(`M${x - 21},56 H${x + 21} M${x - 18},63 H${x + 18}`, { w: 1.2 });
+    line(`M${x - 7},56 V18 H${x + 7} V56`, { fill: '#fff' });
+    line(`M${x - 10},18 C${x - 11},2 ${x},-8 ${x},-30 C${x},-8 ${x + 11},2 ${x + 10},18 Z`, { fill: 'var(--mint)' });
+    line(`M${x},-30 V-42`, { w: 1.2 });
+    line(crescent(x, -47, 5), { fill: 'var(--gold)', stroke: 'var(--gold)', w: 1 });
     [170, 330, 430].forEach((y) => line(`M${x - 4},${y + 14} V${y + 4} C${x - 4},${y} ${x},${y - 4} ${x},${y - 6} C${x},${y - 4} ${x + 4},${y} ${x + 4},${y + 4} V${y + 14}`, { w: 1 }));
     const a = x < 600 ? x + 12 : 1062;
     const b = x < 600 ? 138 : x - 12;
@@ -92,12 +92,12 @@ function Facade({ next, past }: { next: number | null; past: boolean[] }) {
   });
   // crenellation, frieze with the verse, lattice in the spandrels, muqarnas
   let cren = '';
-  for (let x = 138; x < 1062; x += 14) cren += `M${x + 1},120 V113 L${x + 7},106 L${x + 13},113 V120 `;
+  for (let x = 138; x < 1062; x += 14) cren += `M${x + 1},80 V73 L${x + 7},66 L${x + 13},73 V80 `;
   line(cren, { w: 1 });
-  line('M138,120 H1062 V176 H138 Z', { fill: '#fff', w: 1.6 });
-  line('M146,127 H1054 M146,169 H1054', { stroke: 'var(--gold-2)', w: 1 });
+  line('M138,80 H1062 V176 H138 Z', { fill: '#fff', w: 1.6 });
+  line('M146,88 H1054 M146,168 H1054', { stroke: 'var(--gold-2)', w: 1 });
   out.push(
-    <text key={out.length} x={600} y={156} textAnchor="middle" fontSize={25} fill="var(--gold)" direction="rtl" lang="ar" className={s.fade} style={delay(1.1)}>
+    <text key={out.length} x={600} y={143} textAnchor="middle" fontSize={44} fill="var(--gold)" direction="rtl" lang="ar" className={s.fade} style={delay(1.1)}>
       إِنَّ الصَّلَاةَ كَانَتْ عَلَى الْمُؤْمِنِينَ كِتَابًا مَوْقُوتًا
     </text>,
   );
@@ -168,7 +168,7 @@ function Facade({ next, past }: { next: number | null; past: boolean[] }) {
   line('M40,580 H1160 M60,588 H1140', { w: 1.6 });
 
   return (
-    <svg viewBox="0 -80 1200 660" role="img" aria-label="Moskeens fasade med fem buer. Hver bue viser himmelen ved en av dagens bønner.">
+    <svg viewBox="0 -120 1200 700" role="img" aria-label="Moskeens fasade med fem buer. Hver bue viser himmelen ved en av dagens bønner.">
       <defs>
         {SKIES.map((sky, i) => (
           <linearGradient key={i} id={`fh-sky${i}`} x1={0} y1={0} x2={0} y2={1}>
@@ -241,8 +241,8 @@ export default function FemHimler({ schedule, friday: renderedFriday }: Props) {
               style={{
                 left: pct(bayX(i) + 12, 1200),
                 width: pct(156, 1200),
-                top: pct(400, 660, 80),
-                height: pct(150, 660),
+                top: pct(400, 700, 120),
+                height: pct(150, 700),
                 ...delay((1.3 + i * 0.22).toFixed(2)),
               }}
             >
@@ -256,7 +256,7 @@ export default function FemHimler({ schedule, friday: renderedFriday }: Props) {
         {nx && (
           <span
             className={`${s.badge} ${badgeOn ? s.on : ''}`}
-            style={{ left: pct(bayX(nx.index) + 90, 1200), top: pct(204, 660, 80) }}
+            style={{ left: pct(bayX(nx.index) + 90, 1200), top: pct(204, 700, 120) }}
           >
             Neste, {nx.tomorrow ? 'i morgen om ' : 'om '}
             {until(nx.left)}
