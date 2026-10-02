@@ -9,7 +9,7 @@ export function Footer() {
       <div className={s.wrap}>
         <div className={s.foot}>
           <div>
-            <Image src="/hvit_rahma_300.png" alt="Center Rahma" width={219} height={300} />
+            <Image src="/rahma_logo_hvit.png" alt="Center Rahma" width={438} height={600} />
             <p>Masjid Rahma, {ADDRESS.street}, {ADDRESS.city}.</p>
           </div>
           <div>
