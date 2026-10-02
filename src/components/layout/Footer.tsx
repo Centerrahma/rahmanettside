@@ -33,7 +33,8 @@ export function Footer() {
             <h4>Kontakt</h4>
             <ul>
               <li><a href={`mailto:${EMAIL}`}>{EMAIL}</a></li>
-              <li><Link href="/contact">Kontaktskjema</Link></li>
+              <li><Link href="/kontakt">Kontakt oss</Link></li>
+              <li><Link href="/stott-oss">Støtt oss</Link></li>
               <li><a href={FACEBOOK} target="_blank" rel="noopener noreferrer">Facebook</a></li>
             </ul>
           </div>

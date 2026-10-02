@@ -90,7 +90,7 @@ export default function RahmaSkole() {
 
         <div className="text-center">
           <Link
-            href="/contact"
+            href="/kontakt"
             className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[var(--color-primary-val)] text-white font-bold hover:opacity-90 transition-opacity"
           >
             Kontakt oss for mer info
