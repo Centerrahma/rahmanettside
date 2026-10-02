@@ -6,32 +6,18 @@ import Link from 'next/link';
 import { FACEBOOK, VIPPS } from './links';
 import s from './forside.module.css';
 
-/** Mounts the Facebook page plugin only when the panel is close to the screen. */
-function FacebookPanel() {
-  const box = useRef<HTMLDivElement>(null);
-  useEffect(() => {
-    const el = box.current;
-    if (!el) return;
-    const io = new IntersectionObserver(
-      ([entry]) => {
-        if (!entry.isIntersecting) return;
-        io.disconnect();
-        const w = Math.min(500, Math.max(180, Math.round(el.clientWidth)));
-        const h = Math.max(380, Math.round(el.clientHeight));
-        const src = `https://www.facebook.com/plugins/page.php?href=${encodeURIComponent(FACEBOOK)}&tabs=timeline&width=${w}&height=${h}&small_header=true&adapt_container_width=true&hide_cover=true&show_facepile=false`;
-        const frame = document.createElement('iframe');
-        Object.assign(frame, { title: 'Masjid Rahma på Facebook', src, width: String(w), height: String(h), loading: 'lazy' });
-        frame.allow = 'encrypted-media';
-        el.replaceChildren(frame);
-      },
-      { rootMargin: '300px' },
-    );
-    io.observe(el);
-    return () => io.disconnect();
-  }, []);
+/* Facebook's page plugin shows posts only to visitors logged in to Facebook in a
+   browser that lets it set cookies; everyone else gets a blank frame or a login
+   wall. So the panel is a plain card that sends people to the page. */
+function FacebookCard() {
   return (
-    <div className={s.fbbox} ref={box}>
-      Laster innlegg …
+    <div className={s.fbcard}>
+      <svg className={s.fblogo} viewBox="0 0 24 24" aria-hidden="true">
+        <path fill="currentColor" d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+      </svg>
+      <b>Masjid Rahma på Facebook</b>
+      <p>Nyheter, arrangementer og beskjeder fra moskeen.</p>
+      <a className={`${s.btn} ${s.fb}`} href={FACEBOOK} target="_blank" rel="noopener noreferrer">Følg oss på Facebook</a>
     </div>
   );
 }
@@ -82,15 +68,13 @@ export default function StottOss() {
       <div className={s.wrap}>
         <div className={s.head}>
           <h2>Følg med og støtt oss</h2>
-          <p>Nyheter og arrangementer legges ut på Facebook. Moskeen drives av gaver fra fellesskapet.</p>
         </div>
         <div className={s.duo}>
-          <article className={s.panel}>
+          <article className={`${s.panel} ${s.follow}`}>
             <header>
-              <h3>Fra Facebook</h3>
-              <a className={s.link} href={FACEBOOK} target="_blank" rel="noopener noreferrer">Åpne siden</a>
+              <h3>Følg med</h3>
             </header>
-            <FacebookPanel />
+            <FacebookCard />
           </article>
           <article className={`${s.panel} ${s.give}`}>
             <header>

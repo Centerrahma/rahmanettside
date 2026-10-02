@@ -35,7 +35,6 @@ export default function Fellesskapet() {
       <div className={s.wrap}>
         <div className={s.head}>
           <h2>Fellesskapet</h2>
-          <p>Undervisning for barn, et eget miljø for unge og et fellesskap å være med i.</p>
         </div>
         <div className={s.boxes}>
           {BOXES.map((box) => (

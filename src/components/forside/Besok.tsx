@@ -16,7 +16,6 @@ export default function Besok({ jummah, nextFriday }: Props) {
         <div>
           <div className={s.head}>
             <h2>Besøk oss</h2>
-            <p>Moskeen er åpen for alle. Kom til fredagsbønnen, til en av de daglige bønnene eller bare for å se deg rundt.</p>
           </div>
           <div className={s.jbox}>
             <div className={s.jrow}>

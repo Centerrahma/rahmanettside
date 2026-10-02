@@ -92,9 +92,9 @@ export default async function HomePage() {
     <>
       <MosqueJsonLd />
       <FemHimler schedule={schedule} friday={now.friday} />
-      <Besok jummah={schedule.jummah} nextFriday={nextFridayLabel(now)} />
       <Fellesskapet />
       <StottOss />
+      <Besok jummah={schedule.jummah} nextFriday={nextFridayLabel(now)} />
     </>
   );
 }
