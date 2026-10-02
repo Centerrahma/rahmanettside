@@ -9,7 +9,7 @@ import s from './chrome.module.css';
 const LINKS = [
   { href: '/#fellesskapet', label: 'Fellesskapet' },
   { href: '/#stott', label: 'Støtt oss' },
-  { href: '/#besok', label: 'Besøk oss' },
+  { href: '/#besok', label: 'Besøk og kontakt' },
 ];
 
 export function Navbar() {

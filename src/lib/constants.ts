@@ -100,7 +100,7 @@ export const EVENTS: CommunityEvent[] = [
 ];
 
 export const CONTACT_INFO = {
-  address: 'Tvetenveien 154',
+  address: 'Tvetenveien 152A',
   city: '0671 Oslo, Norway',
   email: 'post@centerrahma.no',
   hours: 'Daily: 09:00 - 22:00',

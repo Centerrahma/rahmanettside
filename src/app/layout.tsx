@@ -35,11 +35,11 @@ export const metadata: Metadata = {
     default: 'Masjid Rahma — Moske i Oslo | Bønn, Fellesskap og Utdanning',
   },
   description:
-    'Masjid Rahma er en moske i Oslo som tilbyr daglige bønner, koranundervisning, ungdomsaktiviteter og fellesskap. Besøk oss på Tvetenveien 154.',
+    'Masjid Rahma er en moske i Oslo som tilbyr daglige bønner, koranundervisning, ungdomsaktiviteter og fellesskap. Besøk oss på Tvetenveien 152A.',
   openGraph: {
     title: 'Masjid Rahma — Moske i Oslo',
     description:
-      'Masjid Rahma er en moske i Oslo som tilbyr daglige bønner, koranundervisning, ungdomsaktiviteter og fellesskap. Besøk oss på Tvetenveien 154.',
+      'Masjid Rahma er en moske i Oslo som tilbyr daglige bønner, koranundervisning, ungdomsaktiviteter og fellesskap. Besøk oss på Tvetenveien 152A.',
     url: 'https://www.centerrahma.no',
     siteName: 'Masjid Rahma',
     locale: 'nb_NO',
@@ -77,7 +77,7 @@ function OrganizationJsonLd() {
     email: 'post@centerrahma.no',
     address: {
       '@type': 'PostalAddress',
-      streetAddress: 'Tvetenveien 154',
+      streetAddress: 'Tvetenveien 152A',
       addressLocality: 'Oslo',
       postalCode: '0671',
       addressCountry: 'NO',

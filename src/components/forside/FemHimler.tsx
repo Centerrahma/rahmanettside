@@ -75,17 +75,17 @@ function Facade({ next, past }: { next: number | null; past: boolean[] }) {
   });
   // minarets, each tied to the arcade by a wall
   [90, 1110].forEach((x) => {
-    line(`M${x - 22},580 V548 H${x + 22} V580`, { fill: '#fff' });
-    line(`M${x - 12},548 V56 H${x + 12} V548`, { fill: '#fff' });
-    line(`M${x - 22},250 H${x + 22} M${x - 20},258 H${x + 20} M${x - 18},258 L${x - 12},268 M${x + 18},258 L${x + 12},268 M${x - 7},258 V266 M${x + 7},258 V266`, { w: 1.2 });
-    line(`M${x - 21},56 H${x + 21} M${x - 18},63 H${x + 18}`, { w: 1.2 });
-    line(`M${x - 7},56 V18 H${x + 7} V56`, { fill: '#fff' });
-    line(`M${x - 10},18 C${x - 11},2 ${x},-8 ${x},-30 C${x},-8 ${x + 11},2 ${x + 10},18 Z`, { fill: 'var(--mint)' });
+    line(`M${x - 30},580 V548 H${x + 30} V580`, { fill: '#fff' });
+    line(`M${x - 18},548 V56 H${x + 18} V548`, { fill: '#fff' });
+    line(`M${x - 30},250 H${x + 30} M${x - 28},258 H${x + 28} M${x - 26},258 L${x - 18},268 M${x + 26},258 L${x + 18},268 M${x - 10},258 V266 M${x + 10},258 V266`, { w: 1.2 });
+    line(`M${x - 29},56 H${x + 29} M${x - 25},63 H${x + 25}`, { w: 1.2 });
+    line(`M${x - 11},56 V18 H${x + 11} V56`, { fill: '#fff' });
+    line(`M${x - 15},18 C${x - 16},2 ${x},-8 ${x},-30 C${x},-8 ${x + 16},2 ${x + 15},18 Z`, { fill: 'var(--mint)' });
     line(`M${x},-30 V-42`, { w: 1.2 });
     line(crescent(x, -47, 5), { fill: 'var(--gold)', stroke: 'var(--gold)', w: 1 });
-    [170, 330, 430].forEach((y) => line(`M${x - 4},${y + 14} V${y + 4} C${x - 4},${y} ${x},${y - 4} ${x},${y - 6} C${x},${y - 4} ${x + 4},${y} ${x + 4},${y + 4} V${y + 14}`, { w: 1 }));
-    const a = x < 600 ? x + 12 : 1062;
-    const b = x < 600 ? 138 : x - 12;
+    [170, 330, 430].forEach((y) => line(`M${x - 6},${y + 16} V${y + 4} C${x - 6},${y} ${x},${y - 5} ${x},${y - 8} C${x},${y - 5} ${x + 6},${y} ${x + 6},${y + 4} V${y + 16}`, { w: 1 }));
+    const a = x < 600 ? x + 18 : 1062;
+    const b = x < 600 ? 138 : x - 18;
     line(`M${a},580 V330 H${b} V580`, { fill: '#fff' });
     const c = (a + b) / 2;
     line(`M${c - 8},560 V470 C${c - 8},458 ${c},450 ${c},446 C${c},450 ${c + 8},458 ${c + 8},470 V560`, { w: 1.1 });

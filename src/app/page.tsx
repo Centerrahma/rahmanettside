@@ -12,7 +12,7 @@ export const revalidate = 300;
 const BASE_URL = 'https://www.centerrahma.no';
 const TITLE = 'Masjid Rahma – moské i Oslo';
 const DESCRIPTION =
-  'Masjid Rahma er moskeen i Tvetenveien 154 i Oslo. Se dagens bønnetider, tidene for fredagsbønnen og hvordan du finner fram.';
+  'Masjid Rahma er moskeen i Tvetenveien 152A i Oslo. Se dagens bønnetider, tidene for fredagsbønnen og hvordan du finner fram.';
 
 export const metadata: Metadata = {
   title: { absolute: TITLE },
@@ -47,7 +47,7 @@ function MosqueJsonLd() {
     email: 'post@centerrahma.no',
     address: {
       '@type': 'PostalAddress',
-      streetAddress: 'Tvetenveien 154',
+      streetAddress: 'Tvetenveien 152A',
       addressLocality: 'Oslo',
       postalCode: '0671',
       addressCountry: 'NO',
@@ -76,14 +76,6 @@ function MosqueJsonLd() {
   );
 }
 
-/** "I dag" on a Friday in Oslo, otherwise the date of the coming Friday. */
-function nextFridayLabel(now: ReturnType<typeof osloNow>) {
-  if (now.friday) return 'I dag';
-  const date = new Date(Date.UTC(now.year, now.month - 1, now.day));
-  date.setUTCDate(date.getUTCDate() + ((5 - date.getUTCDay() + 7) % 7));
-  return 'Neste: ' + new Intl.DateTimeFormat('nb-NO', { day: 'numeric', month: 'long', timeZone: 'UTC' }).format(date);
-}
-
 export default async function HomePage() {
   const schedule = await fetchPrayerTimes();
   const now = osloNow();
@@ -94,7 +86,7 @@ export default async function HomePage() {
       <FemHimler schedule={schedule} friday={now.friday} />
       <Fellesskapet />
       <StottOss />
-      <Besok jummah={schedule.jummah} nextFriday={nextFridayLabel(now)} />
+      <Besok jummah={schedule.jummah} />
     </>
   );
 }
