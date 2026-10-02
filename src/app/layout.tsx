@@ -1,22 +1,14 @@
 import type { Metadata } from 'next';
-import { Source_Serif_4, Plus_Jakarta_Sans, Amiri } from 'next/font/google';
+import { Geist, Amiri } from 'next/font/google';
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
 import './globals.css';
 
-const sourceSerif = Source_Serif_4({
-  variable: '--font-display',
+const geist = Geist({
+  variable: '--font-geist',
   subsets: ['latin'],
-  weight: ['400', '600', '700'],
-  display: 'swap',
-});
-
-const plusJakarta = Plus_Jakarta_Sans({
-  variable: '--font-jakarta',
-  subsets: ['latin'],
-  weight: ['400', '500', '600', '700'],
   display: 'swap',
 });
 
@@ -45,7 +37,7 @@ export const metadata: Metadata = {
     type: 'website',
     images: [
       {
-        url: '/nymoskeoversikt_opt.jpg',
+        url: '/og-forside.png',
         width: 1200,
         height: 630,
         alt: 'Masjid Rahma — Moske i Oslo',
@@ -57,7 +49,7 @@ export const metadata: Metadata = {
     title: 'Masjid Rahma — Moske i Oslo',
     description:
       'Masjid Rahma er en moske i Oslo som tilbyr daglige bønner, koranundervisning, ungdomsaktiviteter og fellesskap.',
-    images: ['/nymoskeoversikt_opt.jpg'],
+    images: ['/og-forside.png'],
   },
   alternates: {
     canonical: 'https://www.centerrahma.no',
@@ -73,7 +65,6 @@ function OrganizationJsonLd() {
     alternateName: 'Masjid Rahma Oslo',
     url: 'https://www.centerrahma.no',
     logo: 'https://www.centerrahma.no/logo.png',
-    telephone: '+47 22 12 34 56',
     email: 'post@centerrahma.no',
     address: {
       '@type': 'PostalAddress',
@@ -103,21 +94,13 @@ export default async function RootLayout({
   const messages = await getMessages();
 
   return (
-    <html lang="no" className="dark" suppressHydrationWarning>
+    <html lang="no">
       <head>
-        {/* Blocking script to apply saved theme before first paint — prevents light flash.
-            All values are hardcoded string literals — no user input, safe from XSS. */}
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `(function(){try{var t=localStorage.getItem('theme');if(t==='light'){document.documentElement.classList.remove('dark')}else{document.documentElement.classList.add('dark')}}catch(e){}})()`,
-          }}
-        />
         <OrganizationJsonLd />
-        <meta name="theme-color" content="#047857" media="(prefers-color-scheme: light)" />
-        <meta name="theme-color" content="#060b0e" media="(prefers-color-scheme: dark)" />
+        <meta name="theme-color" content="#ffffff" />
       </head>
       <body
-        className={`${sourceSerif.variable} ${plusJakarta.variable} ${amiri.variable} antialiased`}
+        className={`${geist.variable} ${amiri.variable} antialiased`}
       >
         <NextIntlClientProvider messages={messages}>
           <a

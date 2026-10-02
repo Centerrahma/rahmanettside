@@ -12,4 +12,6 @@ export interface PrayerSchedule {
     khutbah: string;
     prayer: string;
   };
+  /** Tomorrow's fajr, so the next prayer after isha can be counted down to. */
+  tomorrowFajr?: string;
 }

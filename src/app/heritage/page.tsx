@@ -37,7 +37,7 @@ export async function generateMetadata(): Promise<Metadata> {
 export default function HeritagePage() {
   const t = useTranslations('heritage');
   return (
-    <main className="min-h-screen pt-32 pb-20">
+    <main className="min-h-screen pt-12 pb-20">
       <Container>
         {/* Page Header */}
         <header className="text-center mb-20">
