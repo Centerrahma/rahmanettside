@@ -1,0 +1,103 @@
+/* Kontakt oss. Wide screens get the illuminated page (.desk), phones and tablets the page drawn for a
+   narrow screen (.phone). Tokens (--emerald, --gold …) live in globals.css. */
+.page{padding:24px 0 96px;overflow:hidden}
+.phone{display:none}
+@media (max-width:1000px){
+  .desk{display:none}
+  .phone{display:block}
+  .page{padding-top:8px}
+}
+.mapSec{padding-top:72px}
+
+/* a drawing as big as the screen allows: --res is the height everything else above the fold needs */
+.frame{position:relative;width:min(var(--max),calc(100% - 32px),max(600px,(100svh - var(--res)) * var(--arn)));margin:0 auto;aspect-ratio:var(--ar);container-type:inline-size}
+.art{position:absolute;inset:0}
+.art > svg{display:block;width:100%;height:100%;overflow:visible}
+.art text{font-family:var(--font-amiri),serif}
+.place{position:absolute;left:var(--x);top:var(--y);width:var(--w);height:var(--h);opacity:0;animation:arrive .9s ease forwards;animation-delay:var(--d)}
+@keyframes arrive{to{opacity:1}}
+
+/* one way to reach us, centred in its place on the drawing */
+.way{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:.35cqw}
+.way > svg{width:clamp(22px,2.4cqw,32px);height:clamp(22px,2.4cqw,32px);color:var(--emerald);margin-bottom:.2cqw}
+.way small{font-size:clamp(10px,.95cqw,13px);font-weight:600;color:var(--gold);text-transform:uppercase;letter-spacing:.09em}
+.way b{font-size:clamp(14px,1.55cqw,20px);font-weight:600;letter-spacing:-.02em;line-height:1.25;color:var(--ink)}
+.way a{font-size:clamp(12px,1.1cqw,15px);font-weight:600;color:var(--emerald);text-decoration:none}
+.way a:hover{text-decoration:underline;text-underline-offset:3px}
+
+/* on the page: the title, the letter, the medallions and the colophon */
+.title{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+.title h1{margin:0;font-family:var(--font-cormorant),serif;font-style:italic;font-weight:600;font-size:clamp(34px,4.6cqw,58px);line-height:1;color:var(--emerald-ink)}
+.title p{margin:.5cqw 0 0;font-size:clamp(12.5px,1.2cqw,16px);color:var(--ink-2)}
+.letterBox{display:flex}
+.letter{display:flex;flex-direction:column;gap:1.1cqw;width:100%;height:100%}
+.dear{margin:0;font-family:var(--font-cormorant),serif;font-style:italic;font-weight:600;font-size:clamp(20px,2.2cqw,28px);color:var(--emerald-ink)}
+.pair{display:grid;grid-template-columns:1fr 1fr;gap:1.6cqw}
+.letter label{display:grid;gap:.2cqw;min-width:0}
+.letter label span{font-size:clamp(10px,.9cqw,12px);font-weight:600;color:var(--gold);text-transform:uppercase;letter-spacing:.09em}
+.letter input,.letter select,.letter textarea{width:100%;min-width:0;box-sizing:border-box;font:inherit;font-size:clamp(14px,1.3cqw,16px);color:var(--ink);background:transparent;border:0;border-bottom:1.5px solid #cfb47f;border-radius:0;padding:.35cqw 2px;outline:none;transition:border-color .2s}
+.letter input:focus,.letter select:focus,.letter textarea:focus{border-color:var(--emerald)}
+.msg{flex:1;min-height:0}
+.letter textarea{resize:none;height:100%;min-height:60px;border-bottom:0;line-height:2.1em;background:repeating-linear-gradient(transparent 0 calc(2.1em - 1.5px),#cfb47f calc(2.1em - 1.5px) 2.1em);background-attachment:local;padding-top:0}
+.sign{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.sign p{margin:0;font-family:var(--font-cormorant),serif;font-style:italic;font-size:clamp(15px,1.5cqw,19px);color:var(--ink-2)}
+.sign a{color:var(--emerald);font-weight:600}
+.seal{flex:none;display:grid;place-items:center;width:clamp(58px,6.2cqw,78px);aspect-ratio:1;border-radius:50%;border:0;cursor:pointer;font:inherit;font-weight:600;font-size:clamp(13px,1.2cqw,15px);color:#fff4d6;background:radial-gradient(circle at 38% 32%,#13805c,#0a5e44 60%,#06402e);box-shadow:0 0 0 3px #e2c27d,0 0 0 4.5px #9b7329,0 6px 14px -4px rgba(40,30,0,.45);transition:transform .15s}
+.seal:hover{transform:rotate(-6deg) scale(1.04)}
+.seal:active{transform:scale(.96)}
+.seal:disabled{opacity:.6}
+.medal{gap:.15cqw}
+.medal b{font-size:clamp(12px,1.25cqw,16px)}
+.medal > svg{width:clamp(18px,2cqw,26px);height:clamp(18px,2cqw,26px);margin-bottom:0}
+.colo{display:flex;align-items:center;justify-content:center;gap:.4em;white-space:nowrap;font-size:clamp(10.5px,1cqw,13.5px);color:var(--ink-2)}
+.colo span{color:var(--ink-2)}
+.colo cite{font-style:normal;font-weight:600;color:var(--gold);white-space:nowrap}
+
+/* the map in a round gold frame, with the address and two buttons */
+.mapWrap{display:flex;flex-direction:column;align-items:center}
+.map{position:relative;width:min(440px,100%);aspect-ratio:1}
+.mapIn{position:absolute;inset:7.5%;border-radius:50%;overflow:hidden;background:#e9ece9}
+.mapIn iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.map > svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none}
+.addr{display:flex;flex-direction:column;align-items:center;margin:18px 0 14px}
+.addr b{font-size:22px;font-weight:600;letter-spacing:-.025em}
+.addr span{color:var(--ink-2)}
+.mapBtns{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+
+@media (prefers-reduced-motion:reduce){
+  .place{animation:none;opacity:1}
+}
+
+/* ── phones and tablets: the page drawn for a narrow screen, in a phone-wide column ── */
+.pm{max-width:480px;margin:0 auto;padding:20px 14px 72px}
+.pmSheet{position:relative;padding:22px 18px 26px;border:18px solid transparent;border-image:var(--border) 18 round;background:linear-gradient(160deg,#fffaf0,#fbf2de 60%,#f3e5c6);background-clip:padding-box;outline:1.5px solid var(--gold);outline-offset:3px;box-shadow:inset 0 0 0 1.5px var(--gold),inset 0 0 0 5px #fbf2de,inset 0 0 0 6px var(--gold-2),10px 12px 0 -2px #e6d6b4}
+.pmHead{position:relative;margin:4px 0 0;padding:18px 12px;background:var(--lat) #0a5e44;border:1.4px solid var(--gold);box-shadow:inset 0 0 0 4px #0a5e44,inset 0 0 0 5px #e2c27d}
+.pmCrest{position:absolute;left:50%;top:-22px;width:72px;height:20px;transform:translateX(-50%)}
+.pmGreet{position:relative;padding:10px 34px}
+.pmCart{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.pmGreet p{position:relative;margin:0;text-align:center;text-wrap:balance;font-family:var(--font-amiri),serif;font-weight:700;font-size:22px;line-height:1.9;color:var(--emerald-ink)}
+.pmGloss{margin:10px 0 0;text-align:center;font-size:13px;line-height:1.5;color:var(--ink-2)}
+.pmGloss cite{font-style:normal;font-weight:600;color:var(--gold);white-space:nowrap}
+.pmTitle{margin:22px 0 0;text-align:center;font-family:var(--font-cormorant),serif;font-style:italic;font-weight:600;font-size:46px;line-height:1;color:var(--emerald-ink)}
+.pmLede{margin:8px auto 0;max-width:28ch;text-align:center;font-size:15px;line-height:1.5;color:var(--ink-2)}
+.pmRule{display:block;width:100%;height:16px;margin:20px 0}
+.pmWays{list-style:none;margin:0;padding:0;display:grid;gap:14px}
+.pmWays li{display:grid;grid-template-columns:60px 1fr;gap:14px;align-items:center}
+.pmMedal{position:relative;display:grid;place-items:center;width:60px;height:60px}
+.pmMedal > svg{position:absolute;inset:0;width:100%;height:100%}
+.pmMedal > svg + svg{position:relative;inset:auto;width:20px;height:20px;color:var(--emerald)}
+.pmWays small{display:block;font-size:11.5px;font-weight:600;color:var(--gold);text-transform:uppercase;letter-spacing:.09em}
+.pmWays b{display:block;font-size:16.5px;font-weight:600;line-height:1.3;letter-spacing:-.015em;color:var(--ink)}
+.pmWays a{font-size:14.5px;font-weight:600;color:var(--emerald);text-decoration:none}
+/* the letter, sized for a phone */
+.pmLetter .letter{gap:16px;height:auto}
+.pmLetter .dear{font-size:26px}
+.pmLetter .pair{grid-template-columns:1fr;gap:16px}
+.pmLetter .letter label span{font-size:11.5px}
+.pmLetter .letter input,.pmLetter .letter select,.pmLetter .letter textarea{font-size:16px;padding:6px 2px}
+.pmLetter .letter textarea{min-height:168px;padding-top:0}
+.pmLetter .sign p{font-size:18px}
+.pmLetter .seal{width:72px;font-size:15px}
+.pmColo{margin-top:26px;padding-top:18px;border-top:1px solid var(--gold-2)}
+.pmColo .pmGreet p{font-size:21px}
+.pmMap{margin-top:48px}

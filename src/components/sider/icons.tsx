@@ -1,12 +1,6 @@
 /* Line icons on a 48 grid, stroked like the drawings. */
 const P = { fill: 'none', stroke: 'currentColor', strokeWidth: 1.6, strokeLinecap: 'round', strokeLinejoin: 'round', 'aria-hidden': true } as const;
 
-export const PhoneIcon = () => (
-  <svg viewBox="0 0 48 48" {...P}>
-    <rect x="14" y="4" width="20" height="40" rx="4" />
-    <path d="M21,38 H27" />
-  </svg>
-);
 export const BankIcon = () => (
   <svg viewBox="0 0 48 48" {...P}>
     <path d="M6,18 L24,6 L42,18 Z M8,42 H40 M6,46 H42" />
@@ -33,12 +27,6 @@ export const MailIcon = () => (
   <svg viewBox="0 0 48 48" {...P}>
     <rect x="5" y="10" width="38" height="28" rx="4" />
     <path d="M6,12 L24,26 L42,12" />
-  </svg>
-);
-export const ChatIcon = () => (
-  <svg viewBox="0 0 48 48" {...P}>
-    <path d="M8,8 H40 C42,8 43,9 43,11 V30 C43,32 42,33 40,33 H20 L11,41 V33 H8 C6,33 5,32 5,30 V11 C5,9 6,8 8,8 Z" />
-    <path d="M14,18 H34 M14,24 H28" />
   </svg>
 );
 export const FacebookIcon = () => (
