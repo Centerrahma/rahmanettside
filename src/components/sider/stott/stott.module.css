@@ -1,0 +1,62 @@
+/* Støtt oss. Wide screens get the three portals (.desk), phones and tablets the one portal (.phone).
+   Tokens (--emerald, --gold …) live in globals.css; buttons and the draw-on in forside.module.css. */
+
+.page{position:relative;overflow:hidden}
+.phone{display:none}
+@media (max-width:1000px){
+  .desk{display:none}
+  .phone{display:block}
+}
+
+/* ── wide screens ──
+   The drawing is as big as the screen allows, so that it, the translations and the legal note fit in
+   one screen: nav 84 + 10 above + about 126 below = 220. Below 940px wide it stops shrinking and the
+   page scrolls a little instead, so the text in the portals stays readable. */
+.desk{padding-top:10px}
+.stage{position:relative;width:min(1600px,100%,max(940px,(100svh - 220px) * var(--arn)));margin:0 auto;aspect-ratio:var(--ar);container-type:inline-size}
+.art{position:absolute;inset:0}
+/* the sky and the lawn run on to the screen's edges, but stop at the drawing's foot */
+.art > svg{display:block;width:100%;height:100%;overflow:visible;clip-path:inset(-200vh -200vw 0 -200vw)}
+
+.place{position:absolute;left:var(--x);top:var(--y);width:var(--w);height:var(--h);opacity:0;animation:arrive .9s ease forwards;animation-delay:var(--d)}
+@keyframes arrive{to{opacity:1}}
+
+/* the heading and the hadith in the evening sky */
+.intro{display:flex;flex-direction:column;justify-content:flex-start}
+.intro h1{margin:0;font-weight:600;font-size:clamp(34px,4.6cqw,66px);letter-spacing:-.045em;line-height:.98;color:#fbf3dc}
+.intro p{margin:1.1cqw 0 0;font-size:clamp(12.5px,1.22cqw,17px);line-height:1.5;color:#e6e3f0;max-width:34ch}
+.hadith{display:flex;flex-direction:column;justify-content:center}
+.hadith blockquote{margin:0;display:flex;flex-direction:column;align-items:flex-end;text-align:right}
+.hadith p{margin:0;font-size:clamp(14px,1.5cqw,21px);font-weight:500;line-height:1.38;letter-spacing:-.015em;color:#fbf3dc;max-width:24ch}
+.hadith footer{margin-top:.7cqw;font-size:clamp(11px,.95cqw,13.5px);font-weight:600;color:#e2c27d}
+
+/* a verse in its band: sized with the drawing, so it always wraps the same way */
+.verse{display:flex;align-items:center;justify-content:center}
+.verse p{margin:0;text-align:center;text-wrap:balance;font-family:var(--font-amiri),serif;font-weight:700;font-size:1.68cqw;line-height:1.72;color:#fff4d6}
+
+/* the three ways to give, standing in the lit iwans */
+.card{display:flex;flex-direction:column;align-items:center;justify-content:flex-end;text-align:center;gap:.55cqw;padding-bottom:1.2cqw;color:var(--ink)}
+.card > svg{width:clamp(24px,2.5cqw,38px);height:clamp(24px,2.5cqw,38px);color:var(--emerald);margin-bottom:.2cqw}
+.card h2{margin:0;font-size:clamp(15px,1.7cqw,24px);font-weight:600;letter-spacing:-.025em;line-height:1.1;color:var(--emerald-ink)}
+.card p{margin:0;font-size:clamp(12px,1.08cqw,15.5px);line-height:1.45;color:var(--ink-2);max-width:22ch}
+.card p a{color:var(--emerald);font-weight:600;text-decoration:none;white-space:nowrap}
+.card p a:hover{text-decoration:underline}
+.acct{font-size:1.25em;font-weight:600;letter-spacing:-.02em;color:var(--ink)}
+.card small{font-size:clamp(11px,.92cqw,13px);line-height:1.5;color:#5d5340}
+.card img{width:clamp(64px,7.6cqw,116px);height:auto;border-radius:8px;background:#fff;padding:.35cqw;box-shadow:0 4px 14px -6px rgba(60,40,0,.35)}
+.card b{font-size:clamp(22px,3cqw,44px);font-weight:600;letter-spacing:-.045em;line-height:1}
+.card > a{height:clamp(34px,3.2cqw,48px);padding:0 clamp(14px,1.7cqw,24px);font-size:clamp(13px,1.05cqw,15px);margin:.2cqw 0 0}
+
+/* under the drawing: each translation under its portal (the grid follows the portals: 380, 520, 380
+   wide with 40 between, inside 20 at each side of 1400), then the legal note */
+.under{width:min(1600px,100%,max(940px,(100svh - 220px) * var(--arn)));margin:0 auto;padding:12px 0 22px}
+.translations{list-style:none;margin:0;padding:0 calc(20 / 1400 * 100%);display:grid;grid-template-columns:380fr 520fr 380fr;column-gap:calc(40 / 1400 * 100%)}
+.translations li{font-size:13px;line-height:1.45;color:var(--ink-2);text-align:center;text-wrap:balance}
+.translations cite{font-style:normal;font-weight:600;color:var(--gold);white-space:nowrap}
+.credit{margin:6px 0 0;text-align:center;font-size:12px;color:var(--muted)}
+.legal{max-width:1100px;margin:10px auto 0;padding:0 24px;text-align:center;font-size:12.5px;line-height:1.5;color:var(--muted)}
+.legal a{color:var(--emerald);font-weight:600;text-decoration:none}
+
+@media (prefers-reduced-motion:reduce){
+  .place{animation:none;opacity:1}
+}

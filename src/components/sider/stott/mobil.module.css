@@ -1,0 +1,63 @@
+/* Støtt oss on phones and tablets: one portal in an evening scene, in a phone-wide column. */
+.page{max-width:480px;margin:0 auto;background:#fff}
+
+/* one evening scene from the heading down: the sky deepens upward as you scroll back up */
+.scene{position:relative;overflow:hidden;padding-bottom:0;background:linear-gradient(180deg,#1f2a5e 0%,#36397a 9%,#5d4a86 22%,#9a5f84 42%,#d57f74 66%,#f0a56c 86%,#f6c27f 100%)}
+.crown{position:relative}
+.crown > svg{display:block;width:100%;height:auto}
+.intro{position:absolute;left:0;right:0;top:5%;padding:0 52px;text-align:center}
+.intro h1{margin:0;font-weight:600;font-size:clamp(32px,9.6vw,40px);letter-spacing:-.045em;line-height:1;color:#fbf3dc}
+.intro p{margin:8px auto 0;max-width:30ch;font-size:14px;line-height:1.45;color:#e6e3f0}
+
+/* the great portal stands between the two minaret shafts, which run on down from the crown */
+.great{position:relative;padding:0 9%}
+.great::before,.great::after{content:"";position:absolute;top:-1px;bottom:0;left:3%;width:5%;background:linear-gradient(90deg,#e6d6b8,#fdf9f0 45%,#dcc7a2);border:1px solid var(--emerald);border-top:0;border-bottom:0}
+.great::after{left:auto;right:3%}
+
+.portal{position:relative;margin:0 auto}
+.small{width:86%;margin-top:36px}
+.frame{border:14px solid transparent;border-image:var(--tiles) 16 round;background:linear-gradient(#fbf3e2,#efdfc0);outline:1.5px solid var(--emerald);padding:10px;display:flex;flex-direction:column;gap:12px}
+
+/* the verse band: cream Arabic on green, the translation under it */
+.band{padding:14px 14px 13px;text-align:center;background:linear-gradient(#0d7553,#085a40);border:1px solid var(--emerald-ink);box-shadow:inset 0 0 0 4px #0a644a,inset 0 0 0 5px #d9b770}
+.band p{margin:0}
+.band p[lang=ar]{font-family:var(--font-amiri),serif;font-weight:700;font-size:21px;line-height:2;color:#fff4d6}
+.small .band p[lang=ar]{font-size:20px}
+.band .no{margin-top:8px;font-size:13.5px;line-height:1.45;color:#f3ead2}
+.band cite{font-style:normal;font-weight:600;color:#e2c27d;white-space:nowrap}
+
+/* the iwan: lattice round a pointed arch with a muqarnas hood, the lit room under it */
+.iwan{background:var(--lat) #f7eedb;border:1.3px solid var(--emerald);box-shadow:inset 0 0 0 5px #f7eedb,inset 0 0 0 6px var(--gold-2);padding:8px 8px 0}
+.hood{display:block;width:100%;height:auto;margin-bottom:-1px}
+.room{margin:0 calc(28 / 300 * 100% - 1px);border-left:1.6px solid var(--emerald);border-right:1.6px solid var(--emerald);padding:6px 9% 22px;background:linear-gradient(90deg,#d6bd8c 0,#eddcb9 3.7%,#cfb47f 7.3%,var(--gold-2) 7.3%,var(--gold-2) 7.7%,transparent 7.7%,transparent 92.3%,var(--gold-2) 92.3%,var(--gold-2) 92.7%,#cfb47f 92.7%,#eddcb9 96.3%,#d6bd8c 100%),radial-gradient(ellipse at 50% 20%,rgba(255,250,240,.9),transparent 70%),linear-gradient(#fff5dc,#f6d090)}
+
+/* the steps and the lawn */
+.steps{height:12px;margin:0 7%;background:linear-gradient(#f3e3c2,#e2cb9f);border:1.2px solid var(--emerald);border-top:0;box-shadow:0 12px 0 -1px #e9d6b0,0 12px 0 0 var(--emerald)}
+.ground{position:relative;height:34px;margin-top:12px;background:linear-gradient(#2f5a45,#183829);border-top:1px solid #3f7f64}
+.ground::before{content:"";position:absolute;left:6%;top:-14px;width:46px;height:20px;border-radius:24px 24px 4px 4px;background:#1b4536;box-shadow:300px 2px 0 -2px #1b4536}
+
+/* what stands in a room */
+.card{display:flex;flex-direction:column;align-items:center;text-align:center;gap:8px;color:var(--ink)}
+.card > svg{width:34px;height:34px;color:var(--emerald)}
+.card h2{margin:0;font-size:22px;font-weight:600;letter-spacing:-.025em;color:var(--emerald-ink)}
+.card p{margin:0;font-size:15px;line-height:1.5;color:var(--ink-2)}
+.card p a{color:var(--emerald);font-weight:600;text-decoration:none}
+.acct{font-size:1.25em;font-weight:600;letter-spacing:-.02em;color:var(--ink)}
+.card small{font-size:13px;line-height:1.5;color:#5d5340}
+.card img{width:132px;height:auto;border-radius:10px;background:#fff;padding:6px;box-shadow:0 6px 16px -8px rgba(60,40,0,.4)}
+.card b{font-size:44px;font-weight:600;letter-spacing:-.045em;line-height:1}
+.card > a{margin-top:4px}
+
+/* the switch between the three ways, at the top of the room */
+.tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;margin:0 0 18px;padding:4px;border-radius:999px;background:rgba(255,255,255,.65);box-shadow:inset 0 0 0 1px var(--gold-2)}
+.tabs button{font:inherit;font-size:13.5px;font-weight:600;border:0;border-radius:999px;padding:9px 4px;background:transparent;color:var(--ink-2);cursor:pointer;transition:background .2s,color .2s}
+.tabs button[aria-selected=true]{background:var(--emerald);color:#fff}
+
+/* under the scene, on white */
+.after{padding:40px 20px 56px;text-align:center}
+.after blockquote{margin:0;padding:22px 0;border-top:1px solid var(--gold-2);border-bottom:1px solid var(--gold-2)}
+.after blockquote p{margin:0;font-size:20px;font-weight:500;line-height:1.4;letter-spacing:-.015em;color:var(--ink)}
+.after footer{margin-top:8px;font-size:13px;font-weight:600;color:var(--gold)}
+.credit{margin:20px 0 0;font-size:12.5px;color:var(--muted)}
+.legal{margin:10px 0 0;font-size:13px;line-height:1.6;color:var(--muted)}
+.legal a{color:var(--emerald);font-weight:600;text-decoration:none}
