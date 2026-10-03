@@ -33,6 +33,12 @@ const crescent = (cx: number, cy: number, r: number) =>
   `M${cx - r},${cy} A${r},${r} 0 0 0 ${cx + r},${cy} A${r * 1.3},${r * 1.3} 0 0 1 ${cx - r},${cy} Z`;
 
 const delay = (d: number | string) => ({ '--d': `${d}s` }) as CSSProperties;
+/** One half of the flourish under the name: a long tapering line ending in a curl with two leaves. */
+const SCROLL =
+  'M186,22 C170,22 160,14 146,14 C132,14 126,26 136,30 C144,33 150,24 142,21 ' +
+  'M146,14 C122,14 104,22 80,22 C56,22 40,18 14,20 ' +
+  'M118,18 C112,8 100,6 94,12 C102,12 110,14 118,18 Z ' +
+  'M98,22 C92,30 80,32 74,27 C82,25 90,23 98,22 Z';
 const bayX = (i: number) => 150 + 180 * i;
 const pct = (v: number, total: number, off = 0) => (((v + off) / total) * 100).toFixed(3) + '%';
 const H = 830;
@@ -192,6 +198,14 @@ function Facade({ next, past, mood }: { next: number | null; past: boolean[]; mo
           <stop offset={1} stopColor="#ecdcbd" />
         </linearGradient>
         <SceneDefs mood={mood} />
+        {/* deep gold leaf for the name round the arch on phones, where it sits on white */}
+        <linearGradient id="fh-leaf" x1={0} y1={0} x2={0} y2={1}>
+          <stop offset={0} stopColor="#e2bd68" />
+          <stop offset={0.45} stopColor="#a8772a" />
+          <stop offset={0.7} stopColor="#c99a45" />
+          <stop offset={1} stopColor="#7a5520" />
+        </linearGradient>
+        <path id="fh-name-arc" d="M-136,712 V194 C-136,-8 252,-106 600,-198 C948,-106 1336,-8 1336,194 V712" />
         {SKIES.map((sky, i) => (
           <linearGradient key={i} id={`fh-sky${i}`} x1={0} y1={0} x2={0} y2={1}>
             {sky.stops.map(([o, c]) => <stop key={o} offset={o} stopColor={c} />)}
@@ -222,6 +236,12 @@ function Facade({ next, past, mood }: { next: number | null; past: boolean[]; mo
       <g className={s.wide}><Lawn arch={false} /></g>
       <g className={s.narrow}><Lawn arch /></g>
       <Pool bays={BAYS} piers={PIERS} colours={REFLECTED} />
+      {/* phones: the name follows the arch round the sky, «Center» up one side, «Rahma» down the other */}
+      <g className={s.narrow} aria-hidden="true">
+        <text className={`${s.arcName} ${s.fade}`} style={delay(1.2)} fontSize={160} textAnchor="middle" fill="url(#fh-leaf)">
+          <textPath href="#fh-name-arc" startOffset="50%">Center Rahma</textPath>
+        </text>
+      </g>
     </svg>
   );
 }
@@ -264,16 +284,29 @@ export default function FemHimler({ schedule, friday: renderedFriday, minute: re
 
   return (
     <section className={s.hero} data-sky={isDark(mood) ? 'dark' : 'light'} aria-labelledby="forside-h1">
-      {/* the name comes first: above the drawing on desktop; the phone layout moves the drawing up */}
+      {/* the name comes first, above the drawing: Corinthia in gold leaf over a flourish that draws itself
+          in once. On phones it is only read out; the drawing writes it round its arch instead. */}
       <div className={s.name}>
-        <div className={s.plaque}>
-          {/* a gold double frame with pointed ends, stretched to the name; it fades in once */}
-          <svg viewBox="0 0 400 100" preserveAspectRatio="none" aria-hidden="true" className={s.fade} style={delay(1.4)}>
-            <path vectorEffect="non-scaling-stroke" d="M40,2 H360 C372,2 382,22 398,50 C382,78 372,98 360,98 H40 C28,98 18,78 2,50 C18,22 28,2 40,2 Z" fill="none" stroke="currentColor" strokeWidth={1.5} />
-            <path vectorEffect="non-scaling-stroke" d="M44,9 H356 C366,9 374,26 388,50 C374,74 366,91 356,91 H44 C34,91 26,74 12,50 C26,26 34,9 44,9 Z" fill="none" stroke="currentColor" strokeWidth={1} strokeOpacity={0.6} />
-          </svg>
-          <h1 id="forside-h1">Center Rahma</h1>
-        </div>
+        <h1 id="forside-h1" className={s.wordmark}>Center Rahma</h1>
+        <svg className={s.flourish} viewBox="0 0 400 40" aria-hidden="true">
+          <defs>
+            <linearGradient id="fl-leaf" x1={0} y1={0} x2={0} y2={1}>
+              <stop offset={0} stopColor="#fff4cf" />
+              <stop offset={0.32} stopColor="#e9c672" />
+              <stop offset={0.52} stopColor="#b7873a" />
+              <stop offset={0.7} stopColor="#f1d68b" />
+              <stop offset={1} stopColor="#a5762a" />
+            </linearGradient>
+            <linearGradient id="fl-leaf-day" x1={0} y1={0} x2={0} y2={1}>
+              <stop offset={0} stopColor="#13805c" />
+              <stop offset={1} stopColor="#064a35" />
+            </linearGradient>
+          </defs>
+          <path d={SCROLL} pathLength={1} className={`${s.scroll} ${s.draw}`} style={delay(0.6)} />
+          <path d={SCROLL} transform="translate(400,0) scale(-1,1)" pathLength={1} className={`${s.scroll} ${s.draw}`} style={delay(0.6)} />
+          <path d={star(200, 21, 9)} className={s.leafFill} />
+          <circle cx={200} cy={21} r={2.6} fill="#0b5f45" />
+        </svg>
       </div>
 
       <div className={s.facade}>

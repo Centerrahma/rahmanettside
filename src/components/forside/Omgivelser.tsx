@@ -113,7 +113,7 @@ const PALETTES: Record<Mood, Palette> = {
   },
 };
 
-/** Whether the sky is dark enough for light lettering on the name plaque. */
+/** Whether the sky is dark enough for gold lettering over it (the name on wide screens). */
 export const isDark = (mood: Mood) => mood === 'night' || mood === 'dusk';
 
 /** Gradients the scene shares, coloured for the time of day; rendered inside the facade's <defs>.
