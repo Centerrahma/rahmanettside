@@ -10,7 +10,7 @@ import { BANK_ACCOUNT, EMAIL, ORG_NR, VIPPS } from '@/components/forside/links';
 import f from '@/components/forside/forside.module.css';
 import { BankIcon, HeartIcon } from '../icons';
 import { Lattice, arch, crescent, delay, muqarnas, onion, onionRibs, pen, tiles, tilesV, windows } from '../kit';
-import { VERSES, shown, type Verse } from '../verses';
+import { TRANSLATION, VERSES, shown, type Verse } from '../verses';
 import { KveldDefs, Riwaq, Sky } from './Kveld';
 import s from './stott.module.css';
 
@@ -243,14 +243,14 @@ export default function Portaler() {
         ))}
       </div>
 
-      {/* the translations, each under its portal */}
+      {/* the translations (English, Sahih International), each under its portal */}
       <div className={s.under}>
         <ul className={s.translations}>
           {PORTALS.map((p) => (
-            <li key={p.verse.ref}>«{p.verse.no}» <cite>{p.verse.ref}</cite></li>
+            <li key={p.verse.ref}><span lang="en">«{p.verse.en}»</span> <cite>{p.verse.ref}</cite></li>
           ))}
         </ul>
-        <p className={s.credit}>Oversatt av Einar Berg</p>
+        <p className={s.credit}>Engelsk oversettelse: {TRANSLATION}</p>
         <p className={s.legal}>
           Mottaker er Center Rahma, org.nr. {ORG_NR}. Det er ingen bindingstid på avtaler om faste trekk. Enhver avtale kan sies opp ved å
           kontakte oss på <a href={`mailto:${EMAIL}`}>{EMAIL}</a>.

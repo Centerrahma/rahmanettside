@@ -4,7 +4,7 @@
 import type { ReactNode } from 'react';
 import f from '@/components/forside/forside.module.css';
 import { Lattice, delay, pen, star } from '../kit';
-import { SALAM, VERSES } from '../verses';
+import { SALAM, TRANSLATION, VERSES } from '../verses';
 import k from './kontakt.module.css';
 import LetterForm from './LetterForm';
 import { Frame, WayBody, type Way } from './ways';
@@ -113,7 +113,7 @@ export default function Brevet({ list }: { list: Way[] }) {
       t: 0.8,
     },
     { rect: { x: 372, y: 330, w: 456, h: 404 }, node: <LetterForm />, cls: k.letterBox, t: 1.1 },
-    { rect: { x: 262, y: 760, w: 380, h: 40 }, node: <><span>«{VERSES.v15_46.no}»</span> <cite>{VERSES.v15_46.ref}</cite></>, cls: k.colo, t: 1.3 },
+    { rect: { x: 262, y: 760, w: 380, h: 40 }, node: <><span lang="en">«{VERSES.v15_46.en}»</span> <cite>{VERSES.v15_46.ref}, {TRANSLATION}</cite></>, cls: k.colo, t: 1.3 },
     ...list.map((w, i) => ({
       rect: { x: MEDALS[i][0] - 76, y: MEDALS[i][1] - 70, w: 152, h: 140 },
       node: <WayBody w={w} />,

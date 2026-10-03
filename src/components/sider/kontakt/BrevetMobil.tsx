@@ -3,7 +3,7 @@
    four ways as an illuminated list, the letter, and Koranen 15:46 in the colophon. */
 import type { CSSProperties, ReactNode } from 'react';
 import { star, svgUrl } from '../kit';
-import { SALAM, VERSES } from '../verses';
+import { SALAM, TRANSLATION, VERSES } from '../verses';
 import k from './kontakt.module.css';
 import LetterForm from './LetterForm';
 import { RoundMap, type Way } from './ways';
@@ -120,7 +120,7 @@ export default function BrevetMobil({ list }: { list: Way[] }) {
             <Cartouche />
             <p lang="ar" dir="rtl">{VERSES.v15_46.ar}</p>
           </div>
-          <p className={k.pmGloss}>«{VERSES.v15_46.no}» <cite>{VERSES.v15_46.ref}</cite></p>
+          <p className={k.pmGloss}><span lang="en">«{VERSES.v15_46.en}»</span> <cite>{VERSES.v15_46.ref}, {TRANSLATION}</cite></p>
         </div>
       </div>
 

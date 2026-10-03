@@ -8,7 +8,7 @@ import { BankIcon, HeartIcon } from '../icons';
 import { BANK_ACCOUNT, EMAIL, ORG_NR, VIPPS } from '@/components/forside/links';
 import f from '@/components/forside/forside.module.css';
 import { arch, crescent, delay, muqarnas, onion, onionRibs, pen, seeded, star, svgUrl, windows } from '../kit';
-import { shown, type Verse } from '../verses';
+import { TRANSLATION, shown, type Verse } from '../verses';
 import m from './mobil.module.css';
 
 const tile = (x: number, y: number, i: number) =>
@@ -122,7 +122,7 @@ export function Band({ v }: { v: Verse }) {
   return (
     <div className={m.band}>
       <p lang="ar" dir="rtl">{shown(v.ar)}</p>
-      <p className={m.no}>«{v.no}» <cite>{v.ref}</cite></p>
+      <p className={m.no}><span lang="en">«{v.en}»</span> <cite>{v.ref}</cite></p>
     </div>
   );
 }
@@ -192,7 +192,7 @@ export function After() {
         <p>«Den som bygger en moské for Allahs skyld, Allah vil bygge et hus for ham i Paradis.»</p>
         <footer>Sahih al-Bukhari &amp; Muslim</footer>
       </blockquote>
-      <p className={m.credit}>Oversettelsene av Koranen er ved Einar Berg.</p>
+      <p className={m.credit}>Engelsk oversettelse av Koranen: {TRANSLATION}</p>
       <p className={m.legal}>
         Mottaker er Center Rahma, org.nr. {ORG_NR}. Det er ingen bindingstid på avtaler om faste trekk. Enhver avtale kan sies opp ved å
         kontakte oss på <a href={`mailto:${EMAIL}`}>{EMAIL}</a>.
