@@ -26,19 +26,16 @@
 .hero{padding:16px 0 0;overflow:hidden;display:flex;flex-direction:column}
 /* the drawing is the page's centrepiece: as big as the screen allows, up to 1360px wide, but never so tall
    that plaque, mosque and buttons stop fitting in one screen. 312px is everything else above the fold:
-   nav 84, padding 16, plaque about 111, gaps 10 + 20, buttons 50, and 20 to spare. 1.446 = 1200/830.
+   nav 84, padding 16, the name about 117, gaps 10 + 20, buttons 50, and 15 to spare. 1.446 = 1200/830.
    The sky, lawn and wings reach past this box into the sides; .hero clips them at the screen's edges. */
 .facade{position:relative;width:min(1360px,100%,max(600px,(100svh - 312px) * 1.446));margin:0 auto;aspect-ratio:1200/830;container-type:inline-size}
 /* the sky's colours ease from one time of day to the next, at a prayer time or as the page loads */
 .stop{transition:stop-color 1.6s ease,stop-opacity 1.6s ease}
 /* parts of the drawing for wide screens only, and for phones only */
 .narrow{display:none}
-/* on wide screens the sky runs behind the plaque, so the plaque sits above the drawing and is filled */
+/* on wide screens the sky runs behind the name, so the name sits above the drawing */
 @media (min-width:861px){
   .name{position:relative;z-index:2}
-  .plaque > svg path:first-child{fill:#fff}
-  .hero[data-sky=dark] .plaque > svg path:first-child{fill:#0f1d44}
-  .hero[data-sky=dark] .plaque h1{color:#f6ecc9}
 }
 .facade > svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
 .facade text{font-family:var(--font-amiri),serif}
@@ -54,11 +51,16 @@
 .badge{position:absolute;transform:translate(-50%,-50%);white-space:nowrap;font-size:14px;font-weight:600;color:var(--emerald-ink);background:#fff;border-radius:999px;padding:6px 12px;box-shadow:0 8px 20px -8px rgba(40,30,0,.45);opacity:0;transition:opacity .4s}
 .badge.on{opacity:1}
 .skyfx{transition:opacity .6s}
-.name{text-align:center;margin:0 0 10px}
-/* the name sits on a plaque: italic Cormorant inside a gold frame with pointed ends */
-.plaque{position:relative;display:inline-block;margin:0;padding:clamp(14px,1.6vw,22px) clamp(56px,6vw,96px)}
-.plaque > svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible;color:var(--gold)}
-.plaque h1{position:relative;font-family:var(--font-cormorant),serif;font-style:italic;font-weight:600;font-size:clamp(40px,4.6vw,64px);letter-spacing:.01em;line-height:1.05;margin:0;color:var(--emerald-ink)}
+/* the name: Corinthia in gold leaf (a gradient clipped to the letters) over a gold flourish;
+   under a daylight sky the leaf turns deep green */
+.name{display:flex;flex-direction:column;align-items:center;margin:0 0 10px;
+  --leaf:linear-gradient(180deg,#fff4cf 0%,#e9c672 32%,#b7873a 52%,#f1d68b 70%,#a5762a 100%);--leaf-svg:url(#fl-leaf);--line:#d9b770}
+.hero[data-sky=light] .name{--leaf:linear-gradient(180deg,#13805c,#064a35);--leaf-svg:url(#fl-leaf-day);--line:var(--gold)}
+.wordmark{margin:0;padding:0 .2em .08em;font-family:var(--font-corinthia),cursive;font-weight:700;font-size:clamp(58px,5.7vw,86px);line-height:.95;white-space:nowrap;background:var(--leaf);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 1px 0 rgba(0,0,0,.25))}
+.flourish{display:block;width:clamp(260px,24vw,360px);height:auto;margin-top:-2px;overflow:visible}
+.scroll{fill:none;stroke:var(--line);stroke-width:1.3;stroke-linecap:round}
+.leafFill{fill:var(--leaf-svg)}
+.facade .arcName{font-family:var(--font-corinthia),cursive;font-weight:700}
 .ctas{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-top:20px}
 .gloss{display:flex;justify-content:center;gap:6px 16px;flex-wrap:wrap;max-width:1080px;margin:40px auto 0;padding:0 32px;font-size:14px;color:var(--muted);text-align:center}
 .gloss q{font-style:normal;color:var(--ink-2)}
@@ -76,9 +78,10 @@
   .bay .nm{font-size:min(10px,2.9cqw);margin-top:0;line-height:1.2}
   .bay .tm{font-size:clamp(13px,4.2cqw,20px)}
   /* the whole mosque, scaled to the screen width, and above the name */
-  .facade{width:100%;order:-1}
-  .name{margin:22px 0 0;padding:0 16px}
-  .plaque{padding:12px 44px}
+  /* the whole mosque, with the name written round its arch: room above it for the letters */
+  .facade{width:100%;order:-1;margin-top:8%}
+  /* the name is drawn round the arch here, so the heading is only read out */
+  .name{position:absolute;width:1px;height:1px;margin:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
   .ctas{gap:10px;margin-top:18px;padding:0 16px}
   .ctas .btn{flex:1 1 auto;justify-content:center;padding:0 18px}
   .list{display:grid;gap:0;margin:32px 16px 0;padding:0;list-style:none;border-top:1.5px solid var(--emerald)}
