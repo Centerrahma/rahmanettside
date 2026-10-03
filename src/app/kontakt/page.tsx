@@ -1,12 +1,10 @@
 import type { Metadata } from 'next';
 import { fetchPrayerTimes } from '@/lib/mymasjid';
-import Dora from '@/components/sider/Dora';
-import FemDorer from '@/components/sider/FemDorer';
-import BesokForm from '@/components/forside/BesokForm';
-import MapDoor from '@/components/forside/MapDoor';
+import Brevet from '@/components/sider/kontakt/Brevet';
+import BrevetMobil from '@/components/sider/kontakt/BrevetMobil';
+import { RoundMap, ways } from '@/components/sider/kontakt/ways';
 import { ADDRESS } from '@/components/forside/links';
-import f from '@/components/forside/forside.module.css';
-import s from '@/components/sider/sider.module.css';
+import k from '@/components/sider/kontakt/kontakt.module.css';
 
 // the Friday times come from MyMasjid, like the front page's
 export const revalidate = 300;
@@ -32,32 +30,18 @@ export const metadata: Metadata = {
 
 export default async function KontaktPage() {
   const { jummah } = await fetchPrayerTimes();
+  const list = ways(jummah);
   return (
-    <main className={s.page}>
-      <div className={f.wrap}>
-        <div className={s.hg}>
-          <h1 className={s.h1}>Kontakt oss</h1>
-          <p className={s.lede}>Døra står åpen. Kom innom, eller skriv til oss, så svarer vi så snart vi kan.</p>
-        </div>
-        <div className={`${s.drawing} ${s.dora}`}>
-          <Dora />
-        </div>
-        <p className={s.gloss}>
-          <q>Gå inn i fred og trygghet.</q>
-          <span>Koranen 15:46</span>
-        </p>
-
-        <FemDorer jummah={jummah} />
-
-        <section className={s.sec} id="skjema" aria-labelledby="skjema-h2">
-          <div className={s.write}>
-            <div>
-              <h2 id="skjema-h2">Send oss en melding</h2>
-              <BesokForm />
-            </div>
-            <MapDoor />
-          </div>
+    <main className={k.page}>
+      {/* wide screens get the illuminated page with the letter on it, phones and tablets a page drawn for them */}
+      <div className={k.desk}>
+        <Brevet list={list} />
+        <section className={k.mapSec} aria-label="Kart">
+          <RoundMap />
         </section>
+      </div>
+      <div className={k.phone}>
+        <BrevetMobil list={list} />
       </div>
     </main>
   );
