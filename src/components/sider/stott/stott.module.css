@@ -22,9 +22,8 @@
 @keyframes arrive{to{opacity:1}}
 
 /* the heading and the hadith in the evening sky */
-.intro{display:flex;flex-direction:column;justify-content:flex-start}
+.intro{display:flex;flex-direction:column;justify-content:center}
 .intro h1{margin:0;font-weight:600;font-size:clamp(24px,2.9cqw,44px);letter-spacing:-.04em;line-height:1;white-space:nowrap;color:#fbf3dc}
-.intro p{margin:1.1cqw 0 0;font-size:clamp(12.5px,1.22cqw,17px);line-height:1.5;color:#e6e3f0;max-width:34ch}
 .hadith{display:flex;flex-direction:column;justify-content:center}
 .hadith blockquote{margin:0;display:flex;flex-direction:column;align-items:flex-end;text-align:right}
 .hadith p{margin:0;font-size:clamp(14px,1.5cqw,21px);font-weight:500;line-height:1.38;letter-spacing:-.015em;color:#fbf3dc;max-width:24ch}
