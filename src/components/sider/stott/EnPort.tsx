@@ -19,8 +19,7 @@ export default function EnPort() {
     <div className={m.page} style={PATTERNS}>
       <div className={m.scene}>
         <Crown>
-          <h1>Støtt moskeen</h1>
-          <p>Masjid Rahma drives av gaver fra menigheten.</p>
+          <h1>Støtt moskeen vår</h1>
         </Crown>
         <div className={m.great}>
           <Portal bandBelow band={<Band v={WAYS[i].verse} />}>

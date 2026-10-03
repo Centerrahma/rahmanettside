@@ -4,7 +4,7 @@ import EnPort from '@/components/sider/stott/EnPort';
 import s from '@/components/sider/stott/stott.module.css';
 
 const URL = 'https://www.centerrahma.no/stott-oss';
-const TITLE = 'Støtt moskeen – Masjid Rahma';
+const TITLE = 'Støtt moskeen vår – Masjid Rahma';
 const DESCRIPTION = 'Masjid Rahma drives av gaver fra menigheten. Gi med Vipps til 77811, eller bli medlem.';
 
 export const metadata: Metadata = {

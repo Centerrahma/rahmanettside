@@ -199,12 +199,7 @@ export default function Portaler() {
       <div className={s.stage}>
         <div className={s.art}><Drawing /></div>
 
-        {place({ x: 44, y: -112, w: 340, h: 228 }, 0.9, s.intro, (
-          <>
-            <h1>Støtt moskeen</h1>
-            <p>Masjid Rahma drives av gaver fra menigheten.</p>
-          </>
-        ))}
+        {place({ x: 44, y: -120, w: 380, h: 168 }, 0.9, s.intro, <h1>Støtt moskeen vår</h1>)}
         {place({ x: 1016, y: -120, w: 344, h: 168 }, 1.1, s.hadith, (
           <blockquote>
             <p>«Den som bygger en moské for Allahs skyld, Allah vil bygge et hus for ham i Paradis.»</p>
@@ -227,7 +222,6 @@ export default function Portaler() {
         ))}
         {place(CENTER.card, 1.3, s.card, (
           <>
-            <h2>Gi med Vipps</h2>
             <Image src="/vippsdonasjon.png" alt="QR-kode for å gi med Vipps" width={150} height={150} />
             <b className={f.num}>{VIPPS.number}</b>
             <a className={`${f.btn} ${f.vipps}`} href={VIPPS.url} target="_blank" rel="noopener noreferrer">Åpne Vipps</a>

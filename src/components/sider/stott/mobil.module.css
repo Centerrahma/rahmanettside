@@ -6,8 +6,7 @@
 .crown{position:relative}
 .crown > svg{display:block;width:100%;height:auto}
 .intro{position:absolute;left:0;right:0;top:5%;padding:0 52px;text-align:center}
-.intro h1{margin:0;font-weight:600;font-size:clamp(32px,9.6vw,40px);letter-spacing:-.045em;line-height:1;color:#fbf3dc}
-.intro p{margin:8px auto 0;max-width:30ch;font-size:14px;line-height:1.45;color:#e6e3f0}
+.intro h1{margin:0;font-weight:600;font-size:clamp(26px,8vw,36px);letter-spacing:-.045em;line-height:1;color:#fbf3dc}
 
 /* the great portal stands between the two minaret shafts, which run on down from the crown */
 .great{position:relative;padding:0 9%}
