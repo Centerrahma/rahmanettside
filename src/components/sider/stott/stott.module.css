@@ -10,10 +10,10 @@
 
 /* ── wide screens ──
    The drawing is as big as the screen allows, so that it, the translations and the legal note fit in
-   one screen: nav 84 + 10 above + about 126 below = 220. Below 940px wide it stops shrinking and the
+   one screen: nav 84 + 10 above + about 144 below = 238. Below 940px wide it stops shrinking and the
    page scrolls a little instead, so the text in the portals stays readable. */
 .desk{padding-top:10px}
-.stage{position:relative;width:min(1600px,100%,max(940px,(100svh - 220px) * var(--arn)));margin:0 auto;aspect-ratio:var(--ar);container-type:inline-size}
+.stage{position:relative;width:min(1600px,100%,max(940px,(100svh - 238px) * var(--arn)));margin:0 auto;aspect-ratio:var(--ar);container-type:inline-size}
 .art{position:absolute;inset:0}
 /* the sky and the lawn run on to the screen's edges, but stop at the drawing's foot */
 .art > svg{display:block;width:100%;height:100%;overflow:visible;clip-path:inset(-200vh -200vw 0 -200vw)}
@@ -49,9 +49,9 @@
 
 /* under the drawing: each translation under its portal (the grid follows the portals: 380, 520, 380
    wide with 40 between, inside 20 at each side of 1400), then the legal note */
-.under{width:min(1600px,100%,max(940px,(100svh - 220px) * var(--arn)));margin:0 auto;padding:12px 0 22px}
+.under{width:min(1600px,100%,max(940px,(100svh - 238px) * var(--arn)));margin:0 auto;padding:12px 0 22px}
 .translations{list-style:none;margin:0;padding:0 calc(20 / 1400 * 100%);display:grid;grid-template-columns:380fr 520fr 380fr;column-gap:calc(40 / 1400 * 100%)}
-.translations li{font-size:13px;line-height:1.45;color:var(--ink-2);text-align:center;text-wrap:balance}
+.translations li{font-size:12.5px;line-height:1.42;color:var(--ink-2);text-align:center;text-wrap:balance}
 .translations cite{font-style:normal;font-weight:600;color:var(--gold);white-space:nowrap}
 .credit{margin:6px 0 0;text-align:center;font-size:12px;color:var(--muted)}
 .legal{max-width:1100px;margin:10px auto 0;padding:0 24px;text-align:center;font-size:12.5px;line-height:1.5;color:var(--muted)}
