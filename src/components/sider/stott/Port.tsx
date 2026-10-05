@@ -90,11 +90,12 @@ export function Crown({ children }: { children: ReactNode }) {
 }
 
 /** The arch at the top of the iwan: lattice spandrels, a deep reveal and a muqarnas hood.
-    Below it the room continues in CSS, so the arch is drawn down to its springing only. */
+    Below it the room continues in CSS, so the arch is drawn down to its springing only. It spans
+    14–286 of the 300-wide hood, so the room under it is wide enough for the switch and the cards. */
 function Hood({ rows = 3 }: { rows?: number }) {
   const id = useId().replace(/:/g, '');
-  const outer = arch(28, 272, 150, 10, 150, true);
-  const inner = arch(46, 254, 150, 34, 150, true);
+  const outer = arch(14, 286, 150, 10, 150, true);
+  const inner = arch(30, 270, 150, 34, 150, true);
   return (
     <svg className={m.hood} viewBox="0 0 300 150" aria-hidden="true">
       <defs>
@@ -107,12 +108,12 @@ function Hood({ rows = 3 }: { rows?: number }) {
       </defs>
       <path d={`${outer} ${inner}`} fill={`url(#r-${id})`} fillRule="evenodd" />
       <g clipPath={`url(#h-${id})`}>
-        <rect x={46} y={0} width={208} height={150} fill="#fff5dc" />
-        {muqarnas(46, 254, 34, 146, rows, ['#f7ecd3', '#e2cc9f'])}
+        <rect x={30} y={0} width={240} height={150} fill="#fff5dc" />
+        {muqarnas(30, 270, 34, 146, rows, ['#f7ecd3', '#e2cc9f'])}
       </g>
       <path d={outer} fill="none" stroke="var(--emerald)" strokeWidth={1.6} pathLength={1} className={f.draw} style={delay(0.3)} />
       <path d={inner} fill="none" stroke="var(--gold-2)" strokeWidth={1} pathLength={1} className={f.draw} style={delay(0.4)} />
-      <path d={arch(37, 263, 150, 22, 150)} fill="none" stroke="var(--gold-2)" strokeWidth={0.7} strokeOpacity={0.7} pathLength={1} className={f.draw} style={delay(0.5)} />
+      <path d={arch(22, 278, 150, 22, 150)} fill="none" stroke="var(--gold-2)" strokeWidth={0.7} strokeOpacity={0.7} pathLength={1} className={f.draw} style={delay(0.5)} />
     </svg>
   );
 }
