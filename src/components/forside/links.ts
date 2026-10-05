@@ -12,7 +12,8 @@ export const MAPS = {
 
 export const EMAIL = 'post@centerrahma.no';
 export const FACEBOOK = 'https://www.facebook.com/masjidrahma';
-export const VIPPS = { number: '77811', url: 'https://qr.vipps.no/donations/43392' };
+/** The button and the QR code (public/vipps-77811.png) both go to the number shown. */
+export const VIPPS = { number: '77811', url: 'https://qr.vipps.no/donations/77811' };
 /** The account for gifts by bank transfer. Until it is set, Støtt oss asks people to write for it. */
 export const BANK_ACCOUNT: string | null = null;
 export const ORG_NR = '974 444 216';

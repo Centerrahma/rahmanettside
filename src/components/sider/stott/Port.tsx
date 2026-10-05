@@ -147,7 +147,7 @@ export function Portal({ verse, children, small = false, band, bandBelow = false
 export function Vipps() {
   return (
     <div className={`${m.card} ${m.vipps}`}>
-      <Image src="/vippsdonasjon.png" alt="QR-kode for å gi med Vipps" width={150} height={150} />
+      <Image src="/vipps-77811.png" alt="QR-kode for å gi med Vipps" width={150} height={150} />
       <b className={f.num}>{VIPPS.number}</b>
       <a className={`${f.btn} ${f.vipps}`} href={VIPPS.url} target="_blank" rel="noopener noreferrer">Åpne Vipps</a>
     </div>

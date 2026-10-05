@@ -85,7 +85,7 @@ function VippsRing() {
   return (
     <div className={s.qr} ref={ring}>
       <div className={s.in}>
-        <Image src="/vippsdonasjon.png" alt="QR-kode for å gi med Vipps" width={150} height={150} />
+        <Image src="/vipps-77811.png" alt="QR-kode for å gi med Vipps" width={150} height={150} />
       </div>
     </div>
   );
