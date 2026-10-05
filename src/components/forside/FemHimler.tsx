@@ -261,6 +261,7 @@ export default function FemHimler({ schedule, friday: renderedFriday, minute: re
   // server and the first client render agree.
   const [clock, setClock] = useState<{ min: number; friday: boolean } | null>(null);
   const [badgeOn, setBadgeOn] = useState(false);
+  const [playing, setPlaying] = useState(false);
   useEffect(() => {
     const tick = () => {
       const n = osloNow();
@@ -268,10 +269,35 @@ export default function FemHimler({ schedule, friday: renderedFriday, minute: re
     };
     tick();
     const id = setInterval(tick, 30_000);
-    // the badge waits until the arches have drawn
-    const show = setTimeout(() => setBadgeOn(true), 2200);
+    return () => clearInterval(id);
+  }, []);
+
+  // The drawing holds its first frame until the page has booted and is on screen. Otherwise a phone
+  // plays it unseen: while the browser preloads the page as the address is typed or a link is about
+  // to be tapped, or while a first visit is still busy starting up its scripts.
+  useEffect(() => {
+    let frame = 0;
+    let show: ReturnType<typeof setTimeout> | undefined;
+    const go = () => {
+      if (document.visibilityState !== 'visible' || (document as { prerendering?: boolean }).prerendering) return;
+      document.removeEventListener('visibilitychange', go);
+      document.removeEventListener('prerenderingchange', go);
+      // two frames on, so the first frame of the drawing has been painted
+      frame = requestAnimationFrame(() => {
+        frame = requestAnimationFrame(() => {
+          setPlaying(true);
+          // the badge waits until the arches have drawn
+          show = setTimeout(() => setBadgeOn(true), 2200);
+        });
+      });
+    };
+    document.addEventListener('visibilitychange', go);
+    document.addEventListener('prerenderingchange', go);
+    go();
     return () => {
-      clearInterval(id);
+      document.removeEventListener('visibilitychange', go);
+      document.removeEventListener('prerenderingchange', go);
+      cancelAnimationFrame(frame);
       clearTimeout(show);
     };
   }, []);
@@ -283,7 +309,11 @@ export default function FemHimler({ schedule, friday: renderedFriday, minute: re
   const mood = sky ?? moodOf(nx ?? nextSlot(slots, renderedMinute, schedule.tomorrowFajr));
 
   return (
-    <section className={s.hero} data-sky={isDark(mood) ? 'dark' : 'light'} aria-labelledby="forside-h1">
+    <section className={s.hero} data-sky={isDark(mood) ? 'dark' : 'light'} data-play={playing ? '' : undefined} aria-labelledby="forside-h1">
+      {/* without scripts nothing would start the drawing, so it plays straight away */}
+      <noscript>
+        <style>{`.${s.hero} .${s.draw},.${s.hero} .${s.fade},.${s.hero} .${s.bay}{animation-play-state:running!important}`}</style>
+      </noscript>
       {/* the name comes first, above the drawing: Corinthia in gold leaf over a flourish that draws itself
           in once. On phones it is only read out; the drawing writes it round its arch instead. */}
       <div className={s.name}>
