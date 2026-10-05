@@ -222,7 +222,7 @@ export default function Portaler() {
         ))}
         {place(CENTER.card, 1.3, s.card, (
           <>
-            <Image src="/vippsdonasjon.png" alt="QR-kode for å gi med Vipps" width={150} height={150} />
+            <Image src="/vipps-77811.png" alt="QR-kode for å gi med Vipps" width={150} height={150} />
             <b className={f.num}>{VIPPS.number}</b>
             <a className={`${f.btn} ${f.vipps}`} href={VIPPS.url} target="_blank" rel="noopener noreferrer">Åpne Vipps</a>
           </>
