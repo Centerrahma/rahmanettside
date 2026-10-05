@@ -15,7 +15,7 @@
 
 .portal{position:relative;margin:0 auto}
 .small{width:86%;margin-top:36px}
-.frame{border:14px solid transparent;border-image:var(--tiles) 16 round;background:linear-gradient(#fbf3e2,#efdfc0);outline:1.5px solid var(--emerald);padding:10px;display:flex;flex-direction:column;gap:12px}
+.frame{border:14px solid transparent;border-image:var(--tiles) 16 round;background:linear-gradient(#fbf3e2,#efdfc0);outline:1.5px solid var(--emerald);padding:6px;display:flex;flex-direction:column;gap:12px}
 
 /* the verse band: cream Arabic on green, the translation under it */
 .band{padding:14px 14px 13px;text-align:center;background:linear-gradient(#0d7553,#085a40);border:1px solid var(--emerald-ink);box-shadow:inset 0 0 0 4px #0a644a,inset 0 0 0 5px #d9b770}
@@ -25,10 +25,11 @@
 .band .no{margin-top:8px;font-size:13.5px;line-height:1.45;color:#f3ead2}
 .band cite{font-style:normal;font-weight:600;color:#e2c27d;white-space:nowrap}
 
-/* the iwan: lattice round a pointed arch with a muqarnas hood, the lit room under it */
-.iwan{background:var(--lat) #f7eedb;border:1.3px solid var(--emerald);box-shadow:inset 0 0 0 5px #f7eedb,inset 0 0 0 6px var(--gold-2);padding:8px 8px 0}
+/* the iwan: lattice round a pointed arch with a muqarnas hood, the lit room under it. The room's margin
+   and its reveal stripes follow the hood's arch (outer 14–286, inner 30–270 of 300). */
+.iwan{background:var(--lat) #f7eedb;border:1.3px solid var(--emerald);box-shadow:inset 0 0 0 5px #f7eedb,inset 0 0 0 6px var(--gold-2);padding:6px 6px 0}
 .hood{display:block;width:100%;height:auto;margin-bottom:-1px}
-.room{margin:0 calc(28 / 300 * 100% - 1px);border-left:1.6px solid var(--emerald);border-right:1.6px solid var(--emerald);padding:6px 9% 22px;background:linear-gradient(90deg,#d6bd8c 0,#eddcb9 3.7%,#cfb47f 7.3%,var(--gold-2) 7.3%,var(--gold-2) 7.7%,transparent 7.7%,transparent 92.3%,var(--gold-2) 92.3%,var(--gold-2) 92.7%,#cfb47f 92.7%,#eddcb9 96.3%,#d6bd8c 100%),radial-gradient(ellipse at 50% 20%,rgba(255,250,240,.9),transparent 70%),linear-gradient(#fff5dc,#f6d090)}
+.room{margin:0 calc(14 / 300 * 100% - 1px);border-left:1.6px solid var(--emerald);border-right:1.6px solid var(--emerald);padding:6px 7% 22px;background:linear-gradient(90deg,#d6bd8c 0,#eddcb9 2.9%,#cfb47f 5.9%,var(--gold-2) 5.9%,var(--gold-2) 6.3%,transparent 6.3%,transparent 93.7%,var(--gold-2) 93.7%,var(--gold-2) 94.1%,#cfb47f 94.1%,#eddcb9 97.1%,#d6bd8c 100%),radial-gradient(ellipse at 50% 20%,rgba(255,250,240,.9),transparent 70%),linear-gradient(#fff5dc,#f6d090)}
 
 /* the steps and the lawn */
 .steps{height:12px;margin:0 7%;background:linear-gradient(#f3e3c2,#e2cb9f);border:1.2px solid var(--emerald);border-top:0;box-shadow:0 12px 0 -1px #e9d6b0,0 12px 0 0 var(--emerald)}
