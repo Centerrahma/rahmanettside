@@ -12,20 +12,20 @@ import m from './medlem.module.css';
 const BRREG = 'https://person.brreg.no/nb/minside';
 
 const INTRO =
-  'Ønsker du å bli medlem i Center Rahma? Som medlem støtter du moskeen og fellesskapet vårt, og du er med på å bygge Center Rahma videre for dem som kommer etter oss.';
+  'Ønsker du å bli medlem i Center Rahma? Som medlem støtter du moskeen og fellesskapet vårt. Sammen bygger vi Center Rahma for oss alle.';
 
 const REASONS = [
   {
     title: 'Du støtter moskeen',
-    body: 'Tros- og livssynssamfunn får tilskudd fra staten for hvert registrerte medlem. Medlemskapet ditt gir moskeen mer å drive for.',
+    body: 'Tros- og livssynssamfunn får tilskudd fra staten for hvert registrerte medlem. Medlemskapet ditt gir oss den støtten vi trenger.',
   },
   {
     title: 'Du styrker fellesskapet',
-    body: 'Bønnene, undervisningen, Rahma skole og Ung Rahma bæres av menigheten. Jo flere vi er, jo mer kan vi gjøre sammen.',
+    body: 'Jo flere vi er, jo mer kan vi gjøre. Undervisningen, Rahma skole, Ung Rahma og alt det andre vi gjør, får vi til fordi dere støtter oss.',
   },
   {
-    title: 'Du blir en av oss',
-    body: 'Center Rahma er menighetens moské. Som medlem er du med på å bære den, i dag og i årene som kommer.',
+    title: 'Du hjelper fellesskapet å vokse',
+    body: 'Du støtter moskeen, og du hjelper det muslimske fellesskapet i Norge å vokse.',
   },
 ];
 
@@ -94,7 +94,6 @@ export default function Medlem() {
       <section className={m.hero}>
         <Byen />
         <div className={m.text}>
-          <p className={m.cap}>Fra hjem i hele byen, til ett felles sted.</p>
           <p className={m.lede}>{INTRO}</p>
           <a className={`${f.btn} ${f.primary}`} href="#slik">Slik blir du medlem</a>
         </div>
