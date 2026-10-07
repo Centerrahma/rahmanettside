@@ -1,10 +1,9 @@
 'use client';
 
 import { useEffect, useState, type CSSProperties, type ReactNode } from 'react';
+import Link from 'next/link';
 import type { PrayerSchedule } from '@/types/prayer';
 import { nextSlot, osloNow, slotsFor, until } from '@/lib/prayer-clock';
-import { DownloadIcon } from './icons';
-import { YEAR_PDF } from './links';
 import { Grand, Lawn, Pool, SceneDefs, Sky, Wings, isDark, type Mood } from './Omgivelser';
 import s from './forside.module.css';
 
@@ -373,11 +372,8 @@ export default function FemHimler({ schedule, friday: renderedFriday, minute: re
       </div>
 
       <div className={s.ctas}>
-        <a className={`${s.btn} ${s.primary}`} href="#besok">Finn fram</a>
-        <a className={`${s.btn} ${s.quiet}`} href={YEAR_PDF.href} download={YEAR_PDF.filename}>
-          <DownloadIcon />
-          Bønnetider 2026
-        </a>
+        <Link className={`${s.btn} ${s.primary}`} href="/stott-oss">Støtt oss</Link>
+        <Link className={`${s.btn} ${s.quiet}`} href="/become-member">Bli medlem</Link>
       </div>
 
       <ul className={s.list} aria-label="Bønnetider i dag">
