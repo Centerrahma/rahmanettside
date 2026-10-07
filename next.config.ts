@@ -48,6 +48,7 @@ const nextConfig: NextConfig = {
       { source: '/donate', destination: '/stott-oss', permanent: true },
       { source: '/contact', destination: '/kontakt', permanent: true },
       { source: '/new-mosque', destination: '/stott-oss', permanent: true },
+      { source: '/become-member', destination: '/blimedlem', permanent: true },
     ];
   },
   async headers() {

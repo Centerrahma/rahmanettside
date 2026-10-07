@@ -373,7 +373,7 @@ export default function FemHimler({ schedule, friday: renderedFriday, minute: re
 
       <div className={s.ctas}>
         <Link className={`${s.btn} ${s.primary}`} href="/stott-oss">Støtt oss</Link>
-        <Link className={`${s.btn} ${s.quiet}`} href="/become-member">Bli medlem</Link>
+        <Link className={`${s.btn} ${s.quiet}`} href="/blimedlem">Bli medlem</Link>
       </div>
 
       <ul className={s.list} aria-label="Bønnetider i dag">

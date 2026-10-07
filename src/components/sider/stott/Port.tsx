@@ -174,7 +174,7 @@ export function Member() {
       <HeartIcon />
       <h2>Bli medlem</h2>
       <p>Medlemskapet støtter driften av moskeen og programmene, år etter år.</p>
-      <Link className={`${f.btn} ${f.primary}`} href="/become-member">Bli medlem</Link>
+      <Link className={`${f.btn} ${f.primary}`} href="/blimedlem">Bli medlem</Link>
     </div>
   );
 }
