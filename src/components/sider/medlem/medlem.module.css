@@ -1,0 +1,52 @@
+/* Bli medlem. Tokens (--emerald, --gold …) live in globals.css; --lat is the star lattice, set on the page. */
+.page{padding:16px 0 96px;overflow:hidden;background:#fff}
+.defs{position:absolute}
+
+/* the evening city, as big as the screen allows above the words, with the title in its sky */
+.scene{position:relative;width:min(1240px,calc(100% - 32px),max(600px,(100svh - 360px) * var(--ar)));margin:0 auto;overflow:hidden;border-radius:6px;container-type:inline-size;box-shadow:0 0 0 1.5px var(--gold),0 0 0 6px #fff,0 0 0 7px var(--gold-2),0 26px 40px -26px rgba(60,40,0,.4)}
+.scene > svg{display:block;width:100%;height:auto}
+.sky{position:absolute;left:0;right:0;top:7%;text-align:center;pointer-events:none}
+.sky h1{margin:0;font-family:var(--font-cormorant),serif;font-style:italic;font-weight:600;font-size:clamp(46px,7cqw,96px);line-height:1;color:#fff4d6;text-shadow:0 2px 18px rgba(20,20,60,.35)}
+
+.text{max-width:720px;margin:30px auto 0;padding:0 16px;text-align:center}
+.cap{margin:0 0 14px;font-family:var(--font-cormorant),serif;font-style:italic;font-size:21px;color:var(--ink-2)}
+.lede{margin:0 auto 28px;max-width:46ch;font-size:clamp(16px,1.35vw,19px);line-height:1.6;color:var(--ink-2);text-wrap:pretty}
+.h2{margin:0 0 32px;text-align:center;font-family:var(--font-cormorant),serif;font-style:italic;font-weight:600;font-size:clamp(34px,3.6vw,46px);line-height:1;color:var(--emerald-ink)}
+
+/* Koranen 49:10 on a green band */
+.band{position:relative;margin:72px auto 0;max-width:1040px;padding:34px 48px 30px;text-align:center;background:var(--lat) #0a5e44;border:1.4px solid var(--gold);box-shadow:inset 0 0 0 5px #0a5e44,inset 0 0 0 6.4px #e2c27d}
+.ar{margin:0;font-family:var(--font-amiri),serif;font-weight:700;font-size:clamp(24px,2.6vw,34px);line-height:1.9;color:#fff4d6;text-wrap:balance}
+.en{margin:10px auto 0;max-width:62ch;font-size:15px;line-height:1.55;color:#d9eadf;text-wrap:balance}
+.en cite{font-style:normal;font-weight:600;color:#e2c27d;white-space:nowrap}
+
+/* three reasons, each under a star medallion */
+.reasons{max-width:1200px;margin:96px auto 0;padding:0 32px}
+.reasons ul{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
+.reasons li{position:relative;padding:58px 28px 30px;text-align:center;border:1px solid var(--gold-2);border-radius:4px;background:linear-gradient(#fffdf8,#fbf4e4);box-shadow:inset 0 0 0 4px #fffdf8,inset 0 0 0 5px rgba(201,163,91,.5)}
+.reasons h3{margin:0 0 10px;font-size:20px;font-weight:600;letter-spacing:-.02em;color:var(--ink)}
+.reasons p{margin:0;font-size:15.5px;line-height:1.6;color:var(--ink-2)}
+.badge{position:absolute;left:50%;top:0;width:64px;height:64px;transform:translate(-50%,-50%);display:grid;place-items:center}
+.badge svg{position:absolute;inset:0;width:100%;height:100%}
+.badge b{position:relative;font-size:19px;color:#fff4d6}
+
+/* the three steps on a gold thread */
+.steps{max-width:760px;margin:96px auto 0;padding:0 32px}
+.steps ol{list-style:none;margin:0;padding:0;position:relative}
+.steps ol::before{content:"";position:absolute;left:23px;top:24px;bottom:40px;border-left:1.5px dashed var(--gold-2)}
+.steps li{position:relative;display:grid;grid-template-columns:48px 1fr;gap:22px;padding-bottom:36px}
+.steps li:last-child{padding-bottom:0}
+.steps h3{margin:10px 0 8px;font-size:20px;font-weight:600;letter-spacing:-.02em;color:var(--ink)}
+.node{width:48px;height:48px;background:#fff}
+.stepBody{display:grid;gap:14px;justify-items:start;font-size:16px;line-height:1.6;color:var(--ink-2)}
+.stepBody a:not([class]){color:var(--emerald);font-weight:600;text-underline-offset:3px}
+
+/* phones and tablets: the middle of the city, round the mosque */
+@media (max-width:900px){
+  .scene{width:calc(100% - 32px)}
+  .scene > svg{width:calc(var(--cw) * 100%);margin-left:calc(var(--cx) * -100%)}
+  .sky h1{font-size:clamp(44px,13cqw,64px)}
+  .text{margin-top:24px}
+  .band{margin:56px 16px 0;padding:26px 20px 22px}
+  .reasons,.steps{margin-top:72px;padding:0 16px}
+  .reasons ul{grid-template-columns:1fr;gap:44px}
+}
