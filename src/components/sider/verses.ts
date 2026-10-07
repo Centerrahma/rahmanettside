@@ -1,4 +1,4 @@
-/* The Quran verses on Støtt oss, Kontakt oss and Bli medlem, each complete.
+/* The Quran verses on Støtt oss and Kontakt oss, each complete.
 
    Arabic: the Uthmani text from Tanzil (tanzil.net, "quran-uthmani", fetched through
    api.alquran.cloud), checked word for word against quran.com's Uthmani text; the two differ
@@ -29,12 +29,6 @@ export const VERSES = {
     ar: "مَّن ذَا ٱلَّذِى يُقْرِضُ ٱللَّهَ قَرْضًا حَسَنًۭا فَيُضَٰعِفَهُۥ لَهُۥٓ أَضْعَافًۭا كَثِيرَةًۭ ۚ وَٱللَّهُ يَقْبِضُ وَيَبْصُۜطُ وَإِلَيْهِ تُرْجَعُونَ",
     en: "Who is it that would loan Allah a goodly loan so He may multiply it for him many times over? And it is Allah who withholds and grants abundance, and to Him you will be returned.",
     ref: 'Koranen 2:245',
-  },
-  /** Bli medlem, the band under the evening city */
-  v49_10: {
-    ar: "إِنَّمَا ٱلْمُؤْمِنُونَ إِخْوَةٌۭ فَأَصْلِحُوا۟ بَيْنَ أَخَوَيْكُمْ ۚ وَٱتَّقُوا۟ ٱللَّهَ لَعَلَّكُمْ تُرْحَمُونَ",
-    en: "The believers are but brothers, so make settlement between your brothers. And fear Allah that you may receive mercy.",
-    ref: 'Koranen 49:10',
   },
   /** Kontakt oss, the colophon */
   v15_46: {

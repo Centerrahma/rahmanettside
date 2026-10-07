@@ -3,7 +3,7 @@ import Medlem from '@/components/sider/medlem/Medlem';
 
 const URL = 'https://www.centerrahma.no/blimedlem';
 const TITLE = 'Bli medlem – Masjid Rahma';
-const DESCRIPTION = 'Bli medlem i Center Rahma. Som medlem støtter du moskeen og fellesskapet vårt. Innmeldingen skjer i StyreWeb.';
+const DESCRIPTION = 'Bli medlem i Center Rahma. Som medlem støtter du arbeidet vårt og bidrar til vårt religiøse tilbud, aktiviteter og fellesskap.';
 
 export const metadata: Metadata = {
   title: { absolute: TITLE },
