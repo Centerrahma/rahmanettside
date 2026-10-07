@@ -1,33 +1,104 @@
-/* Bli medlem: the evening city at the top, the words under it, Koranen 49:10 on a green band, three
-   reasons under star medallions and the three steps on a gold thread. Signing up itself happens in
-   StyreWeb, the mosque's membership system. */
-import type { CSSProperties, ReactNode } from 'react';
+/* Bli medlem: the whole page is one cream sheet, tooled in gold like a book cover, with a
+   quarter-medallion in each corner. On it the title, the words, the green button to the StyreWeb
+   innmelding form, the rules for children, the Brønnøysund check and «Viktig». */
+import type { ReactNode } from 'react';
 import f from '@/components/forside/forside.module.css';
 import { MEMBERSHIP_SIGNUP_URL } from '@/lib/constants';
-import { star, svgUrl } from '../kit';
-import { TRANSLATION, VERSES, shown } from '../verses';
-import Byen from './Byen';
 import m from './medlem.module.css';
 
 const BRREG = 'https://person.brreg.no/nb/minside';
 
-const INTRO =
-  'Ønsker du å bli medlem i Center Rahma? Som medlem støtter du moskeen og fellesskapet vårt. Sammen bygger vi Center Rahma for oss alle.';
-
-const REASONS = [
-  {
-    title: 'Du støtter moskeen',
-    body: 'Tros- og livssynssamfunn får tilskudd fra staten for hvert registrerte medlem. Medlemskapet ditt gir oss den støtten vi trenger.',
-  },
-  {
-    title: 'Du styrker fellesskapet',
-    body: 'Jo flere vi er, jo mer kan vi gjøre. Undervisningen, Rahma skole, Ung Rahma og alt det andre vi gjør, får vi til fordi dere støtter oss.',
-  },
-  {
-    title: 'Du hjelper fellesskapet å vokse',
-    body: 'Du støtter moskeen, og du hjelper det muslimske fellesskapet i Norge å vokse.',
-  },
+const INTRO = [
+  'Ønsker du å bli medlem i Center Rahma? Du kan enkelt melde deg inn via innmeldingsskjemaet vårt.',
+  'Som medlem støtter du arbeidet vårt og bidrar til vårt religiøse tilbud, aktiviteter og fellesskap.',
 ];
+
+const BARN = [
+  { label: 'Barn under 15 år', body: 'Meldes inn av den eller de som har foreldreansvaret. Barnet skal også få medvirke ut fra alder og modenhet.' },
+  { label: 'Fra fylte 15 år', body: 'Barnet bestemmer selv og må selv melde seg inn.' },
+];
+
+const GREEN = '#0b5f45';
+const GOLDLINE = '#8d6a2c';
+
+const n2 = (v: number) => +v.toFixed(2);
+/** The point at radius r and angle deg, measured clockwise from straight up. */
+const polar = (cx: number, cy: number, r: number, deg: number): [number, number] => {
+  const a = ((deg - 90) * Math.PI) / 180;
+  return [n2(cx + r * Math.cos(a)), n2(cy + r * Math.sin(a))];
+};
+
+const starN = (cx: number, cy: number, r: number, n: number, k: number, rot = 0) => {
+  let d = '';
+  for (let i = 0; i < n * 2; i++) {
+    const [x, y] = polar(cx, cy, i % 2 ? r * k : r, rot + (i * 180) / n);
+    d += (i ? 'L' : 'M') + x + ',' + y;
+  }
+  return d + 'Z';
+};
+
+/** A disc with n round lobes on its rim. */
+const lobed = (cx: number, cy: number, r: number, n: number, depth: number) => {
+  const rr = r - depth;
+  const bulge = n2((2 * rr * Math.sin(Math.PI / n)) / 1.8);
+  let d = '';
+  for (let i = 0; i < n; i++) {
+    const [x0, y0] = polar(cx, cy, rr, (i * 360) / n);
+    const [x1, y1] = polar(cx, cy, rr, ((i + 1) * 360) / n);
+    d += (i ? '' : `M${x0},${y0}`) + `A${bulge},${bulge} 0 0 1 ${x1},${y1}`;
+  }
+  return d + 'Z';
+};
+
+/** A lancet-shaped ray from r0 to r1 at angle a, w degrees wide at its base. */
+const ray = (r0: number, r1: number, a: number, w: number) => {
+  const [x0, y0] = polar(0, 0, r0, a - w);
+  const [x1, y1] = polar(0, 0, r0, a + w);
+  const [cx0, cy0] = polar(0, 0, (r0 + r1) / 2, a - w * 0.9);
+  const [cx1, cy1] = polar(0, 0, (r0 + r1) / 2, a + w * 0.9);
+  const [tx, ty] = polar(0, 0, r1, a);
+  return `M${x0},${y0} Q${cx0},${cy0} ${tx},${ty} Q${cx1},${cy1} ${x1},${y1} Z`;
+};
+
+/** The corner piece: a quarter of a sunburst medallion centred on the corner, turned into place by CSS. */
+function Corner({ className }: { className: string }) {
+  const r = 78;
+  const rays: ReactNode[] = [];
+  for (let i = 8; i <= 16; i++) {
+    const a = (i * 360) / 32;
+    const long = i % 2 === 0;
+    rays.push(
+      <g key={i}>
+        <path d={ray(r * 0.95, long ? r * 1.4 : r * 1.22, a, long ? 4.2 : 3.2)} fill={long ? GREEN : 'url(#bm-gold)'} stroke={long ? '#d6af60' : GOLDLINE} strokeWidth={0.8} />
+        {long && <path d={`M${polar(0, 0, r, a).join(',')} L${polar(0, 0, r * 1.32, a).join(',')}`} stroke="#e9c875" strokeWidth={0.7} />}
+        {long && <circle cx={polar(0, 0, r * 1.45, a)[0]} cy={polar(0, 0, r * 1.45, a)[1]} r={1.1} fill="#c9a35b" />}
+      </g>,
+    );
+  }
+  return (
+    <svg className={`${m.corner} ${className}`} viewBox="0 0 150 150" aria-hidden>
+      {rays}
+      <path d={lobed(0, 0, r, 24, r * 0.04)} fill="url(#bm-gold)" stroke={GOLDLINE} strokeWidth={1} />
+      <circle r={r * 0.9} fill={GREEN} stroke="#f1d892" strokeWidth={1} />
+      {Array.from({ length: 7 }, (_, i) => {
+        const [x, y] = polar(0, 0, r * 0.845, 90 + i * 15);
+        return i % 2 ? <circle key={i} cx={x} cy={y} r={0.9} fill="#e9c875" /> : <path key={i} d={starN(x, y, 2.5, 8, 0.6)} fill="#e9c875" />;
+      })}
+      <circle r={r * 0.79} fill="#fffaf0" stroke="#e9c875" strokeWidth={1.4} />
+      <path d={starN(0, 0, 48, 8, 0.7)} fill="url(#bm-gold)" stroke={GOLDLINE} strokeWidth={0.8} />
+      <path d={starN(0, 0, 30, 8, 0.7, 22.5)} fill={GREEN} />
+    </svg>
+  );
+}
+
+/** A tooled rule: dotted gold lines either side of a small gold lozenge. */
+const Tool = () => (
+  <svg className={m.tool} viewBox="0 0 300 20" aria-hidden>
+    <path d="M0,10 H128 M172,10 H300" stroke="#c9a35b" strokeWidth={1} strokeDasharray="1 3" />
+    <path d="M132,10 L150,2 L168,10 L150,18 Z" fill="url(#bm-gold)" stroke={GOLDLINE} strokeWidth={0.6} />
+    <circle cx={150} cy={10} r={2.6} fill={GREEN} />
+  </svg>
+);
 
 const Arrow = () => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" aria-hidden>
@@ -35,107 +106,65 @@ const Arrow = () => (
   </svg>
 );
 
-const STEPS: { title: string; body: ReactNode }[] = [
-  {
-    title: 'Sjekk om du er medlem et annet sted',
-    body: (
-      <span>
-        Logg inn på <a href={BRREG} target="_blank" rel="noopener noreferrer">Min side hos Brønnøysundregistrene</a> og se om du står oppført i et annet tros- eller livssynssamfunn. Gjør du det, må du melde deg ut der før du kan melde deg inn hos oss.
-      </span>
-    ),
-  },
-  {
-    title: 'Fyll ut innmeldingen',
-    body: (
-      <>
-        <span>Innmeldingen skjer i StyreWeb, medlemssystemet vårt. Skjemaet åpnes i en ny fane.</span>
-        <a className={`${f.btn} ${f.primary}`} href={MEMBERSHIP_SIGNUP_URL} target="_blank" rel="noopener noreferrer">
-          Gå til innmeldingen <Arrow />
-        </a>
-      </>
-    ),
-  },
-  {
-    title: 'Velkommen som medlem',
-    body: <>Når skjemaet er sendt, tar vi imot innmeldingen din. Velkommen til fellesskapet i Center Rahma.</>,
-  },
-];
-
-/** The gold star lattice behind the verse band. */
-const LATTICE = svgUrl(
-  `<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24"><path d="${star(12, 12, 7)}" fill="none" stroke="#e2c27d" stroke-width="0.9" stroke-opacity="0.6"/><path d="M0,0 L5,5 M24,0 L19,5 M0,24 L5,19 M24,24 L19,19" stroke="#e2c27d" stroke-width="0.8" stroke-opacity="0.45"/></svg>`,
-);
-
-const StarBadge = ({ n }: { n: number }) => (
-  <span className={m.badge}>
-    <svg viewBox="0 0 80 80" aria-hidden>
-      <path d={star(40, 40, 38, 0.72)} fill="url(#bm-gold)" stroke="#9b7329" strokeWidth={1} />
-      <path d={star(40, 40, 30, 0.72)} fill="#0b5f45" stroke="#f1d892" strokeWidth={1} />
-    </svg>
-    <b>{n}</b>
-  </span>
-);
-
 export default function Medlem() {
-  const v = VERSES.v49_10;
   return (
-    <main className={m.page} style={{ '--lat': LATTICE } as CSSProperties}>
-      {/* the gold the star medallions share */}
+    <main className={m.page}>
+      {/* the gold the corner pieces and rules share */}
       <svg width={0} height={0} className={m.defs} aria-hidden>
         <defs>
-          <linearGradient id="bm-gold" x1={0} y1={0} x2={1} y2={1}>
-            <stop offset={0} stopColor="#f3dc9c" />
+          <linearGradient id="bm-gold" x1={0} y1={0} x2={0.5} y2={1}>
+            <stop offset={0} stopColor="#f6e2a8" />
             <stop offset={0.5} stopColor="#d6af60" />
-            <stop offset={1} stopColor="#b98a3c" />
+            <stop offset={1} stopColor="#a8803a" />
           </linearGradient>
         </defs>
       </svg>
 
-      <section className={m.hero}>
-        <Byen />
-        <div className={m.text}>
-          <p className={m.lede}>{INTRO}</p>
-          <a className={`${f.btn} ${f.primary}`} href="#slik">Slik blir du medlem</a>
-        </div>
-      </section>
+      <article className={m.sheet}>
+        <Corner className={m.tl} />
+        <Corner className={m.tr} />
+        <Corner className={m.bl} />
+        <Corner className={m.br} />
 
-      <section className={m.band}>
-        <p className={m.ar} lang="ar" dir="rtl">{shown(v.ar)}</p>
-        <p className={m.en}>
-          <span lang="en">«{v.en}»</span> <cite>{v.ref}, {TRANSLATION}</cite>
-        </p>
-      </section>
+        <header className={m.head}>
+          {/* a non-breaking space keeps «i Center Rahma» together */}
+          <h1>Bli medlem i&nbsp;Center Rahma</h1>
+          {INTRO.map((p) => <p key={p} className={m.lede}>{p}</p>)}
+          <a className={`${f.btn} ${f.primary} ${m.cta}`} href={MEMBERSHIP_SIGNUP_URL} target="_blank" rel="noopener noreferrer">
+            Innmeldingsskjema <Arrow />
+          </a>
+        </header>
 
-      <section className={m.reasons} aria-labelledby="hvorfor">
-        <h2 id="hvorfor" className={m.h2}>Hvorfor bli medlem</h2>
-        <ul>
-          {REASONS.map((r, i) => (
-            <li key={r.title}>
-              <StarBadge n={i + 1} />
-              <h3>{r.title}</h3>
-              <p>{r.body}</p>
-            </li>
-          ))}
-        </ul>
-      </section>
+        <Tool />
 
-      <section id="slik" className={m.steps} aria-labelledby="slik-h">
-        <h2 id="slik-h" className={m.h2}>Slik blir du medlem</h2>
-        <ol>
-          {STEPS.map((s, i) => (
-            <li key={s.title}>
-              <svg className={m.node} viewBox="0 0 48 48" aria-hidden>
-                <path d={star(24, 24, 22, 0.72)} fill={i === 2 ? 'url(#bm-gold)' : '#fff'} stroke="var(--gold)" strokeWidth={1.4} />
-                <text x={24} y={29.5} textAnchor="middle" fontSize={15} fontWeight={700} fill={i === 2 ? '#fff' : 'var(--emerald-ink)'}>{i + 1}</text>
-              </svg>
-              <div>
-                <h3>{s.title}</h3>
-                <div className={m.stepBody}>{s.body}</div>
+        <section aria-labelledby="barn">
+          <h2 id="barn" className={m.h2}>Medlemskap for barn</h2>
+          <div className={m.pair}>
+            {BARN.map((b) => (
+              <div key={b.label}>
+                <h3>{b.label}</h3>
+                <p>{b.body}</p>
               </div>
-            </li>
-          ))}
-        </ol>
-      </section>
+            ))}
+          </div>
+        </section>
+
+        <Tool />
+
+        <section aria-labelledby="annet">
+          <h2 id="annet" className={m.h2}>Allerede registrert i et annet trossamfunn?</h2>
+          <p className={m.body}>
+            Dobbeltregistrerte medlemmer gir ikke grunnlag for statstilskudd. Sjekk derfor hvor du er registrert og meld deg ut av andre tros- eller livssynssamfunn før du melder deg inn hos oss.
+          </p>
+          <p className={m.center}>
+            <a className={m.link} href={BRREG} target="_blank" rel="noopener noreferrer">Sjekk hvor du er registrert hos Brønnøysundregistrene</a>
+          </p>
+        </section>
+
+        <p className={m.viktig}>
+          <b>Viktig:</b> Innmelding skal være frivillig og basert på aktivt og informert samtykke. Det er alltid mulig å melde seg ut.
+        </p>
+      </article>
     </main>
   );
 }
