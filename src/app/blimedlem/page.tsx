@@ -16,13 +16,14 @@ export const metadata: Metadata = {
     siteName: 'Masjid Rahma',
     locale: 'nb_NO',
     type: 'website',
-    images: [{ url: '/og-bli-medlem.png', width: 1200, height: 630, alt: 'Moskeen i Oslo i skumringen, med «Bli medlem» på himmelen' }],
+    // the site's own share picture: a page's openGraph replaces the layout's, so it is named again here
+    images: [{ url: '/og-forside.png', width: 1200, height: 630, alt: 'Masjid Rahma — Moske i Oslo' }],
   },
   twitter: {
     card: 'summary_large_image',
     title: TITLE,
     description: DESCRIPTION,
-    images: ['/og-bli-medlem.png'],
+    images: ['/og-forside.png'],
   },
 };
 
