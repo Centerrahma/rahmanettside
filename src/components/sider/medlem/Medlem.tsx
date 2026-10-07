@@ -1,9 +1,11 @@
 /* Bli medlem: the whole page is one cream sheet, tooled in gold like a book cover, with a
    quarter-medallion in each corner. On it the title, the words, the green button to the StyreWeb
-   innmelding form, the rules for children, the Brønnøysund check and «Viktig». */
+   innmelding form, the rules for children, the Brønnøysund check and «Viktig». Under the sheet, three
+   reasons to join, each under a numbered star medallion. */
 import type { ReactNode } from 'react';
 import f from '@/components/forside/forside.module.css';
 import { MEMBERSHIP_SIGNUP_URL } from '@/lib/constants';
+import { star } from '../kit';
 import m from './medlem.module.css';
 
 const BRREG = 'https://person.brreg.no/nb/minside';
@@ -16,6 +18,22 @@ const INTRO = [
 const BARN = [
   { label: 'Barn under 15 år', body: 'Meldes inn av den eller de som har foreldreansvaret. Barnet skal også få medvirke ut fra alder og modenhet.' },
   { label: 'Fra fylte 15 år', body: 'Barnet bestemmer selv og må selv melde seg inn.' },
+];
+
+/** The three reasons under the sheet, in the owner's words (as on the page before the sheet). */
+const REASONS = [
+  {
+    title: 'Du støtter moskeen',
+    body: 'Tros- og livssynssamfunn får tilskudd fra staten for hvert registrerte medlem. Medlemskapet ditt gir oss den støtten vi trenger.',
+  },
+  {
+    title: 'Du styrker fellesskapet',
+    body: 'Jo flere vi er, jo mer kan vi gjøre. Undervisningen, Rahma skole, Ung Rahma og alt det andre vi gjør, får vi til fordi dere støtter oss.',
+  },
+  {
+    title: 'Du hjelper fellesskapet å vokse',
+    body: 'Du støtter moskeen, og du hjelper det muslimske fellesskapet i Norge å vokse.',
+  },
 ];
 
 const GREEN = '#0b5f45';
@@ -100,6 +118,17 @@ const Tool = () => (
   </svg>
 );
 
+/** A gold-and-green star medallion carrying a number. */
+const StarBadge = ({ n }: { n: number }) => (
+  <span className={m.badge}>
+    <svg viewBox="0 0 80 80" aria-hidden>
+      <path d={star(40, 40, 38, 0.72)} fill="url(#bm-gold)" stroke="#9b7329" strokeWidth={1} />
+      <path d={star(40, 40, 30, 0.72)} fill="#0b5f45" stroke="#f1d892" strokeWidth={1} />
+    </svg>
+    <b>{n}</b>
+  </span>
+);
+
 const Arrow = () => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" aria-hidden>
     <path d="M7 17 17 7M8 7h9v9" />
@@ -164,6 +193,19 @@ export default function Medlem() {
           <b>Viktig:</b> Innmelding skal være frivillig og basert på aktivt og informert samtykke. Det er alltid mulig å melde seg ut.
         </p>
       </article>
+
+      <section className={m.reasons} aria-labelledby="hvorfor">
+        <h2 id="hvorfor" className={m.h2}>Hvorfor bli medlem</h2>
+        <ul>
+          {REASONS.map((r, i) => (
+            <li key={r.title}>
+              <StarBadge n={i + 1} />
+              <h3>{r.title}</h3>
+              <p>{r.body}</p>
+            </li>
+          ))}
+        </ul>
+      </section>
     </main>
   );
 }
