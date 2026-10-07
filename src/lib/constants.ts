@@ -100,9 +100,9 @@ export const EVENTS: CommunityEvent[] = [
 ];
 
 // Membership sign-up is handled by StyreWeb (the mosque's membership system).
-// Replace with the organisation's own innmelding link from StyreWeb:
-// https://<organisasjon>.portal.styreweb.com/arrangement/Register?ID=<skjema-id>
-export const MEMBERSHIP_SIGNUP_URL = 'REPLACE_WITH_STYREWEB_INNMELDING_URL';
+// Leave out SessionID: StyreWeb redirects to a fresh session for each visitor.
+export const MEMBERSHIP_SIGNUP_URL =
+  'https://centerrahma.portal.styreweb.com/arrangement/Register?ID=82679-DWBL';
 
 export const CONTACT_INFO = {
   address: 'Tvetenveien 152A',
