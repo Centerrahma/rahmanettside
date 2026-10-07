@@ -139,14 +139,11 @@ export default function Medlem() {
 
         <section aria-labelledby="barn">
           <h2 id="barn" className={m.h2}>Medlemskap for barn</h2>
-          <div className={m.pair}>
-            {BARN.map((b) => (
-              <div key={b.label}>
-                <h3>{b.label}</h3>
-                <p>{b.body}</p>
-              </div>
-            ))}
-          </div>
+          {BARN.map((b) => (
+            <p key={b.label} className={m.row}>
+              <b>{b.label}:</b> {b.body}
+            </p>
+          ))}
         </section>
 
         <Tool />
@@ -154,7 +151,9 @@ export default function Medlem() {
         <section aria-labelledby="annet">
           <h2 id="annet" className={m.h2}>Allerede registrert i et annet trossamfunn?</h2>
           <p className={m.body}>
-            Dobbeltregistrerte medlemmer gir ikke grunnlag for statstilskudd. Sjekk derfor hvor du er registrert og meld deg ut av andre tros- eller livssynssamfunn før du melder deg inn hos oss.
+            {/* a sentence a line on wide screens */}
+            <span>Dobbeltregistrerte medlemmer gir ikke grunnlag for statstilskudd.</span>{' '}
+            <span>Sjekk derfor hvor du er registrert og meld deg ut av andre tros- eller livssynssamfunn før du melder deg inn hos oss.</span>
           </p>
           <p className={m.center}>
             <a className={m.link} href={BRREG} target="_blank" rel="noopener noreferrer">Sjekk hvor du er registrert hos Brønnøysundregistrene</a>
