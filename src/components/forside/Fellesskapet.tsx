@@ -16,7 +16,7 @@ const STAR = (() => {
 const BOXES = [
   {
     href: '/ung-rahma',
-    img: '/UngRahma_opt.jpg',
+    img: '/UngRahma_bue.jpg',
     alt: 'Barn og unge samlet i en idrettshall',
     title: 'Ung Rahma',
     text: 'Ungdomsprogram for 13 til 25 år med sport, turer, koranstudier og mentorordning.',
@@ -24,7 +24,7 @@ const BOXES = [
   },
   {
     href: '/rahma-skole',
-    img: '/Rahmaskole_opt.jpg',
+    img: '/Rahmaskole_bue.jpg',
     alt: 'Elever i et klasserom ser på en skjerm med arabiske bokstaver',
     title: 'Rahma skole',
     text: 'Islamsk undervisning for barn og unge: Koran, arabisk og islamske studier.',
@@ -32,7 +32,7 @@ const BOXES = [
   },
   {
     href: '/become-member',
-    img: '/BliMedlem_opt.jpg',
+    img: '/BliMedlem_bue.jpg',
     alt: 'Barn som spiser pizza sammen i bønnesalen',
     title: 'Bli medlem',
     text: 'Medlemskapet støtter driften av moskeen og programmene.',
