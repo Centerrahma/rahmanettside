@@ -76,7 +76,8 @@ function Mosque() {
   return out;
 }
 
-function Scene() {
+/** The whole drawing, also used for the page's share image. */
+export function Scene() {
   const { back, front, lit } = city();
   const rnd = seeded(3);
   const stars: ReactNode[] = [];
@@ -118,7 +119,7 @@ function Scene() {
   );
 }
 
-const Defs = () => (
+export const Defs = () => (
   <defs>
     <linearGradient id="by-sky" x1={0} y1={0} x2={0} y2={1}>
       <stop offset={0} stopColor="#232a63" />

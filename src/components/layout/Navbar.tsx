@@ -42,7 +42,7 @@ export function Navbar() {
           <Image src="/hvit_rahma_300.png" alt="" width={219} height={300} priority />
         </Link>
         <ul className={s.links}>{items}</ul>
-        <Link className={s.cta} href="/become-member">Bli medlem</Link>
+        <Link className={s.cta} href="/blimedlem">Bli medlem</Link>
         <button
           type="button"
           className={s.burger}
@@ -59,7 +59,7 @@ export function Navbar() {
       <nav id="nav-menu" className={s.menu} hidden={!open} aria-label="Meny">
         <div className={s.wrap}>
           <ul>{items}</ul>
-          <Link className={s.cta} href="/become-member" onClick={() => setOpen(false)}>Bli medlem</Link>
+          <Link className={s.cta} href="/blimedlem" onClick={() => setOpen(false)}>Bli medlem</Link>
         </div>
       </nav>
     </header>

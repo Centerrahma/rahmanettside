@@ -31,7 +31,7 @@ const BOXES = [
     more: 'Les om Rahma skole',
   },
   {
-    href: '/become-member',
+    href: '/blimedlem',
     img: '/BliMedlem_bue.jpg',
     alt: 'Barn som spiser pizza sammen i bønnesalen',
     title: 'Bli medlem',
