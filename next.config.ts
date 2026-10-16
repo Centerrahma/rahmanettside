@@ -1,5 +1,6 @@
 import type { NextConfig } from 'next';
 import createNextIntlPlugin from 'next-intl/plugin';
+import { SKJERM_LINKS } from './src/lib/skjerm';
 
 const withNextIntl = createNextIntlPlugin('./src/i18n/request.ts');
 
@@ -49,6 +50,12 @@ const nextConfig: NextConfig = {
       { source: '/contact', destination: '/kontakt', permanent: true },
       { source: '/new-mosque', destination: '/stott-oss', permanent: true },
       { source: '/become-member', destination: '/blimedlem', permanent: true },
+      // the touch screen's QR codes; temporary, so phones never keep an old link
+      ...SKJERM_LINKS.map((link) => ({
+        source: `/skjerm/${link.slug}`,
+        destination: link.target,
+        permanent: false,
+      })),
     ];
   },
   async headers() {
