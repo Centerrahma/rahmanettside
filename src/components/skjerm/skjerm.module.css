@@ -2,14 +2,13 @@
    Sizes follow the shorter side of the screen (vmin), so any screen size works. */
 
 .screen {
-  --tint: var(--mint);
-  --tone: var(--emerald);
+  --on: #fffdfb;
   box-sizing: border-box;
   height: 100dvh;
   display: flex;
   flex-direction: column;
-  gap: 5vmin;
-  padding: 6vmin;
+  gap: 4.5vmin;
+  padding: 5vmin 6vmin 6vmin;
   background: var(--paper);
   color: var(--ink);
   font-family: var(--font-geist), system-ui, sans-serif;
@@ -21,135 +20,200 @@
   overflow: hidden;
 }
 
-.screen [data-slug='whatsapp'] { --tint: #e6f7ed; --tone: #128c4a; }
-.screen [data-slug='vipps'] { --tint: #fff0ea; --tone: #d4461b; }
-.screen [data-slug='medlem'] { --tint: var(--mint); --tone: var(--emerald); }
+/* each button wears its own colour: top is the brand colour, the deeper end sits under the words */
+.screen [data-slug='whatsapp'] { --top: #25d366; --deep: #128c4a; }
+.screen [data-slug='vipps'] { --top: #ff6a33; --deep: #e2490f; }
+.screen [data-slug='medlem'] { --top: #0f7a57; --deep: #085a40; }
+
+/* ─── title ─── */
 
 .head {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 3.5vmin;
+  text-align: center;
 }
 
 .logo {
   width: auto;
-  height: 12vmin;
-  flex: none;
+  height: 23vmin;
   /* the logo file has an off-white ground; multiply drops it into the page */
   mix-blend-mode: multiply;
 }
 
 .title {
-  margin: 0;
-  font-size: clamp(1.75rem, 5.2vmin, 4.5rem);
+  margin: 1.5vmin 0 0;
+  font-size: clamp(2rem, 7vmin, 6rem);
   font-weight: 600;
   line-height: 1.05;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.025em;
+  text-wrap: balance;
 }
 
-.lead {
-  margin: 1.4vmin 0 0;
-  font-size: clamp(1.1rem, 2.8vmin, 2.25rem);
-  color: var(--ink-2);
+.rule {
+  display: block;
+  width: min(66vmin, 86%);
+  height: auto;
+  margin-top: 2.2vmin;
 }
+
+/* ─── the three buttons ─── */
 
 .cards {
   flex: 1;
   min-height: 0;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 3.5vmin;
+  gap: 3vmin;
 }
 
 .card {
+  position: relative;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 4vmin;
-  padding: 4vmin;
-  border: 1px solid var(--hair-2);
-  border-radius: 3vmin;
-  background: var(--paper);
-  color: inherit;
+  justify-content: space-between;
+  gap: 3vmin;
+  padding: 4.5vmin 4.5vmin 3.6vmin;
+  border: 0;
+  border-radius: 3.4vmin;
+  background:
+    radial-gradient(120% 80% at 0% 0%, rgba(255, 255, 255, 0.16), transparent 60%),
+    linear-gradient(165deg, var(--top), var(--deep));
+  color: var(--on);
   font: inherit;
-  text-align: center;
+  text-align: left;
   cursor: pointer;
-  box-shadow: 0 1px 2px rgba(15, 29, 24, 0.06), 0 6px 24px rgba(15, 29, 24, 0.06);
-  transition: transform 120ms ease-out, background-color 120ms ease-out;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.28),
+    0 2.4vmin 5vmin -2.4vmin color-mix(in oklab, var(--deep) 70%, transparent);
+  transition: transform 140ms cubic-bezier(0.25, 1, 0.5, 1), filter 140ms ease-out;
+}
+
+/* the member button keeps a gold line inside its edge */
+.card[data-slug='medlem'] {
+  box-shadow:
+    inset 0 0 0 0.35vmin rgba(201, 163, 91, 0.55),
+    0 2.4vmin 5vmin -2.4vmin color-mix(in oklab, var(--deep) 70%, transparent);
 }
 
 /* a touch screen has no hover, so the press itself is the answer */
 .card:active {
   transform: scale(0.97);
-  background: var(--tint);
+  filter: brightness(0.94);
 }
 
 .card:focus-visible,
 .back:focus-visible {
-  outline: 3px solid var(--tone);
-  outline-offset: 4px;
+  outline: 0.5vmin solid var(--ink);
+  outline-offset: 0.6vmin;
 }
 
-.icon {
-  display: grid;
-  place-items: center;
-  width: 20vmin;
-  height: 20vmin;
-  flex: none;
-  border-radius: 50%;
-  background: var(--tint);
-  color: var(--tone);
+.mark {
+  display: flex;
+  align-items: flex-start;
+  height: 16vmin;
 }
 
-.icon svg {
-  width: 52%;
-  height: 52%;
+.mark svg {
+  height: 100%;
+  width: auto;
+  filter: drop-shadow(0 0.6vmin 1.2vmin rgba(0, 0, 0, 0.14));
+}
+
+.card[data-slug='medlem'] .mark svg {
+  height: 120%;
+  margin-top: -1vmin;
 }
 
 .cardText {
   display: flex;
   flex-direction: column;
-  gap: 1.4vmin;
+  gap: 1.2vmin;
 }
 
 .cardTitle {
-  font-size: clamp(1.6rem, 5vmin, 4rem);
+  font-size: clamp(1.75rem, 5.6vmin, 4.75rem);
   font-weight: 600;
-  letter-spacing: -0.015em;
+  line-height: 1;
+  letter-spacing: -0.02em;
 }
 
 .cardLine {
-  font-size: clamp(1rem, 2.6vmin, 2rem);
-  color: var(--ink-2);
+  font-size: clamp(1.15rem, 2.7vmin, 2.1rem);
+  font-weight: 500;
+  line-height: 1.25;
+  opacity: 0.94;
   text-wrap: balance;
 }
 
-/* a tall screen: the three buttons stack, icon at the left */
+.cue {
+  display: flex;
+  align-items: center;
+  gap: 1.2vmin;
+  margin-top: 1.8vmin;
+  padding-top: 2vmin;
+  border-top: 1px solid rgba(255, 255, 255, 0.3);
+  font-size: clamp(1rem, 2.2vmin, 1.7rem);
+  font-weight: 500;
+  opacity: 0.9;
+}
+
+.cue svg {
+  width: 1.3em;
+  height: 1.3em;
+  flex: none;
+}
+
+/* a tall screen: the three buttons stack, mark at the left */
 @media (orientation: portrait) {
+  .logo { height: 24vmin; }
+  .title { font-size: clamp(1.9rem, 7.4vmin, 5.5rem); }
+
   .cards {
     grid-template-columns: 1fr;
   }
 
   .card {
     flex-direction: row;
+    align-items: center;
     justify-content: flex-start;
+    gap: 6vmin;
     padding: 4vmin 6vmin;
-    text-align: left;
   }
 
-  .icon {
-    width: 18vmin;
+  .mark {
+    justify-content: center;
+    align-items: center;
+    width: 22vmin;
     height: 18vmin;
+    flex: none;
   }
 
-  .cardTitle {
-    font-size: clamp(1.75rem, 6.5vmin, 4.5rem);
+  .card[data-slug='medlem'] .mark svg {
+    height: auto;
+    width: 100%;
+    margin-top: 0;
   }
 
-  .cardLine {
-    font-size: clamp(1.05rem, 3.4vmin, 2.25rem);
-  }
+  .cardText { flex: 1; }
+
+  .cardTitle { font-size: clamp(1.9rem, 7vmin, 5rem); }
+
+  .cardLine { font-size: clamp(1.15rem, 3.6vmin, 2.4rem); }
+
+  .cue { font-size: clamp(1rem, 2.9vmin, 1.9rem); }
+}
+
+/* a small tall screen (a tablet): the three buttons need every line they can get */
+@media (orientation: portrait) and (max-height: 1200px) {
+  .screen { gap: 3.5vmin; padding-top: 4vmin; }
+  .logo { height: 17vmin; }
+  .cards { gap: 2.6vmin; }
+  .card { padding: 3vmin 5vmin; }
+  .mark { height: 15vmin; width: 19vmin; }
+  .cardTitle { font-size: 1.9rem; }
+  .cardLine { font-size: 1.15rem; }
+  .cue { margin-top: 1vmin; padding-top: 1.4vmin; font-size: 1rem; }
 }
 
 /* ─── the code ─── */
@@ -161,58 +225,90 @@
   display: grid;
   place-items: center;
   padding: 4vmin;
-  background: rgba(15, 29, 24, 0.32);
-  animation: fade 160ms ease-out;
+  background: rgba(15, 29, 24, 0.4);
+  animation: fade 180ms ease-out;
 }
 
 .sheet {
   box-sizing: border-box;
-  display: grid;
-  grid-template-areas: 'title' 'line' 'qr' 'how' 'address' 'back';
-  justify-items: center;
+  display: flex;
+  flex-direction: column;
   width: min(100%, 88vmin);
   max-height: 100%;
-  padding: 5vmin 6vmin;
-  border-radius: 3vmin;
-  border-top: 1.2vmin solid var(--tone);
+  overflow: hidden;
+  border-radius: 3.4vmin;
   background: var(--paper);
-  text-align: center;
-  box-shadow: 0 24px 80px rgba(15, 29, 24, 0.24);
-  animation: rise 200ms cubic-bezier(0.2, 0.8, 0.2, 1);
+  box-shadow: 0 3vmin 9vmin rgba(15, 29, 24, 0.3);
+  animation: rise 240ms cubic-bezier(0.25, 1, 0.5, 1);
 }
+
+.band {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-areas: 'mark title' 'mark line';
+  align-items: center;
+  column-gap: 4vmin;
+  padding: 4vmin 5vmin;
+  background:
+    radial-gradient(120% 90% at 0% 0%, rgba(255, 255, 255, 0.16), transparent 60%),
+    linear-gradient(165deg, var(--top), var(--deep));
+  color: var(--on);
+}
+
+.bandMark {
+  grid-area: mark;
+  display: flex;
+  height: 12vmin;
+}
+
+.bandMark svg {
+  height: 100%;
+  width: auto;
+}
+
+.sheet[data-slug='medlem'] .bandMark { height: 14vmin; }
 
 .sheetTitle {
   grid-area: title;
+  align-self: end;
   margin: 0;
-  font-size: clamp(1.75rem, 5.5vmin, 4.5rem);
+  font-size: clamp(1.75rem, 5.4vmin, 4.5rem);
   font-weight: 600;
+  line-height: 1;
   letter-spacing: -0.02em;
 }
 
 .sheetLine {
   grid-area: line;
-  margin: 1vmin 0 0;
-  font-size: clamp(1.05rem, 2.8vmin, 2.25rem);
-  color: var(--ink-2);
+  align-self: start;
+  margin: 1.2vmin 0 0;
+  font-size: clamp(1.05rem, 2.7vmin, 2.1rem);
+  font-weight: 500;
+  opacity: 0.94;
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 4vmin 5vmin 5vmin;
+  text-align: center;
 }
 
 .qr {
-  grid-area: qr;
   display: block;
-  width: min(54vmin, 100%);
+  width: min(52vmin, 100%);
   height: auto;
-  margin: 4vmin 0 3vmin;
+  margin-bottom: 3vmin;
 }
 
 .how {
-  grid-area: how;
   margin: 0;
   font-size: clamp(1.05rem, 2.8vmin, 2.25rem);
   font-weight: 500;
 }
 
 .address {
-  grid-area: address;
   margin: 1vmin 0 0;
   font-size: clamp(0.95rem, 2.2vmin, 1.75rem);
   color: var(--muted);
@@ -220,50 +316,54 @@
 }
 
 .back {
-  grid-area: back;
-  margin-top: 4vmin;
+  margin-top: 3.6vmin;
   min-width: 36vmin;
   min-height: max(64px, 9vmin);
   padding: 0 6vmin;
   border: 0;
   border-radius: 999px;
   background: var(--ink);
-  color: var(--paper);
+  color: var(--on);
   font: inherit;
   font-size: clamp(1.1rem, 3vmin, 2.25rem);
   font-weight: 600;
   cursor: pointer;
-  transition: transform 120ms ease-out;
+  transition: transform 140ms cubic-bezier(0.25, 1, 0.5, 1);
 }
 
 .back:active {
   transform: scale(0.97);
 }
 
-/* a wide screen: the code at the left, the words and Tilbake at the right */
+/* a wide screen: the colour panel at the left, the code at the right */
 @media (orientation: landscape) {
   .sheet {
-    grid-template-areas: 'qr title' 'qr line' 'qr how' 'qr address' 'qr back';
-    grid-template-columns: min(62vmin, 50%) 1fr;
-    grid-template-rows: 1fr auto auto auto 1fr;
-    column-gap: 7vmin;
-    justify-items: start;
-    width: min(100%, 140vmin);
-    padding: 6vmin;
-    text-align: left;
+    flex-direction: row;
+    width: min(100%, 136vmin);
   }
 
-  .sheetTitle { align-self: end; }
-
-  .qr {
-    width: 100%;
-    margin: 0;
-    align-self: center;
+  .band {
+    flex: 0 0 38%;
+    box-sizing: border-box;
+    grid-template-columns: 1fr;
+    grid-template-areas: 'mark' 'title' 'line';
+    align-content: center;
+    row-gap: 2.4vmin;
+    padding: 6vmin 5vmin;
   }
 
-  .how { margin-top: 4vmin; }
+  .bandMark { height: 16vmin; }
+  .sheet[data-slug='medlem'] .bandMark { height: 18vmin; }
 
-  .back { align-self: start; }
+  .sheetTitle { font-size: clamp(1.75rem, 6vmin, 5rem); }
+
+  .body {
+    flex: 1;
+    justify-content: center;
+    padding: 5vmin;
+  }
+
+  .qr { width: min(50vmin, 100%); }
 }
 
 @keyframes fade {
