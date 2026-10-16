@@ -1,0 +1,282 @@
+/* The touch screen: one fixed screen, read from a metre away, touched, never scrolled.
+   Sizes follow the shorter side of the screen (vmin), so any screen size works. */
+
+.screen {
+  --tint: var(--mint);
+  --tone: var(--emerald);
+  box-sizing: border-box;
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  gap: 5vmin;
+  padding: 6vmin;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-geist), system-ui, sans-serif;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  overflow: hidden;
+}
+
+.screen [data-slug='whatsapp'] { --tint: #e6f7ed; --tone: #128c4a; }
+.screen [data-slug='vipps'] { --tint: #fff0ea; --tone: #d4461b; }
+.screen [data-slug='medlem'] { --tint: var(--mint); --tone: var(--emerald); }
+
+.head {
+  display: flex;
+  align-items: center;
+  gap: 3.5vmin;
+}
+
+.logo {
+  width: auto;
+  height: 12vmin;
+  flex: none;
+  /* the logo file has an off-white ground; multiply drops it into the page */
+  mix-blend-mode: multiply;
+}
+
+.title {
+  margin: 0;
+  font-size: clamp(1.75rem, 5.2vmin, 4.5rem);
+  font-weight: 600;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+}
+
+.lead {
+  margin: 1.4vmin 0 0;
+  font-size: clamp(1.1rem, 2.8vmin, 2.25rem);
+  color: var(--ink-2);
+}
+
+.cards {
+  flex: 1;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 3.5vmin;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4vmin;
+  padding: 4vmin;
+  border: 1px solid var(--hair-2);
+  border-radius: 3vmin;
+  background: var(--paper);
+  color: inherit;
+  font: inherit;
+  text-align: center;
+  cursor: pointer;
+  box-shadow: 0 1px 2px rgba(15, 29, 24, 0.06), 0 6px 24px rgba(15, 29, 24, 0.06);
+  transition: transform 120ms ease-out, background-color 120ms ease-out;
+}
+
+/* a touch screen has no hover, so the press itself is the answer */
+.card:active {
+  transform: scale(0.97);
+  background: var(--tint);
+}
+
+.card:focus-visible,
+.back:focus-visible {
+  outline: 3px solid var(--tone);
+  outline-offset: 4px;
+}
+
+.icon {
+  display: grid;
+  place-items: center;
+  width: 20vmin;
+  height: 20vmin;
+  flex: none;
+  border-radius: 50%;
+  background: var(--tint);
+  color: var(--tone);
+}
+
+.icon svg {
+  width: 52%;
+  height: 52%;
+}
+
+.cardText {
+  display: flex;
+  flex-direction: column;
+  gap: 1.4vmin;
+}
+
+.cardTitle {
+  font-size: clamp(1.6rem, 5vmin, 4rem);
+  font-weight: 600;
+  letter-spacing: -0.015em;
+}
+
+.cardLine {
+  font-size: clamp(1rem, 2.6vmin, 2rem);
+  color: var(--ink-2);
+  text-wrap: balance;
+}
+
+/* a tall screen: the three buttons stack, icon at the left */
+@media (orientation: portrait) {
+  .cards {
+    grid-template-columns: 1fr;
+  }
+
+  .card {
+    flex-direction: row;
+    justify-content: flex-start;
+    padding: 4vmin 6vmin;
+    text-align: left;
+  }
+
+  .icon {
+    width: 18vmin;
+    height: 18vmin;
+  }
+
+  .cardTitle {
+    font-size: clamp(1.75rem, 6.5vmin, 4.5rem);
+  }
+
+  .cardLine {
+    font-size: clamp(1.05rem, 3.4vmin, 2.25rem);
+  }
+}
+
+/* ─── the code ─── */
+
+.backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  display: grid;
+  place-items: center;
+  padding: 4vmin;
+  background: rgba(15, 29, 24, 0.32);
+  animation: fade 160ms ease-out;
+}
+
+.sheet {
+  box-sizing: border-box;
+  display: grid;
+  grid-template-areas: 'title' 'line' 'qr' 'how' 'address' 'back';
+  justify-items: center;
+  width: min(100%, 88vmin);
+  max-height: 100%;
+  padding: 5vmin 6vmin;
+  border-radius: 3vmin;
+  border-top: 1.2vmin solid var(--tone);
+  background: var(--paper);
+  text-align: center;
+  box-shadow: 0 24px 80px rgba(15, 29, 24, 0.24);
+  animation: rise 200ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.sheetTitle {
+  grid-area: title;
+  margin: 0;
+  font-size: clamp(1.75rem, 5.5vmin, 4.5rem);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.sheetLine {
+  grid-area: line;
+  margin: 1vmin 0 0;
+  font-size: clamp(1.05rem, 2.8vmin, 2.25rem);
+  color: var(--ink-2);
+}
+
+.qr {
+  grid-area: qr;
+  display: block;
+  width: min(54vmin, 100%);
+  height: auto;
+  margin: 4vmin 0 3vmin;
+}
+
+.how {
+  grid-area: how;
+  margin: 0;
+  font-size: clamp(1.05rem, 2.8vmin, 2.25rem);
+  font-weight: 500;
+}
+
+.address {
+  grid-area: address;
+  margin: 1vmin 0 0;
+  font-size: clamp(0.95rem, 2.2vmin, 1.75rem);
+  color: var(--muted);
+  letter-spacing: 0.01em;
+}
+
+.back {
+  grid-area: back;
+  margin-top: 4vmin;
+  min-width: 36vmin;
+  min-height: max(64px, 9vmin);
+  padding: 0 6vmin;
+  border: 0;
+  border-radius: 999px;
+  background: var(--ink);
+  color: var(--paper);
+  font: inherit;
+  font-size: clamp(1.1rem, 3vmin, 2.25rem);
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 120ms ease-out;
+}
+
+.back:active {
+  transform: scale(0.97);
+}
+
+/* a wide screen: the code at the left, the words and Tilbake at the right */
+@media (orientation: landscape) {
+  .sheet {
+    grid-template-areas: 'qr title' 'qr line' 'qr how' 'qr address' 'qr back';
+    grid-template-columns: min(62vmin, 50%) 1fr;
+    grid-template-rows: 1fr auto auto auto 1fr;
+    column-gap: 7vmin;
+    justify-items: start;
+    width: min(100%, 140vmin);
+    padding: 6vmin;
+    text-align: left;
+  }
+
+  .sheetTitle { align-self: end; }
+
+  .qr {
+    width: 100%;
+    margin: 0;
+    align-self: center;
+  }
+
+  .how { margin-top: 4vmin; }
+
+  .back { align-self: start; }
+}
+
+@keyframes fade {
+  from { opacity: 0; }
+}
+
+@keyframes rise {
+  from { opacity: 0; transform: translateY(2vmin) scale(0.98); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .backdrop,
+  .sheet {
+    animation: none;
+  }
+}
