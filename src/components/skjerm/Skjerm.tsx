@@ -1,9 +1,9 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, type ComponentType } from 'react';
 import Image from 'next/image';
-import { HeartHandshake, MessageCircle, UserPlus, type LucideIcon } from 'lucide-react';
 import type { SkjermSlug } from '@/lib/skjerm';
+import { MedlemMark, TitleRule, VippsMark, WhatsAppMark } from './marks';
 import s from './skjerm.module.css';
 
 export interface SkjermCard {
@@ -15,14 +15,25 @@ export interface SkjermCard {
   qr: { size: number; d: string };
 }
 
-const ICONS: Record<SkjermSlug, LucideIcon> = {
-  whatsapp: MessageCircle,
-  vipps: HeartHandshake,
-  medlem: UserPlus,
+const MARKS: Record<SkjermSlug, ComponentType<{ className?: string }>> = {
+  whatsapp: WhatsAppMark,
+  vipps: VippsMark,
+  medlem: MedlemMark,
 };
 
 /** With no touch for this long, the code closes and the three buttons come back. */
 const IDLE_MS = 45_000;
+
+function QrGlyph() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="2" strokeLinejoin="round">
+      <rect x="3" y="3" width="7" height="7" rx="1" />
+      <rect x="14" y="3" width="7" height="7" rx="1" />
+      <rect x="3" y="14" width="7" height="7" rx="1" />
+      <path d="M14 14h3v3h-3zM20 14v.01M14 20h.01M17 20h4v-3" />
+    </svg>
+  );
+}
 
 export function Skjerm({ cards }: { cards: SkjermCard[] }) {
   const [open, setOpen] = useState<SkjermSlug | null>(null);
@@ -51,19 +62,27 @@ export function Skjerm({ cards }: { cards: SkjermCard[] }) {
     };
   }, [open]);
 
+  const Mark = card ? MARKS[card.slug] : null;
+
   return (
     <div className={s.screen} data-skjerm onContextMenu={(e) => e.preventDefault()}>
       <header className={s.head}>
-        <Image className={s.logo} src="/hvit_rahma_300.png" alt="Masjid Rahma" width={219} height={300} priority />
-        <div>
-          <h1 className={s.title}>Velkommen til Masjid Rahma</h1>
-          <p className={s.lead}>Trykk på en knapp, og skann koden med mobilen.</p>
-        </div>
+        <Image
+          className={s.logo}
+          src="/hvit rahma oppskalert.png"
+          alt="Masjid Rahma"
+          width={864}
+          height={1184}
+          sizes="18vmin"
+          priority
+        />
+        <h1 className={s.title}>Velkommen til Masjid Rahma</h1>
+        <TitleRule className={s.rule} />
       </header>
 
       <div className={s.cards}>
         {cards.map((c) => {
-          const Icon = ICONS[c.slug];
+          const CardMark = MARKS[c.slug];
           return (
             <button
               key={c.slug}
@@ -73,19 +92,23 @@ export function Skjerm({ cards }: { cards: SkjermCard[] }) {
               aria-haspopup="dialog"
               onClick={() => setOpen(c.slug)}
             >
-              <span className={s.icon} aria-hidden="true">
-                <Icon strokeWidth={1.75} />
+              <span className={s.mark}>
+                <CardMark />
               </span>
               <span className={s.cardText}>
                 <span className={s.cardTitle}>{c.title}</span>
                 <span className={s.cardLine}>{c.line}</span>
+                <span className={s.cue}>
+                  <QrGlyph />
+                  Trykk for QR-kode
+                </span>
               </span>
             </button>
           );
         })}
       </div>
 
-      {card && (
+      {card && Mark && (
         <div className={s.backdrop} onClick={() => setOpen(null)}>
           <div
             className={s.sheet}
@@ -95,23 +118,30 @@ export function Skjerm({ cards }: { cards: SkjermCard[] }) {
             data-slug={card.slug}
             onClick={(e) => e.stopPropagation()}
           >
-            <h2 id="skjerm-kode" className={s.sheetTitle}>{card.title}</h2>
-            <p className={s.sheetLine}>{card.line}</p>
-            <svg
-              className={s.qr}
-              viewBox={`-2 -2 ${card.qr.size + 4} ${card.qr.size + 4}`}
-              shapeRendering="crispEdges"
-              role="img"
-              aria-label={`QR-kode til ${card.address}`}
-            >
-              <rect x="-2" y="-2" width={card.qr.size + 4} height={card.qr.size + 4} fill="#fff" />
-              <path d={card.qr.d} fill="#0f1d18" />
-            </svg>
-            <p className={s.how}>Åpne kameraet på mobilen og pek det mot koden.</p>
-            <p className={s.address}>{card.address}</p>
-            <button ref={closeRef} type="button" className={s.back} onClick={() => setOpen(null)}>
-              Tilbake
-            </button>
+            <div className={s.band}>
+              <span className={s.bandMark}>
+                <Mark />
+              </span>
+              <h2 id="skjerm-kode" className={s.sheetTitle}>{card.title}</h2>
+              <p className={s.sheetLine}>{card.line}</p>
+            </div>
+            <div className={s.body}>
+              <svg
+                className={s.qr}
+                viewBox={`-2 -2 ${card.qr.size + 4} ${card.qr.size + 4}`}
+                shapeRendering="crispEdges"
+                role="img"
+                aria-label={`QR-kode til ${card.address}`}
+              >
+                <rect x="-2" y="-2" width={card.qr.size + 4} height={card.qr.size + 4} fill="#fff" />
+                <path d={card.qr.d} fill="#0f1d18" />
+              </svg>
+              <p className={s.how}>Åpne kameraet på mobilen og pek det mot koden.</p>
+              <p className={s.address}>{card.address}</p>
+              <button ref={closeRef} type="button" className={s.back} onClick={() => setOpen(null)}>
+                Tilbake
+              </button>
+            </div>
           </div>
         </div>
       )}
