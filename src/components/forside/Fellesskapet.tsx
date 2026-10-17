@@ -9,10 +9,12 @@ import s from './fellesskapet.module.css';
 /* Fellesskapet: Ung Rahma, Rahma skole and Bli medlem in one stage shaped like the mihrab's arch.
    The points are the mosque's own words from each group's page. */
 
-const GROUPS = [
+/* Ung Rahma and Rahma skole have no page yet, so they carry no link; a group gets a button once it has an href. */
+interface Group { key: string; href?: string; more?: string; img: string; alt: string; title: string; meta: string; text: string; points: string[][] }
+const GROUPS: Group[] = [
   {
-    key: 'ung', href: '/ung-rahma', img: '/UngRahma.jpeg', alt: 'Barn og unge samlet i en idrettshall',
-    title: 'Ung Rahma', meta: '13 til 25 år', more: 'Les om Ung Rahma',
+    key: 'ung', img: '/UngRahma.jpeg', alt: 'Barn og unge samlet i en idrettshall',
+    title: 'Ung Rahma', meta: '13 til 25 år',
     text: 'Et ungdomsprogram som styrker neste generasjon gjennom tro, læring og lederskap.',
     points: [
       ['Aktiviteter', 'Sport, utflukter og sosiale arrangementer som bygger vennskap.'],
@@ -21,8 +23,8 @@ const GROUPS = [
     ],
   },
   {
-    key: 'skole', href: '/rahma-skole', img: '/Rahmaskole.jpeg', alt: 'Elever i et klasserom ser på en skjerm med arabiske bokstaver',
-    title: 'Rahma skole', meta: 'Barn og unge', more: 'Les om Rahma skole',
+    key: 'skole', img: '/Rahmaskole.jpeg', alt: 'Elever i et klasserom ser på en skjerm med arabiske bokstaver',
+    title: 'Rahma skole', meta: 'Barn og unge',
     text: 'Strukturert undervisning for barn og unge, med kvalifiserte lærere i et trygt miljø.',
     points: [
       ['Koranundervisning', 'Tajwid og memorering under veiledning av kvalifiserte lærere.'],
@@ -105,7 +107,7 @@ export default function Fellesskapet() {
                   <li key={t}><Star /><span><b>{t}</b>{d}</span></li>
                 ))}
               </ul>
-              <Link className={`${f.btn} ${f.primary}`} href={g.href}>{g.more}</Link>
+              {g.href && <Link className={`${f.btn} ${f.primary}`} href={g.href}>{g.more}</Link>}
             </div>
           </div>
         </div>

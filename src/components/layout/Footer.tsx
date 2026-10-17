@@ -24,8 +24,6 @@ export function Footer() {
           <div>
             <h4>Fellesskapet</h4>
             <ul>
-              <li><Link href="/ung-rahma">Ung Rahma</Link></li>
-              <li><Link href="/rahma-skole">Rahma skole</Link></li>
               <li><Link href="/blimedlem">Bli medlem</Link></li>
             </ul>
           </div>
