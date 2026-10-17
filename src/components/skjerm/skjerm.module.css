@@ -64,6 +64,8 @@
   min-height: 0;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
+  /* the buttons share the height that is left, never more */
+  grid-auto-rows: minmax(0, 1fr);
   gap: 3vmin;
 }
 
@@ -205,15 +207,32 @@
 }
 
 /* a small tall screen (a tablet): the three buttons need every line they can get */
-@media (orientation: portrait) and (max-height: 1200px) {
-  .screen { gap: 3.5vmin; padding-top: 4vmin; }
-  .logo { height: 17vmin; }
-  .cards { gap: 2.6vmin; }
-  .card { padding: 3vmin 5vmin; }
-  .mark { height: 15vmin; width: 19vmin; }
-  .cardTitle { font-size: 1.9rem; }
-  .cardLine { font-size: 1.15rem; }
-  .cue { margin-top: 1vmin; padding-top: 1.4vmin; font-size: 1rem; }
+/* an upright iPad (3:4, squarer than a 9:16 screen): a shorter head, so the buttons sit higher and fit */
+@media (orientation: portrait) and (min-aspect-ratio: 13/20) {
+  .screen { gap: 2.6vh; padding-top: 3vh; padding-bottom: 4vh; }
+  .logo { height: 12vh; }
+  .title { font-size: 5.6vmin; margin-top: 1vh; }
+  .rule { margin-top: 1.4vh; }
+  .cards { gap: 2vh; }
+  .card { gap: 5vmin; padding: 2.4vh 5vmin; }
+  .mark { height: 11vh; width: 16vmin; }
+  .cardText { gap: 0.8vh; }
+  .cardTitle { font-size: 5.4vmin; }
+  .cardLine { font-size: 2.9vmin; }
+  .cue { margin-top: 0.8vh; padding-top: 1.2vh; font-size: 2.3vmin; }
+}
+
+/* a sideways iPad (4:3 up to 16:10): the same shorter head */
+@media (orientation: landscape) and (max-aspect-ratio: 16/10) {
+  .screen { gap: 3vh; padding-top: 3.4vh; padding-bottom: 4.4vh; }
+  .logo { height: 15vh; }
+  .title { font-size: 5.8vmin; margin-top: 1vh; }
+  .rule { margin-top: 1.4vh; }
+  .card { padding: 3.6vmin 3.8vmin 3vmin; gap: 2vmin; }
+  .mark { height: 13vmin; }
+  .cardTitle { font-size: 5vmin; }
+  .cardLine { font-size: 2.5vmin; }
+  .cue { margin-top: 1vmin; padding-top: 1.6vmin; font-size: 2vmin; }
 }
 
 /* ─── the code ─── */
