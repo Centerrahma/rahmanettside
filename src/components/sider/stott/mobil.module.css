@@ -1,12 +1,12 @@
 /* Støtt oss on phones and tablets: one portal in an evening scene, in a phone-wide column. */
-.page{max-width:480px;margin:0 auto;background:#fff}
+.page{max-width:480px;margin:0 auto}
 
 /* one evening scene from the heading down: the sky deepens upward as you scroll back up */
 .scene{position:relative;overflow:hidden;padding-bottom:0;background:linear-gradient(180deg,#1f2a5e 0%,#36397a 9%,#5d4a86 22%,#9a5f84 42%,#d57f74 66%,#f0a56c 86%,#f6c27f 100%)}
 .crown{position:relative}
 .crown > svg{display:block;width:100%;height:auto}
 .intro{position:absolute;left:0;right:0;top:5%;padding:0 52px;text-align:center}
-.intro h1{margin:0;font-weight:600;font-size:clamp(26px,8vw,36px);letter-spacing:-.045em;line-height:1;color:#fbf3dc}
+.intro h1{margin:0;font-weight:600;font-size:clamp(30px,9vw,42px);letter-spacing:-.01em;line-height:1;color:#fbf3dc}
 
 /* the great portal stands between the two minaret shafts, which run on down from the crown */
 .great{position:relative;padding:0 9%}
@@ -39,7 +39,7 @@
 /* what stands in a room */
 .card{display:flex;flex-direction:column;align-items:center;text-align:center;gap:8px;color:var(--ink)}
 .card > svg{width:34px;height:34px;color:var(--emerald)}
-.card h2{margin:0;font-size:22px;font-weight:600;letter-spacing:-.025em;color:var(--emerald-ink)}
+.card h2{margin:0;font-size:25px;font-weight:600;letter-spacing:-.01em;color:var(--emerald-ink)}
 .card p{margin:0;font-size:15px;line-height:1.5;color:var(--ink-2)}
 .card p a{color:var(--emerald);font-weight:600;text-decoration:none}
 .acct{font-size:1.25em;font-weight:600;letter-spacing:-.02em;color:var(--ink)}

@@ -1,74 +1,112 @@
+'use client';
+
+import { useState, type KeyboardEvent } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import s from './forside.module.css';
+import f from './forside.module.css';
+import s from './fellesskapet.module.css';
 
-/* An eight-pointed star for the apex of each arch. */
-const STAR = (() => {
-  let d = '';
-  for (let i = 0; i < 16; i++) {
-    const a = -Math.PI / 2 + (i * Math.PI) / 8;
-    const r = i % 2 ? 7.65 : 10;
-    d += (i ? 'L' : 'M') + (12 + r * Math.cos(a)).toFixed(2) + ',' + (12 + r * Math.sin(a)).toFixed(2);
-  }
-  return d + 'Z';
-})();
+/* Fellesskapet: Ung Rahma, Rahma skole and Bli medlem in one stage shaped like the mihrab's arch.
+   The points are the mosque's own words from each group's page. */
 
-const BOXES = [
+const GROUPS = [
   {
-    href: '/ung-rahma',
-    img: '/UngRahma_bue.jpg',
-    alt: 'Barn og unge samlet i en idrettshall',
-    title: 'Ung Rahma',
-    text: 'Ungdomsprogram for 13 til 25 år med sport, turer, koranstudier og mentorordning.',
-    more: 'Les om Ung Rahma',
+    key: 'ung', href: '/ung-rahma', img: '/UngRahma.jpeg', alt: 'Barn og unge samlet i en idrettshall',
+    title: 'Ung Rahma', meta: '13 til 25 år', more: 'Les om Ung Rahma',
+    text: 'Et ungdomsprogram som styrker neste generasjon gjennom tro, læring og lederskap.',
+    points: [
+      ['Aktiviteter', 'Sport, utflukter og sosiale arrangementer som bygger vennskap.'],
+      ['Læring', 'Islamske studier, Koranen og personlig utvikling i et trygt miljø.'],
+      ['Mentorordning', 'Erfarne mentorer som hjelper deg å vokse som person og muslim.'],
+    ],
   },
   {
-    href: '/rahma-skole',
-    img: '/Rahmaskole_bue.jpg',
-    alt: 'Elever i et klasserom ser på en skjerm med arabiske bokstaver',
-    title: 'Rahma skole',
-    text: 'Islamsk undervisning for barn og unge: Koran, arabisk og islamske studier.',
-    more: 'Les om Rahma skole',
+    key: 'skole', href: '/rahma-skole', img: '/Rahmaskole.jpeg', alt: 'Elever i et klasserom ser på en skjerm med arabiske bokstaver',
+    title: 'Rahma skole', meta: 'Barn og unge', more: 'Les om Rahma skole',
+    text: 'Strukturert undervisning for barn og unge, med kvalifiserte lærere i et trygt miljø.',
+    points: [
+      ['Koranundervisning', 'Tajwid og memorering under veiledning av kvalifiserte lærere.'],
+      ['Arabisk språk', 'Fra grunnivå til avansert, med vekt på forståelse.'],
+      ['Islamske studier', 'Fiqh, aqidah og seerah, tilpasset alderen.'],
+    ],
   },
   {
-    href: '/blimedlem',
-    img: '/BliMedlem_bue.jpg',
-    alt: 'Barn som spiser pizza sammen i bønnesalen',
-    title: 'Bli medlem',
-    text: 'Medlemskapet støtter driften av moskeen og programmene.',
-    more: 'Meld deg inn',
+    key: 'medlem', href: '/blimedlem', img: '/BliMedlem_bue.jpg', alt: 'Barn som spiser sammen i bønnesalen',
+    title: 'Bli medlem', meta: 'For hele familien', more: 'Meld deg inn',
+    text: 'Jo flere vi er, jo mer kan vi gjøre. Undervisningen, Rahma skole og Ung Rahma får vi til fordi dere støtter oss.',
+    points: [
+      ['Du støtter moskeen', 'Staten gir tilskudd for hvert registrerte medlem.'],
+      ['Du styrker fellesskapet', 'Hvert medlem gjør mer mulig for barn, unge og familier.'],
+      ['Du hjelper fellesskapet å vokse', 'Det muslimske fellesskapet i Norge vokser med deg.'],
+    ],
   },
 ];
 
+const Star = () => (
+  <svg viewBox="0 0 24 24" aria-hidden="true" className={s.star}>
+    <path d="M12,2 L14.6,7.4 L20.5,6.3 L18.2,11.9 L22,16.5 L16.1,17.1 L14.5,22.9 L12,17.6 L9.5,22.9 L7.9,17.1 L2,16.5 L5.8,11.9 L3.5,6.3 L9.4,7.4 Z" />
+  </svg>
+);
+
 export default function Fellesskapet() {
+  const [active, setActive] = useState(0);
+  const g = GROUPS[active];
+  // arrow keys move between the names, as in any tab list
+  const onKeyDown = (e: KeyboardEvent) => {
+    const step = e.key === 'ArrowDown' || e.key === 'ArrowRight' ? 1 : e.key === 'ArrowUp' || e.key === 'ArrowLeft' ? -1 : 0;
+    if (!step) return;
+    e.preventDefault();
+    const next = (active + step + GROUPS.length) % GROUPS.length;
+    setActive(next);
+    document.getElementById(`fs-t${next}`)?.focus();
+  };
+
   return (
-    <section className={s.block} id="fellesskapet">
+    <section className={s.sec} id="fellesskapet" aria-labelledby="fs-h2">
       <div className={s.wrap}>
         <div className={s.head}>
-          <h2>Fellesskapet</h2>
+          <h2 id="fs-h2">Fellesskapet</h2>
+          <p className={s.lead}>Her lærer barn Koranen og arabisk, unge samles til sport og turer, og familier møtes.</p>
         </div>
-        <div className={s.boxes}>
-          {BOXES.map((box) => (
-            <Link key={box.href} className={s.box} href={box.href}>
-              {/* the photo in an arch, an ivory arch behind it, a double gold outline and a star on top */}
-              <div className={s.niche}>
-                <span className={s.backing} aria-hidden="true" />
-                <figure>
-                  <Image src={box.img} alt={box.alt} fill sizes="(max-width: 640px) 100vw, 33vw" />
-                </figure>
-                <svg viewBox="0 0 200 300" preserveAspectRatio="none" aria-hidden="true">
-                  <path d="M-9,312 V117 C-9,55 47,24 100,-10 C153,24 209,55 209,117 V312" fill="none" stroke="var(--gold)" strokeWidth={1.4} vectorEffect="non-scaling-stroke" />
-                  <path d="M-16,312 V115 C-16,49 43,16 100,-19 C157,16 216,49 216,115 V312" fill="none" stroke="var(--gold-2)" strokeWidth={1} strokeOpacity={0.6} vectorEffect="non-scaling-stroke" />
-                </svg>
-                <svg className={s.apex} viewBox="0 0 24 24" aria-hidden="true">
-                  <path d={STAR} fill="var(--gold-2)" stroke="var(--gold)" strokeWidth={1} />
-                </svg>
-              </div>
-              <h3>{box.title}</h3>
-              <p>{box.text}</p>
-              <span className={s.link}>{box.more}</span>
-            </Link>
-          ))}
+        <div className={s.grid}>
+          <div className={s.arch}>
+            <div className={s.stage}>
+              {GROUPS.map((x, i) => (
+                <span key={x.key} className={`${s.img} ${active === i ? s.on : ''}`} aria-hidden={active !== i}>
+                  <Image src={x.img} alt={active === i ? x.alt : ''} fill sizes="(max-width: 860px) 100vw, 45vw" />
+                </span>
+              ))}
+            </div>
+          </div>
+          <div>
+            <div className={s.tabs} role="tablist" aria-label="Fellesskapet" onKeyDown={onKeyDown}>
+              {GROUPS.map((x, i) => (
+                <button
+                  key={x.key}
+                  id={`fs-t${i}`}
+                  role="tab"
+                  type="button"
+                  aria-selected={active === i}
+                  aria-controls="fs-panel"
+                  tabIndex={active === i ? 0 : -1}
+                  className={active === i ? s.on : ''}
+                  onClick={() => setActive(i)}
+                >
+                  <span>{x.title}</span>
+                  <small>{x.meta}</small>
+                </button>
+              ))}
+            </div>
+            <div className={s.panel} id="fs-panel" role="tabpanel" aria-labelledby={`fs-t${active}`} key={g.key}>
+              <p className={s.text}>{g.text}</p>
+              <ul className={s.points}>
+                {g.points.map(([t, d]) => (
+                  <li key={t}><Star /><span><b>{t}</b>{d}</span></li>
+                ))}
+              </ul>
+              <Link className={`${f.btn} ${f.primary}`} href={g.href}>{g.more}</Link>
+            </div>
+          </div>
         </div>
       </div>
     </section>

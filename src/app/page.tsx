@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { fetchPrayerTimes } from '@/lib/mymasjid';
 import { osloNow } from '@/lib/prayer-clock';
-import FemHimler from '@/components/forside/FemHimler';
+import Hero from '@/components/forside/Hero';
 import Besok from '@/components/forside/Besok';
 import Fellesskapet from '@/components/forside/Fellesskapet';
 import StottOss from '@/components/forside/StottOss';
@@ -83,7 +83,7 @@ export default async function HomePage() {
   return (
     <>
       <MosqueJsonLd />
-      <FemHimler schedule={schedule} friday={now.friday} minute={now.min} />
+      <Hero schedule={schedule} friday={now.friday} />
       <Fellesskapet />
       <StottOss />
       <Besok jummah={schedule.jummah} />

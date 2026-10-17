@@ -79,5 +79,5 @@ export const until = (left: number) => {
   left = Math.max(0, Math.round(left));
   const h = Math.floor(left / 60);
   const m = left % 60;
-  return h ? `${h} t ${m} min` : `${m} min`;
+  return h ? (m ? `${h} t ${m} min` : `${h} t`) : `${m} min`;
 };
