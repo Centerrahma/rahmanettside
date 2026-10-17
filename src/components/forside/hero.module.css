@@ -39,7 +39,7 @@
   .hero{grid-template-columns:1fr;height:auto;grid-template-areas:'photo' 'date' 'list' 'ctas'}
   .panel{display:contents}
   .logo{display:none}
-  .photo{grid-area:photo;height:max(250px,calc(100svh - 68px - 342px))}
+  .photo{grid-area:photo;height:max(240px,calc(100svh - 68px - 410px))}
   .photo::after{content:'';position:absolute;inset:auto 0 0;height:50%;background:linear-gradient(to top,rgba(4,16,18,.78),rgba(4,16,18,0));pointer-events:none}
   .photo img{object-position:50% 30%}
   .head{grid-area:photo;align-self:end;z-index:1;padding:0 16px 18px;color:#fff}
