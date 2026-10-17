@@ -131,7 +131,8 @@ main [data-skjerm] {
 /* Page and section headings in the serif; everything else, numbers included, stays in Geist.
    In a layer, so a page's own classes still win where they set a font. */
 @layer base {
-  h1, h2 {
+  /* the touch screen (/skjerm) keeps its own type */
+  h1:not([data-skjerm] *), h2:not([data-skjerm] *) {
     font-family: var(--serif);
     font-weight: 500;
     letter-spacing: -0.01em;
