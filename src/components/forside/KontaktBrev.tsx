@@ -1,17 +1,25 @@
 'use client';
 
+import { useSyncExternalStore } from 'react';
 import { Envelope, SendError, useSend } from './Envelope';
 import s from './besok.module.css';
 
+const noop = () => () => {};
 const TOPICS = ['Generell henvendelse', 'Guidede turer', 'Skolebesøk', 'Nikah-tjenester'];
 
 /** The message form written as a letter on ruled lines, sent with a wax seal. Once the message has
     gone, the letter folds into an envelope addressed to the mosque. */
 export default function KontaktBrev() {
   const { status, sent, onSubmit, reset } = useSend();
-  if (status === 'sealing' && sent) return <Envelope sent={sent} onAgain={reset} />;
+  // the form only works once its script has loaded; before that, Send waits rather than posting the letter to the page
+  const ready = useSyncExternalStore(noop, () => true, () => false);
+  const done = status === 'sealing' && sent;
   return (
-    <form className={s.letter} onSubmit={onSubmit}>
+    <>
+      {/* one live region that stays mounted, so screen readers hear that the letter went */}
+      <p className={s.sr} role="status" aria-live="polite">{done ? 'Takk! Brevet ditt er sendt. Vi svarer så snart vi kan.' : ''}</p>
+      {done ? <Envelope sent={sent} onAgain={reset} /> : (
+    <form className={s.letter} method="post" onSubmit={onSubmit}>
       <p className={s.dear}>Til Masjid Rahma,</p>
       <label className={s.msg}>
         <span>Melding</span>
@@ -26,12 +34,14 @@ export default function KontaktBrev() {
         <label><span>E-post</span><input name="email" type="email" autoComplete="email" required /></label>
       </div>
       <div className={s.sendRow}>
-        <span className={s.note} role="status" aria-live="polite">
+        <span className={s.note}>
           {status === 'sending' ? 'Brettes og legges i konvolutt …' : 'Vi svarer så snart vi kan.'}
         </span>
-        <button className={s.seal} type="submit" disabled={status === 'sending'}>Send</button>
+        <button className={s.seal} type="submit" disabled={!ready || status === 'sending'}>Send</button>
       </div>
       {status === 'error' && <SendError />}
     </form>
+      )}
+    </>
   );
 }

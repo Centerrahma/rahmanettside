@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Geist, Amiri, Corinthia, Cormorant_Garamond, Newsreader } from 'next/font/google';
+import { Geist, Amiri, Cormorant_Garamond, Newsreader } from 'next/font/google';
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
 import { Navbar } from '@/components/layout/Navbar';
@@ -37,13 +37,6 @@ const cormorant = Cormorant_Garamond({
   display: 'swap',
 });
 
-// the name «Center Rahma» on the front page
-const corinthia = Corinthia({
-  variable: '--font-corinthia',
-  subsets: ['latin'],
-  weight: '700',
-  display: 'swap',
-});
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://www.centerrahma.no'),
@@ -126,7 +119,7 @@ export default async function RootLayout({
         <meta name="theme-color" content="#faf5ec" />
       </head>
       <body
-        className={`${geist.variable} ${amiri.variable} ${newsreader.variable} ${cormorant.variable} ${corinthia.variable} antialiased`}
+        className={`${geist.variable} ${amiri.variable} ${newsreader.variable} ${cormorant.variable} antialiased`}
       >
         <NextIntlClientProvider messages={messages}>
           <a

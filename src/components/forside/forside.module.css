@@ -58,11 +58,9 @@
 .name{display:flex;flex-direction:column;align-items:center;margin:0 0 10px;
   --leaf:linear-gradient(180deg,#fff4cf 0%,#e9c672 32%,#b7873a 52%,#f1d68b 70%,#a5762a 100%);--leaf-svg:url(#fl-leaf);--line:#d9b770}
 .hero[data-sky=light] .name{--leaf:linear-gradient(180deg,#13805c,#064a35);--leaf-svg:url(#fl-leaf-day);--line:var(--gold)}
-.wordmark{margin:0;padding:0 .2em .08em;font-family:var(--font-corinthia),cursive;font-weight:700;font-size:clamp(58px,5.7vw,86px);line-height:.95;white-space:nowrap;background:var(--leaf);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 1px 0 rgba(0,0,0,.25))}
 .flourish{display:block;width:clamp(260px,24vw,360px);height:auto;margin-top:-2px;overflow:visible}
 .scroll{fill:none;stroke:var(--line);stroke-width:1.3;stroke-linecap:round}
 .leafFill{fill:var(--leaf-svg)}
-.facade .arcName{font-family:var(--font-corinthia),cursive;font-weight:700}
 .ctas{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-top:20px}
 .gloss{display:flex;justify-content:center;gap:6px 16px;flex-wrap:wrap;max-width:1080px;margin:40px auto 0;padding:0 32px;font-size:14px;color:var(--muted);text-align:center}
 .gloss q{font-style:normal;color:var(--ink-2)}
