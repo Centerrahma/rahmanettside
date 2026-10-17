@@ -115,10 +115,6 @@ main [class*='mobil-module__'][class*='__scene'] {
   main {
     text-shadow: none;
   }
-  /* on phones the name sits on the photo */
-  main [class*='hero-module__'][class*='__head'] {
-    text-shadow: 0 1px 3px rgba(10, 20, 18, 0.35);
-  }
 }
 /* filled buttons, date blocks and form fields stay clean */
 main :is(button, input, select, textarea, [class*='__btn'], [class*='__primary'], [class*='__vipps'], [class*='__fdate'], [class*='__edate'], [class*='__tag'], [class*='__mapTag']) {
