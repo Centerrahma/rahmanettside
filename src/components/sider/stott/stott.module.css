@@ -23,7 +23,7 @@
 
 /* the heading and the hadith in the evening sky */
 .intro{display:flex;flex-direction:column;justify-content:center}
-.intro h1{margin:0;font-weight:600;font-size:clamp(24px,2.9cqw,44px);letter-spacing:-.04em;line-height:1;white-space:nowrap;color:#fbf3dc}
+.intro h1{margin:0;font-weight:600;font-size:clamp(28px,3.3cqw,50px);letter-spacing:-.01em;line-height:1;white-space:nowrap;color:#fbf3dc}
 .hadith{display:flex;flex-direction:column;justify-content:center}
 .hadith blockquote{margin:0;display:flex;flex-direction:column;align-items:flex-end;text-align:right}
 .hadith p{margin:0;font-size:clamp(14px,1.5cqw,21px);font-weight:500;line-height:1.38;letter-spacing:-.015em;color:#fbf3dc;max-width:24ch}
@@ -36,7 +36,7 @@
 /* the three ways to give, standing in the lit iwans */
 .card{display:flex;flex-direction:column;align-items:center;justify-content:flex-end;text-align:center;gap:.55cqw;padding-bottom:1.2cqw;color:var(--ink)}
 .card > svg{width:clamp(24px,2.5cqw,38px);height:clamp(24px,2.5cqw,38px);color:var(--emerald);margin-bottom:.2cqw}
-.card h2{margin:0;font-size:clamp(15px,1.7cqw,24px);font-weight:600;letter-spacing:-.025em;line-height:1.1;color:var(--emerald-ink)}
+.card h2{margin:0;font-size:clamp(17px,1.95cqw,27px);font-weight:600;letter-spacing:-.01em;line-height:1.1;color:var(--emerald-ink)}
 .card p{margin:0;font-size:clamp(12px,1.08cqw,15.5px);line-height:1.45;color:var(--ink-2);max-width:22ch}
 .card p a{color:var(--emerald);font-weight:600;text-decoration:none;white-space:nowrap}
 .card p a:hover{text-decoration:underline}
@@ -51,7 +51,7 @@
 .under{width:min(1600px,100%,max(940px,(100svh - 238px) * var(--arn)));margin:0 auto;padding:12px 0 22px}
 .translations{list-style:none;margin:0;padding:0 calc(20 / 1400 * 100%);display:grid;grid-template-columns:380fr 520fr 380fr;column-gap:calc(40 / 1400 * 100%)}
 .translations li{font-size:12.5px;line-height:1.42;color:var(--ink-2);text-align:center;text-wrap:balance}
-.translations cite{font-style:normal;font-weight:600;color:var(--gold);white-space:nowrap}
+.translations cite{font-style:normal;font-weight:600;color:#7d5a1c;white-space:nowrap}
 .credit{margin:6px 0 0;text-align:center;font-size:12px;color:var(--muted)}
 .legal{max-width:1100px;margin:10px auto 0;padding:0 24px;text-align:center;font-size:12.5px;line-height:1.5;color:var(--muted)}
 .legal a{color:var(--emerald);font-weight:600;text-decoration:none}

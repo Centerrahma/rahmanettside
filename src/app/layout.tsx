@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Geist, Amiri, Corinthia, Cormorant_Garamond } from 'next/font/google';
+import { Geist, Amiri, Corinthia, Cormorant_Garamond, Newsreader } from 'next/font/google';
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
 import { Navbar } from '@/components/layout/Navbar';
@@ -16,6 +16,15 @@ const amiri = Amiri({
   variable: '--font-amiri',
   subsets: ['arabic', 'latin'],
   weight: ['400', '700'],
+  display: 'swap',
+});
+
+// the headings across the site: a variable face, its optical size following the type size
+const newsreader = Newsreader({
+  variable: '--font-newsreader',
+  subsets: ['latin'],
+  style: ['normal', 'italic'],
+  axes: ['opsz'],
   display: 'swap',
 });
 
@@ -114,10 +123,10 @@ export default async function RootLayout({
     <html lang="no">
       <head>
         <OrganizationJsonLd />
-        <meta name="theme-color" content="#ffffff" />
+        <meta name="theme-color" content="#faf5ec" />
       </head>
       <body
-        className={`${geist.variable} ${amiri.variable} ${cormorant.variable} ${corinthia.variable} antialiased`}
+        className={`${geist.variable} ${amiri.variable} ${newsreader.variable} ${cormorant.variable} ${corinthia.variable} antialiased`}
       >
         <NextIntlClientProvider messages={messages}>
           <a

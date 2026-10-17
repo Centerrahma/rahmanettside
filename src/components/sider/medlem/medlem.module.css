@@ -1,6 +1,6 @@
 /* Bli medlem: one wide cream sheet tooled in gold. On a desktop each part is one line, so the whole
    page fits one screen. Tokens (--emerald, --gold …) live in globals.css. */
-.page{padding:16px 16px 64px;background:#fff;overflow:hidden}
+.page{padding:16px 16px 64px;overflow:hidden}
 .defs{position:absolute}
 
 /* the sheet: gold rule, a line of tooled dots, a gold and a green hairline inside, cream within */
@@ -14,12 +14,12 @@
 
 .head{text-align:center}
 /* the title in Geist, on one line */
-.head h1{margin:0 0 10px;font-weight:700;font-size:clamp(21px,3vw,40px);line-height:1.15;letter-spacing:-.03em;white-space:nowrap;color:var(--emerald-ink)}
+.head h1{margin:0 0 10px;font-weight:700;font-size:clamp(24px,3.4vw,46px);line-height:1.1;letter-spacing:-.01em;white-space:nowrap;color:var(--emerald-ink)}
 .lede{margin:0 auto 4px;font-size:16px;line-height:1.55;color:var(--ink-2);text-wrap:balance}
 .cta{margin-top:14px;height:46px;padding:0 26px;font-size:15.5px;box-shadow:0 0 0 3px #fffaf1,0 0 0 4.2px #c9a35b}
 
 .tool{display:block;width:240px;height:16px;margin:22px auto}
-.h2{margin:0 0 10px;text-align:center;font-weight:700;font-size:clamp(20px,1.8vw,24px);line-height:1.2;letter-spacing:-.02em;color:var(--emerald-ink);text-wrap:balance}
+.h2{margin:0 0 10px;text-align:center;font-weight:700;font-size:clamp(23px,2.1vw,28px);line-height:1.15;letter-spacing:-.01em;color:var(--emerald-ink);text-wrap:balance}
 
 /* the two rules for children, a line each */
 .row{margin:0 auto 4px;text-align:center;font-size:16px;line-height:1.55;color:var(--ink-2);text-wrap:balance}

@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { YEAR_PDF } from '@/components/forside/links';
 import s from './chrome.module.css';
 
@@ -13,6 +14,8 @@ const LINKS = [
 
 export function Navbar() {
   const [open, setOpen] = useState(false);
+  // the front page shows the logo large in its first screen, so the bar leaves it out there
+  const pathname = usePathname();
 
   // links close the phone menu themselves; Escape closes it too
   useEffect(() => {
@@ -36,10 +39,10 @@ export function Navbar() {
   );
 
   return (
-    <header className={s.nav}>
+    <header className={`${s.nav} ${pathname === '/' ? s.home : ''}`}>
       <div className={`${s.wrap} ${s.bar}`}>
         <Link href="/" className={s.logo} aria-label="Center Rahma, forsiden">
-          <Image src="/hvit_rahma_300.png" alt="" width={219} height={300} priority />
+          <Image src="/rahma-logo.png" alt="" width={601} height={640} priority />
         </Link>
         <ul className={s.links}>{items}</ul>
         <Link className={s.cta} href="/blimedlem">Bli medlem</Link>

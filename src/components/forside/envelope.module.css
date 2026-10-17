@@ -1,0 +1,51 @@
+/* The envelope that a sent message goes into. One sequence, about four seconds, nothing loops. */
+
+.wrap{display:flex;flex-direction:column;align-items:center;gap:22px;width:100%;min-width:0;padding:24px 0 8px}
+.env{width:min(560px,100%);aspect-ratio:600/380;perspective:1800px;container-type:inline-size;margin-top:calc(min(560px,100%) * .38);
+  animation:envIn .45s .1s cubic-bezier(.2,.7,.3,1) both,thud .28s 3.56s ease-out}
+.card{position:relative;width:100%;height:100%;transform-style:preserve-3d;animation:flip .75s 2.5s cubic-bezier(.6,.05,.3,1) both}
+.back,.front{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden}
+.front{transform:rotateY(180deg);border-radius:10px;background:#f4ecdd;box-shadow:inset 0 0 0 1px #e1d4bd}
+.body,.pocket{position:absolute;inset:0;width:100%;height:100%;display:block}
+.body{z-index:1}
+.pocket{z-index:4}
+.letter{position:absolute;z-index:3;left:8%;width:84%;top:5%;height:86%;padding:6% 7%;border-radius:4px;background:#fffdf8;box-shadow:0 1px 0 #e9e0cf,0 8px 18px -10px rgba(30,62,54,.35);
+  color:var(--ink);animation:letterIn .85s .5s cubic-bezier(.45,.05,.3,1) both}
+.letter p{margin:0}
+.dear{font-family:var(--serif);font-style:italic;font-weight:600;font-size:5cqw}
+.lines{margin-top:3cqw !important;font-size:2.7cqw;line-height:1.6;color:var(--ink-2);background:repeating-linear-gradient(transparent 0 calc(1.6em - 1px),#e7dcc8 calc(1.6em - 1px) 1.6em)}
+.from{margin-top:3cqw !important;font-family:var(--serif);font-style:italic;font-size:3.4cqw}
+.flap{position:absolute;left:0;top:0;width:100%;height:57.9%;transform-origin:50% 0;transform-style:preserve-3d;
+  animation:flapClose .55s 1.4s cubic-bezier(.5,0,.3,1) both,flapZ .01s 1.66s both}
+.flapOut,.flapIn{position:absolute;inset:0;width:100%;height:100%;display:block;backface-visibility:hidden;-webkit-backface-visibility:hidden}
+.flapIn{transform:rotateX(180deg)}
+.seal{position:absolute;z-index:6;left:50%;top:55.5%;width:11%;aspect-ratio:1;translate:-50% -50%;animation:sealIn .38s 2s cubic-bezier(.3,1.4,.5,1) both}
+.seal svg{display:block;width:100%;height:100%}
+.logo{position:absolute;left:5%;top:7%;width:12%;height:auto}
+.addr{position:absolute;left:36%;top:44%;display:grid;gap:.6cqw;color:var(--ink);font-family:var(--serif);font-style:italic;font-size:4.2cqw;line-height:1.1}
+.addr b{font-size:5.6cqw;font-weight:600}
+.stamp{position:absolute;right:5%;top:7%;width:15%;rotate:-6deg;animation:stampIn .34s 3.3s cubic-bezier(.2,.9,.3,1) both}
+.postmark{position:absolute;right:11%;top:19%;width:33%;opacity:.82;animation:pmIn .4s 3.56s ease-out both}
+.thanks{max-width:100%;text-align:center;text-wrap:balance;animation:fadeUp .5s 3.95s cubic-bezier(.2,.7,.3,1) both}
+.thanks p{margin:0 0 10px;font-size:17px;color:var(--ink-2)}
+.thanks b{color:var(--ink)}
+.thanks button{font:inherit;font-weight:600;color:var(--emerald);background:none;border:0;padding:6px 2px;cursor:pointer;text-decoration:underline;text-underline-offset:4px}
+.error{margin:12px 0 0;color:#8a2f25}
+.error a{color:inherit;font-weight:600}
+
+@keyframes envIn{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+@keyframes letterIn{from{transform:translateY(-82%)}to{transform:translateY(12%)}}
+@keyframes flapClose{from{transform:rotateX(180deg)}to{transform:rotateX(0)}}
+@keyframes flapZ{from{z-index:2}to{z-index:5}}
+@keyframes sealIn{from{opacity:0;scale:1.9}to{opacity:1;scale:1}}
+@keyframes flip{from{transform:rotateY(0)}to{transform:rotateY(180deg)}}
+@keyframes stampIn{0%{opacity:0;scale:1.9;rotate:-18deg}70%{opacity:1;scale:.94;rotate:-5deg}100%{opacity:1;scale:1;rotate:-6deg}}
+@keyframes pmIn{from{opacity:0;scale:1.08}to{opacity:.82;scale:1}}
+@keyframes thud{0%{translate:0 0}40%{translate:0 3px}100%{translate:0 0}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+
+@media (prefers-reduced-motion:reduce){
+  .env,.card,.letter,.flap,.seal,.stamp,.postmark,.thanks{animation:none}
+  .card{transform:rotateY(180deg)}
+  .flap{z-index:5}
+}
