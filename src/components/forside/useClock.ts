@@ -29,5 +29,7 @@ const hijri = new Intl.DateTimeFormat('nb-NO-u-ca-islamic-umalqura', { timeZone:
 export function dates(at: Date | undefined) {
   if (!at) return { day: '', hijri: '' };
   const d = day.format(at);
-  return { day: d.charAt(0).toUpperCase() + d.slice(1), hijri: hijri.format(at) };
+  // a browser without the Umm al-Qura calendar would print a second Gregorian date; leave the line out there
+  const hasHijri = hijri.resolvedOptions().calendar.startsWith('islamic');
+  return { day: d.charAt(0).toUpperCase() + d.slice(1), hijri: hasHijri ? hijri.format(at) : '' };
 }

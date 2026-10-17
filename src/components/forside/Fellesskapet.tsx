@@ -53,10 +53,11 @@ export default function Fellesskapet() {
   const g = GROUPS[active];
   // arrow keys move between the names, as in any tab list
   const onKeyDown = (e: KeyboardEvent) => {
-    const step = e.key === 'ArrowDown' || e.key === 'ArrowRight' ? 1 : e.key === 'ArrowUp' || e.key === 'ArrowLeft' ? -1 : 0;
-    if (!step) return;
+    const n = GROUPS.length;
+    const to: Record<string, number> = { ArrowDown: active + 1, ArrowRight: active + 1, ArrowUp: active - 1, ArrowLeft: active - 1, Home: 0, End: n - 1 };
+    if (!(e.key in to)) return;
     e.preventDefault();
-    const next = (active + step + GROUPS.length) % GROUPS.length;
+    const next = (to[e.key] + n) % n;
     setActive(next);
     document.getElementById(`fs-t${next}`)?.focus();
   };
@@ -79,7 +80,7 @@ export default function Fellesskapet() {
             </div>
           </div>
           <div>
-            <div className={s.tabs} role="tablist" aria-label="Fellesskapet" onKeyDown={onKeyDown}>
+            <div className={s.tabs} role="tablist" aria-label="Fellesskapet" aria-orientation="vertical" onKeyDown={onKeyDown}>
               {GROUPS.map((x, i) => (
                 <button
                   key={x.key}

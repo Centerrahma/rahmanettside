@@ -13,7 +13,7 @@ import s from './hero.module.css';
    Phones get the upright photo with the name on its carpet, and the five prayers straight under it. */
 
 const ALT = 'Mihraben og minbaren i Masjid Rahma, under verset fra Koranen 72:18, med bønneteppet foran.';
-const common = { alt: ALT, fill: true, priority: true, quality: 80 } as const;
+const common = { alt: ALT, fill: true, priority: true, quality: 75 } as const;
 const wide = getImageProps({ ...common, src: '/mihrab-forside.jpg', sizes: '(max-width: 860px) 100vw, 70vw' }).props;
 const tall = getImageProps({ ...common, src: '/mihrab-mobil.jpg', sizes: '100vw' }).props;
 
@@ -24,7 +24,7 @@ export default function Hero({ schedule, friday }: { schedule: PrayerSchedule; f
   return (
     <section className={s.hero} aria-labelledby="forside-h1">
       <div className={s.panel}>
-        <Image className={s.logo} src="/rahma-logo.png" alt="" width={601} height={640} priority />
+        <Image className={s.logo} src="/rahma-logo.png" alt="" width={601} height={640} sizes="150px" priority />
         <div className={s.head}>
           <h1 id="forside-h1">Center Rahma</h1>
           <p className={s.addr}>Moskeen i Tvetenveien 152A, Oslo</p>

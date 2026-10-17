@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, type FormEvent, type ReactNode } from 'react';
+import { useEffect, useRef, useState, type FormEvent, type ReactNode } from 'react';
 import { ADDRESS, EMAIL } from './links';
 import e from './envelope.module.css';
 
@@ -86,8 +86,11 @@ function Postmark({ date }: { date: string }) {
 /** The envelope and the letter going into it. Shown while `sealing`; the caller hides its form. */
 export function Envelope({ sent, onAgain }: { sent: Sent; onAgain: () => void }) {
   const today = new Intl.DateTimeFormat('nb-NO', { timeZone: 'Europe/Oslo', day: '2-digit', month: '2-digit', year: '2-digit' }).format(new Date());
+  // the form that had focus is gone; keep keyboard and screen-reader users on the envelope
+  const wrap = useRef<HTMLDivElement>(null);
+  useEffect(() => wrap.current?.focus(), []);
   return (
-    <div className={e.wrap}>
+    <div className={e.wrap} ref={wrap} tabIndex={-1} aria-label="Brevet er sendt">
       <div className={e.env}>
         <div className={e.card}>
           {/* the back: lining, the letter, the pocket, the flap and its seal */}
@@ -138,7 +141,7 @@ export function Envelope({ sent, onAgain }: { sent: Sent; onAgain: () => void })
           </div>
         </div>
       </div>
-      <div className={e.thanks} role="status" aria-live="polite">
+      <div className={e.thanks}>
         <p><b>Takk{sent.name ? `, ${sent.name.split(' ')[0]}` : ''}!</b> Brevet ditt er sendt. Vi svarer så snart vi kan.</p>
         <button type="button" onClick={onAgain}>Skriv et nytt brev</button>
       </div>

@@ -1,6 +1,6 @@
 /* The envelope that a sent message goes into. One sequence, about four seconds, nothing loops. */
 
-.wrap{display:flex;flex-direction:column;align-items:center;gap:22px;width:100%;min-width:0;padding:24px 0 8px}
+.wrap{display:flex;flex-direction:column;align-items:center;gap:22px;width:100%;min-width:0;padding:24px 0 8px;outline:none}
 .env{width:min(560px,100%);aspect-ratio:600/380;perspective:1800px;container-type:inline-size;margin-top:calc(min(560px,100%) * .38);
   animation:envIn .45s .1s cubic-bezier(.2,.7,.3,1) both,thud .28s 3.56s ease-out}
 .card{position:relative;width:100%;height:100%;transform-style:preserve-3d;animation:flip .75s 2.5s cubic-bezier(.6,.05,.3,1) both}

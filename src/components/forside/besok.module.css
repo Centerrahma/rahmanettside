@@ -31,9 +31,10 @@
 .letter label > span{font-size:13px;font-weight:600;color:var(--muted)}
 .letter input,.letter select,.letter textarea{font:inherit;font-size:16px;color:var(--ink);border:0;border-bottom:1px solid #dccfb6;border-radius:0;background:transparent;padding:8px 2px;outline:none;transition:border-color .2s}
 .letter input:focus,.letter select:focus{border-bottom-color:var(--emerald)}
+.letter input:focus-visible,.letter select:focus-visible{outline:2px solid rgba(15,93,78,.35);outline-offset:3px;border-radius:4px}
 .letter textarea{resize:vertical;line-height:2;font-size:17px;border-bottom:0;background:repeating-linear-gradient(transparent 0 calc(2em - 1px),#e7dcc8 calc(2em - 1px) 2em)}
 .letter textarea:focus{outline:2px solid rgba(15,93,78,.25);outline-offset:4px;border-radius:4px}
-.msg > span{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.msg > span,.sr{position:absolute;width:1px;height:1px;margin:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 .dear{margin:0 0 6px;font-family:var(--serif);font-style:italic;font-weight:500;font-size:34px;color:var(--ink)}
 .pair{display:grid;grid-template-columns:1fr 1fr;gap:16px}
 .sendRow{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-top:6px}
@@ -55,4 +56,5 @@
 }
 @media (prefers-reduced-motion:reduce){
   .seal{transition:none}
+  .seal:hover{transform:none}
 }
