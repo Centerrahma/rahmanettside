@@ -4,14 +4,14 @@
 .wrap{max-width:1200px;margin:0 auto;padding:0 32px}
 .num{font-variant-numeric:tabular-nums}
 
-.btn{display:inline-flex;align-items:center;gap:10px;height:50px;padding:0 24px;border-radius:999px;font-weight:600;font-size:15px;line-height:1;text-decoration:none;transition:background .2s,box-shadow .2s,transform .15s;border:0;cursor:pointer;white-space:nowrap}
+.btn{display:inline-flex;align-items:center;gap:10px;height:50px;padding:0 24px;border-radius:999px;font-weight:500;font-size:16px;line-height:1;text-decoration:none;transition:background .2s,box-shadow .2s,transform .15s;border:0;cursor:pointer;white-space:nowrap}
 .btn:active{transform:scale(.97)}
 .btn svg{width:18px;height:18px;flex:none}
 .primary{background:var(--emerald);color:#fff}
 .primary:hover{background:var(--emerald-ink)}
 .quiet{background:var(--card);color:var(--ink);box-shadow:inset 0 0 0 1px var(--hair-2)}
 .quiet:hover{box-shadow:inset 0 0 0 1px var(--emerald)}
-.vipps{background:#ff5b24;color:#fff;margin:0 auto}
+.vipps{background:#ff5b24;color:#142820;margin:0 auto}
 .vipps:hover{background:#e84e1b}
 .link{color:var(--emerald);font-weight:600;text-decoration:none}
 .link:hover{text-decoration:underline;text-underline-offset:4px}
@@ -101,13 +101,13 @@
 .block{padding:64px 0;scroll-margin-top:24px}
 /* every other section on sand, the mihrab's ivory, so the page steps in tone instead of lines */
 /* sand is a tint over the page's paper texture, easing in and out so sections flow into each other */
-.sand{background:linear-gradient(rgba(201,179,159,0),rgba(201,179,159,.35) 160px,rgba(201,179,159,.35) calc(100% - 160px),rgba(201,179,159,0))}
+.sand{background:linear-gradient(rgba(233,222,209,0),rgba(233,222,209,.85) 160px,rgba(233,222,209,.85) calc(100% - 160px),rgba(233,222,209,0))}
 @media (min-width:861px){
   .block{zoom:.9}
 }
 /* section headings sit centred, like the name under the drawing */
 .head{max-width:680px;margin:0 auto 48px;text-align:center}
-.head h2{font-weight:500;font-size:clamp(38px,4.6vw,60px);line-height:1.02;letter-spacing:-.01em;margin:0;color:var(--ink)}
+.head h2{font-weight:400;font-size:clamp(38px,4.6vw,60px);line-height:1.02;letter-spacing:-.01em;margin:0;color:var(--ink)}
 
 /* Besøk og kontakt oss: Friday prayer and a form beside the map; the address is on the map's tag */
 .visit{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:72px;align-items:center}

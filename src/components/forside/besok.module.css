@@ -1,23 +1,23 @@
 /* Besøk og kontakt oss: the Friday prayer and the map beside a letter to the mosque. */
 
 .sec{padding:120px 0;scroll-margin-top:24px}
-.wrap{max-width:1240px;margin:0 auto;padding:0 32px;display:grid;grid-template-columns:1fr 1.15fr;gap:72px;align-items:start}
-.sec h2{margin:0;font-size:clamp(42px,4.8vw,68px);line-height:1;color:var(--ink)}
+.wrap{max-width:1240px;margin:0 auto;padding:0 32px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:72px;align-items:start}
+.sec h2{margin:0;font-size:64px;line-height:1;color:var(--ink)}
 .lead{margin:16px 0 0;font-size:18px;line-height:1.55;color:var(--ink-2);max-width:42ch}
 
 /* the Friday prayer as an event: a date block, then time and place */
 .event{display:flex;gap:20px;align-items:center;margin-top:32px;padding:18px;border-radius:20px;background:var(--card)}
 .edate{display:flex;flex-direction:column;align-items:center;justify-content:center;width:76px;height:86px;flex:none;margin:0;border-radius:14px;background:var(--emerald);color:var(--paper);line-height:1.1}
-.edate span{font-size:14px;font-weight:600}
+.edate span{font-size:13px;font-weight:600}
 .edate b{font-size:32px;font-weight:600;letter-spacing:-.03em}
-.event h3{margin:0 0 6px;font-family:var(--serif);font-size:28px;font-weight:500;line-height:1}
+.event h3{margin:0 0 6px;font-family:var(--serif);font-size:32px;font-weight:400;line-height:1}
 .erow{margin:3px 0;color:var(--ink-2)}
 .erow svg{display:inline-block;width:18px;height:18px;margin-right:8px;vertical-align:-4px;color:var(--turkis)}
 .erow b{color:var(--ink)}
 
 .map{position:relative;height:300px;margin-top:20px;border-radius:22px;overflow:hidden;background:var(--sand)}
 .map iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
-.mapTag{position:absolute;left:14px;bottom:14px;display:inline-flex;align-items:center;gap:8px;padding:10px 16px;border-radius:999px;background:var(--emerald);color:#fff;font-weight:600;font-size:14px;text-decoration:none}
+.mapTag{position:absolute;left:14px;bottom:14px;display:inline-flex;align-items:center;gap:8px;padding:10px 16px;border-radius:999px;background:var(--emerald);color:#fff;font-weight:600;font-size:13px;text-decoration:none}
 .mapTag:hover{background:var(--emerald-ink)}
 .mapTag svg{width:18px;height:18px}
 
@@ -26,21 +26,21 @@
 .desk > *{rotate:-.6deg}
 
 /* the letter: writing on ruled lines instead of boxes */
-.letter{display:grid;gap:16px;padding:44px 48px 36px;border-radius:6px;background:#fffdf8;box-shadow:0 1px 0 #ece3d1,0 24px 50px -28px rgba(30,62,54,.45)}
+.letter{display:grid;gap:16px;padding:44px 48px 36px;border-radius:6px;background:#fffdf8;box-shadow:none}
 .letter label{display:grid;gap:6px}
 .letter label > span{font-size:13px;font-weight:600;color:var(--muted)}
 .letter input,.letter select,.letter textarea{font:inherit;font-size:16px;color:var(--ink);border:0;border-bottom:1px solid #dccfb6;border-radius:0;background:transparent;padding:8px 2px;outline:none;transition:border-color .2s}
 .letter input:focus,.letter select:focus{border-bottom-color:var(--emerald)}
 .letter input:focus-visible,.letter select:focus-visible{outline:2px solid rgba(15,93,78,.35);outline-offset:3px;border-radius:4px}
-.letter textarea{resize:vertical;line-height:2;font-size:17px;border-bottom:0;background:repeating-linear-gradient(transparent 0 calc(2em - 1px),#e7dcc8 calc(2em - 1px) 2em)}
+.letter textarea{resize:vertical;line-height:2;font-size:16px;border-bottom:0;background:none}
 .letter textarea:focus{outline:2px solid rgba(15,93,78,.25);outline-offset:4px;border-radius:4px}
 .msg > span,.sr{position:absolute;width:1px;height:1px;margin:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
-.dear{margin:0 0 6px;font-family:var(--serif);font-style:italic;font-weight:500;font-size:34px;color:var(--ink)}
-.pair{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.dear{margin:0 0 6px;font-family:var(--serif);font-style:italic;font-weight:400;font-size:32px;color:var(--ink)}
+.pair{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
 .sendRow{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-top:6px}
-.note{font-size:14px;color:var(--muted)}
-.seal{display:grid;place-items:center;width:78px;height:78px;flex:none;border:0;border-radius:50%;cursor:pointer;font:inherit;font-weight:600;font-size:15px;color:#fbeee6;
-  background:radial-gradient(circle at 38% 34%,#c66a5c,#a3473c 60%,#8a3b31);box-shadow:0 6px 14px -6px rgba(90,30,20,.6),inset 0 0 0 5px rgba(255,255,255,.12);transition:transform .25s}
+.note{font-size:13px;color:var(--muted)}
+.seal{display:grid;place-items:center;width:78px;height:78px;flex:none;border:0;border-radius:50%;cursor:pointer;font:inherit;font-weight:600;font-size:16px;color:#fbeee6;
+  background:#9e4036;box-shadow:none;transition:transform .25s}
 .seal:hover{transform:rotate(-8deg) scale(1.05)}
 .seal:active{transform:scale(.95)}
 .seal:disabled{opacity:.6}
@@ -58,3 +58,7 @@
   .seal{transition:none}
   .seal:hover{transform:none}
 }
+
+@media(max-width:860px){.sec h2{font-size:48px}}
+
+.wrap > *,.letter input,.letter select,.letter textarea{min-width:0}

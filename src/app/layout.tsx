@@ -32,7 +32,7 @@ const newsreader = Newsreader({
 const cormorant = Cormorant_Garamond({
   variable: '--font-cormorant',
   subsets: ['latin'],
-  weight: '600',
+  weight: '400',
   style: 'italic',
   display: 'swap',
 });

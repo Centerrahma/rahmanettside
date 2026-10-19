@@ -65,7 +65,7 @@ export default function Fellesskapet() {
   };
 
   return (
-    <section className={s.sec} id="fellesskapet" aria-labelledby="fs-h2">
+    <section data-green-community className={s.sec} id="fellesskapet" aria-labelledby="fs-h2">
       <div className={s.wrap}>
         <div className={s.head}>
           <h2 id="fs-h2">Fellesskapet</h2>
@@ -107,7 +107,7 @@ export default function Fellesskapet() {
                   <li key={t}><Star /><span><b>{t}</b>{d}</span></li>
                 ))}
               </ul>
-              {g.href && <Link className={`${f.btn} ${f.primary}`} href={g.href}>{g.more}</Link>}
+              {g.href && <Link data-home-primary className={`${f.btn} ${f.primary}`} href={g.href}>{g.more}</Link>}
             </div>
           </div>
         </div>
