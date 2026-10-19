@@ -14,8 +14,8 @@ import s from './hero.module.css';
 
 const ALT = 'Mihraben og minbaren i Masjid Rahma, under verset fra Koranen 72:18, med bønneteppet foran.';
 const common = { alt: ALT, fill: true, priority: true, quality: 75 } as const;
-const wide = getImageProps({ ...common, src: '/mihrab-forside.jpg', sizes: '(max-width: 860px) 100vw, 70vw' }).props;
-const tall = getImageProps({ ...common, src: '/mihrab-mobil.jpg', sizes: '100vw' }).props;
+const wide = getImageProps({ ...common, src: '/mihrab-forside-lys.webp', sizes: '(max-width: 860px) 100vw, 70vw' }).props;
+const tall = getImageProps({ ...common, src: '/mihrab-mobil-lys.webp', sizes: '100vw' }).props;
 
 export default function Hero({ schedule, friday }: { schedule: PrayerSchedule; friday: boolean }) {
   const { clock, slots, nx, past } = useClock(schedule, friday);
