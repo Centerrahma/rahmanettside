@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useCallback, useEffect } from 'react';
+import React, { useState, useCallback, useEffect, useSyncExternalStore } from 'react';
 import {
   motion,
   useMotionValue,
@@ -41,6 +41,15 @@ const SCALE_STEP = 0.06;
 const DIM_STEP = 0.15;
 const SWIPE_THRESHOLD = 50;
 
+const reducedMotionQuery = '(prefers-reduced-motion: reduce)';
+const subscribeReducedMotion = (notify: () => void) => {
+  const query = window.matchMedia(reducedMotionQuery);
+  query.addEventListener('change', notify);
+  return () => query.removeEventListener('change', notify);
+};
+const getReducedMotion = () => window.matchMedia(reducedMotionQuery).matches;
+const getServerReducedMotion = () => true;
+
 const SPRING = {
   type: 'spring' as const,
   stiffness: 170,
@@ -62,19 +71,11 @@ export default function CardStack({
     null,
   );
   const [showInfo, setShowInfo] = useState(false);
-  const [reducedMotion, setReducedMotion] = useState(false);
+  const reducedMotion = useSyncExternalStore(subscribeReducedMotion, getReducedMotion, getServerReducedMotion);
 
   const dragY = useMotionValue(0);
   const rotateX = useTransform(dragY, [-200, 0, 200], [15, 0, -15]);
 
-  // Reduced motion detection
-  useEffect(() => {
-    const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
-    setReducedMotion(mq.matches);
-    const handler = (e: MediaQueryListEvent) => setReducedMotion(e.matches);
-    mq.addEventListener('change', handler);
-    return () => mq.removeEventListener('change', handler);
-  }, []);
 
   // Notify parent of card change
   useEffect(() => {

@@ -52,7 +52,7 @@ export async function POST(request: NextRequest) {
       }
 
       case 'invoice.payment_succeeded': {
-        const invoice = event.data.object as any;
+        const invoice = event.data.object as Stripe.Invoice & { subscription?: string | Stripe.Subscription | null };
         console.log('Invoice payment succeeded:', {
           id: invoice.id,
           amount: invoice.amount_paid,
@@ -64,7 +64,7 @@ export async function POST(request: NextRequest) {
       }
 
       case 'invoice.payment_failed': {
-        const invoice = event.data.object as any;
+        const invoice = event.data.object as Stripe.Invoice & { subscription?: string | Stripe.Subscription | null };
         console.log('Invoice payment failed:', {
           id: invoice.id,
           subscriptionId: invoice.subscription,

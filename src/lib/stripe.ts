@@ -8,7 +8,7 @@ export function getStripe(): Stripe {
       throw new Error('STRIPE_SECRET_KEY environment variable is not set');
     }
     _stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
-      apiVersion: '2025-04-30.basil' as any,
+      apiVersion: '2025-04-30.basil' as Stripe.LatestApiVersion,
     });
   }
   return _stripe;
