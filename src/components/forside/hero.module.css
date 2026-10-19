@@ -1,73 +1,61 @@
-/* The first screen: a column (30%) with logo, name, buttons and the five prayers; the photo fills the rest. */
-
-.hero{display:grid;grid-template-columns:minmax(380px,30%) 1fr;height:max(640px,calc(100svh - 84px))}
-.panel{display:flex;flex-direction:column;justify-content:center;padding:clamp(16px,3vh,40px) clamp(24px,2.6vw,48px);min-width:0}
-.logo{width:auto;height:clamp(84px,15vh,150px);align-self:flex-start;margin-bottom:clamp(10px,2vh,20px)}
-.panel h1{margin:0;font-weight:500;font-size:clamp(36px,3.4vw,54px);line-height:1;letter-spacing:-.015em;white-space:nowrap;color:var(--ink)}
-.addr{margin:8px 0 clamp(14px,2.4vh,24px);font-size:16px;color:var(--ink-2)}
-.ctas{display:flex;gap:10px;flex-wrap:wrap}
-.date{margin:clamp(18px,3.4vh,32px) 0 8px;font-size:15px;color:var(--muted)}
-.date b{color:var(--ink);font-weight:600}
-
-.list{margin:0;padding:0;list-style:none;display:grid;gap:2px}
-.list li{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:14px;padding:clamp(4px,.8vh,8px) 12px;border-radius:14px;transition:background .4s,opacity .4s}
-.arch{display:block;width:clamp(30px,4.2vh,42px)}
+/* Full-bleed mihrab photo; the prayer panel and photo move together once at entry. */
+.hero{position:relative;overflow:hidden;isolation:isolate;aspect-ratio:1672/941;container-type:inline-size}
+.panel{position:absolute;inset:0 auto 0 0;z-index:2;width:30%;padding:20px 25px;display:flex;flex-direction:column;justify-content:center;background:var(--rahma-dark) url('/textures/rahma-tadelakt.webp') 0 0/768px;background-blend-mode:luminosity;animation:panel-in 1.4s 1.5s cubic-bezier(.22,.7,.2,1) backwards}
+.logo{width:auto;height:clamp(140px,14.6vw,230px);max-width:180px;object-fit:contain;align-self:flex-start;flex:none;margin-bottom:9px}
+.panel h1{margin:0 0 5px;font-weight:400;font-size:clamp(28px,3.4vw,40px);line-height:1.04;letter-spacing:-.018em;white-space:nowrap;color:var(--ink)}
+.addr{margin:0;font-size:13px;color:var(--ink-2)}
+.ctas{display:flex;gap:8px;margin:13px 0 15px}
+.ctas a{height:40px;padding:0 17px;font-size:13px;font-weight:400}
+.ctas a+a{background:none;box-shadow:none;color:var(--ink);padding-inline:10px}
+.date{margin:0 0 6px;font-size:13px;color:var(--ink-2)}
+.date b{font-weight:400}
+.list{list-style:none;margin:0;padding:0;display:grid;gap:2px}
+.list li{display:grid;grid-template-columns:29px 1fr auto;gap:12px;align-items:center;padding:4px 8px;min-height:45px;border-radius:10px}
+.arch{width:29px;display:block}
 .label{display:flex;flex-direction:column;line-height:1.2}
-.label b{font-size:17px;font-weight:600;color:var(--ink)}
-.label small{font-size:13px;font-weight:600;color:var(--muted)}
-.label em{font-style:normal;font-size:13px;font-weight:600;color:var(--emerald)}
-.time{font-size:clamp(24px,3.6vh,32px);font-weight:600;letter-spacing:-.04em;color:var(--ink)}
-.list li.next{background:var(--mint)}
-.list li.next b,.list li.next .time,.list li.next small,.list li.next em{color:var(--emerald-ink)}
-.list li.past{opacity:.45}
-
-.photo{position:relative;overflow:hidden;background:#1f4b52}
-.photo img{object-fit:cover;object-position:50% 30%}
-
-/* short laptop screens: a smaller logo and tighter rows, so the column fits under the nav */
-@media (min-width:861px) and (max-height:800px){
-  .logo{height:clamp(60px,11vh,96px);margin-bottom:8px}
-  .addr{margin-bottom:12px}
-  .date{margin-top:14px}
-  .list li{padding:3px 12px}
-  .arch{width:30px}
+.label b{font-size:16px;font-weight:500}
+.label small{font-size:13px;color:var(--ink-2)}
+.label em{font-style:normal;font-size:13px;color:var(--rahma-highlight)}
+.time{font-size:24px;font-weight:400;letter-spacing:-.04em;font-variant-numeric:tabular-nums}
+.next{background:rgba(250,245,236,.1)}
+.past{opacity:.75}
+.photo{position:absolute;inset:0;transform:translateX(15%);animation:photo-right 1.4s 1.5s cubic-bezier(.22,.7,.2,1) backwards}
+.photo img{object-fit:contain;object-position:center}
+@keyframes panel-in{from{transform:translateX(-101%)}to{transform:translateX(0)}}
+@keyframes photo-right{from{transform:translateX(0)}to{transform:translateX(15%)}}
+.panel:focus-within{animation:none}
+.panel > :not(.list),.list li{animation:prayer-rise .6s 1.5s cubic-bezier(.22,.7,.2,1) backwards}
+.list li:nth-child(2){animation-delay:1.56s}.list li:nth-child(3){animation-delay:1.62s}.list li:nth-child(4){animation-delay:1.68s}.list li:nth-child(5){animation-delay:1.74s}
+@keyframes prayer-rise{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+@media(min-width:1001px) and (max-width:1100px){
+ .panel{padding:15px 20px}
+ .logo{height:clamp(110px,12vw,140px);max-width:140px}
+ .panel h1{font-size:30px}
+ .ctas{margin:10px 0}
+ .list li{gap:8px}
+ .date{font-size:13px}
+ .label em{font-size:13px}
 }
-
-/* phones and tablets: the photo first with the name on its carpet, then the date and the five prayers,
-   then the buttons. The photo gives up height so the prayers always fit on the first screen. */
-@media (max-width:860px){
-  /* the phone's whole first screen on the page's paper: the photo on top taking what is left, the name
-     under it where the photo ends, then the date, the five prayers side by side and the buttons at the bottom */
-  .hero{grid-template-columns:minmax(0,1fr);height:calc(100svh - 68px);min-height:600px;
-    grid-template-rows:minmax(0,1fr) auto auto auto;grid-template-areas:'photo' 'head' 'list' 'ctas'}
-  .panel{display:contents}
-  .logo{display:none}
-  .head{grid-area:head;padding:10px 16px 2px}
-  .head h1{font-size:clamp(36px,10.5vw,48px)}
-  .head .addr{margin:2px 0 0;font-size:14px;color:var(--ink-2)}
-  .photo{grid-area:photo;width:100%;min-height:0}
-  .photo img{object-position:50% 0}
-  .date{display:none}
-  /* the five prayers side by side, each under its own arch, like the mosque drawing */
-  .list{grid-area:list;margin:4px 6px 0;grid-template-columns:repeat(5,1fr);gap:2px}
-  .list li{min-width:0;display:flex;flex-direction:column;align-items:center;text-align:center;gap:2px;padding:6px 2px 4px}
-  .arch{width:30px;margin-bottom:2px}
-  .label{display:contents}
-  .label em{display:none}
-  .label b{order:1;font-size:13px}
-  .time{order:2;font-size:clamp(16px,4.6vw,20px);letter-spacing:-.03em}
-  .label small{order:3;font-size:10px;letter-spacing:-.01em;white-space:nowrap}
-  .ctas{grid-area:ctas;margin:8px 16px 14px}
-  .ctas a{flex:1 1 auto;justify-content:center}
+/* The original mobile composition: upright photo followed by five illustrated prayer times. */
+@media(max-width:1000px){
+ .hero{display:grid;aspect-ratio:auto;grid-template-columns:minmax(0,1fr);height:calc(100svh - 68px);min-height:600px;grid-template-rows:minmax(0,1fr) auto auto auto;grid-template-areas:'photo' 'head' 'list' 'ctas'}
+ .panel{display:contents;animation:none}
+ .logo{display:none}
+ .head{grid-area:head;padding:10px 16px 2px}
+ .head h1{font-size:40px}
+ .head .addr{margin:2px 0 0;font-size:16px}
+ .photo{position:relative;inset:auto;grid-area:photo;width:100%;min-height:0;transform:none;animation:none}
+ .photo img{object-fit:cover;object-position:50% 0}
+ .date{display:none}
+ .list{grid-area:list;margin:4px 6px 0;grid-template-columns:repeat(5,minmax(0,1fr));gap:2px}
+ .list li{min-width:0;display:flex;flex-direction:column;align-items:center;text-align:center;gap:2px;padding:6px 2px 4px}
+ .arch{width:30px;margin-bottom:2px}
+ .label{display:contents}
+ .label em{display:none}
+ .label b{order:1;font-size:13px}
+ .time{order:2;font-size:20px;letter-spacing:-.03em}
+ .label small{order:3;font-size:13px;letter-spacing:-.01em;white-space:normal}
+ .ctas{grid-area:ctas;margin:8px 16px 14px}
+ .ctas a{flex:1 1 auto;justify-content:center;height:44px}
 }
-
-/* once at load: the photo settles, the column's parts rise in turn */
-.photo img{animation:settle 1.8s cubic-bezier(.2,.7,.3,1) both}
-.panel > *,.list li{animation:rise .7s cubic-bezier(.2,.7,.3,1) both;animation-delay:var(--d,0s)}
-.panel > :nth-child(2){--d:.08s}.panel > :nth-child(3){--d:.14s}.panel > :nth-child(4){--d:.2s}.panel > :nth-child(5){--d:.26s}
-.list li:nth-child(1){--d:.34s}.list li:nth-child(2){--d:.4s}.list li:nth-child(3){--d:.46s}.list li:nth-child(4){--d:.52s}.list li:nth-child(5){--d:.58s}
-@keyframes settle{from{transform:scale(1.04)}to{transform:none}}
-@keyframes rise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
-@media (prefers-reduced-motion:reduce){
-  .photo img,.panel > *,.list li{animation:none}
-}
+@media(prefers-reduced-motion:reduce){.photo,.panel,.panel > *,.list li{animation:none}}

@@ -3,24 +3,24 @@
 
 .sec{padding:120px 0;scroll-margin-top:24px;
   /* sand, as a tint over the page's paper texture that eases in and out, so the sections flow into each other */
-  background:linear-gradient(rgba(201,179,159,0),rgba(201,179,159,.35) 160px,rgba(201,179,159,.35) calc(100% - 160px),rgba(201,179,159,0))}
+  background:linear-gradient(rgba(233,222,209,0),rgba(233,222,209,.85) 160px,rgba(233,222,209,.85) calc(100% - 160px),rgba(233,222,209,0))}
 .wrap{max-width:1240px;margin:0 auto;padding:0 32px}
-.sec h2{margin:0;font-size:clamp(44px,5vw,72px);line-height:1;color:var(--ink)}
+.sec h2{margin:0;font-size:48px;line-height:1;color:var(--ink)}
 .lead{margin:0;font-size:18px;line-height:1.55;color:var(--ink-2);max-width:40ch}
 .head{display:flex;justify-content:space-between;align-items:flex-end;gap:24px 64px;flex-wrap:wrap;margin-bottom:56px}
 .grid{display:grid;grid-template-columns:1.1fr 1fr;gap:72px;align-items:center}
 
 /* an ivory frame with a gold line round the arch, like the mihrab itself */
-.arch{padding:16px;border-radius:50% 50% 22px 22px / 33% 33% 22px 22px;background:var(--paper);box-shadow:0 0 0 1px #d8c6a6,0 40px 70px -40px rgba(30,62,54,.5)}
-.stage{position:relative;aspect-ratio:4/5;border-radius:50% 50% 10px 10px / 31% 31% 10px 10px;overflow:hidden;background:var(--ink);box-shadow:inset 0 0 0 1px var(--gold-2)}
+.arch{padding:16px;border-radius:50% 50% 22px 22px / 33% 33% 22px 22px;background:var(--paper);box-shadow:none}
+.stage{position:relative;aspect-ratio:4/5;border-radius:50% 50% 10px 10px / 31% 31% 10px 10px;overflow:hidden;background:var(--ink);box-shadow:none}
 .img{position:absolute;inset:0;opacity:0;scale:1.08;transition:opacity .9s ease,scale 1.6s cubic-bezier(.2,.7,.3,1)}
 .img img{object-fit:cover}
 .img.on{opacity:1;scale:1}
 
 .tabs{display:grid;gap:4px;margin-bottom:28px}
-.tabs button{display:flex;align-items:baseline;justify-content:space-between;gap:16px;padding:14px 4px;border:0;border-bottom:1px solid #d6c7ad;background:none;cursor:pointer;text-align:left;font:inherit;color:inherit;transition:padding .35s cubic-bezier(.2,.7,.3,1)}
-.tabs button span{font-family:var(--serif);font-size:clamp(30px,3vw,42px);font-weight:500;line-height:1;color:var(--muted);transition:color .3s}
-.tabs button small{font-size:14px;font-weight:600;color:var(--muted)}
+.tabs button{display:flex;align-items:baseline;justify-content:space-between;gap:16px;padding:14px 4px;border:0;border-bottom:0;background:none;cursor:pointer;text-align:left;font:inherit;color:inherit;transition:padding .35s cubic-bezier(.2,.7,.3,1)}
+.tabs button span{font-family:var(--serif);font-size:clamp(30px,3vw,42px);font-weight:400;line-height:1;color:var(--muted);transition:color .3s}
+.tabs button small{font-size:13px;font-weight:600;color:var(--muted)}
 .tabs button:hover span{color:var(--ink-2)}
 .tabs button.on{padding-left:14px;border-bottom-color:var(--emerald)}
 .tabs button.on span{color:var(--ink)}
@@ -28,12 +28,12 @@
 .tabs button:focus-visible{outline:2px solid var(--emerald);outline-offset:4px;border-radius:12px}
 
 .panel{animation:rise .55s cubic-bezier(.2,.7,.3,1) both}
-.text{margin:0;font-size:19px;line-height:1.55;color:var(--ink)}
+.text{margin:0;font-size:18px;line-height:1.55;color:var(--ink)}
 .points{list-style:none;margin:22px 0 28px;padding:0;display:grid;gap:14px}
 .points li{display:flex;gap:12px;align-items:flex-start}
 .star{width:18px;height:18px;flex:none;margin-top:3px;fill:var(--gold-2)}
 .points span{display:grid;gap:2px;color:var(--ink-2);font-size:16px;line-height:1.5}
-.points b{color:var(--ink);font-size:17px}
+.points b{color:var(--ink);font-size:16px}
 @keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
 
 /* desktop: one screen. Everything is sized from the screen's height, so the arch, the names and the
@@ -41,7 +41,7 @@
 @media (min-width:861px){
   .sec{display:flex;flex-direction:column;height:100svh;min-height:600px;padding:clamp(28px,6vh,64px) 0}
   .sec > .wrap{display:flex;flex-direction:column;flex:1;min-height:0;width:100%}
-  .sec h2{font-size:clamp(40px,7vh,68px)}
+  .sec h2{font-size:64px}
   .lead{font-size:clamp(16px,2vh,18px)}
   .head{margin-bottom:clamp(20px,4vh,44px)}
   .grid{flex:1;min-height:0;grid-template-columns:auto 1fr;gap:clamp(40px,5vw,80px)}
@@ -50,11 +50,11 @@
   .tabs{margin-bottom:clamp(12px,2.6vh,28px)}
   .tabs button{padding:clamp(8px,1.5vh,14px) 4px}
   .tabs button.on{padding-left:14px}
-  .tabs button span{font-size:clamp(26px,4.4vh,42px)}
-  .text{font-size:clamp(16px,2.1vh,19px)}
+  .tabs button span{font-size:40px}
+  .text{font-size:18px}
   .points{margin:clamp(12px,2.2vh,22px) 0 clamp(14px,2.8vh,28px);gap:clamp(6px,1.4vh,14px)}
-  .points span{font-size:clamp(14px,1.8vh,16px);line-height:1.4}
-  .points b{font-size:clamp(15px,1.95vh,17px)}
+  .points span{font-size:16px;line-height:1.4}
+  .points b{font-size:16px}
 }
 @media (max-width:860px){
   .sec{padding:72px 0}
@@ -62,7 +62,7 @@
   .head{margin-bottom:32px}
   .grid{grid-template-columns:1fr;gap:36px}
   .arch{padding:10px;max-width:420px;margin:0 auto;width:100%}
-  .tabs button span{font-size:28px}
+  .tabs button span{font-size:32px}
 }
 @media (prefers-reduced-motion:reduce){
   .img,.tabs button{transition:none}

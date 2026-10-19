@@ -14,7 +14,7 @@ import s from './hero.module.css';
 
 const ALT = 'Mihraben og minbaren i Masjid Rahma, under verset fra Koranen 72:18, med bønneteppet foran.';
 const common = { alt: ALT, fill: true, priority: true, quality: 75 } as const;
-const wide = getImageProps({ ...common, src: '/mihrab-forside-lys.webp', sizes: '(max-width: 860px) 100vw, 70vw' }).props;
+const wide = getImageProps({ ...common, src: '/mihrab-forside-lys.webp', sizes: '100vw' }).props;
 const tall = getImageProps({ ...common, src: '/mihrab-mobil-lys.webp', sizes: '100vw' }).props;
 
 export default function Hero({ schedule, friday }: { schedule: PrayerSchedule; friday: boolean }) {
@@ -22,15 +22,15 @@ export default function Hero({ schedule, friday }: { schedule: PrayerSchedule; f
   const d = dates(clock?.at);
 
   return (
-    <section className={s.hero} aria-labelledby="forside-h1">
+    <section className={s.hero} aria-labelledby="forside-h1" data-rahma-home>
       <div className={s.panel}>
-        <Image className={s.logo} src="/rahma-logo.png" alt="" width={601} height={640} sizes="150px" priority />
+        <Image className={s.logo} src="/rahma-logo-white.webp" alt="" width={263} height={360} sizes="180px" priority />
         <div className={s.head}>
           <h1 id="forside-h1">Center Rahma</h1>
           <p className={s.addr}>Moskeen i Tvetenveien 152A, Oslo</p>
         </div>
         <div className={s.ctas}>
-          <Link className={`${f.btn} ${f.primary}`} href="/stott-oss">Støtt oss</Link>
+          <Link data-home-primary className={`${f.btn} ${f.primary}`} href="/stott-oss">Støtt oss</Link>
           <Link className={`${f.btn} ${f.quiet}`} href="/blimedlem">Bli medlem</Link>
         </div>
 

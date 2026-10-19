@@ -48,13 +48,12 @@ export default function StottOss() {
           <div className={s.vrow}>
             <span className={s.qr}><Image src="/vipps-77811.png" alt="QR-kode for å gi med Vipps" width={128} height={128} /></span>
             <div>
-              <span className={s.vlabel}>Vipps til</span>
               <b className={`${s.vnum} ${f.num}`}>{VIPPS.number}</b>
               <a className={`${f.btn} ${f.vipps} ${s.vbtn}`} href={VIPPS.url} target="_blank" rel="noopener noreferrer">Gi med Vipps</a>
             </div>
           </div>
         </div>
-        <div className={s.card}>
+        <div className={s.card} data-paper-surface>
           <div className={s.fbHead}>
             <span className={s.fbMark}><FacebookMark /></span>
             <div>

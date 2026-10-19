@@ -33,10 +33,9 @@ export default function Besok({ jummah }: Props) {
         <div>
           <h2 id="besok-h2">Besøk og kontakt oss</h2>
           <p className={s.lead}>Kom innom moskeen, eller skriv et brev til oss her.</p>
-          <div className={s.event}>
+          <div className={s.event} data-paper-surface>
             {fri && (
               <p className={s.edate} aria-hidden="true">
-                <span>Fre</span>
                 <b className={f.num}>{fri.day}</b>
                 <span>{fri.month}</span>
               </p>
@@ -52,7 +51,7 @@ export default function Besok({ jummah }: Props) {
             <a className={s.mapTag} href={MAPS.directions} target="_blank" rel="noopener noreferrer"><PinIcon />Veibeskrivelse</a>
           </div>
         </div>
-        <div className={s.desk}><KontaktBrev /></div>
+        <div className={s.desk} data-paper-surface><KontaktBrev /></div>
       </div>
     </section>
   );
