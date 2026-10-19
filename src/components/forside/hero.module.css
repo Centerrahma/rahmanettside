@@ -1,4 +1,4 @@
-/* Full-bleed mihrab photo; the prayer panel and photo move together once at entry. */
+/* Full-bleed photo moves half the panel width to stay centered in the revealed area. */
 .hero{position:relative;overflow:hidden;isolation:isolate;height:calc(100svh - 84px);container-type:inline-size}
 .panel{position:absolute;inset:0 auto 0 0;z-index:2;width:30%;padding:20px 25px clamp(20px,8svh,72px);display:flex;flex-direction:column;justify-content:center;background:var(--rahma-dark) url('/textures/rahma-tadelakt.webp') 0 0/768px;background-blend-mode:luminosity;animation:panel-in 1.4s 1.5s cubic-bezier(.22,.7,.2,1) backwards}
 .logo{width:auto;height:clamp(80px,calc(34svh - 100px),230px);max-width:180px;object-fit:contain;align-self:flex-start;flex:none;margin-bottom:9px}
@@ -19,10 +19,10 @@
 .time{font-size:24px;font-weight:400;letter-spacing:-.04em;font-variant-numeric:tabular-nums}
 .next{background:rgba(250,245,236,.1)}
 .past{opacity:.75}
-.photo{position:absolute;inset:0;transform:translateX(30%);animation:photo-right 1.4s 1.5s cubic-bezier(.22,.7,.2,1) backwards}
+.photo{position:absolute;inset:0;transform:translateX(15%);animation:photo-right 1.4s 1.5s cubic-bezier(.22,.7,.2,1) backwards}
 .photo img{object-fit:cover;object-position:center}
 @keyframes panel-in{from{transform:translateX(-101%)}to{transform:translateX(0)}}
-@keyframes photo-right{from{transform:translateX(0)}to{transform:translateX(30%)}}
+@keyframes photo-right{from{transform:translateX(0)}to{transform:translateX(15%)}}
 .panel:focus-within{animation:none}
 .panel > :not(.list),.list li{animation:prayer-rise .6s 1.5s cubic-bezier(.22,.7,.2,1) backwards}
 .list li:nth-child(2){animation-delay:1.56s}.list li:nth-child(3){animation-delay:1.62s}.list li:nth-child(4){animation-delay:1.68s}.list li:nth-child(5){animation-delay:1.74s}
