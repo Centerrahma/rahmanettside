@@ -1,0 +1,33 @@
+# Supporters page: Gavebrevet
+
+The selected B composition replaces the older portal drawing on `/stott-oss`: one luminous green arch over three equal cream giving panels. The page including the shared navbar fits the tested desktop viewport; the shared footer starts below it. Phone and tablet layouts stack the panels naturally.
+
+## Giving content
+
+- One-time Vipps: 77811, `https://qr.vipps.no/donations/77811`.
+- Monthly-giving contact number: 43392, `https://qr.vipps.no/donations/43392`, supplied by the owner. This link opens Vipps; this change does not create or guarantee an automatic recurring-payment agreement.
+- Bank transfer: `BANK_ACCOUNT` remains null. The visible message is “Kontonummer kommer”; the contact action opens an email to `post@centerrahma.no`.
+
+Both QR PNGs have four-module quiet zones and remain stationary. They bypass image optimization so their module edges and white background stay intact. Physical phone-camera validation and confirmation of the monthly-giving account setup remain owner checks.
+
+The Quran excerpt is the existing project's 3:92 text, with an explicitly labelled Norwegian meaning rendering and a link to its source.
+
+## Implementation and review
+
+`Supporters.tsx` owns the page and pause control. `supporters.module.css` owns its responsive styles; the only shared navigation styling is scoped to the supporters route. Giving destinations use the existing shared links module. No payment handler or checkout logic changes.
+
+`light-arch.ts` owns a bounded 23,000-point WebGL scene, capped to 1.5 device pixel ratio and approximately 30 rendered frames per second. It stops scheduling frames when paused, off screen or hidden, respects reduced motion, and releases its resources/listeners on route change. A CSS arch remains when WebGL is unavailable or its context is lost. Text masks protect legibility. QR codes are outside the renderer and every animated ancestor.
+
+Review covered correctness, accessibility, maintainability, security and animation lifecycle. It found and resolved mobile footer/control overlap and added production lifecycle handling missing from the standalone prototype. No blocking source-review findings remain. Older unused illustration modules were left in place to keep this change focused.
+
+## Validation
+
+- `npm run build`: passed, including TypeScript and static generation.
+- ESLint on all changed TS/TSX files: passed.
+- `npm test`: all six existing tests passed.
+- Hidden Chrome against `next start`: seven viewport sizes (1440×900, 1366×768, 1280×720, 1024×768, 768×1024, 390×844 and 320×740). Checked equal desktop panel bounds, first-screen fit, footer/control separation, number/QR collisions, minimum 16px giving text, heading overflow, correct destinations and mobile menu/Escape.
+- Live browser checks: changing WebGL frames, fixed QR bounds and pixel interiors during hover, pause/resume, dynamic reduced motion, GPU buffer cleanup and stopped drawing after client navigation, plus a forced no-WebGL fallback.
+- OpenCV independently decoded both shipped source PNGs and six production-rendered QR crops at desktop, narrow desktop and phone sizes: eight images, all exact intended URLs.
+- Desktop and phone screenshots were visually reviewed. Local test scripts and screenshots are retained in the separate preview workspace, not bundled in the website.
+
+The local build reports multiple ancestor lockfiles and missing MyMasjid environment variables (mock prayer data), and the installed Browserslist data is old. These are existing environment conditions; no dependency, prayer-time or workspace-root changes are included. No real payment or physical-camera test was performed.

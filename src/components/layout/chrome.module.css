@@ -4,6 +4,10 @@
 
 /* nav */
 .nav{position:relative;z-index:50}
+.supporters{background:#0a4439;color:#faf5ec}
+.supporters .links a,.supporters .burger{color:#faf5ec}
+.supporters .bar > .cta{background:#faf5ec;color:#1e3e36}
+.supporters .links a[aria-current="page"]{text-decoration:underline;text-underline-offset:6px}
 .bar{display:flex;align-items:center;gap:36px;height:84px}
 .logo{display:block;flex:none}
 .logo img{height:78px;width:auto}
