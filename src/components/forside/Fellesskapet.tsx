@@ -10,8 +10,8 @@ import s from './fellesskapet.module.css';
    The points are the mosque's own words from each group's page. */
 
 /* Ung Rahma and Rahma skole have no page yet, so they carry no link; a group gets a button once it has an href. */
-interface Group { key: string; href?: string; more?: string; img: string; alt: string; title: string; meta: string; text: string; points: string[][] }
-const GROUPS: Group[] = [
+export interface Group { key: string; href?: string; more?: string; img: string; alt: string; title: string; meta: string; text: string; points: string[][] }
+export const GROUPS: Group[] = [
   {
     key: 'ung', img: '/UngRahma.jpeg', alt: 'Barn og unge samlet i en idrettshall',
     title: 'Ung Rahma', meta: '13 til 25 år',

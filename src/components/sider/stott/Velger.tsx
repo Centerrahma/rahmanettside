@@ -27,7 +27,7 @@ export default function Velger() {
         <a className={s.go} href={way.vipps.url} target="_blank" rel="noopener noreferrer">Åpne Vipps<span aria-hidden="true">↗</span></a>
         <details className={s.qrBox}>
           <summary>Vis QR-kode, for å skanne med en annen telefon</summary>
-          <Image src={`/vipps-${way.vipps.number}.png`} width={492} height={492} unoptimized alt={`QR-kode til Vipps ${way.vipps.number}`} />
+          <Image src={way.vipps.qr} width={492} height={492} unoptimized alt={`QR-kode til Vipps ${way.vipps.number}`} />
         </details>
       </div>
     </section>

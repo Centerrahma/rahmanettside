@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState, type FormEvent } from 'react';
+import { useEffect, useRef, useState, type FormEvent } from 'react';
 import Image from 'next/image';
 import { EMAIL } from '@/components/forside/links';
 import { SALAM } from '../verses';
@@ -61,8 +61,13 @@ function Forside({ date }: { date: string }) {
  * the seal) opens it and the letter, which is the form, rises out. The seal is then the send button:
  * sending slides the letter back in, closes the flap and stamps the seal. Posts to /api/contact.
  * Without script the envelope is open (see the noscript rule), so the form always works.
+ *
+ * On Kontakt oss it is the page's hero, titled with the h1, and goes back to the top once sent. Further down
+ * a page (the front page on phones) pass `inPage`: the title is not a heading, and once sent the envelope
+ * stays in view instead.
  */
-export default function Konvolutt() {
+export default function Konvolutt({ inPage = false }: { inPage?: boolean }) {
+  const self = useRef<HTMLFormElement>(null);
   const [state, setState] = useState<State>('closed');
   const [date, setDate] = useState('');
 
@@ -86,7 +91,8 @@ export default function Konvolutt() {
       form.reset();
       setDate(new Intl.DateTimeFormat('nb-NO', { day: '2-digit', month: '2-digit', year: '2-digit', timeZone: 'Europe/Oslo' }).format(new Date()));
       setState('sent');
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      if (inPage) self.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      else window.scrollTo({ top: 0, behavior: 'smooth' });
     } catch {
       setState('error');
     }
@@ -94,7 +100,7 @@ export default function Konvolutt() {
 
   const sealed = state === 'closed' || state === 'sent';
   return (
-    <form className={s.env} data-state={state} onSubmit={onSubmit} noValidate={state === 'closed'} aria-labelledby="k2-title">
+    <form ref={self} className={s.env} data-state={state} onSubmit={onSubmit} noValidate={state === 'closed'} aria-labelledby="k2-title">
       <noscript><style>{`.${s.env}[data-state] .${s.letter}{max-height:none;padding:20px 18px 84px;transform:none;opacity:1}`}</style></noscript>
       <div className={s.card}>
       <div className={s.back} aria-hidden="true" />
@@ -127,7 +133,9 @@ export default function Konvolutt() {
           <span>{state === 'open' || state === 'error' ? 'Send' : state === 'sending' ? '…' : ''}</span>
         </button>
         <p className={s.salam} lang="ar" dir="rtl">{SALAM.ar}</p>
-        <h1 id="k2-title">Kontakt oss</h1>
+        {inPage
+          ? <p id="k2-title" className={s.title}>Kontakt oss</p>
+          : <h1 id="k2-title" className={s.title}>Kontakt oss</h1>}
         <p className={s.status} role="status" aria-live="polite">
           {state === 'closed' && 'Kom innom, eller skriv et brev til oss. Bla ned, så åpner vi konvolutten.'}
           {state === 'open' && 'Skriv brevet, og trykk på seglet for å sende det.'}

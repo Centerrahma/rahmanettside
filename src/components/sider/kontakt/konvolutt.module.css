@@ -26,7 +26,7 @@
 .fold{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
 .fold path{fill:none;stroke:var(--gold);stroke-width:1.2;opacity:.22;vector-effect:non-scaling-stroke}
 .salam{position:relative;font-family:var(--font-amiri),serif;font-size:23px;line-height:1.5;color:#ecd08e;margin:0}
-.pocket h1{position:relative;font-family:var(--font-newsreader),Georgia,serif;font-weight:340;font-size:clamp(42px,12vw,52px);line-height:1;letter-spacing:-.035em;margin:6px 0 0}
+.pocket .title{position:relative;font-family:var(--font-newsreader),Georgia,serif;font-weight:340;font-size:clamp(42px,12vw,52px);line-height:1;letter-spacing:-.035em;margin:6px 0 0}
 .status{position:relative;margin:12px auto 0;max-width:30ch;font-size:15.5px;line-height:1.5;color:#f3ead8}
 .status b{display:block;font-family:var(--font-newsreader),Georgia,serif;font-weight:400;font-size:26px;line-height:1.15;color:#f7f0e3;margin-bottom:4px}
 .status a{color:#f3d491}
