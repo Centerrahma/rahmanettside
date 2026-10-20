@@ -8,15 +8,15 @@ import k from './kontakt.module.css';
 import LetterForm from './LetterForm';
 import { RoundMap, type Way } from './ways';
 
-const cell = (x: number, y: number) => `<path d="${star(x, y, 6, 0.62)}" fill="#e2c27d"/><path d="${star(x, y, 2.4, 0.62)}" fill="#0b5f45"/>`;
+const cell = (x: number, y: number) => `<path d="${star(x, y, 6, 0.62)}" fill="#c3d2aa"/><path d="${star(x, y, 2.4, 0.62)}" fill="#0b5f45"/>`;
 /** Green with gold stars round the edge, gold squares with rosettes in the corners, for border-image (slice 18). */
 const BORDER = svgUrl(
   `<svg xmlns="http://www.w3.org/2000/svg" width="54" height="54" viewBox="0 0 54 54"><rect width="54" height="54" fill="#0b5f45"/>${[[27, 9], [45, 27], [27, 45], [9, 27]].map(([x, y]) => cell(x, y)).join('')}${[[9, 9], [45, 9], [9, 45], [45, 45]]
-    .map(([x, y]) => `<rect x="${x - 8}" y="${y - 8}" width="16" height="16" fill="#d6af60" stroke="#9b7329" stroke-width="0.8"/><path d="${star(x, y, 6, 0.62)}" fill="#0b5f45"/>`)
+    .map(([x, y]) => `<rect x="${x - 8}" y="${y - 8}" width="16" height="16" fill="#c1d0a4" stroke="#96b18a" stroke-width="0.8"/><path d="${star(x, y, 6, 0.62)}" fill="#0b5f45"/>`)
     .join('')}</svg>`,
 );
 const LATTICE = svgUrl(
-  `<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24"><path d="${star(12, 12, 7)}" fill="none" stroke="#e2c27d" stroke-width="0.9" stroke-opacity="0.6"/><path d="M0,0 L5,5 M24,0 L19,5 M0,24 L5,19 M24,24 L19,19" stroke="#e2c27d" stroke-width="0.8" stroke-opacity="0.45"/></svg>`,
+  `<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24"><path d="${star(12, 12, 7)}" fill="none" stroke="#c3d2aa" stroke-width="0.9" stroke-opacity="0.6"/><path d="M0,0 L5,5 M24,0 L19,5 M0,24 L5,19 M24,24 L19,19" stroke="#c3d2aa" stroke-width="0.8" stroke-opacity="0.45"/></svg>`,
 );
 
 /** A cartouche with pointed ends, stretched to whatever holds it; the strokes keep their width. */
@@ -43,8 +43,8 @@ function Medal({ children }: { children: ReactNode }) {
   return (
     <span className={k.pmMedal}>
       <svg viewBox="0 0 64 64" aria-hidden="true">
-        <path d={lobes + 'Z'} fill="url(#pm-gold)" stroke="#9b7329" strokeWidth={0.8} />
-        <circle cx={32} cy={32} r={24} fill="#0b5f45" stroke="#9b7329" strokeWidth={0.8} />
+        <path d={lobes + 'Z'} fill="url(#pm-gold)" stroke="#96b18a" strokeWidth={0.8} />
+        <circle cx={32} cy={32} r={24} fill="#0b5f45" stroke="#96b18a" strokeWidth={0.8} />
         <circle cx={32} cy={32} r={19.5} fill="url(#pm-cream)" stroke="var(--gold)" strokeWidth={0.8} />
       </svg>
       {children}
@@ -69,13 +69,13 @@ export default function BrevetMobil({ list }: { list: Way[] }) {
       <svg width={0} height={0} style={{ position: 'absolute' }} aria-hidden="true">
         <defs>
           <linearGradient id="pm-gold" x1={0} y1={0} x2={1} y2={1}>
-            <stop offset={0} stopColor="#f3dc9c" />
-            <stop offset={0.5} stopColor="#d6af60" />
-            <stop offset={1} stopColor="#b98a3c" />
+            <stop offset={0} stopColor="#e6edcf" />
+            <stop offset={0.5} stopColor="#c1d0a4" />
+            <stop offset={1} stopColor="#7e9f79" />
           </linearGradient>
           <linearGradient id="pm-cream" x1={0} y1={0} x2={0} y2={1}>
-            <stop offset={0} stopColor="#fffdf6" />
-            <stop offset={1} stopColor="#f8eedb" />
+            <stop offset={0} stopColor="#e9efdf" />
+            <stop offset={1} stopColor="#dfe8d6" />
           </linearGradient>
         </defs>
       </svg>
@@ -84,7 +84,7 @@ export default function BrevetMobil({ list }: { list: Way[] }) {
         {/* the headpiece: green and gold, the greeting in a cartouche, a crest on top */}
         <div className={k.pmHead}>
           <svg className={k.pmCrest} viewBox="0 0 80 22" aria-hidden="true">
-            <path d="M0,22 C8,12 26,10 40,0 C54,10 72,12 80,22 Z" fill="url(#pm-gold)" stroke="#9b7329" strokeWidth={0.8} />
+            <path d="M0,22 C8,12 26,10 40,0 C54,10 72,12 80,22 Z" fill="url(#pm-gold)" stroke="#96b18a" strokeWidth={0.8} />
           </svg>
           <div className={k.pmGreet}>
             <Cartouche />
