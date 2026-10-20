@@ -4,16 +4,14 @@
 
 /* nav */
 .nav{position:relative;z-index:50}
-.supporters{background:#0a4439;color:#faf5ec}
+/* the same tadelakt as the page under it; the page shifts its texture up by the bar's height so the two meet without a seam */
+.supporters{background:#0a4439 url('/textures/rahma-tadelakt.webp') 0 0/768px;background-blend-mode:luminosity;color:#faf5ec}
 .supporters .links a,.supporters .burger{color:#faf5ec}
 .supporters .bar > .cta{background:#faf5ec;color:#1e3e36}
 .supporters .links a[aria-current="page"]{text-decoration:underline;text-underline-offset:6px}
 .bar{display:flex;align-items:center;gap:36px;height:84px}
 .logo{display:block;flex:none}
 .logo img{height:78px;width:auto}
-@media (min-width:861px){
-  .home .logo{visibility:hidden}
-}
 .links{list-style:none;display:flex;gap:30px;margin:0 0 0 auto;padding:0}
 .links a{font-size:16px;color:var(--ink-2);text-decoration:none;transition:color .2s}
 .links a:hover{color:var(--ink)}
@@ -56,6 +54,8 @@
   .legal{flex-direction:column}
 }
 
-.home .logo img{height:68px;filter:brightness(0) invert(1)}
-@media(max-width:1000px){.home .logo{visibility:visible}}
-@media(max-width:640px){.home .logo img{height:42px}}
+/* The front page is found by its hero's [data-rahma-home], not usePathname: Vercel's ISR render of /
+   does not see the path "/", so a class set from it never reached the live page. */
+:global(body:has([data-rahma-home])) .logo img{height:68px;filter:brightness(0) invert(1)}
+@media (min-width:1001px){:global(body:has([data-rahma-home])) .logo{visibility:hidden}}
+@media(max-width:640px){:global(body:has([data-rahma-home])) .logo img{height:42px}}
