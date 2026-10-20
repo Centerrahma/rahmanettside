@@ -78,7 +78,7 @@
  .head .addr{grid-area:head;margin:0;padding:10px 16px 2px;font-size:16px}
  /* Center the selected title in the carpet, the lower 16% of the intact portrait. */
  .mobileTitle{position:absolute;bottom:0;left:0;right:0;height:16%;padding:0 6px;display:flex;align-items:center;justify-content:center;background:linear-gradient(0deg,rgba(2,20,21,.94),rgba(2,20,21,.75) 60%,rgba(2,20,21,0))}
- .mobileName{display:flex;justify-content:center;align-items:baseline;gap:.18em;width:100%;white-space:nowrap;perspective:600px;font-family:var(--font-geist),Arial,sans-serif;font-weight:700;letter-spacing:0;font-size:clamp(29.04px,12.221cqw,50.82px);line-height:1;color:#fff;text-transform:uppercase}
+ .mobileName{display:flex;justify-content:center;align-items:baseline;gap:.18em;width:100%;white-space:nowrap;perspective:600px;font-family:var(--font-geist),Arial,sans-serif;font-weight:700;letter-spacing:0;font-size:clamp(20px,12.221cqw,50.82px);line-height:1;color:#fff;text-transform:uppercase}
  .mobileName > span{display:inline-block}
  .mobileName > span:first-child{transform-origin:100% 50%}
  .mobileName > span:last-child{transform-origin:0 50%}
