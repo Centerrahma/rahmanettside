@@ -52,6 +52,6 @@
   .legal{flex-direction:column}
 }
 
-.home .logo img{height:101px}
+.home .logo img{height:68px;filter:brightness(0) invert(1)}
 @media(max-width:1000px){.home .logo{visibility:visible}}
-@media(max-width:640px){.home .logo img{height:62.4px}}
+@media(max-width:640px){.home .logo img{height:42px}}

@@ -42,7 +42,7 @@ export function Navbar() {
     <header className={`${s.nav} ${pathname === '/' ? s.home : ''}`}>
       <div className={`${s.wrap} ${s.bar}`}>
         <Link href="/" className={s.logo} aria-label="Center Rahma, forsiden">
-          <Image src={pathname === '/' ? '/rahma-logo-white.webp' : '/rahma-logo.png'} alt="" width={pathname === '/' ? 263 : 601} height={pathname === '/' ? 360 : 640} sizes="100px" priority />
+          <Image src="/rahma-logo.png" alt="" width={601} height={640} unoptimized priority />
         </Link>
         <ul className={s.links}>{items}</ul>
         <Link className={s.cta} href="/blimedlem">Bli medlem</Link>
