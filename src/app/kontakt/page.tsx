@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { fetchPrayerTimes } from '@/lib/mymasjid';
 import Brevet from '@/components/sider/kontakt/Brevet';
-import BrevetMobil from '@/components/sider/kontakt/BrevetMobil';
+import KonvoluttSide from '@/components/sider/kontakt/KonvoluttSide';
 import { RoundMap, ways } from '@/components/sider/kontakt/ways';
 import { ADDRESS } from '@/components/forside/links';
 import k from '@/components/sider/kontakt/kontakt.module.css';
@@ -41,7 +41,7 @@ export default async function KontaktPage() {
         </section>
       </div>
       <div className={k.phone}>
-        <BrevetMobil list={list} />
+        <KonvoluttSide jummah={jummah} />
       </div>
     </main>
   );
