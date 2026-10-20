@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import Supporters from '@/components/sider/stott/Supporters';
+import Portalen from '@/components/sider/stott/Portalen';
 
 const URL = 'https://www.centerrahma.no/stott-oss';
 const TITLE = 'Støtt moskeen vår – Masjid Rahma';
@@ -21,5 +21,5 @@ export const metadata: Metadata = {
 };
 
 export default function StottOssPage() {
-  return <Supporters />;
+  return <Portalen />;
 }
