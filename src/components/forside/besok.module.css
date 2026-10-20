@@ -1,12 +1,14 @@
 /* Besøk og kontakt oss: the Friday prayer and the map beside a letter to the mosque. */
 
 .sec{padding:120px 0;scroll-margin-top:24px}
-.wrap{max-width:1240px;margin:0 auto;padding:0 32px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:72px;align-items:start}
+.wrap{max-width:1280px;margin:0 auto;padding:0 32px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:32px;align-items:stretch}
+.head{grid-column:1/-1;text-align:center;margin-bottom:16px}
+.visit{display:flex;flex-direction:column}
 .sec h2{margin:0;font-size:64px;line-height:1;color:var(--ink)}
-.lead{margin:16px 0 0;font-size:18px;line-height:1.55;color:var(--ink-2);max-width:42ch}
+.lead{margin:16px auto 0;font-size:18px;line-height:1.55;color:var(--ink-2);max-width:42ch}
 
 /* the Friday prayer as an event: a date block, then time and place */
-.event{display:flex;gap:20px;align-items:center;margin-top:32px;padding:18px;border-radius:20px;background:var(--card)}
+.event{display:flex;gap:20px;align-items:center;padding:18px;border-radius:20px;background:var(--card)}
 .edate{display:flex;flex-direction:column;align-items:center;justify-content:center;width:76px;height:86px;flex:none;margin:0;border-radius:14px;background:var(--emerald);color:var(--paper);line-height:1.1}
 .edate span{font-size:13px;font-weight:600}
 .edate b{font-size:32px;font-weight:600;letter-spacing:-.03em}
@@ -15,7 +17,7 @@
 .erow svg{display:inline-block;width:18px;height:18px;margin-right:8px;vertical-align:-4px;color:var(--turkis)}
 .erow b{color:var(--ink)}
 
-.map{position:relative;height:300px;margin-top:20px;border-radius:22px;overflow:hidden;background:var(--sand)}
+.map{position:relative;flex:1;min-height:360px;margin-top:20px;border-radius:22px;overflow:hidden;background:var(--sand)}
 .map iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
 .mapTag{position:absolute;left:14px;bottom:14px;display:inline-flex;align-items:center;gap:8px;padding:10px 16px;border-radius:999px;background:var(--emerald);color:#fff;font-weight:600;font-size:13px;text-decoration:none}
 .mapTag:hover{background:var(--emerald-ink)}
