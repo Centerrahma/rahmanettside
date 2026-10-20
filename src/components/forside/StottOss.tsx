@@ -41,18 +41,17 @@ export default function StottOss() {
   return (
     <section className={s.band} id="stott" aria-labelledby="stott-h2">
       <div className={s.wrap}>
-        <div>
+        <header className={s.head}>
           <span className={s.icon}><GiveIcon /></span>
           <h2 id="stott-h2">Støtt moskeen</h2>
-          <p className={s.lead}>Moskeen drives av gaver fra menigheten. Gavene går til driften og til undervisningen for barn og unge.</p>
+        </header>
           <div className={s.vrow}>
-            <span className={s.qr}><Image src="/vipps-77811.png" alt="QR-kode for å gi med Vipps" width={128} height={128} /></span>
+            <span className={s.qr}><Image src="/vipps-77811.png" alt="QR-kode for å gi med Vipps" width={160} height={160} /></span>
             <div>
               <b className={`${s.vnum} ${f.num}`}>{VIPPS.number}</b>
               <a className={`${f.btn} ${f.vipps} ${s.vbtn}`} href={VIPPS.url} target="_blank" rel="noopener noreferrer">Gi med Vipps</a>
             </div>
           </div>
-        </div>
         <div className={s.card} data-paper-surface>
           <div className={s.fbHead}>
             <span className={s.fbMark}><FacebookMark /></span>

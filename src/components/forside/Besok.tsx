@@ -30,9 +30,11 @@ export default function Besok({ jummah }: Props) {
   return (
     <section className={s.sec} id="besok" aria-labelledby="besok-h2">
       <div className={s.wrap}>
-        <div>
+        <header className={s.head}>
           <h2 id="besok-h2">Besøk og kontakt oss</h2>
           <p className={s.lead}>Kom innom moskeen, eller skriv et brev til oss her.</p>
+        </header>
+        <div className={s.visit}>
           <div className={s.event} data-paper-surface>
             {fri && (
               <p className={s.edate} aria-hidden="true">
