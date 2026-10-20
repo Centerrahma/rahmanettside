@@ -1,5 +1,5 @@
-/* Kontakt oss. Wide screens get the illuminated page (.desk), phones and tablets the page drawn for a
-   narrow screen (.phone). Tokens (--emerald, --gold …) live in globals.css. */
+/* Kontakt oss. Wide screens get the illuminated page (.desk), phones and tablets the envelope page
+   (KonvoluttSide, .phone). Tokens (--emerald, --gold …) live in globals.css. */
 .page{--ink:#fff7e5;--ink-2:#d5e2ca;--gold:#bfd0a2;--gold-2:#96b18a;padding:24px 0 96px;overflow:hidden}
 .phone{display:none}
 @media (max-width:1000px){
@@ -68,51 +68,14 @@
   .place{animation:none;opacity:1}
 }
 
-/* ── phones and tablets: the page drawn for a narrow screen, in a phone-wide column ── */
-.pm{max-width:560px;margin:0 auto;padding:20px 14px 72px}
-.pmSheet{position:relative;padding:22px 18px 26px;border:18px solid transparent;border-image:var(--border) 18 round;background:linear-gradient(160deg,#174f41,#124638 60%,#103e33);background-clip:padding-box;outline:1.5px solid var(--gold);outline-offset:3px;box-shadow:inset 0 0 0 1.5px var(--gold),inset 0 0 0 5px #124638,inset 0 0 0 6px var(--gold-2),10px 12px 0 -2px #b9cbbd}
-.pmHead{position:relative;margin:4px 0 0;padding:18px 12px;background:var(--lat) #0a5e44;border:1.4px solid var(--gold);box-shadow:inset 0 0 0 4px #0a5e44,inset 0 0 0 5px #c3d2aa}
-.pmCrest{position:absolute;left:50%;top:-22px;width:72px;height:20px;transform:translateX(-50%)}
-.pmGreet{position:relative;padding:10px 18px}
-.pmCart{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
-.pmGreet p{position:relative;margin:0;text-align:center;text-wrap:balance;font-family:var(--font-amiri),serif;font-weight:700;font-size:22px;line-height:1.9;color:var(--ink)}
-.pmGloss{margin:10px 0 0;text-align:center;font-size:13px;line-height:1.5;color:var(--ink-2)}
-.pmGloss cite{font-style:normal;font-weight:600;color:var(--gold);white-space:nowrap}
-.pmTitle{margin:22px 0 0;text-align:center;font-family:var(--font-cormorant),serif;font-style:italic;font-weight:400;font-size:46px;line-height:1;color:var(--ink)}
-.pmLede{margin:8px auto 0;max-width:28ch;text-align:center;font-size:15px;line-height:1.5;color:var(--ink-2)}
-.pmRule{display:block;width:100%;height:16px;margin:20px 0}
-.pmWays{list-style:none;margin:0;padding:0;display:grid;gap:14px}
-.pmWays li{display:grid;grid-template-columns:60px 1fr;gap:14px;align-items:center}
-.pmMedal{position:relative;display:grid;place-items:center;width:60px;height:60px}
-.pmMedal > svg{position:absolute;inset:0;width:100%;height:100%}
-.pmMedal > svg + svg{position:relative;inset:auto;width:20px;height:20px;color:var(--emerald)}
-.pmWays small{display:block;font-size:11.5px;font-weight:600;color:var(--gold);text-transform:uppercase;letter-spacing:.09em}
-.pmWays b{display:block;font-size:16.5px;font-weight:600;line-height:1.3;letter-spacing:-.015em;color:var(--ink)}
-.pmWays a{font-size:14.5px;font-weight:600;color:var(--emerald);text-decoration:none}
-/* the letter, sized for a phone */
-.pmLetter .letter{gap:16px;height:auto}
-.pmLetter .dear{font-size:26px}
-.pmLetter .pair{grid-template-columns:1fr;gap:16px}
-.pmLetter .letter label span{font-size:11.5px}
-.pmLetter .letter input,.pmLetter .letter select,.pmLetter .letter textarea{font-size:16px;padding:6px 2px}
-.pmLetter .letter textarea{min-height:168px;padding-top:0}
-.pmLetter .sign p{font-size:18px}
-.pmLetter .seal{width:72px;font-size:15px}
-.pmColo{margin-top:26px;padding-top:18px;border-top:1px solid var(--gold-2)}
-.pmColo .pmGreet p{font-size:21px}
-.pmMap{margin-top:48px}
-
 /* Forest manuscript: light ink on green; cream medallions and outer map retain dark ink. */
-.title h1,.dear,.pmTitle{color:var(--ink)}
+.title h1,.dear{color:var(--ink)}
 .letter{gap:12px}
 .letter input,.letter select,.letter textarea{font-size:16px;caret-color:var(--ink)}
 .letter select option{color:var(--ink);background:#174f41}
 .letter :focus-visible{outline:2px solid #f1e7c8;outline-offset:4px}
 .medal{--ink:#164d3a;--ink-2:#355b43}
 .way small{color:var(--ink-2);text-transform:none;letter-spacing:0}
-.medal a,.pmGreet p{color:#164d3a}
+.medal a{color:#164d3a}
 .colo span,.colo cite{color:#355b43}
-.pmWays small{color:var(--ink-2);text-transform:none;letter-spacing:0}
-.pmWays a,.sign a{color:#edf2da}
 .mapWrap{--ink:#1e3e36;--ink-2:#3b5750;--gold:#568064}
-@media(max-width:430px){.pm{padding-left:12px;padding-right:12px}.pmSheet{border-width:14px;padding-left:16px;padding-right:16px}.pmGreet p{font-size:20px}}
