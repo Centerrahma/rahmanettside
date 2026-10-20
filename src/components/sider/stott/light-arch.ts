@@ -7,50 +7,51 @@ export interface LightArch {
 const vertexSource = `precision highp float;
 attribute vec3 a_target;
 attribute vec3 a_seed;
-uniform float u_time, u_aspect, u_dpr, u_static;
-uniform vec2 u_pointer;
+uniform float u_time, u_dpr, u_static, u_spread;
+uniform vec2 u_resolution;
+uniform vec4 u_arch;
 varying float v_alpha, v_tone;
 void main() {
-  float t=u_time;
-  float e=1.0-pow(1.0-clamp(t/3.2,0.0,1.0),4.0);
-  if(u_static>.5) e=1.0;
-  vec3 q=a_target;
-  float wave=sin(q.y*4.0+t*.48+q.z*7.0);
-  q.x+=wave*.012;
-  q.z+=sin(t*.15+q.y*2.0)*.06;
-  float a=sin(t*.08)*.05+u_pointer.x*.08;
-  q.xz=mat2(cos(a),-sin(a),sin(a),cos(a))*q.xz;
-  vec3 from=vec3((a_seed.x-.5)*7.0,(a_seed.y-.5)*5.0,1.7+a_seed.z);
-  q=mix(from,q,e);
-  float persp=3.2/(3.2+q.z);
-  gl_Position=vec4((q.x+u_pointer.x*.03)*persp/u_aspect,q.y*persp,0.0,1.0);
-  gl_PointSize=(1.8+a_seed.z*3.0)*u_dpr*persp;
-  v_alpha=(.18+a_seed.x*.26)*(.6+.4*pow(.5+.5*wave,4.0));
-  v_tone=a_seed.y;
+  // Travel along the arch itself, rather than collapsing a cloud across the copy.
+  float t = u_static > .5 ? 0.0 : u_time;
+  float p = fract(a_target.y - t * .025);
+  float curve = min(p / .38, 1.0);
+  float spread = u_spread;
+  float x = mix(u_resolution.x * .5, a_target.x < 0.0 ? u_arch.x : u_arch.y,
+                1.0 - pow(1.0 - curve, spread));
+  float y = p < .38
+    ? mix(u_arch.z, u_arch.w, curve)
+    : mix(u_arch.w, u_resolution.y - 8.0, (p - .38) / .62);
+  // Fine, even strands: depth changes the light, never the silhouette.
+  x += (a_seed.x - .5) * 6.5;
+  y += (a_seed.z - .5) * 4.0;
+  gl_Position = vec4(x / u_resolution.x * 2.0 - 1.0,
+                     1.0 - y / u_resolution.y * 2.0, 0.0, 1.0);
+  gl_PointSize = (2.4 + a_seed.z * 3.0) * u_dpr;
+  float entrance = u_static > .5 ? 1.0 : smoothstep(p * .75, p * .75 + 1.2, t);
+  float shimmer = .65 + .35 * sin(p * 18.0 - t * .65 + a_seed.y * 6.28);
+  // Fade at the apex and foot so recycling particles never jump visibly.
+  float edge = smoothstep(0.0, .025, p) * (1.0 - smoothstep(.82, 1.0, p));
+  // A wide crown covers more pixels per particle than a rail. Compensate for
+  // that spacing so the crown remains connected instead of disappearing.
+  float speed = p < .38
+    ? length(vec2((u_arch.y - u_arch.x) * spread * .5 * pow(1.0 - curve, spread - 1.0), u_arch.w - u_arch.z)) / .38
+    : (u_resolution.y - 8.0 - u_arch.w) / .62;
+  float density = clamp(speed / 650.0, .65, 4.0);
+  v_alpha = (.12 + a_seed.x * .18) * density * shimmer * edge * entrance;
+  v_tone = a_seed.y;
 }`;
 
 const fragmentSource = `precision highp float;
-uniform vec2 u_resolution;
-uniform float u_dpr;
-uniform vec4 u_rects[3];
 varying float v_alpha, v_tone;
 void main() {
-  vec2 uv=gl_PointCoord-.5;
-  float r=dot(uv,uv);
-  if(r>.25) discard;
-  float soft=exp(-r*18.0);
-  vec2 xy=vec2(gl_FragCoord.x/u_dpr,u_resolution.y-gl_FragCoord.y/u_dpr);
-  float mask=1.0;
-  for(int i=0;i<3;i++) {
-    vec4 b=u_rects[i];
-    vec2 d=max(max(b.xy-xy,xy-b.zw),vec2(0.0));
-    mask=min(mask,.035+.965*clamp(length(d)/30.0,0.0,1.0));
-  }
-  vec3 c=mix(vec3(.97,.94,.83),vec3(.95,.78,.42),v_tone*.8);
-  gl_FragColor=vec4(c,v_alpha*soft*mask);
+  vec2 uv = gl_PointCoord - .5;
+  float r = dot(uv, uv);
+  if (r > .25) discard;
+  vec3 c = mix(vec3(.97, .88, .65), vec3(.95, .78, .42), v_tone);
+  gl_FragColor = vec4(c, v_alpha * exp(-r * 11.0));
 }`;
-
-const pointCount = 23000;
+const pointCount = 9000;
 function seed(value: number) {
   const valueInRange = Math.sin(value * 127.1 + 311.7) * 43758.5453;
   return valueInRange - Math.floor(valueInRange);
@@ -91,12 +92,8 @@ export function createLightArch(canvas: HTMLCanvasElement, hero: HTMLElement): L
   const positions: number[] = [];
   const random: number[] = [];
   for (let i = 0; i < pointCount; i++) {
-    const spread = seed(i), distance = seed(i + 60000), side = i % 2 ? 1 : -1;
-    const depth = seed(i + 90000), progress = Math.min(distance / .6, 1);
-    const x = side * (1.9 + depth * .32) * (1 - (1 - progress) ** 2);
-    const y = distance <= .6 ? 1.05 - 1.55 * (.55 * progress + .45 * progress ** 2) : -.5 - (distance - .6) / .4 * .8;
-    positions.push(x + (spread - .5) * .02, y, (depth - .5) * .42);
-    random.push(spread, seed(i + 120000), depth);
+    positions.push(i % 2 ? 1 : -1, seed(i + 60000), 0);
+    random.push(seed(i), seed(i + 120000), seed(i + 90000));
   }
   function attribute(name: string, values: number[]) {
     const buffer = gl!.createBuffer();
@@ -112,7 +109,7 @@ export function createLightArch(canvas: HTMLCanvasElement, hero: HTMLElement): L
   }
   if (!attribute('a_target', positions) || !attribute('a_seed', random)) { release(); return fallback; }
   const uniform = (name: string) => gl.getUniformLocation(program, name);
-  const uniforms = { time: uniform('u_time'), aspect: uniform('u_aspect'), dpr: uniform('u_dpr'), resolution: uniform('u_resolution'), pointer: uniform('u_pointer'), fixed: uniform('u_static'), masks: uniform('u_rects[0]') };
+  const uniforms = { time: uniform('u_time'), dpr: uniform('u_dpr'), resolution: uniform('u_resolution'), fixed: uniform('u_static'), arch: uniform('u_arch'), spread: uniform('u_spread') };
   gl.enable(gl.BLEND);
   gl.blendFunc(gl.SRC_ALPHA, gl.ONE);
   gl.disable(gl.DEPTH_TEST);
@@ -122,20 +119,20 @@ export function createLightArch(canvas: HTMLCanvasElement, hero: HTMLElement): L
   // the finished arch, then jumped back to scattered particles when React resumed it.
   let paused = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   let onScreen = true, destroyed = false, contextLost = false;
-  const target = { x: 0, y: 0 }, spring = { x: 0, y: 0 };
-  const masks = new Float32Array(12);
+
+  const archBounds = new Float32Array(4);
+  let spread = 5;
   const canAnimate = () => !destroyed && !contextLost && !paused && onScreen && !document.hidden;
 
   function draw(staticFrame = false) {
     if (destroyed || contextLost) return;
     gl!.useProgram(program);
     gl!.uniform1f(uniforms.time, staticFrame ? 4 : elapsed / 1000);
-    gl!.uniform1f(uniforms.aspect, width / height);
     gl!.uniform1f(uniforms.dpr, dpr);
     gl!.uniform2f(uniforms.resolution, width, height);
-    gl!.uniform2f(uniforms.pointer, spring.x, spring.y);
     gl!.uniform1f(uniforms.fixed, staticFrame ? 1 : 0);
-    gl!.uniform4fv(uniforms.masks, masks);
+    gl!.uniform4fv(uniforms.arch, archBounds);
+    gl!.uniform1f(uniforms.spread, spread);
     gl!.clearColor(0, 0, 0, 0);
     gl!.clear(gl!.COLOR_BUFFER_BIT);
     gl!.drawArrays(gl!.POINTS, 0, pointCount);
@@ -146,8 +143,6 @@ export function createLightArch(canvas: HTMLCanvasElement, hero: HTMLElement): L
     if (!lastFrame || now - lastFrame >= 32) {
       elapsed += lastFrame ? Math.min(now - lastFrame, 100) : 0;
       lastFrame = now;
-      spring.x += (target.x - spring.x) * .055;
-      spring.y += (target.y - spring.y) * .055;
       draw();
     }
     frame = requestAnimationFrame(tick);
@@ -164,25 +159,27 @@ export function createLightArch(canvas: HTMLCanvasElement, hero: HTMLElement): L
     dpr = Math.min(devicePixelRatio || 1, 1.5);
     canvas.width = Math.round(width * dpr); canvas.height = Math.round(height * dpr);
     gl!.viewport(0, 0, canvas.width, canvas.height);
-    masks.fill(0);
-    [...hero.querySelectorAll('[data-light-mask]')].slice(0, 3).forEach((element, index) => {
-      const box = element.getBoundingClientRect();
-      masks.set([box.left - bounds.left - 5, box.top - bounds.top - 5, box.right - bounds.left + 5, box.bottom - bounds.top + 5], index * 4);
-    });
+    const title = hero.querySelector('h1')?.getBoundingClientRect();
+    const copy = hero.querySelector('blockquote')?.parentElement?.getBoundingClientRect();
+    // Keep the crown above the heading and both rails outside the whole copy.
+    // Pixel-space bounds preserve the complete arch on portrait screens too.
+    const inset = Math.max(8, Math.min(width * .08, (copy?.left ?? bounds.left + 30) - bounds.left - 18));
+    const top = 12;
+    const shoulder = Math.min(height - 28, Math.max(height * .68, (title?.bottom ?? bounds.top + 100) - bounds.top + 20));
+    // Fit to the measured heading, including the glow radius. A fixed curve
+    // crosses long headings on short laptops and narrow phones.
+    const titleProgress = Math.max(.01, Math.min(.95, ((title?.top ?? bounds.top + 70) - bounds.top - 6 - top) / (shoulder - top)));
+    const clearance = Math.max(1, (title?.left ?? bounds.left + 30) - bounds.left - 12 - inset);
+    const remainingWidth = Math.min(.99, clearance / (width * .5 - inset));
+    spread = Math.max(5, Math.log(remainingWidth) / Math.log(1 - titleProgress) + 1);
+    archBounds.set([inset, width - inset, top, shoulder]);
     draw(paused);
   }
-  const onPointer = (event: PointerEvent) => {
-    if (!canAnimate() || event.pointerType !== 'mouse') return;
-    const bounds = hero.getBoundingClientRect();
-    target.x = Math.max(-.5, Math.min(.5, (event.clientX - bounds.left) / bounds.width - .5));
-    target.y = Math.max(-.5, Math.min(.5, (event.clientY - bounds.top) / bounds.height - .5));
-  };
   const onContextLost = (event: Event) => {
     event.preventDefault(); contextLost = true; delete canvas.dataset.renderer; syncLoop();
   };
   // If a GPU context is lost, the CSS arch remains available for the rest of this visit.
   canvas.addEventListener('webglcontextlost', onContextLost);
-  hero.addEventListener('pointermove', onPointer, { passive: true });
   document.addEventListener('visibilitychange', syncLoop);
   const resizeObserver = new ResizeObserver(resize);
   resizeObserver.observe(hero);
@@ -198,7 +195,6 @@ export function createLightArch(canvas: HTMLCanvasElement, hero: HTMLElement): L
       destroyed = true;
       syncLoop();
       resizeObserver.disconnect(); intersectionObserver.disconnect();
-      hero.removeEventListener('pointermove', onPointer);
       document.removeEventListener('visibilitychange', syncLoop);
       canvas.removeEventListener('webglcontextlost', onContextLost);
       release();
