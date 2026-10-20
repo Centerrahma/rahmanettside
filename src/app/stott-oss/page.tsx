@@ -1,11 +1,9 @@
 import type { Metadata } from 'next';
-import Portaler from '@/components/sider/stott/Portaler';
-import EnPort from '@/components/sider/stott/EnPort';
-import s from '@/components/sider/stott/stott.module.css';
+import Supporters from '@/components/sider/stott/Supporters';
 
 const URL = 'https://www.centerrahma.no/stott-oss';
 const TITLE = 'Støtt moskeen vår – Masjid Rahma';
-const DESCRIPTION = 'Masjid Rahma drives av gaver fra menigheten. Gi med Vipps til 77811, eller bli medlem.';
+const DESCRIPTION = 'Støtt fellesskapet i Masjid Rahma. Gi en gave med Vipps 77811, bli fast giver med Vipps 43392, eller kontakt oss om bankoverføring.';
 
 export const metadata: Metadata = {
   title: { absolute: TITLE },
@@ -23,13 +21,5 @@ export const metadata: Metadata = {
 };
 
 export default function StottOssPage() {
-  return (
-    <main className={s.page}>
-      {/* wide screens get the three portals, phones and tablets the one portal with a switch */}
-      <Portaler />
-      <div className={s.phone}>
-        <EnPort />
-      </div>
-    </main>
-  );
+  return <Supporters />;
 }

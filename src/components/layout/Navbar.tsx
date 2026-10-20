@@ -16,6 +16,7 @@ export function Navbar() {
   const [open, setOpen] = useState(false);
   // the front page shows the logo large in its first screen, so the bar leaves it out there
   const pathname = usePathname();
+  const supporters = pathname === '/stott-oss';
 
   // links close the phone menu themselves; Escape closes it too
   useEffect(() => {
@@ -29,7 +30,7 @@ export function Navbar() {
     <>
       {LINKS.map((link) => (
         <li key={link.href}>
-          <Link href={link.href} onClick={() => setOpen(false)}>{link.label}</Link>
+          <Link href={link.href} aria-current={pathname === link.href ? 'page' : undefined} onClick={() => setOpen(false)}>{link.label}</Link>
         </li>
       ))}
       <li>
@@ -39,10 +40,10 @@ export function Navbar() {
   );
 
   return (
-    <header className={`${s.nav} ${pathname === '/' ? s.home : ''}`}>
+    <header className={`${s.nav} ${pathname === '/' ? s.home : ''} ${supporters ? s.supporters : ''}`}>
       <div className={`${s.wrap} ${s.bar}`}>
         <Link href="/" className={s.logo} aria-label="Center Rahma, forsiden">
-          <Image src="/rahma-logo.png" alt="" width={601} height={640} unoptimized priority />
+          <Image src={supporters ? '/rahma-logo-white.webp' : '/rahma-logo.png'} alt="" width={supporters ? 263 : 601} height={supporters ? 360 : 640} sizes="100px" unoptimized={pathname === '/'} priority />
         </Link>
         <ul className={s.links}>{items}</ul>
         <Link className={s.cta} href="/blimedlem">Bli medlem</Link>
