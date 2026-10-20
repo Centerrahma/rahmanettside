@@ -1,11 +1,16 @@
 import Image from 'next/image';
 import { BANK_ACCOUNT, EMAIL, MONTHLY_VIPPS, VIPPS } from '@/components/forside/links';
+import Lykt from './Lykt';
+import { starPoints } from './stjerne';
 import s from './portalen.module.css';
 
 /**
- * Støtt oss as a portal like the mihrab's own frame: a carved lintel on two carved
- * pillars (both cut from the photo of the mosque's wall), with the verse inside.
- * Each pillar stands on one of the Vipps codes, so the two QR codes sit far apart.
+ * Støtt oss: two pillars cut from the photo of the mosque's carved wall carry a gold
+ * arch, with a lantern hanging from its apex and the verse beneath it.
+ *
+ * Desktop: one screen; each pillar stands on a Vipps box, so the two QR codes sit far apart.
+ * Phone: its own composition. A QR code can't be scanned on the phone that shows it,
+ * so the codes are left out and each Vipps option is one large card that opens the app.
  */
 
 const VERSE = {
@@ -14,18 +19,9 @@ const VERSE = {
   ref: 'Koranen 3:92',
 };
 
-const GIFT = { title: 'Gi en gave', action: 'Gi med Vipps', vipps: VIPPS };
-const MONTHLY = { title: 'Bli fast giver', action: 'Bli fast giver', vipps: MONTHLY_VIPPS };
-
-/** An eight-point star: two squares turned 45° to each other. */
-function starPoints(cx: number, cy: number, r: number) {
-  const inner = r * 0.7654;
-  return Array.from({ length: 16 }, (_, k) => {
-    const a = (k * 22.5 * Math.PI) / 180;
-    const d = k % 2 === 0 ? r : inner;
-    return `${(cx + d * Math.cos(a)).toFixed(2)},${(cy + d * Math.sin(a)).toFixed(2)}`;
-  }).join(' ');
-}
+const GIFT = { title: 'Gi en gave', line: 'Én gang, når det passer deg.', action: 'Gi med Vipps', vipps: VIPPS };
+const MONTHLY = { title: 'Bli fast giver', line: 'Litt hver måned holder dørene åpne.', action: 'Bli fast giver', vipps: MONTHLY_VIPPS };
+const BANK_HREF = `mailto:${EMAIL}?subject=Kontonummer%20for%20gave`;
 
 /** The end-of-verse marker of a mushaf, with 92 in Arabic-Indic digits. */
 function AyahMark() {
@@ -66,11 +62,30 @@ function VippsBox({ way, side }: { way: typeof GIFT; side: 'left' | 'right' }) {
   );
 }
 
+/** Phone: the whole card is the link into the Vipps app. */
+function VippsCard({ way, warm }: { way: typeof GIFT; warm?: boolean }) {
+  return (
+    <a className={`${s.card} ${warm ? s.warm : ''}`} href={way.vipps.url} target="_blank" rel="noopener noreferrer">
+      <span className={s.cardText}>
+        <strong>{way.title}</strong>
+        <span>{way.line}</span>
+      </span>
+      <span className={s.cardNumber}>{way.vipps.number}<small>Vipps</small></span>
+      <span className={s.cardGo}>Åpne Vipps<span aria-hidden="true">↗</span></span>
+    </a>
+  );
+}
+
+function BankText() {
+  return BANK_ACCOUNT
+    ? <p>Kontonummer <strong>{BANK_ACCOUNT}</strong></p>
+    : <p>Skriv til oss, så sender vi kontonummeret.</p>;
+}
+
 export default function Portalen() {
   return (
     <div className={s.page}>
       <div className={s.gate}>
-        <div className={s.lintel} aria-hidden="true"><span /></div>
         <Pillar side="l" />
         <div className={s.arch} aria-hidden="true">
           <svg viewBox="0 0 1000 220" preserveAspectRatio="none">
@@ -79,6 +94,7 @@ export default function Portalen() {
           </svg>
         </div>
         <Pillar side="r" />
+        <div className={s.lamp}><Lykt /></div>
         <div className={s.inside}>
           <header className={s.head}>
             <h1>Det gode lever videre.</h1>
@@ -96,13 +112,21 @@ export default function Portalen() {
         <VippsBox way={GIFT} side="left" />
         <article className={s.bank}>
           <h2>Bankoverføring</h2>
-          {BANK_ACCOUNT
-            ? <p>Kontonummer <strong>{BANK_ACCOUNT}</strong></p>
-            : <p>Skriv til oss, så sender vi kontonummeret.</p>}
-          <a className={s.quiet} href={`mailto:${EMAIL}?subject=Kontonummer%20for%20gave`}>Skriv til oss<span aria-hidden="true">↗</span></a>
+          <BankText />
+          <a className={s.quiet} href={BANK_HREF}>Skriv til oss<span aria-hidden="true">↗</span></a>
         </article>
         <VippsBox way={MONTHLY} side="right" />
       </div>
+
+      <section className={s.phone} aria-label="Måter å gi">
+        <VippsCard way={GIFT} />
+        <VippsCard way={MONTHLY} warm />
+        <div className={s.phoneBank}>
+          <h2>Bankoverføring</h2>
+          <BankText />
+          <a href={BANK_HREF}>Skriv til oss<span aria-hidden="true">↗</span></a>
+        </div>
+      </section>
     </div>
   );
 }

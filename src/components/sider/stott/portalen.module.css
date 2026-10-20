@@ -1,6 +1,6 @@
 .page{
   --cream:#f7f0e3;--ink:#17352d;--gold:#d8b46c;--green:#0a4439;--deep:#072f27;
-  --pad:clamp(14px,1.8vw,24px);--pw:clamp(100px,16vh,140px);--rise:clamp(60px,11vh,110px);--lh:clamp(44px,7.6vh,70px);
+  --pad:clamp(14px,1.8vw,24px);--pw:clamp(100px,16vh,140px);--rise:clamp(76px,14vh,136px);--lamp:clamp(118px,21vh,190px);
   background:var(--green) url('/textures/rahma-tadelakt.webp') 0 0/768px;background-blend-mode:luminosity;color:var(--cream);
   height:calc(100svh - 84px);min-height:620px;overflow:hidden;display:grid;grid-template-rows:minmax(0,1fr) auto;
   padding:clamp(18px,3.4vh,40px) clamp(20px,4vw,64px) clamp(16px,3vh,36px);
@@ -20,20 +20,19 @@
 
 /* The gate: two carved pillars, an arch drawn between their capitals, the words inside. */
 .gate{position:relative;min-height:0;display:grid;grid-template-columns:var(--pw) minmax(0,1fr) var(--pw);padding:0 var(--pad);column-gap:clamp(20px,3vw,48px)}
-.pillar{grid-row:1;display:grid;grid-template-rows:auto minmax(0,1fr) auto;min-height:0;margin-top:var(--lh)}
+.pillar{grid-row:1;display:grid;grid-template-rows:auto minmax(0,1fr) auto;min-height:0;margin-top:var(--rise)}
 .l{grid-column:1}.r{grid-column:3}
 .capital,.base{display:block;height:clamp(12px,2vh,18px);margin:0 -12px;background:var(--cream)}
-.capital{border-bottom:4px solid var(--gold);margin:0 -2px}
+.capital{border-bottom:4px solid var(--gold)}
 .base{border-top:4px solid var(--gold);margin:0 -8px}
 .shaft{display:block;min-height:0;background:url('/stott/utskjaering-soyle.jpg') center top/100% auto repeat-y;filter:saturate(.8) brightness(1.06)}
-.arch{position:absolute;left:calc(var(--pad) + var(--pw));right:calc(var(--pad) + var(--pw));top:calc(var(--lh) + clamp(12px,2vh,20px));height:var(--rise)}
-.lintel{position:absolute;z-index:1;left:calc(var(--pad) - 12px);right:calc(var(--pad) - 12px);top:0;height:var(--lh);background:var(--cream);padding:5px 0;border-bottom:4px solid var(--gold)}
-.lintel span{display:block;height:100%;background:url('/stott/utskjaering-frise.jpg') 0 46%/auto calc(var(--lh) * 3.4) repeat-x;filter:saturate(.85) brightness(1.08);border-top:3px solid var(--gold);border-bottom:3px solid var(--gold)}
-.lintel{animation:stand 1s cubic-bezier(.22,1,.36,1) .25s both}
+.arch{position:absolute;left:calc(var(--pad) + var(--pw) / 2);right:calc(var(--pad) + var(--pw) / 2);top:0;height:var(--rise)}
 .arch svg{display:block;width:100%;height:100%;overflow:visible}
 .arch path{fill:none;stroke:var(--gold);stroke-width:3;vector-effect:non-scaling-stroke}
 .arch .inner{stroke-width:1.5;opacity:.7}
-.inside{grid-column:2;grid-row:1;min-height:0;display:flex;flex-direction:column;justify-content:space-evenly;text-align:center;padding-top:calc(var(--lh) + clamp(36px,6vh,64px))}
+.inside{grid-column:2;grid-row:1;min-height:0;display:flex;flex-direction:column;justify-content:space-evenly;text-align:center;padding-top:calc(var(--lamp) - 8px)}
+.lamp{position:absolute;z-index:2;left:50%;top:-6px;height:var(--lamp);transform:translateX(-50%);pointer-events:none}
+.lamp svg{display:block;width:auto;height:100%;margin:0}
 
 .head h1{font-family:var(--serif);font-weight:340;font-variation-settings:'opsz' 72;font-size:clamp(44px,min(8.6vh,5.6vw),96px);line-height:.95;letter-spacing:-.04em;margin:0}
 .head p{font-size:clamp(15px,1.9vh,18px);line-height:1.5;margin:clamp(8px,1.4vh,14px) 0 0;color:#e9e1d2}
@@ -61,30 +60,58 @@
 .action:active{transform:scale(.97)}
 .bank{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
 .bank p{font-size:15px;line-height:1.45;color:#e9e1d2;margin:8px 0 14px;max-width:30ch}
-.bank strong{display:block;font-family:var(--serif);font-weight:400;font-size:26px;color:var(--cream);margin-top:4px}
+.bank strong,.phoneBank strong{display:block;font-family:var(--serif);font-weight:400;font-size:26px;color:var(--cream);margin-top:4px}
 .quiet{display:inline-flex;align-items:center;gap:16px;min-height:46px;padding:10px 18px;color:var(--cream);border:2px solid var(--gold);text-decoration:none;font-weight:500;font-size:15px;transition:background-color .2s ease,color .2s ease}
 .quiet:hover{background:var(--gold);color:var(--deep)}
 .action:focus-visible,.quiet:focus-visible,.qr:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
 
-/* Phones and tablets: the page scrolls; the portal stays, slimmer, around the title and verse. */
+
+/* The lantern: hangs still; its windows warm once, and it settles from a small sway. */
+@keyframes light{from{opacity:.1}60%{opacity:.75}to{opacity:1}}
+@keyframes sway{from{transform:rotate(2.4deg)}to{transform:rotate(0)}}
+.lantern{display:block;transform-origin:50% 0;animation:sway 2.4s cubic-bezier(.22,1,.36,1) .4s both}
+.glow{opacity:.1;animation:light 2s cubic-bezier(.4,0,.2,1) .9s forwards}
+@media (prefers-reduced-motion:reduce){.lantern{animation:none}.glow{opacity:1;animation:none}}
+
+/* Phone giving block: hidden on desktop. */
+.phone{display:none}
+
+/* ── Phone: its own composition ──
+   The portal shrinks to slim pillars and a low arch with the lantern under it.
+   The QR codes are left out (they can't be scanned on the phone showing them);
+   each Vipps option is one big card that opens the app. */
 @media (max-width:900px){
-  .page{height:auto;min-height:0;overflow:visible;padding:24px 14px 72px;grid-template-rows:none;gap:28px;--pw:96px;--lh:34px}
-  .gate{grid-template-columns:22px minmax(0,1fr) 22px;column-gap:14px;padding:0 10px}
-  .pillar{margin-top:var(--lh)}
-  .capital,.base{height:9px;margin:0 -5px}
-  .capital{border-bottom-width:3px}.base{border-top-width:3px}
-  .shaft{background-size:200% auto;background-position:center top}
-  .lintel{left:0;right:0;padding:3px 0;border-bottom-width:3px}
-  .lintel span{border-width:2px;background-size:auto calc(var(--lh) * 3.4)}
-  .arch{display:none}
-  .inside{padding:calc(var(--lh) + 34px) 0 28px;gap:26px}
-  .head h1{font-size:clamp(40px,11.4vw,56px)}
-  .head p{font-size:16px}
-  .arabic{font-size:23px}
-  .meaning{font-size:18px}
-  .ways{grid-template-columns:1fr}
-  .right{grid-template-columns:var(--pw) minmax(0,1fr);text-align:left}
-  .right .qr{order:-1}
-  .right .action{margin-left:0}
-  .bank{order:3;padding-top:8px}
+  .page{height:auto;min-height:0;overflow:visible;display:block;padding:14px 14px 56px;
+    --pw:20px;--pad:0px;--rise:58px;--lamp:118px}
+  .gate{grid-template-columns:var(--pw) minmax(0,1fr) var(--pw);column-gap:12px}
+  .pillar{margin-top:var(--rise)}
+  .capital,.base{height:8px;margin:0 -5px}
+  .capital{border-bottom-width:3px;margin:0 -5px}.base{border-top-width:3px}
+  .shaft{background-size:220% auto;background-position:center top}
+  .arch path{stroke-width:2.2}
+  .lamp{top:-4px}
+  .inside{padding:calc(var(--lamp) + 4px) 0 30px;gap:22px;justify-content:flex-start}
+  .head h1{font-size:clamp(40px,11.6vw,54px);line-height:.98}
+  .head p{font-size:16px;max-width:30ch;margin-inline:auto}
+  .verse{margin-top:22px}
+  .arabic{font-size:22px;line-height:1.95}
+  .meaning{font-size:18px;max-width:28ch}
+  .ways{display:none}
+
+  .phone{display:grid;gap:12px;margin-top:22px}
+  .card{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:6px 14px;padding:18px 18px 14px;
+    background:var(--cream);color:var(--ink);text-decoration:none;border-radius:4px;transition:transform .15s ease}
+  .card:active{transform:scale(.985)}
+  .warm{background:#ead9ae}
+  .cardText strong{display:block;font-family:var(--serif);font-weight:400;font-size:28px;line-height:1;letter-spacing:-.025em}
+  .cardText span{display:block;font-size:15px;line-height:1.4;margin-top:6px}
+  .cardNumber{font-family:var(--serif);font-variant-numeric:lining-nums tabular-nums;font-size:36px;line-height:1;letter-spacing:-.02em;text-align:right}
+  .cardNumber small{display:block;font-family:var(--font-geist),sans-serif;font-size:13px;letter-spacing:0;color:#52645d;margin-top:2px}
+  .cardGo{grid-column:1/-1;display:flex;justify-content:space-between;align-items:center;min-height:50px;margin-top:10px;padding:0 16px;
+    background:var(--green);color:var(--cream);font-weight:500;font-size:16px;border-radius:2px}
+  .card:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+  .phoneBank{text-align:center;padding:18px 8px 0}
+  .phoneBank h2{font-family:var(--serif);font-weight:400;font-size:26px;letter-spacing:-.02em;margin:0}
+  .phoneBank p{font-size:15px;line-height:1.45;color:#e9e1d2;margin:6px 0 14px}
+  .phoneBank a{display:inline-flex;align-items:center;gap:16px;min-height:48px;padding:0 20px;color:var(--cream);border:2px solid var(--gold);text-decoration:none;font-weight:500;font-size:15px}
 }
