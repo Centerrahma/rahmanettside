@@ -1,4 +1,4 @@
-/* Bli medlem: the whole page is one cream sheet, tooled in gold like a book cover, with a
+/* Bli medlem: the whole page is one green plaster sheet, tooled in gold like a book cover, with a
    quarter-medallion in each corner. On it the title, the words, the green button to the StyreWeb
    innmelding form, the rules for children, the Brønnøysund check and «Viktig». Under the sheet, three
    reasons to join, each under a numbered star medallion. */
@@ -137,7 +137,7 @@ const Arrow = () => (
 
 export default function Medlem() {
   return (
-    <main className={m.page}>
+    <main className={m.page} data-membership-page>
       {/* the gold the corner pieces and rules share */}
       <svg width={0} height={0} className={m.defs} aria-hidden>
         <defs>
