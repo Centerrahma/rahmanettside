@@ -1,6 +1,8 @@
 import Image from 'next/image';
-import { BANK_ACCOUNT, EMAIL, MONTHLY_VIPPS, VIPPS } from '@/components/forside/links';
+import { BANK_ACCOUNT } from '@/components/forside/links';
+import { BANK_HREF, GIFT, MONTHLY, type Way } from './gaver';
 import Lykt from './Lykt';
+import Velger from './Velger';
 import { starPoints } from './stjerne';
 import s from './portalen.module.css';
 
@@ -9,8 +11,8 @@ import s from './portalen.module.css';
  * arch, with a lantern hanging from its apex and the verse beneath it.
  *
  * Desktop: one screen; each pillar stands on a Vipps box, so the two QR codes sit far apart.
- * Phone: its own composition. A QR code can't be scanned on the phone that shows it,
- * so the codes are left out and each Vipps option is one large card that opens the app.
+ * Phone: its own composition. A switch picks one gift or monthly giving, and one card
+ * opens that Vipps number; the QR code is tucked away (see Velger).
  */
 
 const VERSE = {
@@ -18,10 +20,6 @@ const VERSE = {
   no: '«Dere når ikke det gode før dere gir av det dere er glad i. Og hva dere enn gir, så vet Allah om det.»',
   ref: 'Koranen 3:92',
 };
-
-const GIFT = { title: 'Gi en gave', line: 'Én gang, når det passer deg.', action: 'Gi med Vipps', vipps: VIPPS };
-const MONTHLY = { title: 'Bli fast giver', line: 'Litt hver måned holder dørene åpne.', action: 'Bli fast giver', vipps: MONTHLY_VIPPS };
-const BANK_HREF = `mailto:${EMAIL}?subject=Kontonummer%20for%20gave`;
 
 /** The end-of-verse marker of a mushaf, with 92 in Arabic-Indic digits. */
 function AyahMark() {
@@ -43,7 +41,7 @@ function Pillar({ side }: { side: 'l' | 'r' }) {
   );
 }
 
-function VippsBox({ way, side }: { way: typeof GIFT; side: 'left' | 'right' }) {
+function VippsBox({ way, side }: { way: Way; side: 'left' | 'right' }) {
   const qr = (
     <a className={s.qr} href={way.vipps.url} target="_blank" rel="noopener noreferrer" aria-label={`${way.action}, Vipps ${way.vipps.number}`}>
       <Image src={`/vipps-${way.vipps.number}.png`} width={492} height={492} unoptimized alt={`QR-kode til Vipps ${way.vipps.number}`} />
@@ -59,20 +57,6 @@ function VippsBox({ way, side }: { way: typeof GIFT; side: 'left' | 'right' }) {
       </div>
       {side === 'right' && qr}
     </article>
-  );
-}
-
-/** Phone: the whole card is the link into the Vipps app. */
-function VippsCard({ way, warm }: { way: typeof GIFT; warm?: boolean }) {
-  return (
-    <a className={`${s.card} ${warm ? s.warm : ''}`} href={way.vipps.url} target="_blank" rel="noopener noreferrer">
-      <span className={s.cardText}>
-        <strong>{way.title}</strong>
-        <span>{way.line}</span>
-      </span>
-      <span className={s.cardNumber}>{way.vipps.number}<small>Vipps</small></span>
-      <span className={s.cardGo}>Åpne Vipps<span aria-hidden="true">↗</span></span>
-    </a>
   );
 }
 
@@ -118,15 +102,14 @@ export default function Portalen() {
         <VippsBox way={MONTHLY} side="right" />
       </div>
 
-      <section className={s.phone} aria-label="Måter å gi">
-        <VippsCard way={GIFT} />
-        <VippsCard way={MONTHLY} warm />
+      <div className={s.phone}>
+        <Velger />
         <div className={s.phoneBank}>
           <h2>Bankoverføring</h2>
           <BankText />
           <a href={BANK_HREF}>Skriv til oss<span aria-hidden="true">↗</span></a>
         </div>
-      </section>
+      </div>
     </div>
   );
 }
