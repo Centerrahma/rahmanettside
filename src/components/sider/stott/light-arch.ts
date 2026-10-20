@@ -23,11 +23,11 @@ void main() {
     ? mix(u_arch.z, u_arch.w, curve)
     : mix(u_arch.w, u_resolution.y - 8.0, (p - .38) / .62);
   // Fine, even strands: depth changes the light, never the silhouette.
-  x += (a_seed.x - .5) * 5.0;
-  y += (a_seed.z - .5) * 3.0;
+  x += (a_seed.x - .5) * 6.5;
+  y += (a_seed.z - .5) * 4.0;
   gl_Position = vec4(x / u_resolution.x * 2.0 - 1.0,
                      1.0 - y / u_resolution.y * 2.0, 0.0, 1.0);
-  gl_PointSize = (1.6 + a_seed.z * 2.0) * u_dpr;
+  gl_PointSize = (2.4 + a_seed.z * 3.0) * u_dpr;
   float entrance = u_static > .5 ? 1.0 : smoothstep(p * .75, p * .75 + 1.2, t);
   float shimmer = .65 + .35 * sin(p * 18.0 - t * .65 + a_seed.y * 6.28);
   // Fade at the apex and foot so recycling particles never jump visibly.
@@ -38,7 +38,7 @@ void main() {
     ? length(vec2((u_arch.y - u_arch.x) * spread * .5 * pow(1.0 - curve, spread - 1.0), u_arch.w - u_arch.z)) / .38
     : (u_resolution.y - 8.0 - u_arch.w) / .62;
   float density = clamp(speed / 650.0, .65, 4.0);
-  v_alpha = (.10 + a_seed.x * .15) * density * shimmer * edge * entrance;
+  v_alpha = (.12 + a_seed.x * .18) * density * shimmer * edge * entrance;
   v_tone = a_seed.y;
 }`;
 
@@ -49,7 +49,7 @@ void main() {
   float r = dot(uv, uv);
   if (r > .25) discard;
   vec3 c = mix(vec3(.97, .88, .65), vec3(.95, .78, .42), v_tone);
-  gl_FragColor = vec4(c, v_alpha * exp(-r * 14.0));
+  gl_FragColor = vec4(c, v_alpha * exp(-r * 11.0));
 }`;
 const pointCount = 9000;
 function seed(value: number) {
@@ -163,7 +163,7 @@ export function createLightArch(canvas: HTMLCanvasElement, hero: HTMLElement): L
     const copy = hero.querySelector('blockquote')?.parentElement?.getBoundingClientRect();
     // Keep the crown above the heading and both rails outside the whole copy.
     // Pixel-space bounds preserve the complete arch on portrait screens too.
-    const inset = Math.max(5, Math.min(width * .08, (copy?.left ?? bounds.left + 30) - bounds.left - 18));
+    const inset = Math.max(8, Math.min(width * .08, (copy?.left ?? bounds.left + 30) - bounds.left - 18));
     const top = 12;
     const shoulder = Math.min(height - 28, Math.max(height * .68, (title?.bottom ?? bounds.top + 100) - bounds.top + 20));
     // Fit to the measured heading, including the glow radius. A fixed curve
