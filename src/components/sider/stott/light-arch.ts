@@ -4,41 +4,23 @@ export interface LightArch {
   destroy(): void;
 }
 
+const fillDuration = 2600;
 const vertexSource = `precision highp float;
 attribute vec3 a_target;
 attribute vec3 a_seed;
-uniform float u_time, u_dpr, u_static, u_spread;
+uniform float u_time, u_dpr, u_static;
 uniform vec2 u_resolution;
-uniform vec4 u_arch;
 varying float v_alpha, v_tone;
 void main() {
-  // Travel along the arch itself, rather than collapsing a cloud across the copy.
-  float t = u_static > .5 ? 0.0 : u_time;
-  float p = fract(a_target.y - t * .025);
-  float curve = min(p / .38, 1.0);
-  float spread = u_spread;
-  float x = mix(u_resolution.x * .5, a_target.x < 0.0 ? u_arch.x : u_arch.y,
-                1.0 - pow(1.0 - curve, spread));
-  float y = p < .38
-    ? mix(u_arch.z, u_arch.w, curve)
-    : mix(u_arch.w, u_resolution.y - 8.0, (p - .38) / .62);
-  // Fine, even strands: depth changes the light, never the silhouette.
-  x += (a_seed.x - .5) * 6.5;
-  y += (a_seed.z - .5) * 4.0;
-  gl_Position = vec4(x / u_resolution.x * 2.0 - 1.0,
-                     1.0 - y / u_resolution.y * 2.0, 0.0, 1.0);
+  float progress = u_static > .5 ? 1.0 : clamp(u_time / 2.6, 0.0, 1.0);
+  float fill = 1.0 - pow(1.0 - progress, 2.0);
+  vec2 position = a_target.xy + (a_seed.xz - .5) * 6.5;
+  gl_Position = vec4(position.x / u_resolution.x * 2.0 - 1.0,
+                     1.0 - position.y / u_resolution.y * 2.0, 0.0, 1.0);
   gl_PointSize = (2.4 + a_seed.z * 3.0) * u_dpr;
-  float entrance = u_static > .5 ? 1.0 : smoothstep(p * .75, p * .75 + 1.2, t);
-  float shimmer = .65 + .35 * sin(p * 18.0 - t * .65 + a_seed.y * 6.28);
-  // Fade at the apex and foot so recycling particles never jump visibly.
-  float edge = smoothstep(0.0, .025, p) * (1.0 - smoothstep(.82, 1.0, p));
-  // A wide crown covers more pixels per particle than a rail. Compensate for
-  // that spacing so the crown remains connected instead of disappearing.
-  float speed = p < .38
-    ? length(vec2((u_arch.y - u_arch.x) * spread * .5 * pow(1.0 - curve, spread - 1.0), u_arch.w - u_arch.z)) / .38
-    : (u_resolution.y - 8.0 - u_arch.w) / .62;
-  float density = clamp(speed / 650.0, .65, 4.0);
-  v_alpha = (.12 + a_seed.x * .18) * density * shimmer * edge * entrance;
+  // Only the fill front moves. Completed light has no shimmer or drift.
+  float revealed = smoothstep(a_target.z, a_target.z + .035, fill * 1.035);
+  v_alpha = (.18 + a_seed.x * .18) * revealed;
   v_tone = a_seed.y;
 }`;
 
@@ -92,37 +74,35 @@ export function createLightArch(canvas: HTMLCanvasElement, hero: HTMLElement): L
   const positions: number[] = [];
   const random: number[] = [];
   for (let i = 0; i < pointCount; i++) {
-    positions.push(i % 2 ? 1 : -1, seed(i + 60000), 0);
+    positions.push(0, 0, 0);
     random.push(seed(i), seed(i + 120000), seed(i + 90000));
   }
   function attribute(name: string, values: number[]) {
     const buffer = gl!.createBuffer();
-    if (!buffer) return false;
+    if (!buffer) return null;
     buffers.push(buffer);
     gl!.bindBuffer(gl!.ARRAY_BUFFER, buffer);
     gl!.bufferData(gl!.ARRAY_BUFFER, new Float32Array(values), gl!.STATIC_DRAW);
     const location = gl!.getAttribLocation(program!, name);
-    if (location < 0) return false;
+    if (location < 0) return null;
     gl!.enableVertexAttribArray(location);
     gl!.vertexAttribPointer(location, 3, gl!.FLOAT, false, 0, 0);
-    return true;
+    return buffer;
   }
-  if (!attribute('a_target', positions) || !attribute('a_seed', random)) { release(); return fallback; }
+  const targetBuffer = attribute('a_target', positions);
+  if (!targetBuffer || !attribute('a_seed', random)) { release(); return fallback; }
   const uniform = (name: string) => gl.getUniformLocation(program, name);
-  const uniforms = { time: uniform('u_time'), dpr: uniform('u_dpr'), resolution: uniform('u_resolution'), fixed: uniform('u_static'), arch: uniform('u_arch'), spread: uniform('u_spread') };
+  const uniforms = { time: uniform('u_time'), dpr: uniform('u_dpr'), resolution: uniform('u_resolution'), fixed: uniform('u_static') };
   gl.enable(gl.BLEND);
   gl.blendFunc(gl.SRC_ALPHA, gl.ONE);
   gl.disable(gl.DEPTH_TEST);
 
   let width = 1, height = 1, dpr = 1, frame = 0, lastFrame = 0, elapsed = 0;
-  // Match the actual preference before the first draw. Starting paused painted
-  // the finished arch, then jumped back to scattered particles when React resumed it.
+  // Reduced motion starts fully filled; other visits fill exactly once.
   let paused = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   let onScreen = true, destroyed = false, contextLost = false;
 
-  const archBounds = new Float32Array(4);
-  let spread = 5;
-  const canAnimate = () => !destroyed && !contextLost && !paused && onScreen && !document.hidden;
+  const canAnimate = () => !destroyed && !contextLost && !paused && onScreen && !document.hidden && elapsed < fillDuration;
 
   function draw(staticFrame = false) {
     if (destroyed || contextLost) return;
@@ -131,8 +111,7 @@ export function createLightArch(canvas: HTMLCanvasElement, hero: HTMLElement): L
     gl!.uniform1f(uniforms.dpr, dpr);
     gl!.uniform2f(uniforms.resolution, width, height);
     gl!.uniform1f(uniforms.fixed, staticFrame ? 1 : 0);
-    gl!.uniform4fv(uniforms.arch, archBounds);
-    gl!.uniform1f(uniforms.spread, spread);
+
     gl!.clearColor(0, 0, 0, 0);
     gl!.clear(gl!.COLOR_BUFFER_BIT);
     gl!.drawArrays(gl!.POINTS, 0, pointCount);
@@ -141,11 +120,11 @@ export function createLightArch(canvas: HTMLCanvasElement, hero: HTMLElement): L
     frame = 0;
     if (!canAnimate()) return;
     if (!lastFrame || now - lastFrame >= 32) {
-      elapsed += lastFrame ? Math.min(now - lastFrame, 100) : 0;
+      elapsed = Math.min(fillDuration, elapsed + (lastFrame ? Math.min(now - lastFrame, 100) : 0));
       lastFrame = now;
       draw();
     }
-    frame = requestAnimationFrame(tick);
+    if (canAnimate()) frame = requestAnimationFrame(tick);
   }
   function syncLoop() {
     if (frame) cancelAnimationFrame(frame);
@@ -171,8 +150,38 @@ export function createLightArch(canvas: HTMLCanvasElement, hero: HTMLElement): L
     const titleProgress = Math.max(.01, Math.min(.95, ((title?.top ?? bounds.top + 70) - bounds.top - 6 - top) / (shoulder - top)));
     const clearance = Math.max(1, (title?.left ?? bounds.left + 30) - bounds.left - 12 - inset);
     const remainingWidth = Math.min(.99, clearance / (width * .5 - inset));
-    spread = Math.max(5, Math.log(remainingWidth) / Math.log(1 - titleProgress) + 1);
-    archBounds.set([inset, width - inset, top, shoulder]);
+    const spread = Math.max(5, Math.log(remainingWidth) / Math.log(1 - titleProgress) + 1);
+    // Sample by actual pixel distance, not the curve parameter. This gives the
+    // crown the same light density and thickness as the upright sides.
+    const samples: { x: number; y: number; distance: number }[] = [];
+    let length = 0;
+    for (let step = 0; step <= 512; step++) {
+      const p = step / 512;
+      const curve = Math.min(p / .38, 1);
+      const x = width * .5 - (width * .5 - inset) * (1 - (1 - curve) ** spread);
+      const y = p < .38 ? top + (shoulder - top) * curve : shoulder + (height - 8 - shoulder) * (p - .38) / .62;
+      const previous = samples.at(-1);
+      if (previous) length += Math.hypot(x - previous.x, y - previous.y);
+      samples.push({ x, y, distance: length });
+    }
+    for (let i = 0; i < pointCount; i++) {
+      const distance = seed(Math.floor(i / 2) + 60000) * length;
+      let low = 0, high = samples.length - 1;
+      while (high - low > 1) {
+        const middle = (low + high) >> 1;
+        if (samples[middle].distance < distance) low = middle;
+        else high = middle;
+      }
+      const a = samples[low], b = samples[high];
+      const mix = (distance - a.distance) / Math.max(b.distance - a.distance, .001);
+      const x = a.x + (b.x - a.x) * mix;
+      positions[i * 3] = i % 2 ? width - x : x;
+      positions[i * 3 + 1] = a.y + (b.y - a.y) * mix;
+      positions[i * 3 + 2] = 1 - distance / length;
+    }
+    gl!.bindBuffer(gl!.ARRAY_BUFFER, targetBuffer);
+    gl!.bufferData(gl!.ARRAY_BUFFER, new Float32Array(positions), gl!.DYNAMIC_DRAW);
+    if (paused) elapsed = fillDuration;
     draw(paused);
   }
   const onContextLost = (event: Event) => {
@@ -190,7 +199,7 @@ export function createLightArch(canvas: HTMLCanvasElement, hero: HTMLElement): L
   resize();
 
   return {
-    setPaused(value) { paused = value; if (paused && elapsed === 0) draw(true); syncLoop(); },
+    setPaused(value) { paused = value; if (paused) { elapsed = fillDuration; draw(true); } syncLoop(); },
     destroy() {
       destroyed = true;
       syncLoop();
