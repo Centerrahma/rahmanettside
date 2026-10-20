@@ -26,6 +26,8 @@
 .time{font-size:24px;font-weight:400;letter-spacing:-.04em;font-variant-numeric:tabular-nums}
 .next{background:rgba(250,245,236,.1)}
 .past{opacity:.75}
+.photoFrame{display:contents}
+.mobileTitle{display:none}
 .photo{position:absolute;inset:0;transform:translateX(15%);animation:photo-right 1.4s 1.5s cubic-bezier(.22,.7,.2,1) backwards}
 .photo img{object-fit:cover;object-position:center}
 @keyframes panel-in{from{transform:translateX(-101%)}to{transform:translateX(0)}}
@@ -43,10 +45,11 @@
  .date{font-size:13px}
  .label em{font-size:13px}
 }
-/* Mobile shows the whole landscape photograph above the title and prayer times. */
+/* Tablet shows the whole landscape photo; phones fit the upright photo without cropping. */
 @media(max-width:1000px){
- .hero{display:grid;aspect-ratio:auto;grid-template-columns:minmax(0,1fr);height:auto;min-height:0;grid-template-rows:auto auto auto auto;grid-template-areas:'photo' 'head' 'list' 'ctas'}
+ .hero{display:grid;aspect-ratio:auto;grid-template-columns:minmax(0,1fr);height:auto;min-height:calc(100svh - 84px);min-height:calc(100dvh - 84px);grid-template-rows:auto auto 1fr auto;grid-template-areas:'photo' 'head' 'list' 'ctas'}
  .panel{display:contents;animation:none}
+ .hero .panel > :not(.list),.hero .list li{animation:none}
  .logo{display:none}
  .head{grid-area:head;padding:10px 16px 2px}
  .head h1{font-size:40px}
@@ -54,7 +57,7 @@
  .photo{position:relative;inset:auto;grid-area:photo;width:100%;aspect-ratio:1672/941;min-height:0;transform:none;animation:none}
  .photo img{object-fit:contain;object-position:center}
  .date{display:none}
- .list{grid-area:list;margin:4px 6px 0;grid-template-columns:repeat(5,minmax(0,1fr));gap:2px}
+ .list{grid-area:list;align-self:center;margin:4px 6px 0;grid-template-columns:repeat(5,minmax(0,1fr));gap:2px}
  .list li{min-width:0;display:flex;flex-direction:column;align-items:center;text-align:center;gap:2px;padding:6px 2px 4px}
  .arch{width:30px;margin-bottom:2px}
  .label{display:contents}
@@ -62,9 +65,30 @@
  .label b{order:1;font-size:13px}
  .time{order:2;font-size:20px;letter-spacing:-.03em}
  .label small{order:3;font-size:13px;letter-spacing:-.01em;white-space:normal}
- .ctas{grid-area:ctas;margin:8px 16px 14px}
+ .ctas{grid-area:ctas;margin:8px 16px max(14px,env(safe-area-inset-bottom))}
  .ctas a{flex:1 1 auto;justify-content:center;height:52px}
 }
+@media(max-width:640px){
+ .hero{height:calc(100svh - 68px);height:calc(100dvh - 68px);min-height:0;grid-template-rows:minmax(0,1fr) auto auto auto;grid-template-areas:'photo' 'list' 'head' 'ctas'}
+ .photo{height:100%;aspect-ratio:auto;display:flex;align-items:flex-start;justify-content:center;container-type:size}
+ .photoFrame{display:block;position:relative;flex:none;width:min(100cqw,75cqh);aspect-ratio:3/4;container-type:inline-size}
+ .photo img{object-position:center top}
+ .head{display:contents}
+ .head h1{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap;border:0}
+ .head .addr{grid-area:head;margin:0;padding:10px 16px 2px;font-size:16px}
+ /* Center the selected title in the carpet, the lower 16% of the intact portrait. */
+ .mobileTitle{position:absolute;bottom:0;left:0;right:0;height:16%;padding:0 6px;display:flex;align-items:center;justify-content:center;background:linear-gradient(0deg,rgba(2,20,21,.94),rgba(2,20,21,.75) 60%,rgba(2,20,21,0))}
+ .mobileName{display:flex;justify-content:center;align-items:baseline;gap:.18em;width:100%;white-space:nowrap;perspective:600px;font-family:var(--font-geist),Arial,sans-serif;font-weight:700;letter-spacing:0;font-size:clamp(20px,12.221cqw,50.82px);line-height:1;color:#fff;text-transform:uppercase}
+ .mobileName > span{display:inline-block}
+ .mobileName > span:first-child{transform-origin:100% 50%}
+ .mobileName > span:last-child{transform-origin:0 50%}
+}
+@media(max-width:640px) and (prefers-reduced-motion:no-preference){
+ .mobileName > span:first-child{animation:mobile-name-left 1.25s .8s cubic-bezier(.18,1,.3,1) both}
+ .mobileName > span:last-child{animation:mobile-name-right 1.25s .94s cubic-bezier(.18,1,.3,1) both}
+}
+@keyframes mobile-name-left{from{opacity:0;transform:translateX(-18px) rotateY(-78deg)}to{opacity:1;transform:translateX(0) rotateY(0)}}
+@keyframes mobile-name-right{from{opacity:0;transform:translateX(18px) rotateY(78deg)}to{opacity:1;transform:translateX(0) rotateY(0)}}
 @media(prefers-reduced-motion:reduce){.photo,.panel,.panel > *,.panel > :not(.list),.list li{animation:none}}
 
 /* Keep the enlarged logo and all five prayers within short laptop screens. */
