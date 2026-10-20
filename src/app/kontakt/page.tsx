@@ -32,7 +32,7 @@ export default async function KontaktPage() {
   const { jummah } = await fetchPrayerTimes();
   const list = ways(jummah);
   return (
-    <main className={k.page}>
+    <main className={k.page} data-contact-page>
       {/* wide screens get the illuminated page with the letter on it, phones and tablets a page drawn for them */}
       <div className={k.desk}>
         <Brevet list={list} />

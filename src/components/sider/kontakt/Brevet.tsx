@@ -42,8 +42,8 @@ function Art() {
   const { out, line, add, fade } = pen();
 
   // the sheet, with a second one under it
-  add(<rect x={34} y={24} width={1150} height={870} rx={4} fill="#e6d6b4" className={f.fade} style={delay(0)} />);
-  line('M20,10 H1166 V878 H20 Z', { fill: 'url(#kc-paper)', stroke: '#c9b58c', w: 1.2, t: 0.02 });
+  add(<rect x={34} y={24} width={1150} height={870} rx={4} fill="#b9cbbd" className={f.fade} style={delay(0)} />);
+  line('M20,10 H1166 V878 H20 Z', { fill: 'url(#kc-paper)', stroke: '#799e85', w: 1.2, t: 0.02 });
 
   // the illuminated border: green with gold stars, gold rules, gold corner rosettes
   fade(0.5, <path d="M46,36 H1140 V852 H46 Z M86,76 V812 H1100 V76 Z" fill="url(#kc-orn)" fillRule="evenodd" />);
@@ -52,15 +52,15 @@ function Art() {
   line('M86,76 H1100 V812 H86 Z', { stroke: 'var(--gold)', w: 1.6, t: 0.1 });
   line('M92,82 H1094 V806 H92 Z', { stroke: 'var(--gold-2)', w: 0.8, t: 0.15 });
   [[66, 56], [1120, 56], [66, 832], [1120, 832]].forEach(([x, y]) => {
-    line(`M${x - 20},${y - 20} H${x + 20} V${y + 20} H${x - 20} Z`, { fill: 'url(#kc-gold)', stroke: '#9b7329', w: 1, t: 0.3 });
-    line(star(x, y, 15), { fill: '#0b5f45', stroke: '#f1d892', w: 0.9, t: 0.4 });
-    line(star(x, y, 6), { fill: '#f1d892', stroke: '#f1d892', w: 0.6, t: 0.5 });
+    line(`M${x - 20},${y - 20} H${x + 20} V${y + 20} H${x - 20} Z`, { fill: 'url(#kc-gold)', stroke: '#96b18a', w: 1, t: 0.3 });
+    line(star(x, y, 15), { fill: '#0b5f45', stroke: '#d6e1be', w: 0.9, t: 0.4 });
+    line(star(x, y, 6), { fill: '#d6e1be', stroke: '#d6e1be', w: 0.6, t: 0.5 });
   });
 
   // the headpiece: a green and gold panel with the greeting in a cartouche
   line('M120,100 H1066 V208 H120 Z', { fill: '#0a5e44', stroke: 'var(--gold)', w: 1.4, t: 0.2 });
   fade(0.6, <rect x={120} y={100} width={946} height={108} fill="url(#kc-lat)" />);
-  line('M126,106 H1060 V202 H126 Z', { stroke: '#e2c27d', w: 0.8, t: 0.3 });
+  line('M126,106 H1060 V202 H126 Z', { stroke: '#c3d2aa', w: 0.8, t: 0.3 });
   line(cartouche(318, 868, 112, 196), { fill: 'url(#kc-cream)', stroke: 'var(--gold)', w: 1.6, t: 0.3 });
   line(cartouche(328, 858, 119, 189), { stroke: 'var(--gold-2)', w: 0.8, t: 0.4 });
   add(
@@ -69,12 +69,12 @@ function Art() {
     </text>,
   );
   [196, 990].forEach((x) => {
-    line(`M${x - 40},154 a40,40 0 1,0 80,0 a40,40 0 1,0 -80,0 Z`, { fill: 'url(#kc-gold)', stroke: '#9b7329', w: 1, t: 0.4 });
-    line(star(x, 154, 30, 0.7), { fill: '#0b5f45', stroke: '#f1d892', w: 1, t: 0.5 });
-    line(star(x, 154, 12, 0.7), { fill: '#f1d892', stroke: '#f1d892', w: 0.6, t: 0.6 });
+    line(`M${x - 40},154 a40,40 0 1,0 80,0 a40,40 0 1,0 -80,0 Z`, { fill: 'url(#kc-gold)', stroke: '#96b18a', w: 1, t: 0.4 });
+    line(star(x, 154, 30, 0.7), { fill: '#0b5f45', stroke: '#d6e1be', w: 1, t: 0.5 });
+    line(star(x, 154, 12, 0.7), { fill: '#d6e1be', stroke: '#d6e1be', w: 0.6, t: 0.6 });
   });
   // a little crest rising from the headpiece into the border
-  line('M553,100 C560,84 578,78 593,62 C608,78 626,84 633,100', { fill: 'url(#kc-gold)', stroke: '#9b7329', w: 1, t: 0.5 });
+  line('M553,100 C560,84 578,78 593,62 C608,78 626,84 633,100', { fill: 'url(#kc-gold)', stroke: '#96b18a', w: 1, t: 0.5 });
 
   // rules: under the title, the columns, above the colophon
   line('M120,316 H1066 M120,321 H1066', { stroke: 'var(--gold-2)', w: 0.9, t: 0.5 });
@@ -84,13 +84,13 @@ function Art() {
   MEDALS.forEach(([cx, cy], i) => {
     const s = shamsa(cx, cy);
     const t = 0.5 + i * 0.08;
-    line(s.lobes, { fill: 'url(#kc-gold)', stroke: '#9b7329', w: 1.1, t });
-    line(`M${cx - 88},${cy} a88,88 0 1,0 176,0 a88,88 0 1,0 -176,0 Z`, { fill: '#0b5f45', stroke: '#9b7329', w: 1, t: t + 0.05 });
-    add(<path d={s.rays} stroke="#e2c27d" strokeWidth={1} className={f.fade} style={delay(1)} />);
+    line(s.lobes, { fill: 'url(#kc-gold)', stroke: '#96b18a', w: 1.1, t });
+    line(`M${cx - 88},${cy} a88,88 0 1,0 176,0 a88,88 0 1,0 -176,0 Z`, { fill: '#0b5f45', stroke: '#96b18a', w: 1, t: t + 0.05 });
+    add(<path d={s.rays} stroke="#c3d2aa" strokeWidth={1} className={f.fade} style={delay(1)} />);
     line(`M${cx - 82},${cy} a82,82 0 1,0 164,0 a82,82 0 1,0 -164,0 Z`, { fill: 'url(#kc-cream)', stroke: 'var(--gold)', w: 1, t: t + 0.1 });
     // pendants above and below
-    line(`M${cx},${cy - R - 2} C${cx - 7},${cy - R - 8} ${cx - 4},${cy - R - 16} ${cx},${cy - R - 22} C${cx + 4},${cy - R - 16} ${cx + 7},${cy - R - 8} ${cx},${cy - R - 2} Z`, { fill: 'url(#kc-gold)', stroke: '#9b7329', w: 0.8, t: t + 0.3 });
-    line(`M${cx},${cy + R + 2} C${cx - 7},${cy + R + 8} ${cx - 4},${cy + R + 16} ${cx},${cy + R + 22} C${cx + 4},${cy + R + 16} ${cx + 7},${cy + R + 8} ${cx},${cy + R + 2} Z`, { fill: 'url(#kc-gold)', stroke: '#9b7329', w: 0.8, t: t + 0.3 });
+    line(`M${cx},${cy - R - 2} C${cx - 7},${cy - R - 8} ${cx - 4},${cy - R - 16} ${cx},${cy - R - 22} C${cx + 4},${cy - R - 16} ${cx + 7},${cy - R - 8} ${cx},${cy - R - 2} Z`, { fill: 'url(#kc-gold)', stroke: '#96b18a', w: 0.8, t: t + 0.3 });
+    line(`M${cx},${cy + R + 2} C${cx - 7},${cy + R + 8} ${cx - 4},${cy + R + 16} ${cx},${cy + R + 22} C${cx + 4},${cy + R + 16} ${cx + 7},${cy + R + 8} ${cx},${cy + R + 2} Z`, { fill: 'url(#kc-gold)', stroke: '#96b18a', w: 0.8, t: t + 0.3 });
   });
 
   // the colophon with 15:46
@@ -131,24 +131,24 @@ export default function Brevet({ list }: { list: Way[] }) {
         <>
           <defs>
             <linearGradient id="kc-paper" x1={0} y1={0} x2={1} y2={1}>
-              <stop offset={0} stopColor="#fffaf0" />
-              <stop offset={0.6} stopColor="#fbf2de" />
-              <stop offset={1} stopColor="#f3e5c6" />
+              <stop offset={0} stopColor="#174f41" />
+              <stop offset={0.6} stopColor="#124638" />
+              <stop offset={1} stopColor="#103e33" />
             </linearGradient>
             <linearGradient id="kc-cream" x1={0} y1={0} x2={0} y2={1}>
-              <stop offset={0} stopColor="#fffdf6" />
-              <stop offset={1} stopColor="#f8eedb" />
+              <stop offset={0} stopColor="#e9efdf" />
+              <stop offset={1} stopColor="#dfe8d6" />
             </linearGradient>
             <linearGradient id="kc-gold" x1={0} y1={0} x2={1} y2={1}>
-              <stop offset={0} stopColor="#f3dc9c" />
-              <stop offset={0.5} stopColor="#d6af60" />
-              <stop offset={1} stopColor="#b98a3c" />
+              <stop offset={0} stopColor="#e6edcf" />
+              <stop offset={0.5} stopColor="#c1d0a4" />
+              <stop offset={1} stopColor="#7e9f79" />
             </linearGradient>
             <pattern id="kc-orn" x={46} y={36} width={40} height={40} patternUnits="userSpaceOnUse">
               <rect width={40} height={40} fill="#0b5f45" />
-              <path d={star(20, 20, 12, 0.62)} fill="#e2c27d" />
+              <path d={star(20, 20, 12, 0.62)} fill="#c3d2aa" />
               <path d={star(20, 20, 5, 0.62)} fill="#0b5f45" />
-              {[[0, 0], [40, 0], [0, 40], [40, 40]].map(([x, y]) => <circle key={`${x},${y}`} cx={x} cy={y} r={3.2} fill="#f6e7b8" />)}
+              {[[0, 0], [40, 0], [0, 40], [40, 40]].map(([x, y]) => <circle key={`${x},${y}`} cx={x} cy={y} r={3.2} fill="#e1eacb" />)}
             </pattern>
             <Lattice id="kc-lat" />
           </defs>

@@ -321,3 +321,6 @@ body:has([data-rahma-home]) [data-home-primary]:hover{background:var(--sand)}
 body:has([data-rahma-home]) [data-green-community] button small{color:var(--mist)}
 body:has([data-rahma-home]) [data-green-community] button:focus-visible{outline-color:var(--paper)}
 body:has([data-rahma-home]) #nav-menu{--ink:#1e3e36;--ink-2:#3b5750;--muted:#52645d;color:var(--ink)}
+
+/* Approved contact page: cream plaster outside the forest manuscript. */
+body:has([data-contact-page]){background-color:#faf5ec;background-image:url("/textures/rahma-cream-plaster.svg");background-size:768px}
