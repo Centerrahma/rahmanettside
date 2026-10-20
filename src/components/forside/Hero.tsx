@@ -10,12 +10,11 @@ import f from './forside.module.css';
 import s from './hero.module.css';
 
 /* The front page's first screen: a column for the name and the day's prayers, the mihrab photo beside it.
-   Phones show the complete upright photo with the name on its carpet, then prayer times and bottom actions. */
+   Phones use a moderate crop of the wider photo with the name on its carpet, then prayer times and bottom actions. */
 
 const ALT = 'Mihraben og minbaren i Masjid Rahma, under verset fra Koranen 72:18, med bønneteppet foran.';
 const common = { alt: ALT, fill: true, priority: true, quality: 75 } as const;
 const wide = getImageProps({ ...common, src: '/mihrab-forside-lys.webp', sizes: '100vw' }).props;
-const tall = getImageProps({ ...common, src: '/mihrab-mobil-lys.webp', sizes: '100vw' }).props;
 
 
 export default function Hero({ schedule, friday }: { schedule: PrayerSchedule; friday: boolean }) {
@@ -58,16 +57,12 @@ export default function Hero({ schedule, friday }: { schedule: PrayerSchedule; f
 
       <div className={s.photo}>
         <div className={s.photoFrame}>
-          <picture>
-            <source media="(max-width: 640px)" srcSet={tall.srcSet} sizes={tall.sizes} />
-            {/* eslint-disable-next-line jsx-a11y/alt-text -- the alt comes from getImageProps */}
-            <img {...wide} />
-          </picture>
+          {/* eslint-disable-next-line jsx-a11y/alt-text -- the alt comes from getImageProps */}
+          <img {...wide} />
           {/* The accessible page heading stays in .head; this is its visual photo treatment. */}
-          <div className={s.mobileTitle} aria-hidden="true">
-            <div className={s.mobileName}>
-              <span>Center</span>{' '}<span>Rahma</span>
-            </div>
+          <div className={s.mobileTitle}>
+            <div className={s.mobileName} aria-hidden="true">Center Rahma</div>
+            <p className={s.mobileTagline}>Et sted for alle</p>
           </div>
         </div>
       </div>
