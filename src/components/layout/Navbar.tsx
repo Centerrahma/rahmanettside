@@ -4,7 +4,6 @@ import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { YEAR_PDF } from '@/components/forside/links';
 import s from './chrome.module.css';
 
 const LINKS = [
@@ -33,9 +32,6 @@ export function Navbar() {
           <Link href={link.href} aria-current={pathname === link.href ? 'page' : undefined} onClick={() => setOpen(false)}>{link.label}</Link>
         </li>
       ))}
-      <li>
-        <a href={YEAR_PDF.href} download={YEAR_PDF.filename}>Bønnetider 2026</a>
-      </li>
     </>
   );
 
