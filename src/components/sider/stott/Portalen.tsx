@@ -82,7 +82,7 @@ export default function Portalen() {
         <div className={s.inside}>
           <header className={s.head}>
             <h1>Det gode lever videre.</h1>
-            <p>Masjid Rahma er bygget og drives av gaver. Velg den måten som passer deg.</p>
+            <p>Et fellesskap bæres av mange.</p>
           </header>
           <section className={s.verse} aria-label="Vers fra Koranen">
             <p className={s.arabic} lang="ar" dir="rtl">{VERSE.ar} <AyahMark /></p>

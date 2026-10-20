@@ -91,7 +91,7 @@
   .lamp{top:-4px}
   .inside{padding:calc(var(--lamp) + 4px) 0 30px;gap:22px;justify-content:flex-start}
   .head h1{font-size:clamp(40px,11.6vw,54px);line-height:.98}
-  .head p{font-size:16px;max-width:30ch;margin-inline:auto}
+  .head p{display:none}
   .verse{margin-top:22px}
   .arabic{font-size:22px;line-height:1.95}
   .meaning{font-size:18px;max-width:28ch}
