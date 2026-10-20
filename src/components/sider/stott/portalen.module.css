@@ -78,8 +78,7 @@
 
 /* ── Phone: its own composition ──
    The portal shrinks to slim pillars and a low arch with the lantern under it.
-   The QR codes are left out (they can't be scanned on the phone showing them);
-   each Vipps option is one big card that opens the app. */
+   Giving is one switch card (Velger) with the QR code tucked away. */
 @media (max-width:900px){
   .page{height:auto;min-height:0;overflow:visible;display:block;padding:14px 14px 56px;
     --pw:20px;--pad:0px;--rise:58px;--lamp:118px}
@@ -98,18 +97,7 @@
   .meaning{font-size:18px;max-width:28ch}
   .ways{display:none}
 
-  .phone{display:grid;gap:12px;margin-top:22px}
-  .card{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:6px 14px;padding:18px 18px 14px;
-    background:var(--cream);color:var(--ink);text-decoration:none;border-radius:4px;transition:transform .15s ease}
-  .card:active{transform:scale(.985)}
-  .warm{background:#ead9ae}
-  .cardText strong{display:block;font-family:var(--serif);font-weight:400;font-size:28px;line-height:1;letter-spacing:-.025em}
-  .cardText span{display:block;font-size:15px;line-height:1.4;margin-top:6px}
-  .cardNumber{font-family:var(--serif);font-variant-numeric:lining-nums tabular-nums;font-size:36px;line-height:1;letter-spacing:-.02em;text-align:right}
-  .cardNumber small{display:block;font-family:var(--font-geist),sans-serif;font-size:13px;letter-spacing:0;color:#52645d;margin-top:2px}
-  .cardGo{grid-column:1/-1;display:flex;justify-content:space-between;align-items:center;min-height:50px;margin-top:10px;padding:0 16px;
-    background:var(--green);color:var(--cream);font-weight:500;font-size:16px;border-radius:2px}
-  .card:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+  .phone{display:grid;gap:12px;margin-top:16px}
   .phoneBank{text-align:center;padding:18px 8px 0}
   .phoneBank h2{font-family:var(--serif);font-weight:400;font-size:26px;letter-spacing:-.02em;margin:0}
   .phoneBank p{font-size:15px;line-height:1.45;color:#e9e1d2;margin:6px 0 14px}
