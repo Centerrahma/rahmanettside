@@ -68,7 +68,7 @@ export default function Fellesskapet() {
     <section data-green-community className={s.sec} id="fellesskapet" aria-labelledby="fs-h2">
       <div className={s.wrap}>
         <div className={s.head}>
-          <h2 id="fs-h2">Fellesskapet</h2>
+          <h2 id="fs-h2">Vårt felleskap</h2>
           <p className={s.lead}>Her lærer barn Koranen og arabisk, unge samles til sport og turer, og familier møtes.</p>
         </div>
         <div className={s.grid}>
