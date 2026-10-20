@@ -23,6 +23,7 @@ export default function Velger() {
       <div className={s.body} key={way.vipps.number}>
         <h2>{way.title}</h2>
         <p className={s.line}>{way.line}</p>
+        {way.source && <p className={s.source}>{way.source}</p>}
         <p className={s.number}>{way.vipps.number}<span>på Vipps</span></p>
         <a className={s.go} href={way.vipps.url} target="_blank" rel="noopener noreferrer">Åpne Vipps<span aria-hidden="true">↗</span></a>
         <details className={s.qrBox}>

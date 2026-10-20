@@ -7,13 +7,13 @@ import { usePathname } from 'next/navigation';
 import s from './chrome.module.css';
 
 const LINKS = [
+  { href: '/', label: 'Hjem' },
   { href: '/stott-oss', label: 'Støtt oss' },
   { href: '/kontakt', label: 'Kontakt oss' },
 ];
 
 export function Navbar() {
   const [open, setOpen] = useState(false);
-  // the front page shows the logo large in its first screen, so the bar leaves it out there
   const pathname = usePathname();
   const supporters = pathname === '/stott-oss';
 
@@ -36,10 +36,10 @@ export function Navbar() {
   );
 
   return (
-    <header className={`${s.nav} ${pathname === '/' ? s.home : ''} ${supporters ? s.supporters : ''}`}>
+    <header className={`${s.nav} ${supporters ? s.supporters : ''}`}>
       <div className={`${s.wrap} ${s.bar}`}>
         <Link href="/" className={s.logo} aria-label="Center Rahma, forsiden">
-          <Image src={supporters ? '/rahma-logo-white.webp' : '/rahma-logo.png'} alt="" width={supporters ? 263 : 601} height={supporters ? 360 : 640} sizes="100px" unoptimized={pathname === '/'} priority />
+          <Image src={supporters ? '/rahma-logo-white.webp' : '/rahma-logo.png'} alt="" width={supporters ? 263 : 601} height={supporters ? 360 : 640} sizes="100px" priority />
         </Link>
         <ul className={s.links}>{items}</ul>
         <Link className={s.cta} href="/blimedlem">Bli medlem</Link>

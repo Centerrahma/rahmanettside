@@ -47,7 +47,7 @@
 }
 /* Tablet shows the whole landscape photo; phones use the selected moderate crop. */
 @media(max-width:1000px){
- .hero{display:grid;aspect-ratio:auto;grid-template-columns:minmax(0,1fr);height:auto;min-height:calc(100svh - 84px);min-height:calc(100dvh - 84px);grid-template-rows:auto auto 1fr auto;grid-template-areas:'photo' 'head' 'list' 'ctas'}
+ .hero{display:grid;aspect-ratio:auto;grid-template-columns:minmax(0,1fr);height:auto;min-height:calc(100svh - 84px);grid-template-rows:auto auto 1fr auto;grid-template-areas:'photo' 'head' 'list' 'ctas'}
  .panel{display:contents;animation:none}
  .hero .panel > :not(.list),.hero .list li{animation:none}
  .logo{display:none}
@@ -69,7 +69,8 @@
  .ctas a{flex:1 1 auto;justify-content:center;height:52px}
 }
 @media(max-width:640px){
- .hero{height:auto;min-height:calc(100svh - 68px);min-height:calc(100dvh - 68px);grid-template-rows:auto minmax(min-content,1fr) auto auto;grid-template-areas:'photo' 'list' 'head' 'ctas'}
+ /* svh only: dvh grows when the browser bar hides on the first scroll, and the extra height opened a gap above the prayer times */
+ .hero{height:auto;min-height:calc(100svh - 68px);grid-template-rows:auto minmax(min-content,1fr) auto auto;grid-template-areas:'photo' 'list' 'head' 'ctas'}
  .photo{height:auto;aspect-ratio:auto;display:block}
  .photoFrame{display:block;position:relative;flex:none;width:100%;height:min(121.951cqw,calc(100svh - 310px));container-type:inline-size}
  .photo img{object-fit:cover;object-position:center}

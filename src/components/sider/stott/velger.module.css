@@ -10,6 +10,7 @@
 .body{text-align:center;padding-top:18px;animation:swap .35s cubic-bezier(.22,1,.36,1) both}
 .body h2{font-family:var(--serif);font-weight:400;font-size:30px;letter-spacing:-.025em;line-height:1;margin:0}
 .line{font-size:16px;font-weight:500;line-height:1.45;margin:8px 0 0}
+.source{font-size:13px;line-height:1.4;margin:4px 0 0;opacity:.75}
 .number{font-family:var(--serif);font-variant-numeric:lining-nums tabular-nums;font-size:58px;line-height:1;letter-spacing:-.025em;margin:14px 0 16px}
 .number span{display:block;font-family:var(--font-geist),sans-serif;font-size:14px;letter-spacing:0;color:#24392f;font-weight:500;margin-top:4px}
 .go{display:flex;justify-content:space-between;align-items:center;min-height:54px;padding:0 18px;background:#0a4439;color:#f7f0e3;text-decoration:none;font-weight:500;font-size:17px;border-radius:4px;transition:transform .15s ease}

@@ -1,7 +1,7 @@
 .page{
   --cream:#f7f0e3;--ink:#17352d;--gold:#d8b46c;--green:#0a4439;--deep:#072f27;
   --pad:clamp(14px,1.8vw,24px);--pw:clamp(100px,16vh,140px);--rise:clamp(76px,14vh,136px);--lamp:clamp(118px,21vh,190px);
-  background:var(--green) url('/textures/rahma-tadelakt.webp') 0 0/768px;background-blend-mode:luminosity;color:var(--cream);
+  background:var(--green) url('/textures/rahma-tadelakt.webp') 0 -84px/768px;background-blend-mode:luminosity;color:var(--cream);
   height:calc(100svh - 84px);min-height:620px;overflow:hidden;display:grid;grid-template-rows:minmax(0,1fr) auto;
   padding:clamp(18px,3.4vh,40px) clamp(20px,4vw,64px) clamp(16px,3vh,36px);
 }
@@ -75,6 +75,9 @@
 
 /* Phone giving block: hidden on desktop. */
 .phone{display:none}
+
+/* the nav bar is 68px tall on phones, so the texture shifts by that much to meet it */
+@media (max-width:640px){.page{background-position:0 -68px}}
 
 /* ── Phone: its own composition ──
    The portal shrinks to slim pillars and a low arch with the lantern under it.
