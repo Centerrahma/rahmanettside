@@ -44,7 +44,7 @@ function Pillar({ side }: { side: 'l' | 'r' }) {
 function VippsBox({ way, side }: { way: Way; side: 'left' | 'right' }) {
   const qr = (
     <a className={s.qr} href={way.vipps.url} target="_blank" rel="noopener noreferrer" aria-label={`${way.action}, Vipps ${way.vipps.number}`}>
-      <Image src={`/vipps-${way.vipps.number}.png`} width={492} height={492} unoptimized alt={`QR-kode til Vipps ${way.vipps.number}`} />
+      <Image src={way.vipps.qr} width={492} height={492} unoptimized alt={`QR-kode til Vipps ${way.vipps.number}`} />
     </a>
   );
   return (

@@ -46,7 +46,7 @@ export default function StottOss() {
           <h2 id="stott-h2">Støtt moskeen</h2>
         </header>
           <div className={s.vrow}>
-            <span className={s.qr}><Image src="/vipps-77811.png" alt="QR-kode for å gi med Vipps" width={160} height={160} /></span>
+            <span className={s.qr}><Image src={VIPPS.qr} alt="QR-kode for å gi med Vipps" width={160} height={160} /></span>
             <div>
               <b className={`${s.vnum} ${f.num}`}>{VIPPS.number}</b>
               <a className={`${f.btn} ${f.vipps} ${s.vbtn}`} href={VIPPS.url} target="_blank" rel="noopener noreferrer">Gi med Vipps</a>
