@@ -62,9 +62,9 @@ export default function Supporters() {
             <canvas ref={canvas} className={s.canvas} />
           </div>
           <div className={s.heroCopy}>
-            <h1 id="supporters-title" data-light-mask>Det gode lever videre.</h1>
-            <p className={s.intro} data-light-mask>Et fellesskap bæres av mange.<br />Takk for at din gave er en del av Rahma.</p>
-            <blockquote className={s.verse} data-light-mask>
+            <h1 id="supporters-title">Det gode lever videre.</h1>
+            <p className={s.intro}>Et fellesskap bæres av mange.<br />Takk for at din gave er en del av Rahma.</p>
+            <blockquote className={s.verse}>
               <p className={s.arabic} lang="ar" dir="rtl">لَن تَنَالُوا۟ ٱلْبِرَّ حَتَّىٰ تُنفِقُوا۟ مِمَّا تُحِبُّونَ</p>
               <p className={s.meaning}>«Dere når ikke det gode før dere gir av det dere er glad i.»</p>
               <p className={s.reference}>Koranen 3:92</p>
