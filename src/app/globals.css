@@ -326,4 +326,4 @@ body:has([data-rahma-home]) #nav-menu{--ink:#1e3e36;--ink-2:#3b5750;--muted:#526
 body:has([data-contact-page]){background-color:#faf5ec;background-image:url("/textures/rahma-cream-plaster.svg");background-size:768px}
 
 /* Membership: cream plaster surrounds the forest manuscript. */
-body:has([data-membership-page]){background-color:#faf5ec;background-image:linear-gradient(rgba(250,245,236,.65),rgba(250,245,236,.65)),url('/textures/rahma-cream-plaster.svg');background-size:auto,768px}
+body:has([data-membership-page]){background-color:#faf5ec;background-image:url('/textures/rahma-cream-plaster.svg');background-size:768px}
