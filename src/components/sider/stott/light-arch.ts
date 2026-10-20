@@ -118,7 +118,10 @@ export function createLightArch(canvas: HTMLCanvasElement, hero: HTMLElement): L
   gl.disable(gl.DEPTH_TEST);
 
   let width = 1, height = 1, dpr = 1, frame = 0, lastFrame = 0, elapsed = 0;
-  let paused = true, onScreen = true, destroyed = false, contextLost = false;
+  // Match the actual preference before the first draw. Starting paused painted
+  // the finished arch, then jumped back to scattered particles when React resumed it.
+  let paused = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let onScreen = true, destroyed = false, contextLost = false;
   const target = { x: 0, y: 0 }, spring = { x: 0, y: 0 };
   const masks = new Float32Array(12);
   const canAnimate = () => !destroyed && !contextLost && !paused && onScreen && !document.hidden;

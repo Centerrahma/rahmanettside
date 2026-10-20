@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useState, useSyncExternalStore } from 'react';
+import { useEffect, useRef, useSyncExternalStore } from 'react';
 import Image from 'next/image';
 import { BANK_ACCOUNT, EMAIL, MONTHLY_VIPPS, VIPPS } from '@/components/forside/links';
 import { createLightArch, type LightArch } from './light-arch';
@@ -40,8 +40,7 @@ export default function Supporters() {
   const hero = useRef<HTMLElement>(null);
   const arch = useRef<LightArch | null>(null);
   const reducedMotion = useSyncExternalStore(subscribeMotion, readMotion, serverMotion);
-  const [userPaused, setUserPaused] = useState(false);
-  const paused = reducedMotion || userPaused;
+  const paused = reducedMotion;
 
   useEffect(() => {
     if (!canvas.current || !hero.current) return;
@@ -50,7 +49,9 @@ export default function Supporters() {
     return () => { controller.destroy(); arch.current = null; };
   }, []);
 
-  useEffect(() => { arch.current?.setPaused(paused); }, [paused]);
+  // Read the browser preference here as well: the hydration snapshot defaults
+  // to reduced motion and must not briefly paint the completed arch on mount.
+  useEffect(() => { arch.current?.setPaused(readMotion()); }, [reducedMotion]);
 
   return (
     <div className={s.page} data-supporters data-paused={paused}>
@@ -66,7 +67,7 @@ export default function Supporters() {
             <blockquote className={s.verse} data-light-mask>
               <p className={s.arabic} lang="ar" dir="rtl">لَن تَنَالُوا۟ ٱلْبِرَّ حَتَّىٰ تُنفِقُوا۟ مِمَّا تُحِبُّونَ</p>
               <p className={s.meaning}>«Dere når ikke det gode før dere gir av det dere er glad i.»</p>
-              <a href="https://quran.com/3/92" target="_blank" rel="noopener noreferrer">Koranen 3:92 · Utdrag, norsk meningsgjengivelse ↗</a>
+              <p className={s.reference}>Koranen 3:92</p>
             </blockquote>
           </div>
         </section>
@@ -92,10 +93,6 @@ export default function Supporters() {
             <a className={s.action} href={`mailto:${EMAIL}?subject=Kontonummer%20for%20gave`}>Kontakt oss<span aria-hidden="true">↗</span></a>
           </article>
         </section>
-      </div>
-      <div className={s.controls}>
-        <p>Må Allah belønne deg for din gavmildhet.</p>
-        <button type="button" disabled={reducedMotion} aria-pressed={userPaused} onClick={() => setUserPaused(!userPaused)}>{reducedMotion ? 'Redusert bevegelse' : userPaused ? 'Spill animasjon' : 'Pause animasjon'}</button>
       </div>
     </div>
   );
