@@ -22,16 +22,17 @@ This project uses [`next/font`](https://nextjs.org/docs/app/building-your-applic
 
 ## Environment variables
 
-The contact and membership forms send email through the mosque's one.com mailbox. Set these in Vercel (Settings → Environment Variables, Production) and redeploy:
+The contact and membership forms send email through Microsoft Graph, as a mailbox in the mosque's Microsoft 365 tenant (centerrahma.no). No SMTP is involved. An Entra app signs in with its own client secret; [docs/microsoft-graph-mail.md](docs/microsoft-graph-mail.md) has the setup steps (in Norwegian) for whoever administers the tenant. Set these in Vercel (Settings → Environment Variables, Production) and redeploy:
 
 | Variable | Required | Description |
 |---|---|---|
-| `SMTP_USER` | yes | Full address of the one.com mailbox that sends, e.g. `nettside@centerrahma.no`. Also used as the From address. |
-| `SMTP_PASSWORD` | yes | That mailbox's password. Mark it **Sensitive** in Vercel. |
+| `MS_TENANT_ID` | yes | Directory (tenant) ID of the Microsoft 365 tenant. |
+| `MS_CLIENT_ID` | yes | Application (client) ID of the Entra app registration. |
+| `MS_CLIENT_SECRET` | yes | The app's client secret (the *Value*, not the Secret ID). Mark it **Sensitive** in Vercel. It expires; renew it before then. |
+| `MS_SENDER` | yes | The mailbox the site sends as, e.g. `webside@centerrahma.no`. Also the From address. |
 | `CONTACT_EMAIL_TO` | no | Where form submissions are delivered. Defaults to `post@centerrahma.no`. |
-| `SMTP_HOST` / `SMTP_PORT` | no | Default `send.one.com` / `465`. Only change if the mailbox moves off one.com. |
 
-Locally, put them in `.env.local` (gitignored). Without them the forms return a 500 and log `SMTP_USER and SMTP_PASSWORD environment variables must be set`.
+Locally, copy `.env.example` to `.env.local` (gitignored) and fill it in. Without the `MS_*` values the forms return a 500 and log `Missing environment variables for Microsoft Graph mail: …`.
 
 ## Learn More
 
