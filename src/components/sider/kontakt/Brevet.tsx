@@ -1,10 +1,10 @@
 /* Kontakt oss on wide screens: an illuminated manuscript page, and the message form is the letter on
    it. A gold and green border, a headpiece with the greeting in a cartouche, the four ways to reach
-   us in round sunburst medallions in the margins, and Koranen 15:46 in the colophon. Grid 1200 × 900. */
+   us in round sunburst medallions in the margins. Grid 1200 × 900. */
 import type { ReactNode } from 'react';
 import f from '@/components/forside/forside.module.css';
 import { Lattice, delay, pen, star } from '../kit';
-import { SALAM, TRANSLATION, VERSES } from '../verses';
+import { SALAM } from '../verses';
 import k from './kontakt.module.css';
 import LetterForm from './LetterForm';
 import { Frame, WayBody, type Way } from './ways';
@@ -76,7 +76,7 @@ function Art() {
   // a little crest rising from the headpiece into the border
   line('M553,100 C560,84 578,78 593,62 C608,78 626,84 633,100', { fill: 'url(#kc-gold)', stroke: '#96b18a', w: 1, t: 0.5 });
 
-  // rules: under the title, the columns, above the colophon
+  // rules: under the title, the columns, under the columns
   line('M120,316 H1066 M120,321 H1066', { stroke: 'var(--gold-2)', w: 0.9, t: 0.5 });
   line('M120,742 H1066 M120,747 H1066', { stroke: 'var(--gold-2)', w: 0.9, t: 0.55 });
   line('M342,336 V728 M347,336 V728 M853,336 V728 M858,336 V728', { stroke: 'var(--gold-2)', w: 0.9, t: 0.6 });
@@ -93,14 +93,6 @@ function Art() {
     line(`M${cx},${cy + R + 2} C${cx - 7},${cy + R + 8} ${cx - 4},${cy + R + 16} ${cx},${cy + R + 22} C${cx + 4},${cy + R + 16} ${cx + 7},${cy + R + 8} ${cx},${cy + R + 2} Z`, { fill: 'url(#kc-gold)', stroke: '#96b18a', w: 0.8, t: t + 0.3 });
   });
 
-  // the colophon with 15:46
-  line(cartouche(250, 936, 758, 802), { fill: 'url(#kc-cream)', stroke: 'var(--gold)', w: 1.3, t: 0.6 });
-  add(
-    <text x={782} y={788} textAnchor="middle" fontSize={24} fontWeight={700} fill="var(--emerald-ink)" direction="rtl" lang="ar" className={f.fade} style={delay(1.2)}>
-      {VERSES.v15_46.ar}
-    </text>,
-  );
-  line(star(664, 780, 7), { fill: 'var(--gold)', stroke: 'var(--gold)', w: 0.6, t: 1 });
   return out;
 }
 
@@ -113,7 +105,6 @@ export default function Brevet({ list }: { list: Way[] }) {
       t: 0.8,
     },
     { rect: { x: 372, y: 330, w: 456, h: 404 }, node: <LetterForm />, cls: k.letterBox, t: 1.1 },
-    { rect: { x: 262, y: 760, w: 380, h: 40 }, node: <><span lang="en">«{VERSES.v15_46.en}»</span> <cite>{VERSES.v15_46.ref}, {TRANSLATION}</cite></>, cls: k.colo, t: 1.3 },
     ...list.map((w, i) => ({
       rect: { x: MEDALS[i][0] - 76, y: MEDALS[i][1] - 70, w: 152, h: 140 },
       node: <WayBody w={w} />,
@@ -125,7 +116,7 @@ export default function Brevet({ list }: { list: Way[] }) {
     <Frame
       vb={[0, 0, 1200, 900]}
       reserve={124}
-      label="En opplyst manuskriptside med hilsenen øverst, fire medaljonger i margen og Koranen 15:46 nederst"
+      label="En opplyst manuskriptside med hilsenen øverst, fire medaljonger i margen "
       items={items}
       art={
         <>
