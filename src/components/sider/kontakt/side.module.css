@@ -1,16 +1,13 @@
-/* Kontakt oss on phones and tablets: the envelope is the hero, then three medallions and the verse. */
+/* Kontakt oss on phones and tablets: the envelope is the hero, then three medallions. */
 .side{--ink:#0f2a23;--ink-2:#2f4a41;max-width:430px;margin:0 auto;padding:12px 12px 56px;color:#0f2a23}
-.verse{text-align:center;margin:30px 8px 0}
-.verse [lang='ar']{font-family:var(--font-amiri),serif;font-size:26px;line-height:1.8;color:#7a5c0e;margin:0}
-.verse p{font-size:14px;line-height:1.5;margin:4px 0 0;color:#2f4a41}
 
-.medals{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:22px;align-items:start}
+.medals{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:28px;align-items:start}
 .medal{display:flex;flex-direction:column;align-items:center;gap:4px;padding:6px 0;text-decoration:none;color:#0a4439;text-align:center;transition:transform .15s ease}
 a.medal:active{transform:scale(.95)}
 .medal:focus-visible{outline:2px solid #b08a45;outline-offset:3px}
-.disc{display:grid;place-items:center;width:64px;height:64px;border-radius:50%;background:#0a4439;color:#f7f0e3;box-shadow:0 0 0 3px #f7f0e3,0 0 0 5px #c9a35b;margin-bottom:6px}
-.disc svg{width:23px;height:23px}
+.disc{display:grid;place-items:center;width:80px;height:80px;border-radius:50%;background:#0a4439;color:#f7f0e3;box-shadow:0 0 0 3px #f7f0e3,0 0 0 5px #c9a35b;margin-bottom:6px}
+.disc svg{width:29px;height:29px}
 .friday .disc{background:#c9a35b;color:#0a4439;box-shadow:0 0 0 3px #f7f0e3,0 0 0 5px #0a4439}
-.label{font-weight:600;font-size:15px}
-.small{font-size:13.5px;line-height:1.35;color:#2f4a41;font-weight:500}
-.friday .small{font-family:var(--font-newsreader),Georgia,serif;font-variant-numeric:lining-nums tabular-nums;font-size:16px;color:#0f2a23}
+.label{font-weight:600;font-size:17px}
+.small{font-size:15px;line-height:1.35;color:#2f4a41;font-weight:500}
+.friday .small{font-family:var(--font-newsreader),Georgia,serif;font-variant-numeric:lining-nums tabular-nums;font-size:18px;color:#0f2a23}
