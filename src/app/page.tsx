@@ -2,9 +2,7 @@ import type { Metadata } from 'next';
 import { fetchPrayerTimes } from '@/lib/mymasjid';
 import { osloNow } from '@/lib/prayer-clock';
 import Hero from '@/components/forside/Hero';
-import Besok from '@/components/forside/Besok';
-import Fellesskapet from '@/components/forside/Fellesskapet';
-import StottOss from '@/components/forside/StottOss';
+import ForsideSeksjoner from '@/components/forside/gips/Seksjoner';
 import ForsideMobil from '@/components/forside/mobil/ForsideMobil';
 import m from '@/components/forside/mobil/mobil.module.css';
 
@@ -86,11 +84,9 @@ export default async function HomePage() {
     <>
       <MosqueJsonLd />
       <Hero schedule={schedule} friday={now.friday} />
-      {/* under the hero, phones get their own layout (ForsideMobil); wider screens keep these three */}
+      {/* under the hero, phones get their own layout (ForsideMobil); wider screens get the carved sections (gips/Seksjoner) */}
       <div className={m.desktop}>
-        <Fellesskapet />
-        <StottOss />
-        <Besok jummah={schedule.jummah} />
+        <ForsideSeksjoner jummah={schedule.jummah} />
       </div>
       <ForsideMobil jummah={schedule.jummah} />
     </>
