@@ -68,7 +68,7 @@ function Fellesskap() {
           <Recess className={s.arch}>
             <div className={s.track} ref={track} onScroll={onScroll}>
               {GROUPS.map((g) => (
-                <div key={g.key} className={s.slide}><Image src={g.img} alt={g.alt} fill sizes="(max-width: 900px) 88vw, 40vw" /></div>
+                <div key={g.key} className={s.slide}><Image src={g.img} alt={g.alt} fill quality={90} sizes={g.key === 'medlem' ? '(max-width: 900px) 88vw, 40vw' : '(max-width: 900px) 160vw, 90vw'} /></div>
               ))}
             </div>
           </Recess>

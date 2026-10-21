@@ -7,7 +7,7 @@ export const LEAD = 'Her lærer barn Koranen og arabisk, unge samles til sport o
 export interface Group { key: string; href?: string; more?: string; img: string; alt: string; title: string; meta: string; text: string; points: string[][] }
 export const GROUPS: Group[] = [
   {
-    key: 'ung', img: '/forside/ung-portrett.jpg', alt: 'Barn og unge samlet i en idrettshall',
+    key: 'ung', img: '/photos/ung-editorial-4k.webp', alt: 'Barn og unge samlet i en idrettshall',
     title: 'Ung Rahma', meta: '13 til 25 år',
     text: 'Et ungdomsprogram som styrker neste generasjon gjennom tro, læring og lederskap.',
     points: [
@@ -17,7 +17,7 @@ export const GROUPS: Group[] = [
     ],
   },
   {
-    key: 'skole', img: '/forside/skole-portrett.jpg', alt: 'Elever i et klasserom ser på en skjerm med arabiske bokstaver',
+    key: 'skole', img: '/photos/skole-editorial-4k.webp', alt: 'Elever i et klasserom ser på en skjerm med arabiske bokstaver',
     title: 'Rahma skole', meta: 'Barn og unge',
     text: 'Strukturert undervisning for barn og unge, med kvalifiserte lærere i et trygt miljø.',
     points: [
@@ -27,7 +27,7 @@ export const GROUPS: Group[] = [
     ],
   },
   {
-    key: 'medlem', href: '/blimedlem', img: '/forside/fam-portrett.jpg', alt: 'Barn som spiser sammen i bønnesalen',
+    key: 'medlem', href: '/blimedlem', img: '/photos/medlem-editorial-4k.webp', alt: 'Barn som spiser sammen i bønnesalen',
     title: 'Bli medlem', meta: 'For hele familien', more: 'Meld deg inn',
     text: 'Jo flere vi er, jo mer kan vi gjøre. Undervisningen, Rahma skole og Ung Rahma får vi til fordi dere støtter oss.',
     points: [

@@ -39,7 +39,7 @@ function Grupper() {
         <Recess shape="rect" className={s.carved}>
           {GROUPS.map((g, i) => (
             <span key={g.key} className={`${s.shot} ${open === i ? s.on : ''}`}>
-              <Image src={g.img} alt={open === i ? g.alt : ''} fill sizes="(max-width: 480px) 82vw, 400px" />
+              <Image src={g.img} alt={open === i ? g.alt : ''} fill quality={90} sizes={g.key === 'medlem' ? '(max-width: 480px) 82vw, 400px' : '(max-width: 480px) 160vw, 800px'} />
             </span>
           ))}
         </Recess>
