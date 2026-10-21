@@ -49,9 +49,6 @@
 .medal{gap:.15cqw}
 .medal b{font-size:clamp(12px,1.25cqw,16px)}
 .medal > svg{width:clamp(18px,2cqw,26px);height:clamp(18px,2cqw,26px);margin-bottom:0}
-.colo{display:block;align-content:center;text-align:center;text-wrap:balance;line-height:1.3;font-size:clamp(10px,.95cqw,13px);color:var(--ink-2)}
-.colo span{color:var(--ink-2)}
-.colo cite{font-style:normal;font-weight:600;color:var(--gold);white-space:nowrap}
 
 /* the map in a round gold frame, with the address and two buttons */
 .mapWrap{display:flex;flex-direction:column;align-items:center}
@@ -77,5 +74,4 @@
 .medal{--ink:#164d3a;--ink-2:#355b43}
 .way small{color:var(--ink-2);text-transform:none;letter-spacing:0}
 .medal a{color:#164d3a}
-.colo span,.colo cite{color:#355b43}
 .mapWrap{--ink:#1e3e36;--ink-2:#3b5750;--gold:#568064}
