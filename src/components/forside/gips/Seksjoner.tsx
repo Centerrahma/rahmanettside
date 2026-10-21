@@ -26,19 +26,28 @@ const VERSE = { no: '«Dere når ikke det gode før dere gir av det dere er glad
 function Fellesskap() {
   const [active, setActive] = useState(0);
   const track = useRef<HTMLDivElement>(null);
+  // the group a tab click is scrolling to; scroll events on the way there must not move the selection
+  const target = useRef<number | null>(null);
   const go = (i: number) => {
     const el = track.current;
     const n = (i + GROUPS.length) % GROUPS.length;
     setActive(n);
-    el?.scrollTo({ left: n * el.clientWidth, behavior: 'smooth' });
+    if (!el) return;
+    target.current = n === Math.round(el.scrollLeft / el.clientWidth) ? null : n;
+    el.scrollTo({ left: n * el.clientWidth, behavior: 'smooth' });
   };
   // swiping or scrolling the arch picks the group that comes to rest in it
   const onScroll = () => {
     const el = track.current;
     if (!el) return;
     const i = Math.round(el.scrollLeft / el.clientWidth);
+    if (target.current !== null) {
+      if (i === target.current) target.current = null;
+      return;
+    }
     if (i !== active) setActive(i);
   };
+  const release = () => { target.current = null; };
   return (
     <Reveal className={s.sec} id="fellesskapet" aria-labelledby="v-fs">
       <div className={`${s.wrap} ${s.fs}`}>
@@ -66,7 +75,7 @@ function Fellesskap() {
         </div>
         <div className={s.fsArch} {...r(2)}>
           <Recess className={s.arch}>
-            <div className={s.track} ref={track} onScroll={onScroll}>
+            <div className={s.track} ref={track} onScroll={onScroll} onTouchStart={release} onWheel={release} onPointerDown={release}>
               {GROUPS.map((g) => (
                 <div key={g.key} className={s.slide}><Image src={g.img} alt={g.alt} fill quality={90} sizes={g.key === 'medlem' ? '(max-width: 900px) 88vw, 40vw' : '(max-width: 900px) 160vw, 90vw'} /></div>
               ))}
