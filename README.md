@@ -22,17 +22,16 @@ This project uses [`next/font`](https://nextjs.org/docs/app/building-your-applic
 
 ## Environment variables
 
-The contact and membership forms send email through Microsoft Graph, as a mailbox in the mosque's Microsoft 365 tenant (centerrahma.no). No SMTP is involved. An Entra app signs in with its own client secret; [docs/microsoft-graph-mail.md](docs/microsoft-graph-mail.md) has the setup steps (in Norwegian) for whoever administers the tenant. Set these in Vercel (Settings → Environment Variables, Production) and redeploy:
+The contact and membership forms send email through Microsoft Graph, as the `webside@centerrahma.no` mailbox in the mosque's Microsoft 365 tenant. No SMTP and no secret: the Entra app "Center Rahma Website Contact Form" trusts Vercel's OIDC token (federated credential), and Exchange RBAC limits it to sending as that one mailbox. [docs/microsoft-graph-mail.md](docs/microsoft-graph-mail.md) describes the setup (in Norwegian). Set these in Vercel (Production) and redeploy:
 
 | Variable | Required | Description |
 |---|---|---|
-| `MS_TENANT_ID` | yes | Directory (tenant) ID of the Microsoft 365 tenant. |
-| `MS_CLIENT_ID` | yes | Application (client) ID of the Entra app registration. |
-| `MS_CLIENT_SECRET` | yes | The app's client secret (the *Value*, not the Secret ID). Mark it **Sensitive** in Vercel. It expires; renew it before then. |
-| `MS_SENDER` | yes | The mailbox the site sends as, e.g. `webside@centerrahma.no`. Also the From address. |
-| `CONTACT_EMAIL_TO` | no | Where form submissions are delivered. Defaults to `post@centerrahma.no`. |
+| `AZURE_TENANT_ID` | yes | Directory (tenant) ID of the Microsoft 365 tenant. |
+| `AZURE_CLIENT_ID` | yes | Application (client) ID of the Entra app. |
+| `CONTACT_MAIL_FROM` | no | Sending mailbox. Defaults to `webside@centerrahma.no`. |
+| `CONTACT_MAIL_TO` | no | Where submissions are delivered. Defaults to `post@centerrahma.no`. |
 
-Locally, copy `.env.example` to `.env.local` (gitignored) and fill it in. Without the `MS_*` values the forms return a 500 and log `Missing environment variables for Microsoft Graph mail: …`.
+The federated credential covers Production only, so sending fails on Preview and locally (the forms return 500 and log the error).
 
 ## Learn More
 

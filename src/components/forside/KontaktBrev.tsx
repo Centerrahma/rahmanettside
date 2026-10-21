@@ -20,6 +20,7 @@ export default function KontaktBrev() {
       <p className={s.sr} role="status" aria-live="polite">{done ? 'Takk! Brevet ditt er sendt. Vi svarer så snart vi kan.' : ''}</p>
       {done ? <Envelope sent={sent} onAgain={reset} /> : (
     <form className={s.letter} method="post" onSubmit={onSubmit}>
+      <input type="text" name="website" tabIndex={-1} autoComplete="off" aria-hidden="true" style={{ position: "absolute", left: "-9999px", width: 0, height: 0, opacity: 0 }} />
       <p className={s.dear}>Til Masjid Rahma,</p>
       <label className={s.msg}>
         <span>Melding</span>
