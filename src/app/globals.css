@@ -318,7 +318,7 @@ body:has([data-rahma-home]) [data-home-primary],body:has([data-rahma-home]) head
 body:has([data-rahma-home]) [data-home-primary]:hover{background:var(--sand)}
 body:has([data-rahma-home]) #nav-menu{--ink:#1e3e36;--ink-2:#3b5750;--muted:#52645d;color:var(--ink)}
 
-/* Approved contact page: cream plaster outside the forest manuscript. */
+/* Contact page: cream plaster around the phone envelope page; on wide screens the beige wall covers it. */
 body:has([data-contact-page]){background-color:#faf5ec;background-image:url("/textures/rahma-cream-plaster.svg");background-size:768px}
 
 /* Membership: cream plaster surrounds the forest manuscript. */

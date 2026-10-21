@@ -1,77 +1,9 @@
-/* Kontakt oss. Wide screens get the illuminated page (.desk), phones and tablets the envelope page
-   (KonvoluttSide, .phone). Tokens (--emerald, --gold …) live in globals.css. */
-.page{--ink:#fff7e5;--ink-2:#d5e2ca;--gold:#bfd0a2;--gold-2:#96b18a;padding:24px 0 96px;overflow:hidden}
+/* Kontakt oss. Wide screens get the wall with three cuts in it (Nisjene, .desk), phones and tablets the
+   envelope page (KonvoluttSide, .phone). Under 1180px the wall's three columns get too narrow. */
+.page{overflow:hidden}
 .phone{display:none}
-@media (max-width:1000px){
+@media (max-width:1180px){
   .desk{display:none}
   .phone{display:block}
-  .page{padding-top:8px}
+  .page{padding:8px 0 96px}
 }
-.mapSec{padding-top:72px}
-
-/* a drawing as big as the screen allows: --res is the height everything else above the fold needs */
-.frame{position:relative;width:min(var(--max),calc(100% - 32px));margin:0 auto;aspect-ratio:var(--ar);container-type:inline-size}
-.art{position:absolute;inset:0}
-.art > svg{display:block;width:100%;height:100%;overflow:visible}
-.art text{font-family:var(--font-amiri),serif}
-.place{position:absolute;left:var(--x);top:var(--y);width:var(--w);height:var(--h);opacity:0;animation:arrive .9s ease forwards;animation-delay:var(--d)}
-@keyframes arrive{to{opacity:1}}
-
-/* one way to reach us, centred in its place on the drawing */
-.way{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:.35cqw}
-.way > svg{width:clamp(22px,2.4cqw,32px);height:clamp(22px,2.4cqw,32px);color:var(--emerald);margin-bottom:.2cqw}
-.way small{font-size:clamp(10px,.95cqw,13px);font-weight:600;color:var(--gold);text-transform:uppercase;letter-spacing:.09em}
-.way b{font-size:clamp(14px,1.55cqw,20px);font-weight:600;letter-spacing:-.02em;line-height:1.25;color:var(--ink)}
-.way a{font-size:clamp(12px,1.1cqw,15px);font-weight:600;color:var(--emerald);text-decoration:none}
-.way a:hover{text-decoration:underline;text-underline-offset:3px}
-
-/* on the page: the title, the letter, the medallions and the colophon */
-.title{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
-.title h1{margin:0;font-family:var(--font-cormorant),serif;font-style:italic;font-weight:400;font-size:clamp(34px,4.6cqw,58px);line-height:1;color:var(--ink)}
-.title p{margin:.5cqw 0 0;font-size:clamp(12.5px,1.2cqw,16px);color:var(--ink-2)}
-.letterBox{display:flex}
-.letter{display:flex;flex-direction:column;gap:1.1cqw;width:100%;height:100%}
-.dear{margin:0;font-family:var(--font-cormorant),serif;font-style:italic;font-weight:400;font-size:clamp(20px,2.2cqw,28px);color:var(--ink)}
-.pair{display:grid;grid-template-columns:1fr 1fr;gap:1.6cqw}
-.letter label{display:grid;gap:.2cqw;min-width:0}
-.letter label span{font-size:13px;font-weight:600;color:var(--ink-2)}
-.letter input,.letter select,.letter textarea{width:100%;min-width:0;box-sizing:border-box;font:inherit;font-size:clamp(14px,1.3cqw,16px);color:var(--ink);background:transparent;border:0;border-bottom:1px solid #7d9e83;border-radius:0;padding:.35cqw 2px;outline:none;transition:border-color .2s}
-.letter input:focus,.letter select:focus,.letter textarea:focus{border-color:var(--emerald)}
-.msg{flex:1;min-height:0}
-.letter textarea{resize:none;height:100%;min-height:60px;border-bottom:0;line-height:2.1em;background:repeating-linear-gradient(transparent 0 calc(2.1em - 1.5px),#7d9e83 calc(2.1em - 1.5px) 2.1em);background-attachment:local;padding-top:0}
-.sign{display:flex;align-items:center;justify-content:space-between;gap:12px}
-.sign p{margin:0;font-family:var(--font-cormorant),serif;font-style:italic;font-size:clamp(15px,1.5cqw,19px);color:var(--ink-2)}
-.sign a{color:var(--emerald);font-weight:600}
-.seal{flex:none;display:grid;place-items:center;width:clamp(58px,6.2cqw,78px);aspect-ratio:1;border-radius:50%;border:0;cursor:pointer;font:inherit;font-weight:600;font-size:clamp(13px,1.2cqw,15px);color:#173f30;background:#dce6c9;box-shadow:0 0 0 3px #b9cbbd,0 0 0 4px #5b8264;transition:transform .15s}
-.seal:hover{transform:rotate(-6deg) scale(1.04)}
-.seal:active{transform:scale(.96)}
-.seal:disabled{opacity:.6}
-.medal{gap:.15cqw}
-.medal b{font-size:clamp(12px,1.25cqw,16px)}
-.medal > svg{width:clamp(18px,2cqw,26px);height:clamp(18px,2cqw,26px);margin-bottom:0}
-
-/* the map in a round gold frame, with the address and two buttons */
-.mapWrap{display:flex;flex-direction:column;align-items:center}
-.map{position:relative;width:min(440px,100%);aspect-ratio:1}
-.mapIn{position:absolute;inset:7.5%;border-radius:50%;overflow:hidden;background:#e9ece9}
-.mapIn iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
-.map > svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none}
-.addr{display:flex;flex-direction:column;align-items:center;margin:18px 0 14px}
-.addr b{font-size:22px;font-weight:600;letter-spacing:-.025em}
-.addr span{color:var(--ink-2)}
-.mapBtns{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
-
-@media (prefers-reduced-motion:reduce){
-  .place{animation:none;opacity:1}
-}
-
-/* Forest manuscript: light ink on green; cream medallions and outer map retain dark ink. */
-.title h1,.dear{color:var(--ink)}
-.letter{gap:12px}
-.letter input,.letter select,.letter textarea{font-size:16px;caret-color:var(--ink)}
-.letter select option{color:var(--ink);background:#174f41}
-.letter :focus-visible{outline:2px solid #f1e7c8;outline-offset:4px}
-.medal{--ink:#164d3a;--ink-2:#355b43}
-.way small{color:var(--ink-2);text-transform:none;letter-spacing:0}
-.medal a{color:#164d3a}
-.mapWrap{--ink:#1e3e36;--ink-2:#3b5750;--gold:#568064}
