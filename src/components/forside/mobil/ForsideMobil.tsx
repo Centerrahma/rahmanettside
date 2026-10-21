@@ -6,14 +6,15 @@ import Link from 'next/link';
 import type { PrayerSchedule } from '@/types/prayer';
 import Konvolutt from '@/components/sider/kontakt/Konvolutt';
 import Velger from '@/components/sider/stott/Velger';
-import { GROUPS } from '../Fellesskapet';
+import { Recess } from '../gips/Gips';
+import { GROUPS } from '../grupper';
 import { nextFriday } from '../fredag';
 import { ADDRESS, FACEBOOK, MAPS, YEAR_PDF } from '../links';
 import Rosett from './Rosett';
 import s from './mobil.module.css';
 
 /* The front page under the hero, on phones (desktop keeps Fellesskapet, StottOss and Besok):
-   Vårt felleskap — one arched photo, the groups open under it one at a time;
+   Vårt felleskap — one photo in an arch carved into beige plaster, the groups open under it one at a time;
    Støtt moskeen — a green tadelakt plate between double gold rules, with the Vipps switch card;
    Besøk og kontakt oss — on cream plaster under a row of arches: the Friday prayer, then the Kontakt envelope.
    Each heading has a rosette over it. Reveals play once, as each part scrolls into view. */
@@ -35,14 +36,13 @@ function Grupper() {
   return (
     <>
       <div className={s.stage} data-reveal>
-        {GROUPS.map((g, i) => (
-          <span key={g.key} className={`${s.shot} ${open === i ? s.on : ''}`}>
-            <Image src={g.img} alt={open === i ? g.alt : ''} fill sizes="(max-width: 480px) 92vw, 440px" />
-          </span>
-        ))}
-        <svg viewBox="0 0 200 160" preserveAspectRatio="none" aria-hidden="true">
-          <path d="M4 160V74C4 40 54 20 100 4c46 16 96 36 96 70v86" />
-        </svg>
+        <Recess className={s.carved}>
+          {GROUPS.map((g, i) => (
+            <span key={g.key} className={`${s.shot} ${open === i ? s.on : ''}`}>
+              <Image src={g.img} alt={open === i ? g.alt : ''} fill sizes="(max-width: 480px) 82vw, 400px" />
+            </span>
+          ))}
+        </Recess>
       </div>
       <div className={s.acc}>
         {GROUPS.map((g, i) => {
