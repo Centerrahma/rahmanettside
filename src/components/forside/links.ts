@@ -12,10 +12,11 @@ export const MAPS = {
 
 export const EMAIL = 'post@centerrahma.no';
 export const FACEBOOK = 'https://www.facebook.com/masjidrahma';
-/** The button and the QR code (public/vipps-77811.png) both go to the number shown. */
-export const VIPPS = { number: '77811', url: 'https://qr.vipps.no/donations/77811' };
+/** The button and the QR code both go to the number shown. The link is the one inside the QR code the
+    mosque supplied on 2026-10-20; the old donations/77811 link gave «betaling feilet». */
+export const VIPPS = { number: '77811', url: 'https://qr.vipps.no/vp/EN4k-ZL0M', qr: '/vipps-77811-vp.png' };
 /** Separate number supplied for monthly giving; the QR and action share this destination. */
-export const MONTHLY_VIPPS = { number: '43392', url: 'https://qr.vipps.no/donations/43392' };
+export const MONTHLY_VIPPS = { number: '43392', url: 'https://qr.vipps.no/donations/43392', qr: '/vipps-43392.png' };
 /** The account for gifts by bank transfer. Until it is set, Støtt oss asks people to write for it. */
 export const BANK_ACCOUNT: string | null = null;
 export const ORG_NR = '974 444 216';

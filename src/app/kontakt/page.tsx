@@ -1,8 +1,7 @@
 import type { Metadata } from 'next';
 import { fetchPrayerTimes } from '@/lib/mymasjid';
-import Brevet from '@/components/sider/kontakt/Brevet';
-import BrevetMobil from '@/components/sider/kontakt/BrevetMobil';
-import { RoundMap, ways } from '@/components/sider/kontakt/ways';
+import KonvoluttSide from '@/components/sider/kontakt/KonvoluttSide';
+import Nisjene from '@/components/sider/kontakt/Nisjene';
 import { ADDRESS } from '@/components/forside/links';
 import k from '@/components/sider/kontakt/kontakt.module.css';
 
@@ -30,18 +29,14 @@ export const metadata: Metadata = {
 
 export default async function KontaktPage() {
   const { jummah } = await fetchPrayerTimes();
-  const list = ways(jummah);
   return (
     <main className={k.page} data-contact-page>
-      {/* wide screens get the illuminated page with the letter on it, phones and tablets a page drawn for them */}
+      {/* wide screens get the wall with three cuts in it, phones and tablets the envelope page */}
       <div className={k.desk}>
-        <Brevet list={list} />
-        <section className={k.mapSec} aria-label="Kart">
-          <RoundMap />
-        </section>
+        <Nisjene jummah={jummah} />
       </div>
       <div className={k.phone}>
-        <BrevetMobil list={list} />
+        <KonvoluttSide jummah={jummah} />
       </div>
     </main>
   );

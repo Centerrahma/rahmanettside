@@ -29,9 +29,9 @@ export const MailIcon = () => (
     <path d="M6,12 L24,26 L42,12" />
   </svg>
 );
+/** Facebook's own mark, the solid «f», rather than a line drawing of it. */
 export const FacebookIcon = () => (
-  <svg viewBox="0 0 48 48" {...P}>
-    <circle cx="24" cy="24" r="19" />
-    <path d="M27,42 V24 H33 M27,24 V19 C27,16 28,15 31,15 H33 M21,28 H33" />
+  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+    <path d="M13.6 22.5v-9.2h3.1l.5-3.7h-3.6V7.3c0-1.1.3-1.8 1.8-1.8h1.9V2.2c-.3 0-1.5-.2-2.8-.2-2.8 0-4.6 1.7-4.6 4.8v2.8H6.8v3.7h3.1v9.2h3.7Z" />
   </svg>
 );

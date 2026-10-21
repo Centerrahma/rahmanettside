@@ -1,12 +1,15 @@
 /* Bli medlem: the whole page is one green plaster sheet, tooled in gold like a book cover, with a
    quarter-medallion in each corner. On it the title, the words, the green button to the StyreWeb
    innmelding form, the rules for children, the Brønnøysund check and «Viktig». Under the sheet, three
-   reasons to join, each under a numbered star medallion. */
+   reasons to join, each under a numbered star medallion.
+   Phones (≤760px) get their own, shorter page instead: the sheet holds the title, one line, the
+   button and the three reasons as rows; the rules become questions you open only if they apply. */
 import type { ReactNode } from 'react';
 import f from '@/components/forside/forside.module.css';
 import { MEMBERSHIP_SIGNUP_URL } from '@/lib/constants';
 import { star } from '../kit';
 import m from './medlem.module.css';
+import p from './mobil.module.css';
 
 const BRREG = 'https://person.brreg.no/nb/minside';
 
@@ -149,6 +152,7 @@ export default function Medlem() {
         </defs>
       </svg>
 
+      <div className={p.desktop}>
       <article className={m.sheet}>
         <Corner className={m.tl} />
         <Corner className={m.tr} />
@@ -206,6 +210,56 @@ export default function Medlem() {
           ))}
         </ul>
       </section>
+      </div>
+
+      <div className={p.phone}>
+        <header className={p.sheet}>
+          <Corner className={m.tl} />
+          <Corner className={m.tr} />
+          <Corner className={m.bl} />
+          <Corner className={m.br} />
+          <h1>Bli medlem i&nbsp;Center Rahma</h1>
+          <p className={p.line}>{INTRO[1]}</p>
+          <a className={p.join} href={MEMBERSHIP_SIGNUP_URL} target="_blank" rel="noopener noreferrer">Innmeldingsskjema <Arrow /></a>
+          <ul className={p.why} aria-label="Hvorfor bli medlem">
+            {REASONS.map((r, i) => (
+              <li key={r.title}>
+                <span className={p.badge}>
+                  <svg viewBox="0 0 80 80" aria-hidden>
+                    <path d={star(40, 40, 38, 0.72)} fill="url(#bm-gold)" stroke="#9b7329" strokeWidth={1} />
+                    <path d={star(40, 40, 30, 0.72)} fill="#0b5f45" stroke="#f1d892" strokeWidth={1} />
+                  </svg>
+                  <b>{i + 1}</b>
+                </span>
+                {r.title}
+              </li>
+            ))}
+          </ul>
+        </header>
+
+        <h2 className={p.h2}>Godt å vite</h2>
+        <div className={p.faq}>
+          <details>
+            <summary>Hvorfor betyr medlemskapet så mye?</summary>
+            {REASONS.map((r) => <p key={r.title}>{r.body}</p>)}
+          </details>
+          <details>
+            <summary>Er du registrert i et annet trossamfunn?</summary>
+            <p>Dobbeltregistrerte medlemmer gir ikke grunnlag for statstilskudd. Sjekk derfor hvor du er registrert, og meld deg ut av andre tros- eller livssynssamfunn før du melder deg inn hos oss.</p>
+            <p><a className={p.link} href={BRREG} target="_blank" rel="noopener noreferrer">Sjekk hos Brønnøysundregistrene ↗</a></p>
+          </details>
+          <details>
+            <summary>Kan jeg melde inn barna mine?</summary>
+            {BARN.map((b) => <p key={b.label}><b>{b.label}:</b> {b.body}</p>)}
+          </details>
+          <details>
+            <summary>Kan jeg melde meg ut igjen?</summary>
+            <p>Ja, alltid. Innmelding skal være frivillig og basert på aktivt og informert samtykke.</p>
+          </details>
+        </div>
+
+        <a className={`${p.join} ${p.again}`} href={MEMBERSHIP_SIGNUP_URL} target="_blank" rel="noopener noreferrer">Innmeldingsskjema <Arrow /></a>
+      </div>
     </main>
   );
 }

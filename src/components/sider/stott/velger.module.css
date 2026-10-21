@@ -1,0 +1,22 @@
+.card{--sand:#efe2c3;background:linear-gradient(rgba(239,226,195,.62),rgba(239,226,195,.62)),url('/textures/rahma-cream-plaster.svg') 0 0/768px;background-color:var(--sand);background-blend-mode:normal,multiply;color:#0f2a23;padding:14px 16px 18px;border-radius:6px;margin-top:6px;transition:background-color .35s ease}
+.warm{--sand:#e8d6ac;background-image:linear-gradient(rgba(232,214,172,.62),rgba(232,214,172,.62)),url('/textures/rahma-cream-plaster.svg')}
+.switch{position:relative;display:grid;grid-template-columns:1fr 1fr;background:#0a4439;border-radius:999px;padding:4px}
+.switch button{position:relative;z-index:1;min-height:44px;border:0;background:none;color:#f7f0e3;font:500 15px var(--font-geist),sans-serif;border-radius:999px;cursor:pointer;transition:color .3s ease}
+.switch button[aria-checked='true']{color:#0a4439}
+.switch button:focus-visible{outline:2px solid #d8b46c;outline-offset:2px}
+.thumb{position:absolute;top:4px;bottom:4px;left:4px;width:calc(50% - 4px);background:#f8efdc;border-radius:999px;transition:transform .35s cubic-bezier(.22,1,.36,1)}
+.thumb[data-right='true']{transform:translateX(100%)}
+@keyframes swap{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.body{text-align:center;padding-top:18px;animation:swap .35s cubic-bezier(.22,1,.36,1) both}
+.body h2{font-family:var(--serif);font-weight:400;font-size:30px;letter-spacing:-.025em;line-height:1;margin:0}
+.line{font-size:16px;font-weight:500;line-height:1.45;margin:8px 0 0}
+.source{font-size:13px;line-height:1.4;margin:4px 0 0;opacity:.75}
+.number{font-family:var(--serif);font-variant-numeric:lining-nums tabular-nums;font-size:58px;line-height:1;letter-spacing:-.025em;margin:14px 0 16px}
+.number span{display:block;font-family:var(--font-geist),sans-serif;font-size:14px;letter-spacing:0;color:#24392f;font-weight:500;margin-top:4px}
+.go{display:flex;justify-content:space-between;align-items:center;min-height:54px;padding:0 18px;background:#0a4439;color:#f7f0e3;text-decoration:none;font-weight:500;font-size:17px;border-radius:4px;transition:transform .15s ease}
+.go:active{transform:scale(.98)}
+.go:focus-visible{outline:2px solid #b08a45;outline-offset:3px}
+.qrBox{margin-top:14px;font-size:14px}
+.qrBox summary{cursor:pointer;color:#0f2a23;font-weight:500;text-decoration:underline;text-underline-offset:4px;text-decoration-color:#b08a45;min-height:32px;display:inline-flex;align-items:center}
+.qrBox img{display:block;width:170px;height:170px;margin:12px auto 0;background:#fff;padding:8px;image-rendering:pixelated}
+@media (prefers-reduced-motion:reduce){.body{animation:none}.thumb{transition:none}}

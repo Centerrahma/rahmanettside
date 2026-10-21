@@ -1,0 +1,108 @@
+.page{
+  --cream:#f7f0e3;--ink:#17352d;--gold:#d8b46c;--green:#0a4439;--deep:#072f27;
+  --pad:clamp(14px,1.8vw,24px);--pw:clamp(100px,16vh,140px);--rise:clamp(76px,14vh,136px);--lamp:clamp(118px,21vh,190px);
+  background:var(--green) url('/textures/rahma-tadelakt.webp') 0 -84px/768px;background-blend-mode:luminosity;color:var(--cream);
+  height:calc(100svh - 84px);min-height:620px;overflow:hidden;display:grid;grid-template-rows:minmax(0,1fr) auto;
+  padding:clamp(18px,3.4vh,40px) clamp(20px,4vw,64px) clamp(16px,3vh,36px);
+}
+.gate,.ways{width:100%;max-width:1320px;margin:0 auto}
+
+@keyframes rise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+@keyframes stand{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:none}}
+@keyframes open{from{clip-path:inset(0 50% 0 50%)}to{clip-path:inset(-10px -10px -10px -10px)}}
+.pillar{animation:stand 1.1s cubic-bezier(.22,1,.36,1) .1s both}
+.arch{animation:open 1.6s cubic-bezier(.65,0,.35,1) .5s both}
+.head>*,.verse>*{animation:rise .8s cubic-bezier(.22,1,.36,1) both}
+.head>:nth-child(1){animation-delay:.25s}.head>:nth-child(2){animation-delay:.32s}
+.verse>:nth-child(1){animation-delay:.45s}.verse>:nth-child(2){animation-delay:.58s}.verse>:nth-child(3){animation-delay:.64s}
+.ways>*{animation:rise .8s cubic-bezier(.22,1,.36,1) .2s both}
+@media (prefers-reduced-motion:reduce){.pillar,.head>*,.verse>*,.ways>*{animation:none}.arch{animation:none}}
+
+/* The gate: two carved pillars, an arch drawn between their capitals, the words inside. */
+.gate{position:relative;min-height:0;display:grid;grid-template-columns:var(--pw) minmax(0,1fr) var(--pw);padding:0 var(--pad);column-gap:clamp(20px,3vw,48px)}
+.pillar{grid-row:1;display:grid;grid-template-rows:auto minmax(0,1fr) auto;min-height:0;margin-top:var(--rise)}
+.l{grid-column:1}.r{grid-column:3}
+.capital,.base{display:block;height:clamp(12px,2vh,18px);margin:0 -12px;background:var(--cream)}
+.capital{border-bottom:4px solid var(--gold)}
+.base{border-top:4px solid var(--gold);margin:0 -8px}
+.shaft{display:block;min-height:0;background:url('/stott/utskjaering-soyle.jpg') center top/100% auto repeat-y;filter:saturate(.8) brightness(1.06)}
+.arch{position:absolute;left:calc(var(--pad) + var(--pw) / 2);right:calc(var(--pad) + var(--pw) / 2);top:0;height:var(--rise)}
+.arch svg{display:block;width:100%;height:100%;overflow:visible}
+.arch path{fill:none;stroke:var(--gold);stroke-width:3;vector-effect:non-scaling-stroke}
+.arch .inner{stroke-width:1.5;opacity:.7}
+.inside{grid-column:2;grid-row:1;min-height:0;display:flex;flex-direction:column;justify-content:space-evenly;text-align:center;padding-top:calc(var(--lamp) - 8px)}
+.lamp{position:absolute;z-index:2;left:50%;top:-6px;height:var(--lamp);transform:translateX(-50%);pointer-events:none}
+.lamp svg{display:block;width:auto;height:100%;margin:0}
+
+.head h1{font-family:var(--serif);font-weight:340;font-variation-settings:'opsz' 72;font-size:clamp(44px,min(8.6vh,5.6vw),96px);line-height:.95;letter-spacing:-.04em;margin:0}
+.head p{font-size:clamp(15px,1.9vh,18px);line-height:1.5;margin:clamp(8px,1.4vh,14px) 0 0;color:#e9e1d2}
+.arabic{font-family:var(--font-amiri),serif;font-size:clamp(22px,min(3.9vh,2.3vw),38px);line-height:1.85;color:#ecd08e;margin:0}
+.ayah{position:relative;display:inline-grid;place-items:center;width:1.3em;height:1.3em;vertical-align:-.28em;margin:0 .08em;color:var(--gold)}
+.ayah svg{position:absolute;inset:0;width:100%;height:100%;fill:none;stroke:currentColor;stroke-width:2.4}
+.ayah span{position:relative;font-size:.46em;line-height:1}
+.meaning{font-family:var(--serif);font-style:italic;font-size:clamp(17px,2.5vh,23px);line-height:1.4;margin:clamp(6px,1.2vh,12px) auto 0;max-width:40ch}
+.ref{font-size:14px;margin:clamp(4px,.8vh,8px) 0 0;color:#cfc6b4}
+
+/* The ways: each QR sits right under its pillar. */
+.ways{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr) minmax(0,1fr);gap:clamp(14px,1.8vw,28px)}
+.box{display:grid;align-items:center;gap:clamp(16px,1.6vw,24px);background:var(--cream);color:var(--ink);padding:clamp(12px,1.8vh,18px) var(--pad)}
+.left{grid-template-columns:var(--pw) minmax(0,1fr)}
+.right{grid-template-columns:minmax(0,1fr) var(--pw);text-align:right}
+.right .action{margin-left:auto}
+.qr{display:block;line-height:0;background:#fff;padding:7px;width:var(--pw)}
+.qr img{display:block;width:100%;height:auto;image-rendering:pixelated}
+.box h2,.bank h2{font-family:var(--serif);font-weight:400;font-size:clamp(24px,min(3.6vh,2.2vw),34px);line-height:1;letter-spacing:-.025em;margin:0}
+.number{font-family:var(--serif);font-variant-numeric:lining-nums tabular-nums;font-size:clamp(30px,min(5vh,3vw),48px);line-height:1;letter-spacing:-.02em;margin:clamp(4px,.8vh,8px) 0 clamp(10px,1.6vh,16px)}
+.number span{white-space:nowrap;font-family:var(--font-geist),sans-serif;font-size:14px;letter-spacing:0;margin-left:8px;color:#52645d}
+.action{display:flex;align-items:center;justify-content:space-between;gap:18px;width:min(100%,220px);min-height:46px;padding:10px 16px;background:var(--green);color:var(--cream);
+  text-decoration:none;font-weight:500;font-size:15px;border-radius:2px;white-space:nowrap;transition:background-color .2s ease,transform .15s ease}
+.action:hover{background:#0f5d4e}
+.action:active{transform:scale(.97)}
+.bank{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+.bank p{font-size:15px;line-height:1.45;color:#e9e1d2;margin:8px 0 14px;max-width:30ch}
+.bank strong,.phoneBank strong{display:block;font-family:var(--serif);font-weight:400;font-size:26px;color:var(--cream);margin-top:4px}
+.quiet{display:inline-flex;align-items:center;gap:16px;min-height:46px;padding:10px 18px;color:var(--cream);border:2px solid var(--gold);text-decoration:none;font-weight:500;font-size:15px;transition:background-color .2s ease,color .2s ease}
+.quiet:hover{background:var(--gold);color:var(--deep)}
+.action:focus-visible,.quiet:focus-visible,.qr:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+
+
+/* The lantern: hangs still; its windows warm once, and it settles from a small sway. */
+@keyframes light{from{opacity:.1}60%{opacity:.75}to{opacity:1}}
+@keyframes sway{from{transform:rotate(2.4deg)}to{transform:rotate(0)}}
+.lantern{display:block;transform-origin:50% 0;animation:sway 2.4s cubic-bezier(.22,1,.36,1) .4s both}
+.glow{opacity:.1;animation:light 2s cubic-bezier(.4,0,.2,1) .9s forwards}
+@media (prefers-reduced-motion:reduce){.lantern{animation:none}.glow{opacity:1;animation:none}}
+
+/* Phone giving block: hidden on desktop. */
+.phone{display:none}
+
+/* the nav bar is 68px tall on phones, so the texture shifts by that much to meet it */
+@media (max-width:640px){.page{background-position:0 -68px}}
+
+/* ── Phone: its own composition ──
+   The portal shrinks to slim pillars and a low arch with the lantern under it.
+   Giving is one switch card (Velger) with the QR code tucked away. */
+@media (max-width:900px){
+  .page{height:auto;min-height:0;overflow:visible;display:block;padding:14px 14px 56px;
+    --pw:20px;--pad:0px;--rise:58px;--lamp:118px}
+  .gate{grid-template-columns:var(--pw) minmax(0,1fr) var(--pw);column-gap:12px}
+  .pillar{margin-top:var(--rise)}
+  .capital,.base{height:8px;margin:0 -5px}
+  .capital{border-bottom-width:3px;margin:0 -5px}.base{border-top-width:3px}
+  .shaft{background-size:220% auto;background-position:center top}
+  .arch path{stroke-width:2.2}
+  .lamp{top:-4px}
+  .inside{padding:calc(var(--lamp) + 4px) 0 30px;gap:22px;justify-content:flex-start}
+  .head h1{font-size:clamp(40px,11.6vw,54px);line-height:.98}
+  .head p{display:none}
+  .verse{margin-top:22px}
+  .arabic{font-size:22px;line-height:1.95}
+  .meaning{font-size:18px;max-width:28ch}
+  .ways{display:none}
+
+  .phone{display:grid;gap:12px;margin-top:16px}
+  .phoneBank{text-align:center;padding:18px 8px 0}
+  .phoneBank h2{font-family:var(--serif);font-weight:400;font-size:26px;letter-spacing:-.02em;margin:0}
+  .phoneBank p{font-size:15px;line-height:1.45;color:#e9e1d2;margin:6px 0 14px}
+  .phoneBank a{display:inline-flex;align-items:center;gap:16px;min-height:48px;padding:0 20px;color:var(--cream);border:2px solid var(--gold);text-decoration:none;font-weight:500;font-size:15px}
+}

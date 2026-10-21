@@ -1,0 +1,38 @@
+/* Recesses cut into tadelakt plaster. Shading comes only from the depth of the cut: the upper lip
+   throws a soft shadow inward, the lower lip catches the room's light. Beige by default; .onGreen for
+   the green plaster. */
+
+.recess,.step{position:relative;padding:var(--sw,16px);background:rgba(120,88,44,.055);
+  box-shadow:inset 0 24px 22px -18px rgba(88,60,24,.46),inset 12px 0 16px -13px rgba(88,60,24,.22),inset -9px 0 14px -13px rgba(88,60,24,.16),inset 0 -2px 0 rgba(255,251,240,.8)}
+.recess{box-shadow:inset 0 24px 22px -18px rgba(88,60,24,.46),inset 12px 0 16px -13px rgba(88,60,24,.22),inset -9px 0 14px -13px rgba(88,60,24,.16),inset 0 -2px 0 rgba(255,251,240,.8),0 2px 0 rgba(255,251,240,.75),0 -1px 0 rgba(88,60,24,.16)}
+.step,.back{height:100%}
+.back{position:relative;overflow:hidden;background:#cdbb98}
+/* the lip's shadow falls over what sits at the back too */
+.back::after{content:'';position:absolute;inset:0;z-index:2;border-radius:inherit;pointer-events:none;box-shadow:inset 0 28px 26px -20px rgba(40,26,8,.5),inset 0 0 0 1px rgba(60,40,12,.18)}
+.back img{object-fit:cover}
+.arch,.arch .step,.arch .back{border-radius:9999px 9999px 2px 2px}
+.rect,.rect .step,.rect .back{border-radius:2px}
+.round,.round .step,.round .back{border-radius:50%}
+/* an iframe escapes rounded clipping on phones; clip it outright */
+.round .back{clip-path:circle(50%)}
+.arch .back{clip-path:inset(0 round 9999px 9999px 2px 2px)}
+
+/* the same carving cut into the green tadelakt */
+.onGreen,.onGreen .step{background:rgba(0,14,10,.14);
+  box-shadow:inset 0 24px 22px -18px rgba(0,10,7,.62),inset 12px 0 16px -13px rgba(0,10,7,.34),inset -9px 0 14px -13px rgba(0,10,7,.24),inset 0 -2px 0 rgba(196,228,214,.16)}
+.onGreen{box-shadow:inset 0 24px 22px -18px rgba(0,10,7,.62),inset 12px 0 16px -13px rgba(0,10,7,.34),inset -9px 0 14px -13px rgba(0,10,7,.24),inset 0 -2px 0 rgba(196,228,214,.16),0 2px 0 rgba(196,228,214,.14),0 -1px 0 rgba(0,10,7,.3)}
+.onGreen .back{background:transparent}
+.onGreen .back::after{box-shadow:inset 0 28px 26px -20px rgba(0,10,7,.55),inset 0 0 0 1px rgba(0,10,7,.25)}
+
+
+/* the map in the plaster's colours; our label sits centred over our own pin, clear of the frame's sides */
+.map{position:absolute;inset:0;overflow:hidden;background:#ddd0b4;isolation:isolate}
+.map iframe{position:absolute;left:0;top:-120px;width:100%;height:calc(100% + 120px);border:0;filter:grayscale(1) contrast(.82) brightness(1.14)}
+.tint{position:absolute;inset:0;pointer-events:none;background:#e9dcc0;mix-blend-mode:multiply}
+.pin{position:absolute;left:50%;top:calc(50% - 78px);width:0;height:0;z-index:3;pointer-events:none}
+.pin b{position:absolute;left:-10px;top:-10px;width:20px;height:20px;border-radius:50%;background:#0f5d4e;box-shadow:0 0 0 4px #f4ecdc}
+.pin span{position:absolute;left:0;top:-52px;transform:translateX(-50%);white-space:nowrap;padding:2px 8px;background:#f4ecdc;font-family:var(--serif);font-size:20px;line-height:1.3;color:#1e3e36}
+
+@media (max-width:900px){
+  .pin span{font-size:16px}
+}

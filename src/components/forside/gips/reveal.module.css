@@ -1,0 +1,8 @@
+/* Entrance: a section's parts ([data-r], ordered by --i) rise 24px and fade in, 80ms apart, once.
+   Hidden only after the script has marked the section, so nothing stays hidden without it. */
+.rv[data-js]:not([data-in]) [data-r]{opacity:0;transform:translateY(24px)}
+.rv[data-in] [data-r]{transition:opacity .7s cubic-bezier(.2,.7,.3,1),transform .9s cubic-bezier(.2,.7,.3,1);transition-delay:calc(var(--i,0) * 80ms)}
+@media (prefers-reduced-motion:reduce){
+  .rv[data-js]:not([data-in]) [data-r]{transform:none}
+  .rv[data-in] [data-r]{transition:opacity .4s}
+}

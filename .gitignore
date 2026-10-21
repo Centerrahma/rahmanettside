@@ -46,3 +46,5 @@ next-env.d.ts
 
 # The template has no secrets in it
 !.env.example
+.shots/
+.taste-skill/

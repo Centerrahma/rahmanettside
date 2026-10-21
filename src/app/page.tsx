@@ -2,9 +2,9 @@ import type { Metadata } from 'next';
 import { fetchPrayerTimes } from '@/lib/mymasjid';
 import { osloNow } from '@/lib/prayer-clock';
 import Hero from '@/components/forside/Hero';
-import Besok from '@/components/forside/Besok';
-import Fellesskapet from '@/components/forside/Fellesskapet';
-import StottOss from '@/components/forside/StottOss';
+import ForsideSeksjoner from '@/components/forside/gips/Seksjoner';
+import ForsideMobil from '@/components/forside/mobil/ForsideMobil';
+import m from '@/components/forside/mobil/mobil.module.css';
 
 // Rebuilt every five minutes, so the day's times turn over shortly after midnight.
 export const revalidate = 300;
@@ -84,9 +84,11 @@ export default async function HomePage() {
     <>
       <MosqueJsonLd />
       <Hero schedule={schedule} friday={now.friday} />
-      <Fellesskapet />
-      <StottOss />
-      <Besok jummah={schedule.jummah} />
+      {/* under the hero, phones get their own layout (ForsideMobil); wider screens get the carved sections (gips/Seksjoner) */}
+      <div className={m.desktop}>
+        <ForsideSeksjoner jummah={schedule.jummah} />
+      </div>
+      <ForsideMobil jummah={schedule.jummah} />
     </>
   );
 }
