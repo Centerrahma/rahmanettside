@@ -13,8 +13,8 @@ import s from './hero.module.css';
    Phones use a moderate crop of the wider photo with the name on its carpet, then prayer times and bottom actions. */
 
 const ALT = 'Mihraben og minbaren i Masjid Rahma, under verset fra Koranen 72:18, med bønneteppet foran.';
-const common = { alt: ALT, fill: true, priority: true, quality: 75 } as const;
-const wide = getImageProps({ ...common, src: '/mihrab-forside-lys.webp', sizes: '100vw' }).props;
+const common = { alt: ALT, fill: true, priority: true, quality: 90 } as const;
+const wide = getImageProps({ ...common, src: '/photos/hero-editorial-4k.webp', sizes: '100vw' }).props;
 
 
 export default function Hero({ schedule, friday }: { schedule: PrayerSchedule; friday: boolean }) {
