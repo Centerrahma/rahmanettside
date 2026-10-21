@@ -19,9 +19,9 @@
 
 /* Vårt felleskap: one arched photo, the groups open under it one at a time */
 .green{padding:72px 0}
-/* the photo sits at the back of an arch carved into a beige plaster panel (gips/Recess) */
+/* the photo sits at the back of a square recess carved into a beige plaster panel (gips/Recess) */
 .stage{margin:0 16px}
-.stage .carved{width:87%;margin:0 auto;aspect-ratio:200/190;--sw:12px;background:#e8dbc3 url('/forside/tadelakt-beige.webp') 0 0/768px}
+.stage .carved{width:87%;margin:0 auto;aspect-ratio:1;--sw:12px;background:#e8dbc3 url('/forside/tadelakt-beige.webp') 0 0/768px}
 .shot{position:absolute;inset:0;opacity:0;transition:opacity .6s ease}
 .shot.on{opacity:1}
 .shot img{object-fit:cover}

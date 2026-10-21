@@ -1,10 +1,9 @@
 /* Kontakt oss on phones and tablets: a sealed envelope is the hero. Scrolling opens it and the letter,
    which is the form, rises out; sending seals it and turns it over to its stamped front. Under it, three
-   medallions (visit, Friday prayer, Facebook) and Koranen 15:46. */
+   medallions: visit, Friday prayer, Facebook. */
 import type { PrayerSchedule } from '@/types/prayer';
 import { ADDRESS, FACEBOOK, MAPS } from '@/components/forside/links';
 import { FacebookIcon, MoonIcon, PinIcon } from '../icons';
-import { TRANSLATION, VERSES } from '../verses';
 import Konvolutt from './Konvolutt';
 import s from './side.module.css';
 
@@ -30,11 +29,6 @@ export default function KonvoluttSide({ jummah }: { jummah: PrayerSchedule['jumm
           <span className={s.small}>Følg oss</span>
         </a>
       </nav>
-
-      <div className={s.verse}>
-        <p lang="ar" dir="rtl">{VERSES.v15_46.ar}</p>
-        <p><span lang="en">«{VERSES.v15_46.en}»</span> {VERSES.v15_46.ref}, {TRANSLATION}</p>
-      </div>
     </div>
   );
 }
