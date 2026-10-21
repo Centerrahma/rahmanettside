@@ -22,16 +22,16 @@ This project uses [`next/font`](https://nextjs.org/docs/app/building-your-applic
 
 ## Environment variables
 
-The contact and membership forms send email through the mosque's one.com mailbox. Set these in Vercel (Settings → Environment Variables, Production) and redeploy:
+The contact and membership forms send email through Microsoft Graph, as the `webside@centerrahma.no` mailbox in the mosque's Microsoft 365 tenant. No SMTP and no secret: the Entra app "Center Rahma Website Contact Form" trusts Vercel's OIDC token (federated credential), and Exchange RBAC limits it to sending as that one mailbox. [docs/microsoft-graph-mail.md](docs/microsoft-graph-mail.md) describes the setup (in Norwegian). Set these in Vercel (Production) and redeploy:
 
 | Variable | Required | Description |
 |---|---|---|
-| `SMTP_USER` | yes | Full address of the one.com mailbox that sends, e.g. `nettside@centerrahma.no`. Also used as the From address. |
-| `SMTP_PASSWORD` | yes | That mailbox's password. Mark it **Sensitive** in Vercel. |
-| `CONTACT_EMAIL_TO` | no | Where form submissions are delivered. Defaults to `post@centerrahma.no`. |
-| `SMTP_HOST` / `SMTP_PORT` | no | Default `send.one.com` / `465`. Only change if the mailbox moves off one.com. |
+| `AZURE_TENANT_ID` | yes | Directory (tenant) ID of the Microsoft 365 tenant. |
+| `AZURE_CLIENT_ID` | yes | Application (client) ID of the Entra app. |
+| `CONTACT_MAIL_FROM` | no | Sending mailbox. Defaults to `webside@centerrahma.no`. |
+| `CONTACT_MAIL_TO` | no | Where submissions are delivered. Defaults to `post@centerrahma.no`. |
 
-Locally, put them in `.env.local` (gitignored). Without them the forms return a 500 and log `SMTP_USER and SMTP_PASSWORD environment variables must be set`.
+The federated credential covers Production only, so sending fails on Preview and locally (the forms return 500 and log the error).
 
 ## Learn More
 

@@ -107,6 +107,7 @@ export default function Konvolutt({ inPage = false, wide = false, hint = 'Kom in
   const sealed = state === 'closed' || state === 'sent';
   return (
     <form ref={self} className={`${s.env} ${wide ? s.wide : ''}`} data-state={state} onSubmit={onSubmit} noValidate={state === 'closed'} aria-labelledby={`${uid}-title`}>
+      <input type="text" name="website" tabIndex={-1} autoComplete="off" aria-hidden="true" style={{ position: "absolute", left: "-9999px", width: 0, height: 0, opacity: 0 }} />
       <noscript><style>{`.${s.env}[data-state] .${s.letter}{max-height:none;padding:20px 18px 84px;transform:none;opacity:1}`}</style></noscript>
       <div className={s.card}>
       <div className={s.back} aria-hidden="true" />
