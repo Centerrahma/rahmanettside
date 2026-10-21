@@ -87,3 +87,15 @@
 .thanks{margin:16px 6px 0;text-align:center;font-size:15.5px;line-height:1.5;color:#2f4a41;font-weight:500;animation:rise .6s cubic-bezier(.22,1,.36,1) 4.3s both}
 .thanks b{display:block;font-family:var(--font-newsreader),Georgia,serif;font-weight:400;font-size:26px;color:#0a4439}
 @media (prefers-reduced-motion:reduce){.card,.stamp,.postmark,.thanks{transition:none!important;animation:none!important}.postmark{opacity:.82}}
+
+/* Wide (desktop): name and e-mail side by side, a shorter message and a slimmer pocket once open, so
+   the open letter stays about level with what stands beside the envelope. */
+.wide .letter{grid-template-columns:1fr 1fr;column-gap:22px}
+.wide .dear,.wide .letter label:nth-of-type(3),.wide .msg{grid-column:1/-1}
+.wide .letter textarea{height:10.5em;min-height:0}
+/* the flap turned up is hidden from behind, so the room the phone layout keeps above it is not needed */
+.wide.env:is([data-state='open'],[data-state='sending'],[data-state='error']){margin-top:0}
+.wide.env:is([data-state='open'],[data-state='sending'],[data-state='error']) .letter{padding:20px 26px 84px;gap:14px 22px}
+.wide.env:is([data-state='open'],[data-state='sending'],[data-state='error']) .pocket{min-height:0;padding:58px 24px 66px}
+.wide .status{max-width:38ch}
+.wide.env[data-state='closed'] .sealCore{opacity:.35}
