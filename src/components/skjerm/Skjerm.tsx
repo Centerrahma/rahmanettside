@@ -69,10 +69,10 @@ export function Skjerm({ cards }: { cards: SkjermCard[] }) {
       <header className={s.head}>
         <Image
           className={s.logo}
-          src="/hvit rahma oppskalert.png"
+          src="/rahma-logo-white.webp"
           alt="Masjid Rahma"
-          width={864}
-          height={1184}
+          width={263}
+          height={360}
           sizes="18vmin"
           priority
         />
