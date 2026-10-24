@@ -31,6 +31,7 @@ viser ingen arrangementer.
   filer som ligger i arrangement-siten (f.eks. Site Assets), pluss SharePoints egne arkivbilder
   («Stock images», `cdn.hubblecontent.osi.office.net/m365content/publish/`). Bare JPEG, PNG, WebP, GIF og AVIF vises.
   Settes et arrangement til `Internal`, slutter bildet å vises innen fem minutter.
+  Bildet krympes til høyst 1080×1440 og sendes som WebP (f.eks. 7,7 MB → 261 KB). Filer over 25 MB vises ikke.
 
 Testet i Graph Explorer 2026-10-24: filteret `fields/Category eq 'Public'` gir element 6, «Public Event».
 
