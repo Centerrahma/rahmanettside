@@ -1,6 +1,6 @@
 import { test, beforeEach, afterEach } from 'node:test';
 import assert from 'node:assert/strict';
-import { bannerUrl, fetchPublicBanner, fetchPublicEvents, locateInDrives, toPublicEvents } from './arrangementer.ts';
+import { bannerUrl, fetchPublicBanner, fetchPublicEvents, isStockImage, locateInDrives, toPublicEvents } from './arrangementer.ts';
 import { setTokenProvider } from './graph.ts';
 
 const now = new Date('2026-10-24T12:00:00Z');
@@ -214,4 +214,36 @@ test('a picture sent as a generic download is served by its extension; a missing
 
   graph({ '/items/99': () => new Response('{"error":{"code":"itemNotFound"}}', { status: 404 }) });
   assert.deepEqual(await fetchPublicBanner('99'), { ok: false, reason: 'no-item' });
+});
+
+const STOCK = 'https://cdn.hubblecontent.osi.office.net/m365content/publish/0a1b/abc.jpg';
+
+test('only Microsoft\'s stock-picture path counts as a stock image', () => {
+  assert.ok(isStockImage(STOCK));
+  assert.ok(!isStockImage('http://cdn.hubblecontent.osi.office.net/m365content/publish/a.jpg'));
+  assert.ok(!isStockImage('https://cdn.hubblecontent.osi.office.net/other/a.jpg'));
+  assert.ok(!isStockImage('https://cdn.hubblecontent.osi.office.net.evil.example/m365content/publish/a.jpg'));
+  assert.ok(!isStockImage('https://user:pw@cdn.hubblecontent.osi.office.net/m365content/publish/a.jpg'));
+  assert.ok(!isStockImage('not a url'));
+});
+
+test('a Public event with a stock picture gets it, fetched without our token or redirects', async () => {
+  let init: RequestInit | undefined;
+  globalThis.fetch = (async (url: string | URL, i?: RequestInit) => {
+    urls.push(String(url));
+    if (String(url).includes('/items/12')) return Response.json({ id: '12', fields: { Category: 'Public', BannerUrl: { Url: STOCK } } });
+    if (String(url) === STOCK) { init = i; return new Response('JPEG', { headers: { 'content-type': 'image/jpeg' } }); }
+    throw new Error(`unexpected fetch to ${url}`);
+  }) as typeof fetch;
+  const pic = await fetchPublicBanner('12');
+  assert.ok(pic.ok && pic.type === 'image/jpeg');
+  assert.equal(new Headers(init?.headers).get('authorization'), null);
+  assert.equal(init?.redirect, 'error');
+  assert.ok(!urls.some((u) => u.includes('/drives')));
+});
+
+test('an Internal event with a stock picture still gets nothing', async () => {
+  graph({ '/items/12': () => Response.json({ id: '12', fields: { Category: 'Internal', BannerUrl: { Url: STOCK } } }) });
+  assert.deepEqual(await fetchPublicBanner('12'), { ok: false, reason: 'not-public' });
+  assert.equal(urls.length, 1);
 });
