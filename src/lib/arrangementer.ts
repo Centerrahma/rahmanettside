@@ -168,6 +168,31 @@ function where(banner: string) {
 
 const EXT_TYPE: Record<string, string> = { jpg: 'image/jpeg', jpeg: 'image/jpeg', png: 'image/png', webp: 'image/webp', gif: 'image/gif', avif: 'image/avif' };
 
+/**
+ * SharePoint's own stock pictures (the «Stock images» choice for an event banner) live on Microsoft's
+ * public CDN, not in the site. They need no sign-in. This one host and path are the only place outside
+ * the events site the route will fetch from.
+ */
+const STOCK_HOST = 'cdn.hubblecontent.osi.office.net';
+const STOCK_PATH = '/m365content/publish/';
+
+export function isStockImage(banner: string) {
+  try {
+    const u = new URL(banner);
+    return u.protocol === 'https:' && u.host === STOCK_HOST && u.pathname.startsWith(STOCK_PATH) && !u.username && !u.password;
+  } catch {
+    return false;
+  }
+}
+
+/** The content type to serve, or null for anything but a raster picture (an SVG can carry script). */
+function rasterType(header: string | null, path: string) {
+  let type = (header ?? '').split(';')[0].trim().toLowerCase();
+  // SharePoint sometimes sends pictures as a generic download; go by the file's extension then
+  if (type === 'application/octet-stream' || type === '') type = EXT_TYPE[path.split('.').pop()?.toLowerCase() ?? ''] ?? type;
+  return RASTER.has(type) ? type : null;
+}
+
 export type Banner = { ok: true; body: ReadableStream<Uint8Array>; type: string } | { ok: false; reason: string };
 
 /**
@@ -197,6 +222,16 @@ export async function fetchPublicBanner(id: string): Promise<Banner> {
   const banner = bannerUrl(item.fields?.[F.banner]);
   if (!banner) return { ok: false, reason: 'no-picture' };
 
+  if (isStockImage(banner)) {
+    // public, so no token; and no redirects, so it cannot be bounced anywhere else
+    const res = await fetch(banner, { redirect: 'error', cache: 'no-store', signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS) });
+    if (res.status === 404) return { ok: false, reason: 'file-missing' };
+    if (!res.ok || !res.body) throw new Error(`Stock picture failed (${res.status})`);
+    const type = rasterType(res.headers.get('content-type'), new URL(banner).pathname);
+    if (!type) return { ok: false, reason: `not-image:${res.headers.get('content-type') ?? 'unknown'}` };
+    return { ok: true, body: res.body, type };
+  }
+
   const { value: drives } = await graphJson<{ value: { id: string; webUrl: string }[] }>(`${base}/drives?$select=id,webUrl`, token, 'drives');
   const found = locateInDrives(banner, drives);
   if (!found) {
@@ -213,13 +248,11 @@ export async function fetchPublicBanner(id: string): Promise<Banner> {
   });
   if (res.status === 404) return { ok: false, reason: 'file-missing' };
   if (!res.ok || !res.body) throw new Error(`Microsoft Graph file content failed (${res.status})`);
-  let type = (res.headers.get('content-type') ?? '').split(';')[0].trim().toLowerCase();
-  // SharePoint sometimes sends pictures as a generic download; go by the file's extension then
-  if (type === 'application/octet-stream' || type === '') type = EXT_TYPE[found.path.split('.').pop()?.toLowerCase() ?? ''] ?? type;
-  // raster pictures only: an SVG can carry script, and this is served from our own address
-  if (!RASTER.has(type)) {
-    console.warn(`[arrangementer] Picture for item ${id} is not an image (${type})`);
-    return { ok: false, reason: `not-image:${type || 'unknown'}` };
+  const type = rasterType(res.headers.get('content-type'), found.path);
+  if (!type) {
+    const sent = res.headers.get('content-type') ?? 'unknown';
+    console.warn(`[arrangementer] Picture for item ${id} is not an image (${sent})`);
+    return { ok: false, reason: `not-image:${sent}` };
   }
   return { ok: true, body: res.body, type };
 }

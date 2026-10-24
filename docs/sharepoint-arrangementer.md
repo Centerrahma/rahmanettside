@@ -28,7 +28,8 @@ viser ingen arrangementer.
 - Bildet til et arrangement ligger i `BannerUrl` (lenkefelt, `BannerUrl.Url`). SharePoint-filer krever
   innlogging, så nettsiden henter bildet selv med lese-appen og viser det fra sin egen adresse,
   `/api/arrangementer/bilde/<id>`. Ruten sjekker at arrangementet er `Public` hver gang, og leser bare
-  filer som ligger i arrangement-siten (f.eks. Site Assets). Bare JPEG, PNG, WebP, GIF og AVIF vises.
+  filer som ligger i arrangement-siten (f.eks. Site Assets), pluss SharePoints egne arkivbilder
+  («Stock images», `cdn.hubblecontent.osi.office.net/m365content/publish/`). Bare JPEG, PNG, WebP, GIF og AVIF vises.
   Settes et arrangement til `Internal`, slutter bildet å vises innen fem minutter.
 
 Testet i Graph Explorer 2026-10-24: filteret `fields/Category eq 'Public'` gir element 6, «Public Event».
