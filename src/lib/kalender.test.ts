@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { addDays, byDay, mondayOf, monthGrid, monthsBetween, osloDay, twoWeeks, weekday } from './kalender.ts';
+import { addDays, byDay, mondayOf, osloDay, twoWeeks, weekday } from './kalender.ts';
 
 test('osloDay reads the day in Oslo, not UTC', () => {
   assert.equal(osloDay('2026-10-24T22:30:00Z'), '2026-10-25'); // 00:30 Sunday in Oslo (summer time)
@@ -27,21 +27,6 @@ test('twoWeeks runs from this Monday for fourteen days', () => {
   assert.equal(days.length, 14);
   assert.equal(days[0], '2026-10-19');
   assert.equal(days[13], '2026-11-01');
-});
-
-test('monthGrid covers the month in whole Monday-first weeks', () => {
-  const oct = monthGrid('2026-10');
-  assert.equal(oct[0], '2026-09-28');
-  assert.equal(oct.length % 7, 0);
-  assert.equal(oct.at(-1), '2026-11-01');
-  const feb = monthGrid('2027-02'); // starts on a Monday, 28 days
-  assert.equal(feb[0], '2027-02-01');
-  assert.equal(feb.length, 28);
-});
-
-test('monthsBetween crosses the new year', () => {
-  assert.deepEqual(monthsBetween('2026-11', '2027-02'), ['2026-11', '2026-12', '2027-01', '2027-02']);
-  assert.deepEqual(monthsBetween('2026-10', '2026-10'), ['2026-10']);
 });
 
 test('byDay groups by the Oslo start day', () => {

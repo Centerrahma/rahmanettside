@@ -51,46 +51,10 @@
 .mPlate .pWhen{color:#3b5750;font-size:15px}
 .mPlate .pEmpty{font-size:20px}
 
-/* ── /arrangementer ── */
-.page{min-height:100svh;padding:72px 0 120px;color:#1e3e36;background:#e8dbc3 url('/forside/tadelakt-beige.webp') 0 0/960px}
-.pWrap{max-width:1240px;margin:0 auto;padding:0 40px}
-.pHead{max-width:760px;margin-bottom:44px}
-.pGrid{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:48px;align-items:start}
-.mBar{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
-.mName{margin:0;font-family:var(--serif);font-weight:400;font-size:36px;line-height:1.1;color:#1e3e36}
-.arrow{width:48px;height:48px;border:0;border-radius:50%;cursor:pointer;font-size:20px;color:#1e3e36;
-  background:rgba(120,88,44,.07);box-shadow:inset 0 8px 8px -6px rgba(88,60,24,.35),inset 0 -1.5px 0 rgba(255,251,240,.8);transition:background-color .2s,transform .2s cubic-bezier(.22,1,.36,1)}
-.arrow:hover:not(:disabled){background:rgba(120,88,44,.14)}
-.arrow:active:not(:disabled){transform:scale(.94)}
-.arrow:disabled{opacity:.3;cursor:default}
-.arrow:focus-visible{outline:2px solid #0f5d4e;outline-offset:3px}
-.pSide{display:grid;gap:28px}
-.pSide .plate{min-height:0}
-.allTitle{margin:12px 0 0;font-family:var(--serif);font-weight:400;font-size:26px;color:#1e3e36}
-.all{margin:-14px 0 0;padding:0;list-style:none;display:grid;gap:6px}
-.all button{display:flex;gap:16px;align-items:baseline;width:100%;padding:12px 14px;border:0;border-radius:2px;text-align:left;font:inherit;font-size:15.5px;line-height:1.45;color:#1e3e36;cursor:pointer;background:transparent;transition:background-color .2s}
-.all button:hover{background:rgba(120,88,44,.08)}
-.all button[data-on]{background:rgba(120,88,44,.12)}
-.all button:focus-visible{outline:2px solid #0f5d4e;outline-offset:2px}
-.all b{display:block;font-family:var(--serif);font-weight:400;font-size:21px;line-height:1.15}
-.aDay{flex:0 0 36px;font-family:var(--serif);font-size:24px;color:#0f5d4e}
-
 @media (max-width:1100px){
   .pair{grid-template-columns:1fr}
 }
-@media (max-width:900px){
-  .page{padding:40px 0 80px}
-  .pWrap{padding:0 16px}
-  .pHead{margin-bottom:28px}
-  .pHead h1{font-size:clamp(36px,10vw,44px)}
-  .lead{font-size:17px}
-  .pGrid{grid-template-columns:1fr;gap:24px}
-  .pGrid .cal{gap:6px;padding:12px}
-  .pGrid .n{font-size:20px}
-  .pGrid .today{font-size:9px}
-  .mName{font-size:28px}
-}
 @media (prefers-reduced-motion:reduce){
   .plateIn{animation:none}
-  .has,.arrow{transition:none}
+  .has{transition:none}
 }
