@@ -13,10 +13,7 @@ import s from './utstillingen.module.css';
    step through. An event without a picture shows the green plaster with its day cut into it.
    `today` comes from the server, so server and browser agree on it. */
 
-/** A public event, with the picture once the SharePoint picture field is read (a URL the site serves). */
-export type Shown = PublicEvent & { image?: string | null };
-
-export default function Utstillingen({ events, today }: { events: Shown[]; today: string }) {
+export default function Utstillingen({ events, today }: { events: PublicEvent[]; today: string }) {
   const [i, setI] = useState(0);
   const list = useRef<HTMLOListElement>(null);
   // keep the chosen row in view when the arrows step past the list's edge; only the list scrolls,
@@ -62,7 +59,9 @@ export default function Utstillingen({ events, today }: { events: Shown[]; today
             <Recess shape="arch" steps={3} className={s.arch}>
               <div className={s.pic} key={e.id}>
                 {e.image ? (
-                  <Image src={e.image} alt="" fill sizes="(max-width: 900px) 92vw, 520px" quality={88} />
+                  // served as is from our own route, which stops serving it once the event is no longer Public;
+                  // the image optimiser would keep its own copy for hours
+                  <Image src={e.image} alt={`Bilde til ${e.title}`} fill unoptimized sizes="(max-width: 900px) 92vw, 520px" />
                 ) : (
                   <span className={s.green}><b className={s.gNum}>{dayNum(d)}</b></span>
                 )}

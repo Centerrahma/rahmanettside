@@ -7,7 +7,8 @@ import { GRAPH_BASE, REQUEST_TIMEOUT_MS, SHAREPOINT_APP, getGraphToken } from '.
 
 /**
  * Internal column names in the SharePoint list, the set tested in Graph Explorer
- * on 2026-10-24.
+ * on 2026-10-24. BannerUrl is the event's picture: a link field whose Url points
+ * at a file in the site (checked by IT with SharePoint REST, item 6).
  */
 const F = {
   title: 'Title',
@@ -15,6 +16,7 @@ const F = {
   start: 'EventDate',
   end: 'EndDate',
   location: 'Location',
+  banner: 'BannerUrl',
 } as const;
 
 const PUBLIC = 'Public';
@@ -27,6 +29,8 @@ export interface PublicEvent {
   start: string;
   end: string | null;
   location: string | null;
+  /** Our own address for the event's picture, never SharePoint's: visitors are not signed in there. */
+  image: string | null;
 }
 
 type Fields = Record<string, unknown>;
@@ -34,6 +38,15 @@ interface GraphItem { id: string; fields?: Fields }
 interface GraphPage { value: GraphItem[]; '@odata.nextLink'?: string }
 
 const text = (v: unknown) => (typeof v === 'string' && v.trim() !== '' ? v.trim() : null);
+
+/** A link field comes back as { Url, Description }, or as the bare URL. */
+export const bannerUrl = (v: unknown) =>
+  text(v && typeof v === 'object' ? (v as { Url?: unknown; url?: unknown }).Url ?? (v as { url?: unknown }).url : v);
+
+/** List item IDs are numbers; anything else never reaches a Graph path. */
+export const isItemId = (id: string) => /^\d{1,9}$/.test(id);
+
+export const imagePath = (id: string) => `/api/arrangementer/bilde/${id}`;
 
 /**
  * Turns Graph list items into public events: Public only (checked again here,
@@ -54,6 +67,7 @@ export function toPublicEvents(items: GraphItem[], now: Date): PublicEvent[] {
       start,
       end: end && !Number.isNaN(Date.parse(end)) ? end : null,
       location: text(fields[F.location]),
+      image: bannerUrl(fields[F.banner]) && isItemId(id) ? imagePath(id) : null,
     });
   }
   return events
@@ -97,4 +111,90 @@ export async function fetchPublicEvents(now = new Date()): Promise<PublicEvent[]
     url = data['@odata.nextLink'];
   }
   return toPublicEvents(items, now);
+}
+
+const RASTER = new Set(['image/jpeg', 'image/png', 'image/webp', 'image/gif', 'image/avif']);
+
+const siteBase = (siteId: string) => `${GRAPH_BASE}/sites/${encodeURIComponent(siteId)}`;
+
+async function graphJson<T>(url: string, token: string, what: string): Promise<T> {
+  const res = await fetch(url, {
+    headers: { Authorization: `Bearer ${token}` },
+    next: { revalidate: EVENTS_REVALIDATE_SECONDS, tags: ['arrangementer'] },
+    signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS),
+  });
+  if (!res.ok) throw new Error(`Microsoft Graph ${what} failed (${res.status}): ${await res.text()}`);
+  return (await res.json()) as T;
+}
+
+const decodedPath = (u: URL) => decodeURIComponent(u.pathname).replace(/\/+$/, '').toLowerCase();
+
+/**
+ * Finds the file a banner URL points at among the site's own document libraries, as a drive ID
+ * and a path inside it. Nothing outside the events site matches, so a link to anywhere else is
+ * never followed: the site only ever asks Graph for files in that one site.
+ */
+export function locateInDrives(banner: string, drives: { id: string; webUrl: string }[]) {
+  try {
+    // a server-relative link («/sites/…») belongs to the site's own host
+    const target = new URL(banner, drives[0]?.webUrl);
+    if (target.protocol !== 'https:') return null;
+    const path = decodedPath(target);
+    for (const d of drives) {
+      const root = new URL(d.webUrl);
+      if (root.host.toLowerCase() !== target.host.toLowerCase()) continue;
+      const base = decodedPath(root);
+      if (!path.startsWith(`${base}/`)) continue;
+      // keep the file's own casing for the path Graph is asked for
+      const rest = decodeURIComponent(target.pathname).replace(/\/+$/, '').slice(base.length + 1);
+      return { driveId: d.id, path: rest };
+    }
+    return null;
+  } catch {
+    // a malformed link or %-escape
+    return null;
+  }
+}
+
+/**
+ * The picture of one event, fetched by the server with the read-only app. Null unless the item is
+ * Public right now, has a picture, and the picture lives in the events site. Throws when Graph fails.
+ */
+export async function fetchPublicBanner(id: string): Promise<{ body: ReadableStream<Uint8Array>; type: string } | null> {
+  const { SHAREPOINT_SITE_ID, SHAREPOINT_LIST_ID } = process.env;
+  if (!SHAREPOINT_SITE_ID || !SHAREPOINT_LIST_ID || !isItemId(id)) return null;
+  const token = await getGraphToken(SHAREPOINT_APP);
+  const base = siteBase(SHAREPOINT_SITE_ID);
+
+  const item = await graphJson<GraphItem>(
+    `${base}/lists/${encodeURIComponent(SHAREPOINT_LIST_ID)}/items/${id}?$expand=fields($select=${F.category},${F.banner})`,
+    token, 'list item',
+  );
+  if (item.fields?.[F.category] !== PUBLIC) return null;
+  const banner = bannerUrl(item.fields?.[F.banner]);
+  if (!banner) return null;
+
+  const { value: drives } = await graphJson<{ value: { id: string; webUrl: string }[] }>(`${base}/drives?$select=id,webUrl`, token, 'drives');
+  const found = locateInDrives(banner, drives);
+  if (!found) {
+    console.warn(`[arrangementer] Picture for item ${id} is not in the events site: ${banner}`);
+    return null;
+  }
+
+  const path = found.path.split('/').map(encodeURIComponent).join('/');
+  // Graph answers with a redirect to a short-lived download address; fetch follows it.
+  const res = await fetch(`${GRAPH_BASE}/drives/${encodeURIComponent(found.driveId)}/root:/${path}:/content`, {
+    headers: { Authorization: `Bearer ${token}` },
+    cache: 'no-store',
+    signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS),
+  });
+  if (res.status === 404) return null;
+  if (!res.ok || !res.body) throw new Error(`Microsoft Graph file content failed (${res.status})`);
+  const type = (res.headers.get('content-type') ?? '').split(';')[0].trim().toLowerCase();
+  // raster pictures only: an SVG can carry script, and this is served from our own address
+  if (!RASTER.has(type)) {
+    console.warn(`[arrangementer] Picture for item ${id} is not an image (${type})`);
+    return null;
+  }
+  return { body: res.body, type };
 }

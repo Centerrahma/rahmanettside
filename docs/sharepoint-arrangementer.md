@@ -21,10 +21,15 @@ viser ingen arrangementer.
 
 - Kolonnen `Category` (Valg: `Internal` / `Public`, standard `Internal`) avgjør hva som vises.
   Den er indeksert. Tomme verdier og alt annet enn `Public` vises aldri.
-- Nettsiden leser `Title`, `Category`, `EventDate`, `EndDate` og `Location`. Andre kolonner,
+- Nettsiden leser `Title`, `Category`, `EventDate`, `EndDate`, `Location` og `BannerUrl`. Andre kolonner,
   også `Description`, forlater aldri SharePoint. Er et navn annerledes, endre `F` i
   `src/lib/arrangementer.ts`.
 - Gjentakende arrangementer vises bare med første forekomst. Graph folder dem ikke ut.
+- Bildet til et arrangement ligger i `BannerUrl` (lenkefelt, `BannerUrl.Url`). SharePoint-filer krever
+  innlogging, så nettsiden henter bildet selv med lese-appen og viser det fra sin egen adresse,
+  `/api/arrangementer/bilde/<id>`. Ruten sjekker at arrangementet er `Public` hver gang, og leser bare
+  filer som ligger i arrangement-siten (f.eks. Site Assets). Bare JPEG, PNG, WebP, GIF og AVIF vises.
+  Settes et arrangement til `Internal`, slutter bildet å vises innen fem minutter.
 
 Testet i Graph Explorer 2026-10-24: filteret `fields/Category eq 'Public'` gir element 6, «Public Event».
 
@@ -61,4 +66,6 @@ Feilen står i Vercel-loggene for `/arrangementer`. Ved feil beholder Next den s
 | `AADSTS70021` / `AADSTS700211` | Det føderte påloggingsbeviset på lese-appen stemmer ikke med Vercel-prosjektet. |
 | `list items failed (403)` | Appen mangler `Sites.Selected` eller read-tilgang til siten. |
 | `list items failed (404)` | Feil site-ID eller liste-ID. |
+| `Picture for item … is not in the events site` | Bildet ligger utenfor arrangement-siten. Last det opp via listen. |
+| `/api/arrangementer/bilde/<id>` gir 502 | Se Vercel-loggen for ruten; ofte mangler lese-tilgang til biblioteket. |
 | `list items failed (400)` med «field ... not recognized» | Et kolonnenavn i `F` finnes ikke i listen. |
