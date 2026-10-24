@@ -1,6 +1,9 @@
 import type { Metadata } from 'next';
-import Container from '@/components/ui/Container';
 import { fetchPublicEvents, type PublicEvent } from '@/lib/arrangementer';
+import { osloDay } from '@/lib/kalender';
+import { KalenderSide } from '@/components/arrangementer/Kalender';
+import fs from '@/components/forside/gips/seksjoner.module.css';
+import k from '@/components/arrangementer/kalender.module.css';
 
 // Matches the Graph fetch's cache; Power Automate can refresh sooner through /api/revalidate-events.
 export const revalidate = 60;
@@ -29,22 +32,6 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-const OSLO = 'Europe/Oslo';
-const day = (iso: string) =>
-  new Date(iso).toLocaleDateString('nb-NO', { weekday: 'long', day: 'numeric', month: 'long', timeZone: OSLO });
-const clock = (iso: string) =>
-  new Date(iso).toLocaleTimeString('nb-NO', { hour: '2-digit', minute: '2-digit', timeZone: OSLO });
-
-/** «lørdag 1. november kl. 17:00–19:00», in Oslo time. */
-function when(e: PublicEvent): string {
-  const startDay = day(e.start);
-  if (!e.end) return `${startDay} kl. ${clock(e.start)}`;
-  const endDay = day(e.end);
-  return endDay === startDay
-    ? `${startDay} kl. ${clock(e.start)}–${clock(e.end)}`
-    : `${startDay} kl. ${clock(e.start)} – ${endDay} kl. ${clock(e.end)}`;
-}
-
 async function loadEvents(): Promise<PublicEvent[] | null> {
   try {
     return await fetchPublicEvents();
@@ -61,40 +48,21 @@ async function loadEvents(): Promise<PublicEvent[] | null> {
 
 export default async function ArrangementerPage() {
   const events = (await loadEvents()) ?? [];
+  const today = osloDay(new Date());
 
   return (
-    <main className="min-h-screen pt-12 pb-20">
-      <Container>
-        <header className="text-center mb-12 md:mb-16">
-          <h1 className="text-4xl md:text-6xl text-[var(--ink)] font-[family-name:var(--font-display)]">
-            Arrangementer
-          </h1>
-          <p className="mt-3 text-[var(--muted)]">Det som skjer i moskeen fremover. Alle er velkomne.</p>
-        </header>
-
-        {events.length === 0 ? (
-          <p className="text-center text-[var(--muted)]">
-            Ingen kommende arrangementer akkurat nå. Følg med her eller på Facebook.
+    <main className={k.page}>
+      <div className={k.pWrap}>
+        <header className={k.pHead}>
+          <h1 className={fs.h2}>Arrangementer</h1>
+          <p className={k.lead}>
+            {events.length > 0
+              ? 'Det som skjer i Masjid Rahma fremover. Velg en grønn dag for å se hva som skjer.'
+              : 'Ingen kommende arrangementer akkurat nå. Følg med her eller på Facebook.'}
           </p>
-        ) : (
-          <ol className="mx-auto max-w-2xl flex flex-col gap-4">
-            {events.map((e) => (
-              <li
-                key={e.id}
-                className="rounded-2xl border border-[var(--hair)] bg-[var(--card)] px-5 py-5 md:px-7 md:py-6"
-              >
-                <p className="text-sm font-medium text-[var(--emerald)] first-letter:uppercase">
-                  <time dateTime={e.start}>{when(e)}</time>
-                  {e.location && <span className="text-[var(--muted)]"> · {e.location}</span>}
-                </p>
-                <h2 className="mt-1 text-2xl md:text-3xl text-[var(--ink)] font-[family-name:var(--font-display)]">
-                  {e.title}
-                </h2>
-              </li>
-            ))}
-          </ol>
-        )}
-      </Container>
+        </header>
+        <KalenderSide events={events} today={today} />
+      </div>
     </main>
   );
 }

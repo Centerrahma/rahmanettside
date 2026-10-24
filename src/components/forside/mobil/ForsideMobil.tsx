@@ -4,6 +4,8 @@ import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import type { PrayerSchedule } from '@/types/prayer';
+import type { PublicEvent } from '@/lib/arrangementer';
+import { KalenderStripe } from '@/components/arrangementer/Kalender';
 import Konvolutt from '@/components/sider/kontakt/Konvolutt';
 import Velger from '@/components/sider/stott/Velger';
 import { Recess } from '../gips/Gips';
@@ -15,6 +17,7 @@ import s from './mobil.module.css';
 
 /* The front page under the hero, on phones (desktop keeps Fellesskapet, StottOss and Besok):
    Vårt felleskap — one photo in a square recess carved into beige plaster, the groups open under it one at a time;
+   Arrangementer — the next fourteen days as a strip to swipe, the chosen day on a cream plate (when there are events);
    Støtt moskeen — a green tadelakt plate between double gold rules, with the Vipps switch card;
    Besøk og kontakt oss — on cream plaster under a row of arches: the Friday prayer, then the Kontakt envelope.
    Each heading has a rosette over it. Reveals play once, as each part scrolls into view. */
@@ -68,7 +71,7 @@ function Grupper() {
   );
 }
 
-export default function ForsideMobil({ jummah }: { jummah: PrayerSchedule['jummah'] }) {
+export default function ForsideMobil({ jummah, events, today }: { jummah: PrayerSchedule['jummah']; events: PublicEvent[]; today: string }) {
   const fri = nextFriday();
   const root = useRef<HTMLDivElement>(null);
   // mark each [data-reveal] the first time it scrolls into view; without script nothing is hidden
@@ -93,6 +96,14 @@ export default function ForsideMobil({ jummah }: { jummah: PrayerSchedule['jumma
         <Head id="fm-fs" title="Vårt felleskap" lead="Her lærer barn Koranen og arabisk, unge samles til sport og turer, og familier møtes." />
         <Grupper />
       </section>
+
+      {events.length > 0 && (
+        <section className={s.events} aria-labelledby="fm-ar">
+          <Head id="fm-ar" title="Arrangementer" lead="Velg en dag for å se hva som skjer." />
+          <KalenderStripe events={events} today={today} />
+          <Link className={`${s.creamBtn} ${s.allBtn}`} href="/arrangementer" data-reveal>Hele kalenderen</Link>
+        </section>
+      )}
 
       <section className={s.plate} aria-labelledby="fm-st">
         <Head id="fm-st" title="Støtt moskeen" lead="Et fellesskap bæres av mange." />

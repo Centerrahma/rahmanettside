@@ -44,6 +44,10 @@
 .panel li b{font-size:15px;font-weight:600;color:var(--cream)}
 .creamBtn{display:inline-grid;place-items:center;height:50px;margin-top:18px;padding:0 24px;border-radius:6px;background:#efe2c3;color:var(--green);font-weight:600;text-decoration:none}
 
+/* Arrangementer: the strip of days and the chosen day, on the green */
+.events{padding:16px 0 64px}
+.allBtn{display:flex;justify-content:center;align-items:center;margin:22px 16px 0}
+
 /* Støtt moskeen: a green tadelakt plate between double gold rules */
 .plate{padding:56px 14px 28px;color:var(--cream);
   background:#0a4439 url('/textures/rahma-tadelakt.webp') 0 0/768px;background-blend-mode:luminosity;

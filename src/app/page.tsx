@@ -1,13 +1,16 @@
 import type { Metadata } from 'next';
 import { fetchPrayerTimes } from '@/lib/mymasjid';
 import { osloNow } from '@/lib/prayer-clock';
+import { fetchPublicEvents, type PublicEvent } from '@/lib/arrangementer';
+import { osloDay } from '@/lib/kalender';
 import Hero from '@/components/forside/Hero';
 import ForsideSeksjoner from '@/components/forside/gips/Seksjoner';
 import ForsideMobil from '@/components/forside/mobil/ForsideMobil';
 import m from '@/components/forside/mobil/mobil.module.css';
 
-// Rebuilt every five minutes, so the day's times turn over shortly after midnight.
-export const revalidate = 300;
+// Rebuilt every minute: the day's times turn over just after midnight, and an event taken off
+// SharePoint leaves the front page as quickly as it leaves /arrangementer.
+export const revalidate = 60;
 
 const BASE_URL = 'https://www.centerrahma.no';
 const TITLE = 'Masjid Rahma – moské i Oslo';
@@ -76,9 +79,20 @@ function MosqueJsonLd() {
   );
 }
 
+/** The front page never fails over events: without them the calendar section is left out. */
+async function upcomingEvents(): Promise<PublicEvent[]> {
+  try {
+    return (await fetchPublicEvents()) ?? [];
+  } catch (err) {
+    console.error('[forside] Could not read SharePoint events:', err);
+    return [];
+  }
+}
+
 export default async function HomePage() {
-  const schedule = await fetchPrayerTimes();
+  const [schedule, events] = await Promise.all([fetchPrayerTimes(), upcomingEvents()]);
   const now = osloNow();
+  const today = osloDay(new Date());
 
   return (
     <>
@@ -86,9 +100,9 @@ export default async function HomePage() {
       <Hero schedule={schedule} friday={now.friday} />
       {/* under the hero, phones get their own layout (ForsideMobil); wider screens get the carved sections (gips/Seksjoner) */}
       <div className={m.desktop}>
-        <ForsideSeksjoner jummah={schedule.jummah} />
+        <ForsideSeksjoner jummah={schedule.jummah} events={events} today={today} />
       </div>
-      <ForsideMobil jummah={schedule.jummah} />
+      <ForsideMobil jummah={schedule.jummah} events={events} today={today} />
     </>
   );
 }

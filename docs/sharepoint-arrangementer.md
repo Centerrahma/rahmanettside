@@ -3,8 +3,11 @@
 SharePoint-listen med arrangementer er den eneste kilden for alle arrangementer og møter.
 Nettsiden viser bare de som har Category **Public** på `/arrangementer`. Interne arrangementer og møter kommer aldri ut.
 
-Koden: `src/lib/arrangementer.ts` (henter og filtrerer), `src/app/arrangementer/page.tsx` (siden),
-`src/app/api/revalidate-events/route.ts` (umiddelbar oppdatering).
+Koden: `src/lib/arrangementer.ts` (henter og filtrerer), `src/components/arrangementer/Kalender.tsx`
+(kalenderen på forsiden og på `/arrangementer`), `src/app/api/revalidate-events/route.ts` (umiddelbar oppdatering).
+
+Forsiden viser denne og neste uke (mobil: de neste 14 dagene). Uten kommende arrangementer, eller hvis
+SharePoint ikke svarer, blir kalenderen borte fra forsiden; resten av forsiden vises som vanlig.
 
 ## Innlogging
 
