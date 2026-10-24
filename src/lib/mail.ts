@@ -5,47 +5,13 @@
 // RBAC limits the app to sending as webside@centerrahma.no only.
 // The federated credential covers Production only, so Preview and local
 // sends fail by design. Setup: docs/microsoft-graph-mail.md.
-import { ClientAssertionCredential } from '@azure/identity';
-import { getVercelOidcToken } from '@vercel/oidc';
+import { GRAPH_BASE, REQUEST_TIMEOUT_MS, getGraphToken } from './graph.ts';
 
-const GRAPH_BASE = 'https://graph.microsoft.com/v1.0';
-const GRAPH_SCOPE = 'https://graph.microsoft.com/.default';
-// Fail fast instead of hanging the serverless function on a dead connection.
-const REQUEST_TIMEOUT_MS = 10_000;
 // Sender and recipient are fixed on the server; nothing in a request picks them.
 const DEFAULT_SENDER = 'webside@centerrahma.no';
 const DEFAULT_RECIPIENT = 'post@centerrahma.no';
 
-type TokenProvider = () => Promise<string>;
-
-let credential: ClientAssertionCredential | null = null;
-
-async function graphToken(): Promise<string> {
-  if (!credential) {
-    const { AZURE_TENANT_ID, AZURE_CLIENT_ID } = process.env;
-    const missing = [
-      !AZURE_TENANT_ID && 'AZURE_TENANT_ID',
-      !AZURE_CLIENT_ID && 'AZURE_CLIENT_ID',
-    ].filter(Boolean);
-    if (missing.length > 0) {
-      throw new Error(`Missing environment variables for Microsoft Graph mail: ${missing.join(', ')}`);
-    }
-    credential = new ClientAssertionCredential(AZURE_TENANT_ID!, AZURE_CLIENT_ID!, () =>
-      getVercelOidcToken(),
-    );
-  }
-  // The credential caches and renews the Graph token itself.
-  const { token } = await credential.getToken(GRAPH_SCOPE);
-  return token;
-}
-
-let getToken: TokenProvider = graphToken;
-
-/** Test hook: swap the token source (null restores the real one). */
-export function setTokenProvider(provider: TokenProvider | null) {
-  getToken = provider ?? graphToken;
-  credential = null;
-}
+export { setTokenProvider } from './graph.ts';
 
 // Subject and display names end up in headers; strip line breaks.
 const oneLine = (s: string) => s.replace(/[\r\n]+/g, ' ').trim();
@@ -53,7 +19,7 @@ const oneLine = (s: string) => s.replace(/[\r\n]+/g, ' ').trim();
 async function sendMail(message: { replyTo: string; replyToName: string; subject: string; text: string }) {
   const sender = process.env.CONTACT_MAIL_FROM || DEFAULT_SENDER;
   const to = process.env.CONTACT_MAIL_TO || DEFAULT_RECIPIENT;
-  const token = await getToken();
+  const token = await getGraphToken();
 
   const res = await fetch(`${GRAPH_BASE}/users/${encodeURIComponent(sender)}/sendMail`, {
     method: 'POST',
