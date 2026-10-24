@@ -1,0 +1,79 @@
+/* /arrangementer: one screen under the nav bar (84px wide, 68px on phones), beige tadelakt. */
+.screen{display:flex;flex-direction:column;height:calc(100svh - 84px);min-height:640px;padding:28px 0 36px;color:#1e3e36;overflow:hidden;
+  background:#e8dbc3 url('/forside/tadelakt-beige.webp') 0 0/960px}
+.wrap{display:flex;flex-direction:column;flex:1;min-height:0;width:100%;max-width:1240px;margin:0 auto;padding:0 40px}
+.grid{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1fr);gap:clamp(40px,5vw,80px);flex:1;min-height:0}
+
+/* the arch: the picture, or the green plaster with the day cut into it */
+.archCol{min-height:0;display:flex;justify-content:center}
+.arch{--sw:14px;height:100%;aspect-ratio:3/4;max-width:100%}
+.pic{position:absolute;inset:0;animation:fade .6s cubic-bezier(.22,1,.36,1) both}
+.pic img{object-fit:cover}
+.green{position:absolute;inset:0;display:grid;place-items:center;color:#f7f0e3;background:#0a4439 url('/forside/tadelakt-gronn.webp') 0 0/768px}
+.gNum{font-family:var(--serif);font-weight:400;font-variation-settings:'opsz' 60;font-size:clamp(90px,9vw,140px);line-height:1;
+  text-shadow:0 -1px 0 rgba(0,10,7,.6),0 1px 0 rgba(196,228,214,.2)}
+
+/* what, when and where */
+.text{display:flex;flex-direction:column;min-height:0;padding-top:8px}
+.h1{margin:0;font-family:var(--serif);font-weight:400;font-size:24px;line-height:1.1;color:#3b5750}
+.now{margin-top:auto;animation:rise .55s cubic-bezier(.22,1,.36,1) both}
+.when{margin:0;font-size:17px;font-weight:500;color:#0f5d4e}
+.title{margin:10px 0 0;font-family:var(--serif);font-weight:400;font-variation-settings:'opsz' 60;font-size:clamp(44px,4.4vw,64px);line-height:1.02;letter-spacing:-.025em;text-wrap:balance}
+.empty{margin:16px 0 0;font-size:18px}
+.facts{display:flex;flex-wrap:wrap;gap:12px 48px;margin:24px 0 0}
+.facts dt{font-size:14px;font-weight:500;color:#3b5750}
+.facts dd{margin:2px 0 0;font-family:var(--serif);font-size:23px;line-height:1.2}
+
+/* what comes next */
+.next{display:flex;flex-direction:column;min-height:0;margin-top:auto;padding-top:28px}
+.nextHead{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.nextHead h2{margin:0;font-family:var(--serif);font-weight:400;font-size:22px}
+.arrows{display:flex;gap:14px}
+.arrow{width:46px;height:46px;border:0;border-radius:50%;cursor:pointer;font-size:19px;color:#1e3e36;
+  background:rgba(120,88,44,.07);box-shadow:inset 0 8px 8px -6px rgba(88,60,24,.35),inset 0 -1.5px 0 rgba(255,251,240,.8);transition:background-color .2s,transform .2s cubic-bezier(.22,1,.36,1)}
+.arrow:hover:not(:disabled){background:rgba(120,88,44,.14)}
+.arrow:active:not(:disabled){transform:scale(.94)}
+.arrow:disabled{opacity:.3;cursor:default}
+.arrow:focus-visible{outline:2px solid #0f5d4e;outline-offset:3px}
+.list{position:relative;max-height:268px;overflow-y:auto;margin:0;padding:6px;list-style:none;display:grid;gap:4px;border-radius:2px;scrollbar-width:thin;
+  background:rgba(120,88,44,.06);box-shadow:inset 0 9px 9px -8px rgba(88,60,24,.32),inset 0 -1.5px 0 rgba(255,251,240,.8)}
+.list button{display:grid;grid-template-columns:44px minmax(0,1fr) auto;align-items:center;gap:14px;width:100%;padding:8px 12px 8px 6px;border:0;border-radius:2px;text-align:left;font:inherit;color:#1e3e36;cursor:pointer;background:transparent;transition:background-color .2s}
+.list button:hover{background:rgba(255,250,240,.5)}
+.list button[aria-current='true']{color:#f7f0e3;background:#0a4439 url('/forside/tadelakt-gronn.webp') 0 0/768px}
+.list button:focus-visible{outline:2px solid #0f5d4e;outline-offset:2px}
+.n{font-family:var(--serif);font-size:24px;line-height:1;text-align:center;font-variant-numeric:lining-nums}
+.t{font-family:var(--serif);font-size:19px;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.k{font-size:14px;font-variant-numeric:tabular-nums;opacity:.8}
+
+@keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+
+@media (max-width:900px){
+  .screen{height:calc(100svh - 68px);min-height:560px;padding:18px 0 20px}
+  .wrap{padding:0 16px}
+  .grid{display:flex;flex-direction:column;gap:16px}
+  .archCol{flex:1;min-height:200px}
+  .arch{width:100%;aspect-ratio:auto;--sw:10px}
+  /* the page keeps its h1 for readers and search, but on a phone the room goes to the event */
+  .h1{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+  .text{flex:none;padding:0}
+  .now{margin:0}
+  .when{font-size:14px}
+  .title{font-size:30px;margin-top:4px}
+  .facts{gap:6px 24px;margin-top:10px}
+  .facts dt{font-size:12.5px}
+  .facts dd{font-size:17px}
+  .next{padding-top:14px}
+  .nextHead{margin-bottom:6px}
+  .nextHead h2{font-size:18px}
+  .arrow{width:40px;height:40px}
+  .list{display:flex;max-height:none;overflow-x:auto;overflow-y:hidden;gap:6px;scrollbar-width:none}
+  .list::-webkit-scrollbar{display:none}
+  .list li{flex:0 0 auto}
+  .list button{grid-template-columns:auto;justify-items:center;width:62px;padding:8px 4px}
+  .t,.k{display:none}
+}
+@media (prefers-reduced-motion:reduce){
+  .pic,.now{animation:none}
+  .arrow,.list button{transition:none}
+}

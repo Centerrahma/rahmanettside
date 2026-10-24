@@ -101,7 +101,7 @@ export default function ForsideMobil({ jummah, events, today }: { jummah: Prayer
         <section className={s.events} aria-labelledby="fm-ar">
           <Head id="fm-ar" title="Arrangementer" lead="Velg en dag for å se hva som skjer." />
           <KalenderStripe events={events} today={today} />
-          <Link className={`${s.creamBtn} ${s.allBtn}`} href="/arrangementer" data-reveal>Hele kalenderen</Link>
+          <Link className={`${s.creamBtn} ${s.allBtn}`} href="/arrangementer" data-reveal>Alle arrangementer</Link>
         </section>
       )}
 

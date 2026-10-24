@@ -25,27 +25,6 @@ export const twoWeeks = (today: string) => Array.from({ length: 14 }, (_, i) => 
 /** 'yyyy-mm' of a day key. */
 export const monthOf = (key: string) => key.slice(0, 7);
 
-/** Whole weeks, Monday first, covering every day of the month. */
-export function monthGrid(month: string): string[] {
-  const first = `${month}-01`;
-  const start = mondayOf(first);
-  const days: string[] = [];
-  for (let k = start; days.length % 7 !== 0 || monthOf(k) <= month; k = addDays(k, 1)) days.push(k);
-  return days;
-}
-
-/** Every month from `from` to `to`, both included. */
-export function monthsBetween(from: string, to: string): string[] {
-  const out: string[] = [];
-  let [y, m] = from.split('-').map(Number);
-  for (;;) {
-    const key = `${y}-${String(m).padStart(2, '0')}`;
-    out.push(key);
-    if (key >= to) return out;
-    if (++m > 12) { m = 1; y++; }
-  }
-}
-
 /** Events keyed by the Oslo day they start on, in the order given. */
 export function byDay<T extends { start: string }>(events: T[]): Record<string, T[]> {
   const out: Record<string, T[]> = {};

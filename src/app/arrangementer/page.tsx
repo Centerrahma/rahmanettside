@@ -1,9 +1,7 @@
 import type { Metadata } from 'next';
 import { fetchPublicEvents, type PublicEvent } from '@/lib/arrangementer';
 import { osloDay } from '@/lib/kalender';
-import { KalenderSide } from '@/components/arrangementer/Kalender';
-import fs from '@/components/forside/gips/seksjoner.module.css';
-import k from '@/components/arrangementer/kalender.module.css';
+import Utstillingen from '@/components/arrangementer/Utstillingen';
 
 // Matches the Graph fetch's cache; Power Automate can refresh sooner through /api/revalidate-events.
 export const revalidate = 60;
@@ -48,21 +46,9 @@ async function loadEvents(): Promise<PublicEvent[] | null> {
 
 export default async function ArrangementerPage() {
   const events = (await loadEvents()) ?? [];
-  const today = osloDay(new Date());
-
   return (
-    <main className={k.page}>
-      <div className={k.pWrap}>
-        <header className={k.pHead}>
-          <h1 className={fs.h2}>Arrangementer</h1>
-          <p className={k.lead}>
-            {events.length > 0
-              ? 'Det som skjer i Masjid Rahma fremover. Velg en grønn dag for å se hva som skjer.'
-              : 'Ingen kommende arrangementer akkurat nå. Følg med her eller på Facebook.'}
-          </p>
-        </header>
-        <KalenderSide events={events} today={today} />
-      </div>
+    <main>
+      <Utstillingen events={events} today={osloDay(new Date())} />
     </main>
   );
 }
