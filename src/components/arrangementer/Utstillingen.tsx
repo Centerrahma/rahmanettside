@@ -15,6 +15,8 @@ import s from './utstillingen.module.css';
 
 export default function Utstillingen({ events, today }: { events: PublicEvent[]; today: string }) {
   const [i, setI] = useState(0);
+  // pictures that failed to load; their events fall back to the green plaster
+  const [broken, setBroken] = useState<ReadonlySet<string>>(() => new Set());
   const list = useRef<HTMLOListElement>(null);
   // keep the chosen row in view when the arrows step past the list's edge; only the list scrolls,
   // never the page (the list is a column on wide screens and a row on phones)
@@ -58,10 +60,11 @@ export default function Utstillingen({ events, today }: { events: PublicEvent[];
           <div className={s.archCol}>
             <Recess shape="arch" steps={3} className={s.arch}>
               <div className={s.pic} key={e.id}>
-                {e.image ? (
+                {e.image && !broken.has(e.id) ? (
                   // served as is from our own route, which stops serving it once the event is no longer Public;
                   // the image optimiser would keep its own copy for hours
-                  <Image src={e.image} alt={`Bilde til ${e.title}`} fill unoptimized sizes="(max-width: 900px) 92vw, 520px" />
+                  <Image src={e.image} alt={`Bilde til ${e.title}`} fill unoptimized sizes="(max-width: 900px) 92vw, 520px"
+                    onError={() => setBroken((b) => new Set(b).add(e.id))} />
                 ) : (
                   <span className={s.green}><b className={s.gNum}>{dayNum(d)}</b></span>
                 )}

@@ -174,19 +174,20 @@ test('serves the picture of a Public event, fetched through the site drive', asy
     '/drives/assets/root:/q.jpg:/content': () => new Response('JPEGDATA', { headers: { 'content-type': 'image/jpeg' } }),
   });
   const pic = await fetchPublicBanner('10');
-  assert.equal(pic?.type, 'image/jpeg');
-  assert.equal(await new Response(pic!.body).text(), 'JPEGDATA');
+  assert.ok(pic.ok);
+  assert.equal(pic.type, 'image/jpeg');
+  assert.equal(await new Response(pic.body).text(), 'JPEGDATA');
 });
 
 test('an Internal event gives no picture and its file is never fetched', async () => {
   graph({ '/items/10': itemRes('Internal', PIC) });
-  assert.equal(await fetchPublicBanner('10'), null);
+  assert.deepEqual(await fetchPublicBanner('10'), { ok: false, reason: 'not-public' });
   assert.equal(urls.length, 1);
 });
 
 test('no picture for links outside the site, non-raster files, or odd IDs', async () => {
   graph({ '/items/10': itemRes('Public', { Url: 'https://evil.example/x.jpg' }), '/drives?': () => Response.json({ value: DRIVES }) });
-  assert.equal(await fetchPublicBanner('10'), null);
+  assert.deepEqual(await fetchPublicBanner('10'), { ok: false, reason: 'outside-site:evil.example/x.jpg' });
   assert.ok(!urls.some((u) => u.includes('evil.example')));
 
   urls = [];
@@ -195,9 +196,22 @@ test('no picture for links outside the site, non-raster files, or odd IDs', asyn
     '/drives?': () => Response.json({ value: DRIVES }),
     ':/content': () => new Response('<svg/>', { headers: { 'content-type': 'image/svg+xml' } }),
   });
-  assert.equal(await fetchPublicBanner('10'), null);
+  assert.deepEqual(await fetchPublicBanner('10'), { ok: false, reason: 'not-image:image/svg+xml' });
 
   urls = [];
-  assert.equal(await fetchPublicBanner('10/../../x'), null);
+  assert.deepEqual(await fetchPublicBanner('10/../../x'), { ok: false, reason: 'bad-id' });
   assert.equal(urls.length, 0);
+});
+
+test('a picture sent as a generic download is served by its extension; a missing item is not an error', async () => {
+  graph({
+    '/items/10': itemRes('Public', PIC),
+    '/drives?': () => Response.json({ value: DRIVES }),
+    ':/content': () => new Response('JPEGDATA', { headers: { 'content-type': 'application/octet-stream' } }),
+  });
+  const pic = await fetchPublicBanner('10');
+  assert.ok(pic.ok && pic.type === 'image/jpeg');
+
+  graph({ '/items/99': () => new Response('{"error":{"code":"itemNotFound"}}', { status: 404 }) });
+  assert.deepEqual(await fetchPublicBanner('99'), { ok: false, reason: 'no-item' });
 });

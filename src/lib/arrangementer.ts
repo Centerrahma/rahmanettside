@@ -156,29 +156,52 @@ export function locateInDrives(banner: string, drives: { id: string; webUrl: str
   }
 }
 
+/** Where a link that is not in the events site points, coarsely, for the log and the 404 reason. */
+function where(banner: string) {
+  try {
+    const u = new URL(banner, 'https://x.invalid');
+    return `${u.host === 'x.invalid' ? '' : u.host}${u.pathname.split('/').slice(0, 3).join('/')}`.toLowerCase();
+  } catch {
+    return 'unreadable';
+  }
+}
+
+const EXT_TYPE: Record<string, string> = { jpg: 'image/jpeg', jpeg: 'image/jpeg', png: 'image/png', webp: 'image/webp', gif: 'image/gif', avif: 'image/avif' };
+
+export type Banner = { ok: true; body: ReadableStream<Uint8Array>; type: string } | { ok: false; reason: string };
+
 /**
- * The picture of one event, fetched by the server with the read-only app. Null unless the item is
- * Public right now, has a picture, and the picture lives in the events site. Throws when Graph fails.
+ * The picture of one event, fetched by the server with the read-only app. Only when the item is
+ * Public right now, has a picture, and the picture lives in the events site; otherwise a short
+ * reason, which the route passes on so a missing picture can be explained without the logs.
+ * Throws when Graph fails.
  */
-export async function fetchPublicBanner(id: string): Promise<{ body: ReadableStream<Uint8Array>; type: string } | null> {
+export async function fetchPublicBanner(id: string): Promise<Banner> {
   const { SHAREPOINT_SITE_ID, SHAREPOINT_LIST_ID } = process.env;
-  if (!SHAREPOINT_SITE_ID || !SHAREPOINT_LIST_ID || !isItemId(id)) return null;
+  if (!SHAREPOINT_SITE_ID || !SHAREPOINT_LIST_ID) return { ok: false, reason: 'not-configured' };
+  if (!isItemId(id)) return { ok: false, reason: 'bad-id' };
   const token = await getGraphToken(SHAREPOINT_APP);
   const base = siteBase(SHAREPOINT_SITE_ID);
 
-  const item = await graphJson<GraphItem>(
-    `${base}/lists/${encodeURIComponent(SHAREPOINT_LIST_ID)}/items/${id}?$expand=fields($select=${F.category},${F.banner})`,
-    token, 'list item',
-  );
-  if (item.fields?.[F.category] !== PUBLIC) return null;
+  let item: GraphItem;
+  try {
+    item = await graphJson<GraphItem>(
+      `${base}/lists/${encodeURIComponent(SHAREPOINT_LIST_ID)}/items/${id}?$expand=fields($select=${F.category},${F.banner})`,
+      token, 'list item',
+    );
+  } catch (err) {
+    if (String(err).includes('(404)')) return { ok: false, reason: 'no-item' };
+    throw err;
+  }
+  if (item.fields?.[F.category] !== PUBLIC) return { ok: false, reason: 'not-public' };
   const banner = bannerUrl(item.fields?.[F.banner]);
-  if (!banner) return null;
+  if (!banner) return { ok: false, reason: 'no-picture' };
 
   const { value: drives } = await graphJson<{ value: { id: string; webUrl: string }[] }>(`${base}/drives?$select=id,webUrl`, token, 'drives');
   const found = locateInDrives(banner, drives);
   if (!found) {
     console.warn(`[arrangementer] Picture for item ${id} is not in the events site: ${banner}`);
-    return null;
+    return { ok: false, reason: `outside-site:${where(banner)}` };
   }
 
   const path = found.path.split('/').map(encodeURIComponent).join('/');
@@ -188,13 +211,15 @@ export async function fetchPublicBanner(id: string): Promise<{ body: ReadableStr
     cache: 'no-store',
     signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS),
   });
-  if (res.status === 404) return null;
+  if (res.status === 404) return { ok: false, reason: 'file-missing' };
   if (!res.ok || !res.body) throw new Error(`Microsoft Graph file content failed (${res.status})`);
-  const type = (res.headers.get('content-type') ?? '').split(';')[0].trim().toLowerCase();
+  let type = (res.headers.get('content-type') ?? '').split(';')[0].trim().toLowerCase();
+  // SharePoint sometimes sends pictures as a generic download; go by the file's extension then
+  if (type === 'application/octet-stream' || type === '') type = EXT_TYPE[found.path.split('.').pop()?.toLowerCase() ?? ''] ?? type;
   // raster pictures only: an SVG can carry script, and this is served from our own address
   if (!RASTER.has(type)) {
     console.warn(`[arrangementer] Picture for item ${id} is not an image (${type})`);
-    return null;
+    return { ok: false, reason: `not-image:${type || 'unknown'}` };
   }
-  return { body: res.body, type };
+  return { ok: true, body: res.body, type };
 }

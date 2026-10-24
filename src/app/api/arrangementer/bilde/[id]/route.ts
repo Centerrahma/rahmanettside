@@ -14,7 +14,9 @@ export async function GET(_req: Request, { params }: { params: Promise<{ id: str
   const { id } = await params;
   try {
     const pic = await fetchPublicBanner(id);
-    if (!pic) return NextResponse.json({ error: 'Not found' }, { status: 404, headers: { 'Cache-Control': 'public, max-age=60, s-maxage=60' } });
+    if (!pic.ok) {
+      return NextResponse.json({ error: 'Not found', reason: pic.reason }, { status: 404, headers: { 'Cache-Control': 'public, max-age=60, s-maxage=60' } });
+    }
     return new Response(pic.body, {
       headers: {
         'Content-Type': pic.type,
