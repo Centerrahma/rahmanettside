@@ -1,5 +1,5 @@
-// Signs in to Microsoft Graph as the site's Entra app. No secret is stored:
-// the app trusts Vercel's OIDC token for the production deployment
+// Signs in to Microsoft Graph as one of the site's Entra apps. No secret is
+// stored: each app trusts Vercel's OIDC token for the production deployment
 // (federated credential), so Preview and local runs cannot get a token.
 // Setup: docs/microsoft-graph-mail.md and docs/sharepoint-arrangementer.md.
 import { ClientAssertionCredential } from '@azure/identity';
@@ -10,23 +10,30 @@ const GRAPH_SCOPE = 'https://graph.microsoft.com/.default';
 // Fail fast instead of hanging the serverless function on a dead connection.
 export const REQUEST_TIMEOUT_MS = 10_000;
 
-type TokenProvider = () => Promise<string>;
+/** The env vars holding an app's tenant and client ID. */
+export interface GraphApp { tenant: string; client: string }
 
-let credential: ClientAssertionCredential | null = null;
+/** Sends the contact and membership forms as webside@. */
+export const MAIL_APP: GraphApp = { tenant: 'AZURE_TENANT_ID', client: 'AZURE_CLIENT_ID' };
+/** Reads the SharePoint events list, nothing else. */
+export const SHAREPOINT_APP: GraphApp = { tenant: 'SHAREPOINT_TENANT_ID', client: 'SHAREPOINT_CLIENT_ID' };
 
-async function graphToken(): Promise<string> {
+type TokenProvider = (app: GraphApp) => Promise<string>;
+
+const credentials = new Map<string, ClientAssertionCredential>();
+
+async function graphToken(app: GraphApp): Promise<string> {
+  const tenantId = process.env[app.tenant];
+  const clientId = process.env[app.client];
+  const missing = [!tenantId && app.tenant, !clientId && app.client].filter(Boolean);
+  if (missing.length > 0) {
+    throw new Error(`Missing environment variables for Microsoft Graph: ${missing.join(', ')}`);
+  }
+  const key = `${tenantId}/${clientId}`;
+  let credential = credentials.get(key);
   if (!credential) {
-    const { AZURE_TENANT_ID, AZURE_CLIENT_ID } = process.env;
-    const missing = [
-      !AZURE_TENANT_ID && 'AZURE_TENANT_ID',
-      !AZURE_CLIENT_ID && 'AZURE_CLIENT_ID',
-    ].filter(Boolean);
-    if (missing.length > 0) {
-      throw new Error(`Missing environment variables for Microsoft Graph: ${missing.join(', ')}`);
-    }
-    credential = new ClientAssertionCredential(AZURE_TENANT_ID!, AZURE_CLIENT_ID!, () =>
-      getVercelOidcToken(),
-    );
+    credential = new ClientAssertionCredential(tenantId!, clientId!, () => getVercelOidcToken());
+    credentials.set(key, credential);
   }
   // The credential caches and renews the Graph token itself.
   const { token } = await credential.getToken(GRAPH_SCOPE);
@@ -35,10 +42,10 @@ async function graphToken(): Promise<string> {
 
 let tokenProvider: TokenProvider = graphToken;
 
-export const getGraphToken = () => tokenProvider();
+export const getGraphToken = (app: GraphApp) => tokenProvider(app);
 
 /** Test hook: swap the token source (null restores the real one). */
 export function setTokenProvider(provider: TokenProvider | null) {
   tokenProvider = provider ?? graphToken;
-  credential = null;
+  credentials.clear();
 }

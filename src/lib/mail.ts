@@ -5,7 +5,7 @@
 // RBAC limits the app to sending as webside@centerrahma.no only.
 // The federated credential covers Production only, so Preview and local
 // sends fail by design. Setup: docs/microsoft-graph-mail.md.
-import { GRAPH_BASE, REQUEST_TIMEOUT_MS, getGraphToken } from './graph.ts';
+import { GRAPH_BASE, MAIL_APP, REQUEST_TIMEOUT_MS, getGraphToken } from './graph.ts';
 
 // Sender and recipient are fixed on the server; nothing in a request picks them.
 const DEFAULT_SENDER = 'webside@centerrahma.no';
@@ -19,7 +19,7 @@ const oneLine = (s: string) => s.replace(/[\r\n]+/g, ' ').trim();
 async function sendMail(message: { replyTo: string; replyToName: string; subject: string; text: string }) {
   const sender = process.env.CONTACT_MAIL_FROM || DEFAULT_SENDER;
   const to = process.env.CONTACT_MAIL_TO || DEFAULT_RECIPIENT;
-  const token = await getGraphToken();
+  const token = await getGraphToken(MAIL_APP);
 
   const res = await fetch(`${GRAPH_BASE}/users/${encodeURIComponent(sender)}/sendMail`, {
     method: 'POST',
