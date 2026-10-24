@@ -2,7 +2,7 @@ import type { MetadataRoute } from 'next';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://www.centerrahma.no';
-  const pages = ['', '/kontakt', '/stott-oss', '/blimedlem', '/heritage'];
+  const pages = ['', '/kontakt', '/stott-oss', '/blimedlem', '/arrangementer', '/heritage'];
 
   return pages.map((page) => ({
     url: `${baseUrl}${page}`,

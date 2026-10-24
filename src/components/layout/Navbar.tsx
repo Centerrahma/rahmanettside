@@ -8,6 +8,7 @@ import s from './chrome.module.css';
 
 const LINKS = [
   { href: '/', label: 'Hjem' },
+  { href: '/arrangementer', label: 'Arrangementer' },
   { href: '/stott-oss', label: 'Støtt oss' },
   { href: '/kontakt', label: 'Kontakt oss' },
 ];
