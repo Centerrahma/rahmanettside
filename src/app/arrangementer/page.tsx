@@ -3,7 +3,7 @@ import Container from '@/components/ui/Container';
 import { fetchPublicEvents, type PublicEvent } from '@/lib/arrangementer';
 
 // Matches the Graph fetch's cache; Power Automate can refresh sooner through /api/revalidate-events.
-export const revalidate = 300;
+export const revalidate = 60;
 
 const URL = 'https://www.centerrahma.no/arrangementer';
 const TITLE = 'Arrangementer – Masjid Rahma';
@@ -30,22 +30,16 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 const OSLO = 'Europe/Oslo';
-const day = (iso: string, timeZone: string) =>
-  new Date(iso).toLocaleDateString('nb-NO', { weekday: 'long', day: 'numeric', month: 'long', timeZone });
+const day = (iso: string) =>
+  new Date(iso).toLocaleDateString('nb-NO', { weekday: 'long', day: 'numeric', month: 'long', timeZone: OSLO });
 const clock = (iso: string) =>
   new Date(iso).toLocaleTimeString('nb-NO', { hour: '2-digit', minute: '2-digit', timeZone: OSLO });
 
-/** «lørdag 1. november kl. 17:00–19:00», or just the day for all-day events. */
+/** «lørdag 1. november kl. 17:00–19:00», in Oslo time. */
 function when(e: PublicEvent): string {
-  // Graph returns all-day events as midnight UTC; read them as UTC so the date never shifts.
-  if (e.allDay) {
-    const first = day(e.start, 'UTC');
-    const last = e.end ? day(e.end, 'UTC') : first;
-    return last === first ? first : `${first} – ${last}`;
-  }
-  const startDay = day(e.start, OSLO);
+  const startDay = day(e.start);
   if (!e.end) return `${startDay} kl. ${clock(e.start)}`;
-  const endDay = day(e.end, OSLO);
+  const endDay = day(e.end);
   return endDay === startDay
     ? `${startDay} kl. ${clock(e.start)}–${clock(e.end)}`
     : `${startDay} kl. ${clock(e.start)} – ${endDay} kl. ${clock(e.end)}`;
@@ -96,9 +90,6 @@ export default async function ArrangementerPage() {
                 <h2 className="mt-1 text-2xl md:text-3xl text-[var(--ink)] font-[family-name:var(--font-display)]">
                   {e.title}
                 </h2>
-                {e.description && (
-                  <p className="mt-2 whitespace-pre-line text-[var(--ink-2)] leading-relaxed">{e.description}</p>
-                )}
               </li>
             ))}
           </ol>

@@ -1,32 +1,32 @@
 // Public events from the mosque's SharePoint events list, read through
 // Microsoft Graph. SharePoint holds every event and meeting; only items whose
-// Visibility column says Public reach the website. The column defaults to
+// Category column says Public reach the website. The column defaults to
 // Internal, so nothing is published by accident.
 // Setup: docs/sharepoint-arrangementer.md.
-import { GRAPH_BASE, REQUEST_TIMEOUT_MS, getGraphToken } from './graph.ts';
+import { GRAPH_BASE, REQUEST_TIMEOUT_MS, SHAREPOINT_APP, getGraphToken } from './graph.ts';
 
-/** Internal column names in the SharePoint list. Change here if the list uses others. */
+/**
+ * Internal column names in the SharePoint list, the set tested in Graph Explorer
+ * on 2026-10-24.
+ */
 const F = {
   title: 'Title',
-  visibility: 'Visibility',
+  category: 'Category',
   start: 'EventDate',
   end: 'EndDate',
-  allDay: 'fAllDayEvent',
   location: 'Location',
-  description: 'Description',
 } as const;
 
 const PUBLIC = 'Public';
-export const EVENTS_REVALIDATE_SECONDS = 300;
+// Short, so an event switched back to Internal leaves the site within a minute or two.
+export const EVENTS_REVALIDATE_SECONDS = 60;
 
 export interface PublicEvent {
   id: string;
   title: string;
   start: string;
   end: string | null;
-  allDay: boolean;
   location: string | null;
-  description: string | null;
 }
 
 type Fields = Record<string, unknown>;
@@ -34,25 +34,6 @@ interface GraphItem { id: string; fields?: Fields }
 interface GraphPage { value: GraphItem[]; '@odata.nextLink'?: string }
 
 const text = (v: unknown) => (typeof v === 'string' && v.trim() !== '' ? v.trim() : null);
-
-const ENTITIES: Record<string, string> = { amp: '&', lt: '<', gt: '>', quot: '"', apos: "'", nbsp: ' ' };
-
-/** SharePoint descriptions are HTML. The site shows them as plain text, never as markup. */
-export function toPlainText(html: string): string {
-  return html
-    .replace(/<\s*(br|\/p|\/div|\/li)\b[^>]*>/gi, '\n')
-    .replace(/<[^>]*>/g, '')
-    .replace(/&(#x[0-9a-f]+|#\d+|[a-z]+);/gi, (m, e: string) => {
-      if (e[0] !== '#') return ENTITIES[e.toLowerCase()] ?? m;
-      const code = e[1] === 'x' || e[1] === 'X' ? parseInt(e.slice(2), 16) : parseInt(e.slice(1), 10);
-      return Number.isFinite(code) && code > 0 && code <= 0x10ffff ? String.fromCodePoint(code) : m;
-    })
-    .replace(/​/g, '')
-    .replace(/[ \t\f\v ]+/g, ' ')
-    .replace(/ *\n */g, '\n')
-    .replace(/\n{3,}/g, '\n\n')
-    .trim();
-}
 
 /**
  * Turns Graph list items into public events: Public only (checked again here,
@@ -62,20 +43,17 @@ export function toPlainText(html: string): string {
 export function toPublicEvents(items: GraphItem[], now: Date): PublicEvent[] {
   const events: PublicEvent[] = [];
   for (const { id, fields = {} } of items) {
-    if (fields[F.visibility] !== PUBLIC) continue;
+    if (fields[F.category] !== PUBLIC) continue;
     const title = text(fields[F.title]);
     const start = text(fields[F.start]);
     if (!title || !start || Number.isNaN(Date.parse(start))) continue;
     const end = text(fields[F.end]);
-    const description = text(fields[F.description]);
     events.push({
       id,
       title,
       start,
       end: end && !Number.isNaN(Date.parse(end)) ? end : null,
-      allDay: fields[F.allDay] === true,
       location: text(fields[F.location]),
-      description: description ? toPlainText(description) || null : null,
     });
   }
   return events
@@ -88,11 +66,11 @@ export async function fetchPublicEvents(now = new Date()): Promise<PublicEvent[]
   const { SHAREPOINT_SITE_ID, SHAREPOINT_LIST_ID } = process.env;
   if (!SHAREPOINT_SITE_ID || !SHAREPOINT_LIST_ID) return null;
 
-  const token = await getGraphToken();
+  const token = await getGraphToken(SHAREPOINT_APP);
   const select = Object.values(F).join(',');
   const query = new URLSearchParams({
     $expand: `fields($select=${select})`,
-    $filter: `fields/${F.visibility} eq '${PUBLIC}'`,
+    $filter: `fields/${F.category} eq '${PUBLIC}'`,
     $top: '200',
   });
   let url: string | undefined =
@@ -105,7 +83,7 @@ export async function fetchPublicEvents(now = new Date()): Promise<PublicEvent[]
     const res: Response = await fetch(url, {
       headers: {
         Authorization: `Bearer ${token}`,
-        // Lets the filter run while the Visibility column is not indexed yet.
+        // Lets the filter run even if the Category index is ever dropped.
         Prefer: 'HonorNonIndexedQueriesWarningMayFailRandomly',
       },
       next: { revalidate: EVENTS_REVALIDATE_SECONDS, tags: ['arrangementer'] },
