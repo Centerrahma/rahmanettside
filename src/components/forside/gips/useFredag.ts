@@ -26,7 +26,7 @@ export function useFriday(khutbah: string, prayer: string) {
   const date = new Date(now.getTime() + days * 86_400_000);
   const fmt = (o: Intl.DateTimeFormatOptions) => new Intl.DateTimeFormat('nb-NO', { timeZone: 'Europe/Oslo', ...o }).format(date).replace('.', '');
   let left: string | null = null;
-  if (ready) {
+  if (ready && Number.isFinite(k) && Number.isFinite(end)) {
     if (days === 0 && min >= k) left = 'Pågår nå';
     else if (days === 0) { const m = k - min; left = `I dag, om ${m >= 60 ? `${Math.floor(m / 60)} t ` : ''}${m % 60} min`; }
     else if (days === 1) left = 'I morgen';

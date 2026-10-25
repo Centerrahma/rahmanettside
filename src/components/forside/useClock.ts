@@ -3,10 +3,41 @@
 import { useEffect, useState } from 'react';
 import type { PrayerSchedule } from '@/types/prayer';
 import { nextSlot, osloNow, slotsFor } from '@/lib/prayer-clock';
+import { osloDay } from '@/lib/kalender';
 
 /** Today's slots, the next one and which have passed, following the Oslo clock in the browser. */
-export function useClock(schedule: PrayerSchedule, renderedFriday: boolean) {
+export function useClock(schedule: PrayerSchedule | null, renderedFriday: boolean) {
   const [clock, setClock] = useState<{ min: number; friday: boolean; at: Date } | null>(null);
+  const [live, setLive] = useState<PrayerSchedule | null>(schedule);
+  useEffect(() => {
+    const controller = new AbortController();
+    let pending = false;
+    const refresh = async () => {
+      if (pending) return;
+      pending = true;
+      try {
+        const res = await fetch('/api/prayer-times', {
+          cache: 'no-store',
+          signal: AbortSignal.any([controller.signal, AbortSignal.timeout(15_000)]),
+        });
+        if (!res.ok) return;
+        const data: PrayerSchedule = await res.json();
+        if (data.date === osloDay(new Date())) setLive(data);
+      } catch {
+        // Keep today's last successful schedule; retry on the next tick or focus.
+      } finally {
+        pending = false;
+      }
+    };
+    void refresh();
+    const id = setInterval(refresh, 60_000);
+    window.addEventListener('focus', refresh);
+    return () => {
+      controller.abort();
+      clearInterval(id);
+      window.removeEventListener('focus', refresh);
+    };
+  }, []);
   useEffect(() => {
     const tick = () => {
       const n = osloNow();
@@ -16,8 +47,9 @@ export function useClock(schedule: PrayerSchedule, renderedFriday: boolean) {
     const id = setInterval(tick, 30_000);
     return () => clearInterval(id);
   }, []);
-  const slots = slotsFor(schedule, clock?.friday ?? renderedFriday);
-  const nx = clock ? nextSlot(slots, clock.min, schedule.tomorrowFajr) : null;
+  const current = live && (!clock || live.date === osloDay(clock.at)) ? live : null;
+  const slots = current ? slotsFor(current, clock?.friday ?? renderedFriday) : [];
+  const nx = clock && current ? nextSlot(slots, clock.min, current.tomorrowFajr) : null;
   const past = slots.map((slot) => !!clock && !nx?.tomorrow && slot.at <= clock.min);
   return { clock, slots, nx, past };
 }

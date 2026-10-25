@@ -8,13 +8,14 @@ export async function GET() {
     const schedule = await fetchPrayerTimes();
     return NextResponse.json(schedule, {
       headers: {
-        // Cache for 30 minutes on the edge/CDN, allow stale for up to 1 hour
-        'Cache-Control': 'public, s-maxage=1800, stale-while-revalidate=3600',
+        'Cache-Control': 'no-store',
       },
     });
   } catch (error) {
     console.error('[PrayerTimes] API route error:', error);
-    const { MOCK_PRAYER_TIMES } = await import('@/lib/constants');
-    return NextResponse.json(MOCK_PRAYER_TIMES);
+    return NextResponse.json({ error: 'Bønnetidene er midlertidig utilgjengelige.' }, {
+      status: 503,
+      headers: { 'Cache-Control': 'no-store' },
+    });
   }
 }

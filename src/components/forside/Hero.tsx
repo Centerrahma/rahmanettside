@@ -8,6 +8,7 @@ import SkyArch from './SkyArch';
 import { dates, useClock } from './useClock';
 import f from './forside.module.css';
 import s from './hero.module.css';
+import { YEAR_PDF } from './links';
 
 /* The front page's first screen: a column for the name and the day's prayers, the mihrab photo beside it.
    Phones use a moderate crop of the wider photo with the name on its carpet, then prayer times and bottom actions. */
@@ -17,7 +18,7 @@ const common = { alt: ALT, fill: true, priority: true, quality: 90 } as const;
 const wide = getImageProps({ ...common, src: '/photos/hero-editorial-4k.webp', sizes: '100vw' }).props;
 
 
-export default function Hero({ schedule, friday }: { schedule: PrayerSchedule; friday: boolean }) {
+export default function Hero({ schedule, friday }: { schedule: PrayerSchedule | null; friday: boolean }) {
   const { clock, slots, nx, past } = useClock(schedule, friday);
   const d = dates(clock?.at);
 
@@ -40,6 +41,7 @@ export default function Hero({ schedule, friday }: { schedule: PrayerSchedule; f
           <b>{d.day || 'Bønnetider i dag'}</b>
           {d.hijri && <span> · {d.hijri}</span>}
         </p>
+        {!slots.length && <p className={s.unavailable} role="status">Bønnetidene er midlertidig utilgjengelige. <a href={YEAR_PDF.href}>Se bønnekalenderen</a>.</p>}
         <ol className={s.list} aria-label="Bønnetider i dag">
           {slots.map((slot, i) => (
             <li key={slot.key} className={`${nx?.index === i ? s.next : ''} ${past[i] ? s.past : ''}`}>
