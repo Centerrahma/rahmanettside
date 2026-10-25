@@ -5,7 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import type { PrayerSchedule } from '@/types/prayer';
 import type { PublicEvent } from '@/lib/arrangementer';
-import { KalenderStripe } from '@/components/arrangementer/Kalender';
+import { MobilKalender } from '@/components/arrangementer/Kalender';
 import Konvolutt from '@/components/sider/kontakt/Konvolutt';
 import Velger from '@/components/sider/stott/Velger';
 import { Recess } from '../gips/Gips';
@@ -17,7 +17,7 @@ import s from './mobil.module.css';
 
 /* The front page under the hero, on phones (desktop keeps Fellesskapet, StottOss and Besok):
    Vårt felleskap — one photo in a square recess carved into beige plaster, the groups open under it one at a time;
-   Arrangementer — the next fourteen days as a strip to swipe, the chosen day on a cream plate (when there are events);
+   Arrangementer — a carved calendar and event picker, with a large attachment and invitation;
    Støtt moskeen — a green tadelakt plate between double gold rules, with the Vipps switch card;
    Besøk og kontakt oss — on cream plaster under a row of arches: the Friday prayer, then the Kontakt envelope.
    Each heading has a rosette over it. Reveals play once, as each part scrolls into view. */
@@ -91,7 +91,7 @@ export default function ForsideMobil({ jummah, events, today }: { jummah: Prayer
   }, []);
 
   return (
-    <div className={s.root} ref={root}>
+    <div className={`${s.root} ${events.length > 0 ? s.withEvents : ''}`} ref={root}>
       <section className={s.green} aria-labelledby="fm-fs">
         <Head id="fm-fs" title="Vårt felleskap" lead="Her lærer barn Koranen og arabisk, unge samles til sport og turer, og familier møtes." />
         <Grupper />
@@ -100,7 +100,7 @@ export default function ForsideMobil({ jummah, events, today }: { jummah: Prayer
       {events.length > 0 && (
         <section className={s.events} aria-labelledby="fm-ar">
           <Head id="fm-ar" title="Arrangementer" lead="Velg en dag for å se hva som skjer." />
-          <KalenderStripe events={events} today={today} />
+          <MobilKalender events={events} today={today} />
           <Link className={`${s.creamBtn} ${s.allBtn}`} href="/arrangementer" data-reveal>Alle arrangementer</Link>
         </section>
       )}
