@@ -13,6 +13,7 @@ export interface SkjermCard {
   /** The address the code opens, shown under it for anyone who would rather type it. */
   address: string;
   qr: { size: number; d: string };
+  qrImage?: string;
 }
 
 const MARKS: Record<SkjermSlug, ComponentType<{ className?: string }>> = {
@@ -126,16 +127,27 @@ export function Skjerm({ cards }: { cards: SkjermCard[] }) {
               <p className={s.sheetLine}>{card.line}</p>
             </div>
             <div className={s.body}>
-              <svg
-                className={s.qr}
-                viewBox={`-2 -2 ${card.qr.size + 4} ${card.qr.size + 4}`}
-                shapeRendering="crispEdges"
-                role="img"
-                aria-label={`QR-kode til ${card.address}`}
-              >
-                <rect x="-2" y="-2" width={card.qr.size + 4} height={card.qr.size + 4} fill="#fff" />
-                <path d={card.qr.d} fill="#0f1d18" />
-              </svg>
+              {card.qrImage ? (
+                <Image
+                  className={s.qr}
+                  src={card.qrImage}
+                  width={492}
+                  height={492}
+                  unoptimized
+                  alt={`QR-kode til ${card.address}`}
+                />
+              ) : (
+                <svg
+                  className={s.qr}
+                  viewBox={`-4 -4 ${card.qr.size + 8} ${card.qr.size + 8}`}
+                  shapeRendering="crispEdges"
+                  role="img"
+                  aria-label={`QR-kode til ${card.address}`}
+                >
+                  <rect x="-4" y="-4" width={card.qr.size + 8} height={card.qr.size + 8} fill="#fff" />
+                  <path d={card.qr.d} fill="#0f1d18" />
+                </svg>
+              )}
               <p className={s.how}>Åpne kameraet på mobilen og pek det mot koden.</p>
               <p className={s.address}>{card.address}</p>
               <button ref={closeRef} type="button" className={s.back} onClick={() => setOpen(null)}>
