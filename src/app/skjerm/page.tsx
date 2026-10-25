@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from 'next';
 import QRCode from 'qrcode';
 import { SKJERM_LINKS, qrAddress } from '@/lib/skjerm';
 import { Skjerm, type SkjermCard } from '@/components/skjerm/Skjerm';
+import { VIPPS } from '@/components/forside/links';
 
 // the touch screen in the mosque; reached through skjerm.centerrahma.no
 export const metadata: Metadata = {
@@ -31,13 +32,14 @@ function qrPath(text: string) {
 
 export default function SkjermPage() {
   const cards: SkjermCard[] = SKJERM_LINKS.map((link) => {
-    const address = qrAddress(link.slug);
+    const address = link.slug === 'vipps' ? VIPPS.url : qrAddress(link.slug);
     return {
       slug: link.slug,
       title: link.title,
       line: link.line,
       address: address.replace('https://www.', ''),
       qr: qrPath(address),
+      qrImage: link.slug === 'vipps' ? VIPPS.qr : undefined,
     };
   });
 
