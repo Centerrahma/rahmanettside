@@ -1,115 +1,121 @@
 'use client';
 
+import Image from 'next/image';
 import Link from 'next/link';
 import { useMemo, useState } from 'react';
 import type { PublicEvent } from '@/lib/arrangementer';
-import { addDays, byDay, twoWeeks, weekday } from '@/lib/kalender';
+import { byDay, noonUtc, twoWeeks } from '@/lib/kalender';
 import { Recess } from '@/components/forside/gips/Gips';
 import { Reveal, r } from '@/components/forside/gips/Reveal';
 import fs from '@/components/forside/gips/seksjoner.module.css';
 import { dayNum, longDay, time } from './format';
 import s from './kalender.module.css';
 
-/* The events calendar: days carved into the plaster as small square cuts, the days with something on
-   filled with the green tadelakt. Choose one and its events stand on a green plate.
-   Front page (wide screens): this week and next. Phones: a strip of the next fourteen days.
-   `today` comes from the server, so server and browser agree on it. */
-
 const WD = ['ma', 'ti', 'on', 'to', 'fr', 'lø', 'sø'];
-/** The first day from `days` on or after today that has an event. */
-const firstWithEvents = (days: string[], ev: Record<string, PublicEvent[]>, today: string) =>
-  days.find((d) => d >= today && ev[d]) ?? null;
+const month = new Intl.DateTimeFormat('nb-NO', { timeZone: 'Europe/Oslo', month: 'short' });
+const monthYear = new Intl.DateTimeFormat('nb-NO', { timeZone: 'Europe/Oslo', month: 'long', year: 'numeric' });
 
-function Cells({ days, ev, today, sel, onSel }: { days: string[]; ev: Record<string, PublicEvent[]>; today: string; sel: string | null; onSel: (d: string) => void }) {
+function Cells({ days, ev, today, selected, onSelect }: {
+  days: string[]; ev: Record<string, PublicEvent[]>; today: string;
+  selected: string | null; onSelect: (day: string) => void;
+}) {
   return (
     <div className={s.cal}>
       {WD.map((w) => <span key={w} className={s.wd} aria-hidden="true">{w}</span>)}
-      {days.map((d) => {
-        const n = ev[d]?.length;
-        const dim = d < today;
-        const label = <><span className={s.n}>{dayNum(d)}</span>{d === today && <span className={s.today}>i dag</span>}</>;
-        return n ? (
-          <button key={d} type="button" className={`${s.cell} ${s.has}`} data-dim={dim ? '' : undefined} aria-pressed={sel === d} onClick={() => onSel(d)}
-            aria-label={`${longDay(d)}, ${n === 1 ? 'ett arrangement' : `${n} arrangementer`}`}>{label}</button>
-        ) : (
-          <span key={d} className={s.cell} data-dim={dim ? '' : undefined} aria-hidden="true">{label}</span>
-        );
+      {days.map((day) => {
+        const count = ev[day]?.length;
+        const label = <><span className={s.n}>{dayNum(day)}</span><span className={s.dayNote}>{day === today ? 'i dag' : count ? count : ''}</span></>;
+        return count && day >= today ? (
+          <button key={day} type="button" className={`${s.cell} ${s.has}`} aria-pressed={selected === day} onClick={() => onSelect(day)}
+            aria-label={`${longDay(day)}, ${count === 1 ? 'ett arrangement' : `${count} arrangementer`}`}>
+            {label}
+          </button>
+        ) : <span key={day} className={s.cell} data-dim={day < today ? '' : undefined} aria-hidden="true">{label}</span>;
       })}
     </div>
   );
 }
 
-/** The chosen day's events on green tadelakt; cream on phones. */
-function Plate({ day, events, empty }: { day: string | null; events: PublicEvent[]; empty: string }) {
+/** Removed, private, or broken attachments fall back to the event's facts. */
+function EventFeature({ event, day }: { event: PublicEvent; day: string }) {
+  const [broken, setBroken] = useState(false);
+  const image = broken ? null : event.image;
   return (
-    <Recess shape="rect" steps={1} tone="green" className={s.plate}>
-      <div className={s.plateIn} key={day ?? 'none'} aria-live="polite">
-        {day ? (
-          <>
-            <h3 className={s.pDate}>{longDay(day)}</h3>
-            <ul className={s.pList}>
-              {events.map((e) => (
-                <li key={e.id}>
-                  <p className={s.pTitle}>{e.title}</p>
-                  <p className={s.pWhen}>kl. {time(e)}{e.location && <> · {e.location}</>}</p>
-                </li>
-              ))}
-            </ul>
-          </>
-        ) : <p className={s.pEmpty}>{empty}</p>}
+    <article className={`${s.feature} ${image ? '' : s.withoutImage}`} aria-live="polite">
+      {image && (
+        <div className={s.picture}>
+          {/* Bypass the optimiser so withdrawn attachments are not cached separately. */}
+          <Image src={image} alt={`Bilde til ${event.title}`} fill unoptimized
+            sizes="(max-width: 860px) 92vw, (max-width: 1100px) 50vw, 400px" onError={() => setBroken(true)} />
+        </div>
+      )}
+      <div className={s.featureCopy}>
+        <h3 className={s.eventTitle}>{event.title}</h3>
+        <p className={s.eventWhen}><time dateTime={day}>{longDay(day)}</time> · kl. {time(event)}</p>
+        {event.location && <p className={s.eventPlace}>{event.location}</p>}
+        <Link className={s.featureLink} href="/arrangementer">Se arrangementet<span aria-hidden="true">↗</span></Link>
       </div>
-    </Recess>
+    </article>
   );
 }
 
-/** Front page, wide screens: this week and next, between Vårt fellesskap and Støtt moskeen. */
-export function ForsideKalender({ events, today }: { events: PublicEvent[]; today: string }) {
+function PhotoCalendar({ events, today }: { events: PublicEvent[]; today: string }) {
   const ev = useMemo(() => byDay(events), [events]);
   const days = twoWeeks(today);
-  const [sel, setSel] = useState(() => firstWithEvents(days, ev, today));
+  const upcoming = days.filter((day) => day >= today).flatMap((day) => (ev[day] ?? []).map((event) => ({ day, event })));
+  const [selectedId, setSelectedId] = useState<string | null>(null);
+  const selected = upcoming.find(({ event }) => event.id === selectedId) ?? upcoming[0];
+  const chooseDay = (day: string) => setSelectedId(ev[day]?.[0]?.id ?? null);
+  return (
+    <div className={s.pair}>
+      <div className={s.sidebar}>
+        <Recess shape="rect" steps={1} className={s.calBox}>
+          <p className={s.month}>{monthYear.format(noonUtc(today))}</p>
+          <Cells days={days} ev={ev} today={today} selected={selected?.day ?? null} onSelect={chooseDay} />
+        </Recess>
+        {upcoming.length > 0 && (
+          <>
+            <label className={s.picker}>Velg arrangement
+              <select value={selected?.event.id ?? ''} onChange={(e) => setSelectedId(e.target.value)}>
+                {upcoming.map(({ day, event }) => <option key={event.id} value={event.id}>{dayNum(day)}. {month.format(noonUtc(day))} · {event.title}</option>)}
+              </select>
+            </label>
+            <div className={s.eventList} role="group" aria-label="Velg arrangement">
+              {upcoming.map(({ day, event }) => (
+                <button key={event.id} type="button" aria-pressed={selected?.event.id === event.id} onClick={() => setSelectedId(event.id)}>
+                  <span className={s.listDate}>{dayNum(day)}<small>{month.format(noonUtc(day))}</small></span>
+                  <span className={s.listTitle}>{event.title}<small>kl. {time(event)}</small></span>
+                  <span aria-hidden="true">↗</span>
+                </button>
+              ))}
+            </div>
+          </>
+        )}
+      </div>
+      {selected ? <EventFeature key={`${selected.event.id}:${selected.event.image}`} event={selected.event} day={selected.day} /> : (
+        <div className={`${s.feature} ${s.withoutImage}`}><p className={s.empty}>Ingen arrangementer de neste to ukene. Se hele kalenderen for det som kommer senere.</p></div>
+      )}
+    </div>
+  );
+}
+
+export function ForsideKalender({ events, today }: { events: PublicEvent[]; today: string }) {
   return (
     <Reveal className={s.sec} id="arrangementer" aria-labelledby="v-ar">
-      <div className={fs.wrap}>
+      <div className={fs.wrap} data-home-events-content>
         <div className={s.top}>
           <div>
             <h2 id="v-ar" className={fs.h2} {...r(0)}>Arrangementer</h2>
-            <p className={s.lead} {...r(1)}>Velg en dag for å se hva som skjer i moskeen de neste to ukene.</p>
+            <p className={s.lead} {...r(1)}>Finn din neste anledning til å møtes.</p>
           </div>
-          <div {...r(1)}><Link className={`${fs.btn} ${fs.btnGreen}`} href="/arrangementer">Alle arrangementer<span aria-hidden="true">→</span></Link></div>
+          <div {...r(1)}><Link className={`${fs.btn} ${fs.btnGreen}`} href="/arrangementer">Alle arrangementer<span aria-hidden="true">↗</span></Link></div>
         </div>
-        <div className={s.pair} {...r(2)}>
-          <Recess shape="rect" steps={2} className={s.calBox}><Cells days={days} ev={ev} today={today} sel={sel} onSel={setSel} /></Recess>
-          <Plate day={sel} events={sel ? ev[sel] : []} empty="Ingen arrangementer de neste to ukene. Se hele kalenderen for det som kommer senere." />
-        </div>
+        <div {...r(2)}><PhotoCalendar events={events} today={today} /></div>
       </div>
     </Reveal>
   );
 }
 
-/** Front page, phones: the next fourteen days as a strip to swipe, the chosen day under it. */
-export function KalenderStripe({ events, today }: { events: PublicEvent[]; today: string }) {
-  const ev = useMemo(() => byDay(events), [events]);
-  const days = Array.from({ length: 14 }, (_, i) => addDays(today, i));
-  const [sel, setSel] = useState(() => firstWithEvents(days, ev, today));
-  return (
-    <>
-      <div className={s.mStrip} data-reveal>
-        <Recess shape="rect" steps={1} className={s.mStripBox}>
-          <div className={s.strip}>
-            {days.map((d) => {
-              const n = ev[d]?.length;
-              const inner = <><span className={s.sWd}>{d === today ? 'i dag' : WD[weekday(d)]}</span><span className={s.sN}>{dayNum(d)}</span></>;
-              return n ? (
-                <button key={d} type="button" className={`${s.sCell} ${s.has}`} aria-pressed={sel === d} onClick={() => setSel(d)}
-                  aria-label={`${longDay(d)}, ${n === 1 ? 'ett arrangement' : `${n} arrangementer`}`}>{inner}</button>
-              ) : <span key={d} className={s.sCell} aria-hidden="true">{inner}</span>;
-            })}
-          </div>
-        </Recess>
-      </div>
-      <div className={s.mPlate} data-reveal>
-        <Plate day={sel} events={sel ? ev[sel] : []} empty="Ingen arrangementer de neste to ukene." />
-      </div>
-    </>
-  );
+export function MobilKalender({ events, today }: { events: PublicEvent[]; today: string }) {
+  return <div className={s.mobile} data-reveal><PhotoCalendar events={events} today={today} /></div>;
 }

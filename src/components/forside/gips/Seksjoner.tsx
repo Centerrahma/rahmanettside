@@ -19,7 +19,7 @@ import s from './seksjoner.module.css';
    things carved into it, and one band of the hero's green:
    Vårt fellesskap — one screen: the three groups to choose between, and one carved arch whose photo
      scrolls or swipes between them;
-   Arrangementer — this week and next carved as days, the chosen day on a green plate (when there are events);
+   Arrangementer — this week and next carved as days, with a large photo and invitation for the selected event;
    Støtt moskeen — a short green band with the two Vipps numbers on cream plates set into it;
    Besøk og kontakt oss — one screen: the address and the Friday prayer in two small boxes over the map,
      beside the letter. */
@@ -170,7 +170,7 @@ function Besok({ jummah }: { jummah: PrayerSchedule['jummah'] }) {
 
 export default function ForsideSeksjoner({ jummah, events, today }: { jummah: PrayerSchedule['jummah']; events: PublicEvent[]; today: string }) {
   return (
-    <div className={s.page}>
+    <div className={`${s.page} ${events.length > 0 ? s.withEvents : ''}`}>
       <Fellesskap />
       {events.length > 0 && <ForsideKalender events={events} today={today} />}
       <Stott />

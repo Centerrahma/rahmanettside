@@ -1,79 +1,91 @@
-/* /arrangementer: one screen under the nav bar (84px wide, 68px on phones), beige tadelakt. */
-.screen{display:flex;flex-direction:column;height:calc(100svh - 84px);min-height:640px;padding:28px 0 36px;color:#1e3e36;overflow:hidden;
-  background:#e8dbc3 url('/forside/tadelakt-beige.webp') 0 0/960px}
-.wrap{display:flex;flex-direction:column;flex:1;min-height:0;width:100%;max-width:1240px;margin:0 auto;padding:0 40px}
-.grid{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1fr);gap:clamp(40px,5vw,80px);flex:1;min-height:0}
-
-/* the arch: the picture, or the green plaster with the day cut into it */
-.archCol{min-height:0;display:flex;justify-content:center}
-.arch{--sw:14px;height:100%;aspect-ratio:3/4;max-width:100%}
-.pic{position:absolute;inset:0;animation:fade .6s cubic-bezier(.22,1,.36,1) both}
-.pic img{object-fit:cover}
-.green{position:absolute;inset:0;display:grid;place-items:center;color:#f7f0e3;background:#0a4439 url('/forside/tadelakt-gronn.webp') 0 0/768px}
-.gNum{font-family:var(--serif);font-weight:400;font-variation-settings:'opsz' 60;font-size:clamp(90px,9vw,140px);line-height:1;
-  text-shadow:0 -1px 0 rgba(0,10,7,.6),0 1px 0 rgba(196,228,214,.2)}
-
-/* what, when and where */
-.text{display:flex;flex-direction:column;min-height:0;padding-top:8px}
-.h1{margin:0;font-family:var(--serif);font-weight:400;font-size:24px;line-height:1.1;color:#3b5750}
-.now{margin-top:auto;animation:rise .55s cubic-bezier(.22,1,.36,1) both}
-.when{margin:0;font-size:17px;font-weight:500;color:#0f5d4e}
-.title{margin:10px 0 0;font-family:var(--serif);font-weight:400;font-variation-settings:'opsz' 60;font-size:clamp(44px,4.4vw,64px);line-height:1.02;letter-spacing:-.025em;text-wrap:balance}
-.empty{margin:16px 0 0;font-size:18px}
-.facts{display:flex;flex-wrap:wrap;gap:12px 48px;margin:24px 0 0}
-.facts dt{font-size:14px;font-weight:500;color:#3b5750}
-.facts dd{margin:2px 0 0;font-family:var(--serif);font-size:23px;line-height:1.2}
-
-/* what comes next */
-.next{display:flex;flex-direction:column;min-height:0;margin-top:auto;padding-top:28px}
-.nextHead{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
-.nextHead h2{margin:0;font-family:var(--serif);font-weight:400;font-size:22px}
-.arrows{display:flex;gap:14px}
-.arrow{width:46px;height:46px;border:0;border-radius:50%;cursor:pointer;font-size:19px;color:#1e3e36;
-  background:rgba(120,88,44,.07);box-shadow:inset 0 8px 8px -6px rgba(88,60,24,.35),inset 0 -1.5px 0 rgba(255,251,240,.8);transition:background-color .2s,transform .2s cubic-bezier(.22,1,.36,1)}
-.arrow:hover:not(:disabled){background:rgba(120,88,44,.14)}
-.arrow:active:not(:disabled){transform:scale(.94)}
-.arrow:disabled{opacity:.3;cursor:default}
-.arrow:focus-visible{outline:2px solid #0f5d4e;outline-offset:3px}
-.list{position:relative;max-height:268px;overflow-y:auto;margin:0;padding:6px;list-style:none;display:grid;gap:4px;border-radius:2px;scrollbar-width:thin;
-  background:rgba(120,88,44,.06);box-shadow:inset 0 9px 9px -8px rgba(88,60,24,.32),inset 0 -1.5px 0 rgba(255,251,240,.8)}
-.list button{display:grid;grid-template-columns:44px minmax(0,1fr) auto;align-items:center;gap:14px;width:100%;padding:8px 12px 8px 6px;border:0;border-radius:2px;text-align:left;font:inherit;color:#1e3e36;cursor:pointer;background:transparent;transition:background-color .2s}
-.list button:hover{background:rgba(255,250,240,.5)}
-.list button[aria-current='true']{color:#f7f0e3;background:#0a4439 url('/forside/tadelakt-gronn.webp') 0 0/768px}
-.list button:focus-visible{outline:2px solid #0f5d4e;outline-offset:2px}
-.n{font-family:var(--serif);font-size:24px;line-height:1;text-align:center;font-variant-numeric:lining-nums}
-.t{font-family:var(--serif);font-size:19px;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.k{font-size:14px;font-variant-numeric:tabular-nums;opacity:.8}
-
-@keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
-@keyframes fade{from{opacity:0}to{opacity:1}}
-
-@media (max-width:900px){
-  .screen{height:calc(100svh - 68px);min-height:560px;padding:18px 0 20px}
-  .wrap{padding:0 16px}
-  .grid{display:flex;flex-direction:column;gap:16px}
-  .archCol{flex:1;min-height:200px}
-  .arch{width:100%;aspect-ratio:auto;--sw:10px}
-  /* the page keeps its h1 for readers and search, but on a phone the room goes to the event */
-  .h1{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
-  .text{flex:none;padding:0}
-  .now{margin:0}
-  .when{font-size:14px}
-  .title{font-size:30px;margin-top:4px}
-  .facts{gap:6px 24px;margin-top:10px}
-  .facts dt{font-size:12.5px}
-  .facts dd{font-size:17px}
-  .next{padding-top:14px}
-  .nextHead{margin-bottom:6px}
-  .nextHead h2{font-size:18px}
-  .arrow{width:40px;height:40px}
-  .list{display:flex;max-height:none;overflow-x:auto;overflow-y:hidden;gap:6px;scrollbar-width:none}
-  .list::-webkit-scrollbar{display:none}
-  .list li{flex:0 0 auto}
-  .list button{grid-template-columns:auto;justify-items:center;width:62px;padding:8px 4px}
-  .t,.k{display:none}
+/* Kalenderrommet on desktop; Plakatveggen on smaller screens. */
+.screen{padding:44px 0 80px;color:#1e3e36}
+.wrap{max-width:1360px;margin:0 auto;padding:0 48px}
+.heading{display:flex;align-items:flex-end;justify-content:space-between;gap:40px;margin-bottom:42px}
+.heading h1{margin:0;font:400 clamp(64px,7.2vw,104px)/.96 var(--serif);letter-spacing:-.045em}
+.heading p{font-size:20px;line-height:1.5;max-width:28ch;margin:0 0 6px}
+.mobileLead,.mobile{display:none}
+.screen button{font:inherit;cursor:pointer;border:0;border-radius:0}
+.screen button:focus-visible,.screen a:focus-visible{outline:3px solid #19856a;outline-offset:5px}
+.screen h2{font:400 42px/1.05 var(--serif);letter-spacing:-.025em;margin:0;text-wrap:balance;overflow-wrap:anywhere}
+.desktop{display:grid;grid-template-columns:330px minmax(0,1fr);gap:34px;align-items:start}
+.monthPanel{padding:24px;background:#efe5d2;box-shadow:inset 0 24px 22px -18px #583c1875,inset 12px 0 16px -13px #583c1838,inset 0 -2px #fffbf0cc}
+.monthHead{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:20px}
+.monthHead h2{font-size:26px;text-transform:capitalize;letter-spacing:-.02em}
+.arrows{display:flex;gap:3px}
+.arrows button{width:32px;height:38px;background:#ded1b9;color:inherit;font-size:20px}
+.monthDays{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px}
+.weekday{text-align:center;font-size:13px;padding-bottom:8px}
+.dateCell{min-height:43px;padding:6px 0;background:#e2d6c0;color:inherit;display:grid;justify-items:center;align-content:center;gap:4px}
+.dateCell>span{font:400 23px/1 var(--serif)}
+.dateCell small{font:400 10px/1 sans-serif;height:10px}
+.dateCell[data-events]{background:#b7c9c1}
+.dateCell[aria-pressed=true]{background:#0a4439;color:#f7f0e3}
+.dateCell[aria-current=date]>span{text-decoration:underline;text-underline-offset:3px}
+.dayEvents{margin-top:28px}
+.dayEvents>h2{font-size:25px;margin-bottom:16px}
+.dayEvents>button{display:grid;grid-template-columns:56px minmax(0,1fr);gap:14px;align-items:center;width:100%;padding:18px 20px;background:#ded1b9;color:inherit;text-align:left;margin-top:8px}
+.dayEvents>button>span{font:400 23px/1.1 var(--serif);overflow-wrap:anywhere}
+.dayEvents>button[aria-pressed=true]{background:#0a4439;color:#f7f0e3}
+.dayEvents small{display:block;font:400 14px/1.5 var(--font-geist),sans-serif;margin-top:10px}
+.dayEvents p{font-size:16px;line-height:1.5}
+.reset{padding:18px 0;background:transparent;color:inherit;text-align:left;font-size:15px!important;min-height:48px}
+.feature{display:grid;grid-template-columns:.9fr 1fr;min-height:650px;min-width:0;padding:12px;background:#0a4439 url('/forside/tadelakt-gronn.webp') 0 0/768px;color:#f7f0e3}
+.picture{position:relative;min-width:0;min-height:620px;overflow:hidden}
+.picture img{object-fit:contain}
+.thumbnail{height:76px;min-height:0}
+.thumbnail img{object-fit:cover}
+.featureCopy{padding:26px 24px;display:flex;flex-direction:column;justify-content:space-between;gap:32px;min-width:0}
+.featureCopy h2{font-size:44px}
+.facts{display:grid;gap:24px;margin:24px 0 0}
+.facts dt{font-size:15px;line-height:1.5;opacity:.8}
+.facts dd{font-size:18px;line-height:1.5;margin:8px 0 0;overflow-wrap:anywhere}
+.facts dd span{display:block;margin-top:3px}
+.actions{display:flex;align-items:center;flex-wrap:wrap;gap:22px}
+.solid{display:inline-flex;align-items:center;justify-content:space-between;gap:24px;min-height:54px;padding:14px 22px;background:#f7f0e3;color:#0a4439;font-size:16px!important;font-weight:500!important}
+.actions a{color:inherit;text-decoration:none;text-underline-offset:6px;min-height:44px;display:flex;align-items:center;gap:20px}
+.actions a:hover{text-decoration:underline}
+.solid:hover{background:#e9ded1}
+.dateArt{display:flex;flex-direction:column;align-items:center;justify-content:center;width:100%;height:100%;min-height:inherit;background:#0a4439 url('/forside/tadelakt-gronn.webp') 0 0/768px;color:#f7f0e3}
+.dateArt b{font:400 clamp(100px,12vw,180px)/.9 var(--serif);letter-spacing:-.06em}
+.dateArt>span{font:400 30px/1.3 var(--serif);margin-top:16px}
+.thumbnail .dateArt b{font-size:36px}
+.thumbnail .dateArt>span{font:400 12px/1 sans-serif;margin-top:4px}
+.empty{padding:80px 44px;min-height:400px;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;background:#ded1b9}
+.empty h2{max-width:20ch}
+.empty p{font-size:18px;line-height:1.5;margin:24px 0}
+.empty .solid{background:#0a4439;color:#f7f0e3}
+.dialog{border:0;padding:0;width:calc(100% - 64px);max-width:1120px;max-height:calc(100dvh - 64px);overflow:auto;background:#f7f0e3;color:#1e3e36}
+.dialog::backdrop{background:#051914b3}
+.close{display:flex;align-items:center;justify-content:space-between;gap:24px;min-height:48px;background:#0a4439;color:#f7f0e3;padding:12px 20px;margin:16px 16px 16px auto}
+.dialogContent{display:grid;grid-template-columns:1fr 1fr;gap:40px;padding:16px 40px 40px}
+.dialogContent>.picture{height:600px;min-height:0;background:#e8dbc3}
+.dialogContent>div:last-child{display:flex;flex-direction:column;justify-content:center}
+.dialogContent h2{font-size:54px}
+.dialogContent .facts{margin:28px 0}
+.dialogContent .solid{background:#0a4439;color:#f7f0e3}
+@media(min-width:901px) and (max-width:1100px){
+ .wrap{padding-inline:32px}.heading{display:block}.heading p{max-width:45ch;margin-top:24px}
+ .desktop{grid-template-columns:290px minmax(0,1fr);gap:24px}.monthPanel{padding:18px 12px}
+ .feature{grid-template-columns:1fr;min-height:0}.feature>.picture{height:360px;min-height:0}.featureCopy h2{font-size:38px}.actions{display:grid;gap:18px}
 }
-@media (prefers-reduced-motion:reduce){
-  .pic,.now{animation:none}
-  .arrow,.list button{transition:none}
+@media(max-width:900px){
+ .desktop,.desktopLead{display:none}.mobile,.mobileLead{display:block}
+ .screen{padding:28px 0 48px}.wrap{padding:0 20px}.heading{display:block;margin-bottom:28px}
+ .heading h1{font-size:clamp(44px,11.3vw,76px);letter-spacing:-.035em}.heading p{font-size:18px;max-width:28ch;margin:20px 0 0}
+ .filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:26px}
+ .filters button{font-size:15px;padding:12px 15px;min-height:50px;background:#ded1b9;color:inherit}
+ .filters button[aria-pressed=true]{background:#0a4439;color:#f7f0e3}
+ .posters{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:36px 28px}
+ .poster{min-width:0}.posterImage{display:block;width:100%;height:300px;padding:12px;background:#ddd0b7;box-shadow:inset 0 24px 22px -18px #583c1875,inset 12px 0 16px -13px #583c1838,inset 0 -2px #fffbf0cc}
+ .posterImage .picture{width:100%;height:100%;min-height:0}
+ .caption{display:flex;gap:16px;align-items:start;margin-top:20px}.caption>div{flex:1;min-width:0}
+ .posterDate{font:400 48px/.9 var(--serif);flex:none}.posterDate small{display:block;margin-top:10px;font:400 14px/1.4 var(--font-geist),sans-serif}
+ .caption h2{font-size:29px}.caption h2 button{background:none;padding:0;color:inherit;font:inherit;text-align:left;letter-spacing:inherit}
+ .caption p{margin:12px 0 0;font-size:15px;line-height:1.5;overflow-wrap:anywhere}.caption p+p{margin-top:4px}
+ .detailArrow{background:none;color:inherit;font-size:27px!important;padding:0;min-width:32px;min-height:44px}
+ .empty{padding:48px 24px;min-height:300px}.empty h2{font-size:36px}
+ .dialog{width:calc(100% - 24px);max-height:calc(100dvh - 24px)}.dialogContent{display:block;padding:0 20px 28px}.dialogContent>.picture{height:400px}.dialogContent>div:last-child{margin-top:28px}.dialogContent h2{font-size:40px}.dialogContent .actions{display:grid;gap:18px}.dialogContent .solid{width:100%}
 }
+@media(max-width:600px){.posters{display:block}.poster{margin-bottom:36px}.largePoster{height:440px}.dateArt b{font-size:130px}}
+@media(prefers-reduced-motion:no-preference){.feature{animation:arrive .4s ease both}@keyframes arrive{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}}
