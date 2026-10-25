@@ -6,7 +6,7 @@ import { useRef, useState } from 'react';
 import type { PrayerSchedule } from '@/types/prayer';
 import type { PublicEvent } from '@/lib/arrangementer';
 import { ForsideKalender } from '@/components/arrangementer/Kalender';
-import { GIFT, MONTHLY, type Way } from '@/components/sider/stott/gaver';
+import { GIFT, MONTHLY } from '@/components/sider/stott/gaver';
 import KontaktBrev from '../KontaktBrev';
 import { GROUPS, LEAD } from '../grupper';
 import { ADDRESS, FACEBOOK, MAPS, YEAR_PDF } from '../links';
@@ -20,11 +20,9 @@ import s from './seksjoner.module.css';
    Vårt fellesskap — one screen: the three groups to choose between, and one carved arch whose photo
      scrolls or swipes between them;
    Arrangementer — this week and next carved as days, with a large photo and invitation for the selected event;
-   Støtt moskeen — a short green band with the two Vipps numbers on cream plates set into it;
+   Støtt moskeen — a compact carved giving counter with a single-gift/monthly switch;
    Besøk og kontakt oss — one screen: the address and the Friday prayer in two small boxes over the map,
      beside the letter. */
-
-const VERSE = { no: '«Dere når ikke det gode før dere gir av det dere er glad i. Og hva dere enn gir, så vet Allah om det.»', ref: 'Koranen 3:92' };
 
 function Fellesskap() {
   const [active, setActive] = useState(0);
@@ -95,36 +93,42 @@ function Fellesskap() {
   );
 }
 
-function Panel({ way, label }: { way: Way; label: string }) {
-  return (
-    <Recess shape="rect" steps={1} tone="green" className={s.vipps}>
-      <div className={s.vippsIn}>
-        <p className={s.label}>{label}</p>
-        <p className={`${s.num} ${s.num}`}>{way.vipps.number}<span className={s.on}>på Vipps</span></p>
-        <span className={`${s.qr} ${s.qr}`}><Image src={way.vipps.qr} width={492} height={492} unoptimized alt={`QR-kode til Vipps ${way.vipps.number}`} /></span>
-        <a className={`${s.btn} ${s.btnGreen} ${s.go}`} href={way.vipps.url} target="_blank" rel="noopener noreferrer">{way.action}<span aria-hidden="true">↗</span></a>
-      </div>
-    </Recess>
-  );
-}
-
 function Stott() {
+  const [monthly, setMonthly] = useState(false);
+  const way = monthly ? MONTHLY : GIFT;
   return (
     <Reveal className={`${s.greenField} ${s.give}`} id="stott" aria-labelledby="v-st">
       <div className={`${s.wrap} ${s.giveGrid}`}>
         <div>
           <h2 id="v-st" className={s.h2} {...r(0)}>Støtt moskeen</h2>
-          <p className={`${s.verse} ${s.verse}`} {...r(1)}>{VERSE.no}<span>{VERSE.ref}</span></p>
-          <ul className={`${s.links} ${s.follow}`} aria-label="Flere måter å følge og støtte oss" {...r(2)}>
-            <li><a href={FACEBOOK} target="_blank" rel="noopener noreferrer">Følg oss på Facebook</a></li>
-            <li><a href={YEAR_PDF.href} download={YEAR_PDF.filename}>Bønnetider 2026 (PDF)</a></li>
-            <li><Link href="/stott-oss">Bankoverføring</Link></li>
-          </ul>
+          <p className={s.giveIntro} {...r(1)}>Et fellesskap bæres av mange.</p>
+          <p className={s.giveNote} {...r(2)}>Gi en gave når det passer deg, eller bli fast giver.</p>
         </div>
-        <div className={s.vippsList} {...r(3)}>
-          <Panel way={GIFT} label="Gi én gang" />
-          <Panel way={MONTHLY} label="Gi hver måned" />
+        <div className={s.counter} {...r(3)}>
+          <div className={s.giftChoice} role="group" aria-label="Hvor ofte vil du gi?">
+            <button type="button" aria-pressed={!monthly} onClick={() => setMonthly(false)}>Én gang</button>
+            <button type="button" aria-pressed={monthly} onClick={() => setMonthly(true)}>Hver måned</button>
+          </div>
+          <div className={s.counterBody}>
+            <div className={s.counterCopy}>
+              <div aria-live="polite" aria-atomic="true">
+                <h3>{way.title}</h3>
+                <p className={s.counterLine}>{monthly ? 'En fast gave til Rahma.' : way.line}</p>
+                <p className={s.counterNumber}>{way.vipps.number}<span>på Vipps</span></p>
+              </div>
+              <a className={s.counterAction} href={way.vipps.url} target="_blank" rel="noopener noreferrer">{way.action}<span aria-hidden="true">↗</span></a>
+            </div>
+            <div className={s.counterQr}>
+              <Image src={way.vipps.qr} width={180} height={180} unoptimized alt={`QR-kode til Vipps ${way.vipps.number}`} />
+              <p>Skann med kameraet</p>
+            </div>
+          </div>
         </div>
+        <nav className={s.giveLinks} aria-label="Flere måter å følge og støtte oss" {...r(4)}>
+          <Link href="/stott-oss">Bankoverføring og flere måter å gi ↗</Link>
+          <a href={FACEBOOK} target="_blank" rel="noopener noreferrer">Facebook ↗</a>
+          <a href={YEAR_PDF.href} download={YEAR_PDF.filename}>Bønnetider 2026 ↓</a>
+        </nav>
       </div>
     </Reveal>
   );
