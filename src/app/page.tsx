@@ -8,9 +8,8 @@ import ForsideSeksjoner from '@/components/forside/gips/Seksjoner';
 import ForsideMobil from '@/components/forside/mobil/ForsideMobil';
 import m from '@/components/forside/mobil/mobil.module.css';
 
-// Rebuilt every minute: the day's times turn over just after midnight, and an event taken off
-// SharePoint leaves the front page as quickly as it leaves /arrangementer.
-export const revalidate = 60;
+// Read prayer configuration at runtime, never bake a build-time failure into the page.
+export const dynamic = 'force-dynamic';
 
 const BASE_URL = 'https://www.centerrahma.no';
 const TITLE = 'Masjid Rahma – moské i Oslo';
@@ -90,7 +89,14 @@ async function upcomingEvents(): Promise<PublicEvent[]> {
 }
 
 export default async function HomePage() {
-  const [schedule, events] = await Promise.all([fetchPrayerTimes(), upcomingEvents()]);
+  const [schedule, events] = await Promise.all([
+    fetchPrayerTimes().catch((err) => {
+      console.error('[forside] Could not read prayer times:', err);
+      return null;
+    }),
+    upcomingEvents(),
+  ]);
+  const jummah = schedule?.jummah ?? { khutbah: '—', prayer: '—' };
   const now = osloNow();
   const today = osloDay(new Date());
 
@@ -100,9 +106,9 @@ export default async function HomePage() {
       <Hero schedule={schedule} friday={now.friday} />
       {/* under the hero, phones get their own layout (ForsideMobil); wider screens get the carved sections (gips/Seksjoner) */}
       <div className={m.desktop}>
-        <ForsideSeksjoner jummah={schedule.jummah} events={events} today={today} />
+        <ForsideSeksjoner jummah={jummah} events={events} today={today} />
       </div>
-      <ForsideMobil jummah={schedule.jummah} events={events} today={today} />
+      <ForsideMobil jummah={jummah} events={events} today={today} />
     </>
   );
 }

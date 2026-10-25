@@ -22,6 +22,15 @@ This project uses [`next/font`](https://nextjs.org/docs/app/building-your-applic
 
 ## Environment variables
 
+Prayer times require `MYMASJID_API_URL` (the API base URL) and
+`MYMASJID_MOSQUE_ID` (the mosque GUID) in the deployment environment. The homepage
+and contact page read these at request time. Prayer requests have a 10-second
+timeout; failures show unavailable times rather than a sample timetable. The
+prayer API returns an uncached 503 on failure. The homepage refreshes its daily
+schedule every minute and on focus, retaining today's last successful response
+during temporary failures and hiding expired schedules after Oslo midnight.
+Tomorrow's Fajr uses the next Oslo calendar day, including clock-change nights.
+
 The contact and membership forms send email through Microsoft Graph, as the `webside@centerrahma.no` mailbox in the mosque's Microsoft 365 tenant. No SMTP and no secret: the Entra app "Center Rahma Website Contact Form" trusts Vercel's OIDC token (federated credential), and Exchange RBAC limits it to sending as that one mailbox. [docs/microsoft-graph-mail.md](docs/microsoft-graph-mail.md) describes the setup (in Norwegian). Set these in Vercel (Production) and redeploy:
 
 | Variable | Required | Description |

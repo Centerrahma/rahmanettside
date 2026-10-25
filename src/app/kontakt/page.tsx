@@ -6,7 +6,7 @@ import { ADDRESS } from '@/components/forside/links';
 import k from '@/components/sider/kontakt/kontakt.module.css';
 
 // the Friday times come from MyMasjid, like the front page's
-export const revalidate = 300;
+export const dynamic = 'force-dynamic';
 
 const URL = 'https://www.centerrahma.no/kontakt';
 const TITLE = 'Kontakt oss – Masjid Rahma';
@@ -28,7 +28,11 @@ export const metadata: Metadata = {
 };
 
 export default async function KontaktPage() {
-  const { jummah } = await fetchPrayerTimes();
+  const schedule = await fetchPrayerTimes().catch((err) => {
+    console.error('[kontakt] Could not read prayer times:', err);
+    return null;
+  });
+  const jummah = schedule?.jummah ?? { khutbah: '—', prayer: '—' };
   return (
     <main className={k.page} data-contact-page>
       {/* wide screens get the wall with three cuts in it, phones and tablets the envelope page */}
