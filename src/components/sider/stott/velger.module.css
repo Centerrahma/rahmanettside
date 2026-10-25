@@ -19,4 +19,11 @@
 .qrBox{margin-top:14px;font-size:14px}
 .qrBox summary{cursor:pointer;color:#0f2a23;font-weight:500;text-decoration:underline;text-underline-offset:4px;text-decoration-color:#b08a45;min-height:32px;display:inline-flex;align-items:center}
 .qrBox img{display:block;width:170px;height:170px;margin:12px auto 0;background:#fff;padding:8px;image-rendering:pixelated}
+/* Homepage variant: the wall remains visible at the back of the carved niche. */
+.carved{margin:0;border-radius:0;padding:14px 14px 20px;background:rgba(0,14,10,.08);color:#f7f0e3}
+.carved .switch{border-radius:2px;background:rgba(0,14,10,.25)}
+.carved .switch button,.carved .thumb{border-radius:2px}
+.carved .number span,.carved .qrBox summary{color:#f7f0e3}
+.carved .go{border-radius:2px;background:#f7f0e3;color:#0a4439}
+.carved .go:focus-visible,.carved .switch button:focus-visible{outline:3px solid #f7f0e3;outline-offset:3px}
 @media (prefers-reduced-motion:reduce){.body{animation:none}.thumb{transition:none}}
