@@ -32,7 +32,11 @@
 .dayEvents small{display:block;font:400 14px/1.5 var(--font-geist),sans-serif;margin-top:10px}
 .dayEvents p{font-size:16px;line-height:1.5}
 .reset{padding:18px 0;background:transparent;color:inherit;text-align:left;font-size:15px!important;min-height:48px}
-.feature{display:grid;grid-template-columns:.9fr 1fr;min-height:602px;min-width:0;padding:12px;color:#1e3e36}
+.feature{display:grid;grid-template-columns:.9fr 1fr;min-height:602px;min-width:0;padding:12px;background:#0a4439 url('/forside/tadelakt-gronn.webp') 0 0/768px;color:#f7f0e3}
+.feature .solid{background:#f7f0e3;color:#0a4439}
+.feature .solid:hover{background:#e9ded1}
+.feature .dateArt{color:inherit}
+.feature button:focus-visible,.feature a:focus-visible{outline-color:#f7f0e3}
 .picture{position:relative;min-width:0;min-height:578px;overflow:hidden}
 .screen .picture img{object-fit:contain}
 .thumbnail{height:76px;min-height:0}
