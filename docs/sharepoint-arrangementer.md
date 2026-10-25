@@ -32,6 +32,11 @@ viser ingen arrangementer.
   («Stock images», `cdn.hubblecontent.osi.office.net/m365content/publish/`). Bare JPEG, PNG, WebP, GIF og AVIF vises.
   Settes et arrangement til `Internal`, slutter bildet å vises innen fem minutter.
   Bildet krympes til høyst 1080×1440 og sendes som WebP (f.eks. 7,7 MB → 261 KB). Filer over 25 MB vises ikke.
+  Opplastede arrangementsbilder lagres ofte i `SiteAssets/SitePages`. Site Assets er et systembibliotek:
+  Graph skjuler slike biblioteker med mindre `system` tas med i `$select` når `/sites/{id}/drives` hentes.
+  Koden ber derfor om `id,webUrl,system`. Uten dette kan et gyldig opplastet bilde feilaktig gi
+  `outside-site`, mens Microsofts arkivbilder fortsatt virker fordi de hentes fra en offentlig CDN.
+  Se [Microsofts dokumentasjon om skjulte biblioteker](https://learn.microsoft.com/en-us/graph/api/drive-list?view=graph-rest-1.0#remarks).
 
 Testet i Graph Explorer 2026-10-24: filteret `fields/Category eq 'Public'` gir element 6, «Public Event».
 

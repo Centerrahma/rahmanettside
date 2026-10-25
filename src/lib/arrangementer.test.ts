@@ -179,6 +179,37 @@ test('serves the picture of a Public event, fetched through the site drive', asy
   assert.equal(await new Response(pic.body).text(), 'JPEGDATA');
 });
 
+test('finds uploaded event photos in the root site hidden Site Assets library', async () => {
+  const banner = 'https://centerrahma.sharepoint.com/SiteAssets/SitePages/Events/Uploaded%20photo.jpg';
+  globalThis.fetch = (async (url: string | URL) => {
+    const address = String(url);
+    urls.push(address);
+    if (address.includes('/items/14')) return itemRes('Public', { Url: banner })();
+    if (address.includes('/drives?')) {
+      const selected = new URL(address).searchParams.get('$select')?.split(',') ?? [];
+      // Graph hides system libraries unless explicitly requested, even from a read-authorized app.
+      const value = [{ id: 'docs', webUrl: 'https://centerrahma.sharepoint.com/Shared%20Documents' }];
+      if (selected.includes('system')) value.push({ id: 'assets', webUrl: 'https://centerrahma.sharepoint.com/SiteAssets' });
+      return Response.json({ value });
+    }
+    if (address.includes('/drives/assets/root:/SitePages/Events/Uploaded%20photo.jpg:/content')) {
+      return new Response('UPLOADED-JPEG', { headers: { 'content-type': 'image/jpeg' } });
+    }
+    throw new Error(`unexpected fetch to ${address}`);
+  }) as typeof fetch;
+  const pic = await fetchPublicBanner('14');
+  assert.ok(pic.ok, JSON.stringify(pic));
+  assert.equal(pic.type, 'image/jpeg');
+  assert.equal(await new Response(pic.body).text(), 'UPLOADED-JPEG');
+});
+
+test('root-site uploaded photos still cannot resolve to a different site or host', () => {
+  const drives = [{ id: 'assets', webUrl: 'https://centerrahma.sharepoint.com/SiteAssets' }];
+  assert.deepEqual(locateInDrives('/SiteAssets/SitePages/Events/photo.jpg', drives), { driveId: 'assets', path: 'SitePages/Events/photo.jpg' });
+  assert.equal(locateInDrives('https://centerrahma.sharepoint.com/sites/private/SiteAssets/photo.jpg', drives), null);
+  assert.equal(locateInDrives('https://other.sharepoint.com/SiteAssets/photo.jpg', drives), null);
+});
+
 test('an Internal event gives no picture and its file is never fetched', async () => {
   graph({ '/items/10': itemRes('Internal', PIC) });
   assert.deepEqual(await fetchPublicBanner('10'), { ok: false, reason: 'not-public' });
