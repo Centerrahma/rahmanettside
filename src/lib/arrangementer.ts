@@ -232,7 +232,8 @@ export async function fetchPublicBanner(id: string): Promise<Banner> {
     return { ok: true, body: res.body, type };
   }
 
-  const { value: drives } = await graphJson<{ value: { id: string; webUrl: string }[] }>(`${base}/drives?$select=id,webUrl`, token, 'drives');
+  // Uploaded event banners live in Site Assets, a system library hidden by Graph unless selected.
+  const { value: drives } = await graphJson<{ value: { id: string; webUrl: string }[] }>(`${base}/drives?$select=id,webUrl,system`, token, 'drives');
   const found = locateInDrives(banner, drives);
   if (!found) {
     console.warn(`[arrangementer] Picture for item ${id} is not in the events site: ${banner}`);
