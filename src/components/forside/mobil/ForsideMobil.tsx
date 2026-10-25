@@ -107,7 +107,9 @@ export default function ForsideMobil({ jummah, events, today }: { jummah: Prayer
 
       <section className={s.plate} aria-labelledby="fm-st">
         <Head id="fm-st" title="Støtt moskeen" lead="Et fellesskap bæres av mange." />
-        <div className={s.give} data-reveal><Velger /></div>
+        <div className={s.give} data-reveal>
+          <Recess shape="rect" steps={2} tone="green" className={s.giveRecess}><Velger carved /></Recess>
+        </div>
         <nav className={s.rows} aria-label="Mer fra moskeen" data-reveal>
           <a href={FACEBOOK} target="_blank" rel="noopener noreferrer"><span><b>Følg oss på Facebook</b><small>Nyheter, arrangementer og beskjeder kommer først på Facebook.</small></span><Arrow /></a>
           <a href={YEAR_PDF.href} download={YEAR_PDF.filename}><span><b>Bønnetider for hele 2026</b><small>Last ned som PDF</small></span><Arrow /></a>

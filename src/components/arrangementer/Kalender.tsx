@@ -41,6 +41,7 @@ function EventFeature({ event, day }: { event: PublicEvent; day: string }) {
   const [broken, setBroken] = useState(false);
   const image = broken ? null : event.image;
   return (
+    <Recess shape="rect" steps={2} className={s.featureRecess}>
     <article className={`${s.feature} ${image ? '' : s.withoutImage}`} aria-live="polite">
       {image && (
         <div className={s.picture}>
@@ -56,6 +57,7 @@ function EventFeature({ event, day }: { event: PublicEvent; day: string }) {
         <Link className={s.featureLink} href="/arrangementer">Se arrangementet<span aria-hidden="true">↗</span></Link>
       </div>
     </article>
+    </Recess>
   );
 }
 
@@ -69,7 +71,7 @@ function PhotoCalendar({ events, today }: { events: PublicEvent[]; today: string
   return (
     <div className={s.pair}>
       <div className={s.sidebar}>
-        <Recess shape="rect" steps={1} className={s.calBox}>
+        <Recess shape="rect" steps={2} className={s.calBox}>
           <p className={s.month}>{monthYear.format(noonUtc(today))}</p>
           <Cells days={days} ev={ev} today={today} selected={selected?.day ?? null} onSelect={chooseDay} />
         </Recess>
@@ -93,7 +95,7 @@ function PhotoCalendar({ events, today }: { events: PublicEvent[]; today: string
         )}
       </div>
       {selected ? <EventFeature key={`${selected.event.id}:${selected.event.image}`} event={selected.event} day={selected.day} /> : (
-        <div className={`${s.feature} ${s.withoutImage}`}><p className={s.empty}>Ingen arrangementer de neste to ukene. Se hele kalenderen for det som kommer senere.</p></div>
+        <Recess shape="rect" steps={2} className={s.featureRecess}><div className={`${s.feature} ${s.withoutImage}`}><p className={s.empty}>Ingen arrangementer de neste to ukene. Se hele kalenderen for det som kommer senere.</p></div></Recess>
       )}
     </div>
   );

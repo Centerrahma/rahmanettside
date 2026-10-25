@@ -10,11 +10,11 @@ import s from './velger.module.css';
  * and the card opens the matching Vipps number. The QR code is tucked away, since it
  * can only be scanned with another phone.
  */
-export default function Velger() {
+export default function Velger({ carved = false }: { carved?: boolean }) {
   const [monthly, setMonthly] = useState(false);
   const way = monthly ? MONTHLY : GIFT;
   return (
-    <section className={`${s.card} ${monthly ? s.warm : ''}`} aria-label="Gi med Vipps">
+    <section className={`${s.card} ${monthly ? s.warm : ''} ${carved ? s.carved : ''}`} aria-label="Gi med Vipps">
       <div className={s.switch} role="radiogroup" aria-label="Hvor ofte vil du gi?">
         <button type="button" role="radio" aria-checked={!monthly} onClick={() => setMonthly(false)}>Én gang</button>
         <button type="button" role="radio" aria-checked={monthly} onClick={() => setMonthly(true)}>Hver måned</button>

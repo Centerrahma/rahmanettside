@@ -4,9 +4,9 @@
 .lead{margin:16px 0 0;max-width:44ch;font-size:19px;line-height:1.5;text-wrap:pretty}
 .pair{display:grid;grid-template-columns:310px minmax(0,1fr);gap:32px;align-items:start;margin-top:36px}
 .sidebar{min-width:0}
-.calBox{--sw:12px}
-.month{margin:0;padding:18px 18px 4px;background:#efe5d2;color:#1e3e36;font:400 28px/1.2 var(--serif);text-transform:capitalize}
-.cal{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:7px;padding:18px;background:#efe5d2}
+.calBox{--sw:10px}
+.month{margin:0;padding:18px 14px 4px;background:#e5d7bf url('/forside/tadelakt-beige.webp') 0 0/960px;color:#1e3e36;font:400 28px/1.2 var(--serif);text-transform:capitalize}
+.cal{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:7px;padding:18px 14px;background:#e5d7bf url('/forside/tadelakt-beige.webp') 0 -56px/960px}
 .wd{text-align:center;padding-bottom:4px;font-size:13px;color:#3b5750}
 .cell{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;aspect-ratio:.85;border:0;border-radius:2px;padding:5px 0;font:inherit;color:#1e3e36;background:#e0d4be}
 .cell[data-dim]{opacity:.5}
@@ -19,14 +19,15 @@
 .has:focus-visible,.eventList button:focus-visible,.picker select:focus-visible{outline:3px solid #0f5d4e;outline-offset:4px}
 .eventList{display:grid;gap:8px;margin-top:24px;max-height:310px;overflow-y:auto;overscroll-behavior-y:contain}
 .eventList button{display:flex;align-items:center;gap:16px;min-height:85px;padding:12px;border:0;background:transparent;color:#1e3e36;font:inherit;text-align:left;cursor:pointer}
-.eventList button[aria-pressed=true]{background:#ded1b9}
+.eventList button[aria-pressed=true]{background:rgba(120,88,44,.09);box-shadow:inset 0 12px 14px -12px rgba(88,60,24,.5),inset 0 -2px 0 rgba(255,251,240,.75)} /* taste-skill-ignore: recessed selection in the existing carved plaster */
 .listDate{flex:none;width:48px;font:400 34px/1 var(--serif)}
 .listTitle{flex:1;min-width:0;font:400 21px/1.1 var(--serif);overflow-wrap:anywhere}
 .eventList small{display:block;margin-top:6px;font:400 13px/1.5 var(--font-geist),sans-serif}
 .picker{display:none}
-.feature{display:grid;grid-template-columns:1fr 1fr;min-width:0;min-height:580px;padding:12px;background:#0a4439 url('/forside/tadelakt-gronn.webp') 0 0/768px;color:#f7f0e3;animation:arrive .45s cubic-bezier(.22,1,.36,1)}
-.picture{position:relative;min-width:0;min-height:556px;overflow:hidden}
-.picture img{object-fit:contain}
+.featureRecess{--sw:12px;min-width:0}
+.feature{display:grid;grid-template-columns:1fr 1fr;min-width:0;min-height:532px;padding:12px;background:#0a4439 url('/forside/tadelakt-gronn.webp') 0 0/768px;color:#f7f0e3;animation:arrive .45s cubic-bezier(.22,1,.36,1)}
+.picture{position:relative;min-width:0;min-height:508px;overflow:hidden}
+.feature .picture img{object-fit:contain}
 .featureCopy{padding:36px 28px;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;min-width:0}
 .eventTitle{margin:0;font:400 clamp(30px,3vw,44px)/1.06 var(--serif);letter-spacing:-.02em;text-wrap:balance;overflow-wrap:anywhere}
 .eventWhen{margin:24px 0 0;font-size:16px;line-height:1.5}
@@ -42,9 +43,9 @@
 .mobile{margin:0 16px;color:#1e3e36}
 .mobile .pair{grid-template-columns:1fr;margin-top:0;gap:24px}
 .mobile .eventList{display:none}
-.mobile .picker{display:block;margin-top:20px;color:#f7f0e3;font-size:16px}
+.mobile .picker{display:block;margin-top:20px;color:#1e3e36;font-size:16px}
 .mobile .picker select{display:block;width:100%;min-height:52px;margin-top:8px;padding:14px 12px;border:0;background:#f7f0e3;color:#1e3e36;font:inherit}
-.mobile .calBox{--sw:8px}
+.mobile .calBox,.mobile .featureRecess{--sw:8px}
 .mobile .month{font-size:24px}
 .mobile .cal{padding:14px;gap:8px}
 .mobile .cell{aspect-ratio:1.1}

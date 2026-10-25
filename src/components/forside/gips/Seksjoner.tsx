@@ -104,7 +104,8 @@ function Stott() {
           <p className={s.giveIntro} {...r(1)}>Et fellesskap bæres av mange.</p>
           <p className={s.giveNote} {...r(2)}>Gi en gave når det passer deg, eller bli fast giver.</p>
         </div>
-        <div className={s.counter} {...r(3)}>
+        <div className={s.counterWrap} {...r(3)}>
+        <Recess shape="rect" steps={2} tone="green" className={s.counter}>
           <div className={s.giftChoice} role="group" aria-label="Hvor ofte vil du gi?">
             <button type="button" aria-pressed={!monthly} onClick={() => setMonthly(false)}>Én gang</button>
             <button type="button" aria-pressed={monthly} onClick={() => setMonthly(true)}>Hver måned</button>
@@ -123,6 +124,7 @@ function Stott() {
               <p>Skann med kameraet</p>
             </div>
           </div>
+        </Recess>
         </div>
         <nav className={s.giveLinks} aria-label="Flere måter å følge og støtte oss" {...r(4)}>
           <Link href="/stott-oss">Bankoverføring og flere måter å gi ↗</Link>
