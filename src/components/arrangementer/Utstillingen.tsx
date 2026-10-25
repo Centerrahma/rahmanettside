@@ -5,6 +5,7 @@ import { useRef, useState } from 'react';
 import type { PublicEvent } from '@/lib/arrangementer';
 import { addDays, byDay, mondayOf, noonUtc, osloDay, weekday } from '@/lib/kalender';
 import { dayNum, longDay, time } from './format';
+import { Recess } from '@/components/forside/gips/Gips';
 import s from './utstillingen.module.css';
 
 const monthLabel = new Intl.DateTimeFormat('nb-NO', { month: 'long', year: 'numeric', timeZone: 'Europe/Oslo' });
@@ -71,12 +72,13 @@ export default function Utstillingen({ events, today }: { events: PublicEvent[];
   </div>;
   const open = (event: PublicEvent) => { setDetail(event); dialog.current?.showModal(); };
 
-  return <section className={s.screen} aria-labelledby="ar-h1">
+  return <section className={s.screen} aria-labelledby="ar-h1" data-arrangement-page>
     <div className={s.wrap}>
-      <header className={s.heading}><h1 id="ar-h1">Arrangementer</h1><p><span className={s.desktopLead}>Finn en dag. Se hva som skjer.</span><span className={s.mobileLead}>Små og store anledninger. Sammen i Rahma.</span></p></header>
+      <header className={s.heading}><h1 id="ar-h1">Arrangementer</h1></header>
       {events.length === 0 ? <div className={s.empty}><h2>Ingen kommende arrangementer akkurat nå.</h2><p>Følg med her eller på Facebook.</p></div> : <>
         <div className={s.desktop}>
           <aside>
+            <Recess shape="rect" steps={2} className={s.cut}>
             <div className={s.monthPanel}>
               <div className={s.monthHead}><h2 aria-live="polite">{monthLabel.format(noonUtc(monthStart))}</h2><div className={s.arrows}><button type="button" onClick={() => moveMonth(-1)} aria-label="Forrige måned">←</button><button type="button" onClick={() => moveMonth(1)} aria-label="Neste måned">→</button></div></div>
               <div className={s.monthDays}>
@@ -89,20 +91,20 @@ export default function Utstillingen({ events, today }: { events: PublicEvent[];
                     aria-label={`${longDay(key)}, ${total} arrangementer`} onClick={() => setDay(key)}><span>{i + 1}</span><small>{total > 0 ? `${total} arr.` : '\u00a0'}</small></button>;
                 })}
               </div>
-            </div>
+            </div></Recess>
             <div className={s.dayEvents}><h2>{longDay(day)}</h2>
               {(days[day] ?? []).map(event => <button type="button" key={event.id} aria-pressed={event.id === selected?.id} onClick={() => setSelectedId(event.id)}>{picture(event, true)}<span>{event.title}<small>kl. {time(event)}</small></span></button>)}
               {!days[day]?.length && <p>Ingen arrangementer denne dagen.</p>}
             </div>
             <button type="button" className={s.reset} onClick={reset}>Til neste arrangement →</button>
           </aside>
-          {selected ? <article className={s.feature} key={selected.id} aria-live="polite">{picture(selected)}<div className={s.featureCopy}><div><h2>{selected.title}</h2>{facts(selected)}</div>{actions(selected)}</div></article> : <div className={s.empty}><h2>En ledig dag i kalenderen.</h2><p>Velg en markert dato for å se hva som skjer.</p><button type="button" className={s.solid} onClick={reset}>Se neste arrangement →</button></div>}
+          {selected ? <Recess shape="rect" steps={2} className={s.cut}><article className={s.feature} key={selected.id} aria-live="polite">{picture(selected)}<div className={s.featureCopy}><div><h2>{selected.title}</h2>{facts(selected)}</div>{actions(selected)}</div></article></Recess> : <Recess shape="rect" steps={2} className={s.cut}><div className={s.empty}><h2>En ledig dag i kalenderen.</h2><p>Velg en markert dato for å se hva som skjer.</p><button type="button" className={s.solid} onClick={reset}>Se neste arrangement →</button></div></Recess>}
         </div>
         <div className={s.mobile}>
           <div className={s.filters} aria-label="Filtrer arrangementer">{['Alle arrangementer', 'Denne uken', 'Neste uke'].map((label, i) => <button type="button" key={label} aria-pressed={filter === i} onClick={() => setFilter(i)}>{label}</button>)}</div>
           <div className={s.posters}>
             {visible.map((event, i) => <article className={s.poster} key={event.id}>
-              <button type="button" className={`${s.posterImage} ${i === 0 ? s.largePoster : ''}`} onClick={() => open(event)} aria-label={`Se ${event.title}`}>{picture(event)}</button>
+              <Recess shape="rect" steps={2} className={s.cut}><button type="button" className={`${s.posterImage} ${i === 0 ? s.largePoster : ''}`} onClick={() => open(event)} aria-label={`Se ${event.title}`}>{picture(event)}</button></Recess>
               <div className={s.caption}><span className={s.posterDate} aria-hidden="true">{dayNum(osloDay(event.start))}<small>{shortMonth.format(new Date(event.start))}</small></span><div><h2><button type="button" onClick={() => open(event)}>{event.title}</button></h2><p>{longDay(osloDay(event.start))} · kl. {time(event)}</p>{event.location && <p>{event.location}</p>}</div><button className={s.detailArrow} type="button" aria-label={`Detaljer om ${event.title}`} onClick={() => open(event)}>↗</button></div>
             </article>)}
           </div>

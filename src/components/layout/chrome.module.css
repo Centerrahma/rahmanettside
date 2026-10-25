@@ -4,6 +4,8 @@
 
 /* nav */
 .nav{position:relative;z-index:50}
+:global(body:has([data-arrangement-page])) .nav{background:transparent;color:#1e3e36}
+:global(body:has([data-arrangement-page])) .menu{background:#faf5ec url('/textures/rahma-cream-plaster.svg') 0 0/768px}
 /* the same tadelakt as the page under it; the page shifts its texture up by the bar's height so the two meet without a seam */
 .supporters{background:#0a4439 url('/textures/rahma-tadelakt.webp') 0 0/768px;background-blend-mode:luminosity;color:#faf5ec}
 .supporters .links a,.supporters .burger{color:#faf5ec}
