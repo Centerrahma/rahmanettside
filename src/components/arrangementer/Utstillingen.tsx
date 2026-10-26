@@ -57,6 +57,7 @@ export default function Utstillingen({ events, today }: { events: PublicEvent[];
       {event.image && !broken.has(event.id) ? (
         // Keep withdrawal of private attachments under the control of our own image route.
         <Image src={event.image} alt={thumbnail ? '' : `Bilde til ${event.title}`} fill unoptimized
+          loading={!thumbnail && event.id === events[0]?.id ? 'eager' : 'lazy'}
           sizes={thumbnail ? '56px' : '(max-width: 900px) 90vw, 520px'}
           onError={() => setBroken(previous => new Set(previous).add(event.id))} />
       ) : <span className={s.dateArt} aria-hidden="true"><b>{dayNum(osloDay(event.start))}</b><span>{shortMonth.format(new Date(event.start))}</span></span>}

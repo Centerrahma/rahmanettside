@@ -32,6 +32,12 @@ viser ingen arrangementer.
   («Stock images», `cdn.hubblecontent.osi.office.net/m365content/publish/`). Bare JPEG, PNG, WebP, GIF og AVIF vises.
   Settes et arrangement til `Internal`, slutter bildet å vises innen fem minutter.
   Bildet krympes til høyst 1080×1440 og sendes som WebP (f.eks. 7,7 MB → 261 KB). Filer over 25 MB vises ikke.
+  Den ferdige WebP-filen mellomlagres på serveren med fem minutters revalidering, slik at gjentatte
+  forespørsler slipper å laste ned og konvertere originalen. Public-sjekken skjer før denne cachen
+  brukes. En ny BannerUrl får en egen cacheoppføring; Power Automate-endepunktet tømmer også
+  bildecachen. Første forespørsel etter et nytt bilde må fortsatt hente og behandle originalen.
+  Hovedbildet til det første arrangementet på arrangementssiden lastes ivrig, mens øvrige bilder
+  fortsatt lastes ved behov.
   Opplastede arrangementsbilder lagres ofte i `SiteAssets/SitePages`. Site Assets er et systembibliotek:
   Graph skjuler slike biblioteker med mindre `system` tas med i `$select` når `/sites/{id}/drives` hentes.
   Koden ber derfor om `id,webUrl,system`. Uten dette kan et gyldig opplastet bilde feilaktig gi

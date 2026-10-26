@@ -201,7 +201,7 @@ export type Banner = { ok: true; body: ReadableStream<Uint8Array>; type: string 
  * reason, which the route passes on so a missing picture can be explained without the logs.
  * Throws when Graph fails.
  */
-export async function fetchPublicBanner(id: string): Promise<Banner> {
+export async function fetchPublicBanner(id: string, loadPicture = downloadBanner): Promise<Banner> {
   const { SHAREPOINT_SITE_ID, SHAREPOINT_LIST_ID } = process.env;
   if (!SHAREPOINT_SITE_ID || !SHAREPOINT_LIST_ID) return { ok: false, reason: 'not-configured' };
   if (!isItemId(id)) return { ok: false, reason: 'bad-id' };
@@ -223,13 +223,7 @@ export async function fetchPublicBanner(id: string): Promise<Banner> {
   if (!banner) return { ok: false, reason: 'no-picture' };
 
   if (isStockImage(banner)) {
-    // public, so no token; and no redirects, so it cannot be bounced anywhere else
-    const res = await fetch(banner, { redirect: 'error', cache: 'no-store', signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS) });
-    if (res.status === 404) return { ok: false, reason: 'file-missing' };
-    if (!res.ok || !res.body) throw new Error(`Stock picture failed (${res.status})`);
-    const type = rasterType(res.headers.get('content-type'), new URL(banner).pathname);
-    if (!type) return { ok: false, reason: `not-image:${res.headers.get('content-type') ?? 'unknown'}` };
-    return { ok: true, body: res.body, type };
+    return loadPicture(banner);
   }
 
   // Uploaded event banners live in Site Assets, a system library hidden by Graph unless selected.
@@ -241,18 +235,26 @@ export async function fetchPublicBanner(id: string): Promise<Banner> {
   }
 
   const path = found.path.split('/').map(encodeURIComponent).join('/');
+  return loadPicture(`${GRAPH_BASE}/drives/${encodeURIComponent(found.driveId)}/root:/${path}:/content`);
+}
+
+/** Only call with a source already validated by fetchPublicBanner. */
+export async function downloadBanner(url: string): Promise<Banner> {
+  const stock = isStockImage(url);
+  const token = stock ? null : await getGraphToken(SHAREPOINT_APP);
   // Graph answers with a redirect to a short-lived download address; fetch follows it.
-  const res = await fetch(`${GRAPH_BASE}/drives/${encodeURIComponent(found.driveId)}/root:/${path}:/content`, {
-    headers: { Authorization: `Bearer ${token}` },
+  const res = await fetch(url, {
+    headers: token ? { Authorization: `Bearer ${token}` } : undefined,
+    ...(stock ? { redirect: 'error' as const } : {}),
     cache: 'no-store',
     signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS),
   });
   if (res.status === 404) return { ok: false, reason: 'file-missing' };
   if (!res.ok || !res.body) throw new Error(`Microsoft Graph file content failed (${res.status})`);
-  const type = rasterType(res.headers.get('content-type'), found.path);
+  const type = rasterType(res.headers.get('content-type'), decodeURIComponent(new URL(url).pathname).replace(/:\/content$/, ''));
   if (!type) {
     const sent = res.headers.get('content-type') ?? 'unknown';
-    console.warn(`[arrangementer] Picture for item ${id} is not an image (${sent})`);
+    console.warn(`[arrangementer] Picture is not an image (${sent})`);
     return { ok: false, reason: `not-image:${sent}` };
   }
   return { ok: true, body: res.body, type };
