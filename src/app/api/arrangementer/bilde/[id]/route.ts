@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { fetchPublicBanner } from '@/lib/arrangementer';
-import { shrinkPicture } from '@/lib/bilde';
+import { loadCachedBanner } from '@/lib/cached-banner';
 
 // An event's picture, served from our own address. SharePoint files need a Microsoft sign-in, so the
 // server fetches the file with the read-only app and passes it on, and only while the event is Public:
@@ -15,15 +15,11 @@ const CACHE = 'public, max-age=300, s-maxage=300';
 export async function GET(_req: Request, { params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
   try {
-    const pic = await fetchPublicBanner(id);
+    const pic = await fetchPublicBanner(id, loadCachedBanner);
     if (!pic.ok) {
       return NextResponse.json({ error: 'Not found', reason: pic.reason }, { status: 404, headers: { 'Cache-Control': 'public, max-age=60, s-maxage=60' } });
     }
-    const small = await shrinkPicture(pic.body);
-    if (!small) {
-      return NextResponse.json({ error: 'Not found', reason: 'too-large' }, { status: 404, headers: { 'Cache-Control': 'public, max-age=60, s-maxage=60' } });
-    }
-    return new Response(new Uint8Array(small), {
+    return new Response(pic.body, {
       headers: {
         'Content-Type': 'image/webp',
         'Cache-Control': CACHE,

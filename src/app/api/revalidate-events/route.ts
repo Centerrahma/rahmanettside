@@ -1,5 +1,5 @@
 import { createHash, timingSafeEqual } from 'node:crypto';
-import { revalidatePath } from 'next/cache';
+import { revalidatePath, revalidateTag } from 'next/cache';
 import { NextRequest, NextResponse } from 'next/server';
 
 // Power Automate calls this when an item in the SharePoint events list is created
@@ -21,5 +21,6 @@ export async function POST(request: NextRequest) {
   }
   // Also drops the cached Graph response, which is tagged to this page.
   revalidatePath('/arrangementer');
+  revalidateTag('arrangementer', { expire: 0 });
   return NextResponse.json({ revalidated: true });
 }
