@@ -44,11 +44,9 @@
 .panel li b{font-size:15px;font-weight:600;color:var(--cream)}
 .creamBtn{display:inline-grid;place-items:center;height:50px;margin-top:18px;padding:0 24px;border-radius:6px;background:#efe2c3;color:var(--green);font-weight:600;text-decoration:none}
 
-/* Arrangementer: the strip of days and the chosen day, on the green */
-.events{--head:#1e3e36;--lead:#3b5750;padding:28px 0 48px;color:#1e3e36;background:#e8dbc3 url('/forside/tadelakt-beige.webp') 0 0/960px}
-.withEvents > .green{padding-bottom:28px}
-.withEvents > .events{padding-block:28px}
-.withEvents > .plate{padding-top:28px}
+/* Arrangementer: straight under the hero, a row of cards on beige plaster */
+.events{--head:#1e3e36;--lead:#3b5750;padding:56px 0 48px;color:#1e3e36;background:#e8dbc3 url('/forside/tadelakt-beige.webp') 0 0/960px}
+.withEvents > .green{padding-block:56px 40px}
 .allBtn{display:flex;justify-content:center;align-items:center;margin:22px 16px 0}
 
 /* The giving choice is recessed into the same green plaster as its surroundings. */

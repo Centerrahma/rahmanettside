@@ -76,12 +76,6 @@ function PhotoCalendar({ events, today }: { events: PublicEvent[]; today: string
           <Cells days={days} ev={ev} today={today} selected={selected?.day ?? null} onSelect={chooseDay} />
         </Recess>
         {upcoming.length > 0 && (
-          <>
-            <label className={s.picker}>Velg arrangement
-              <select value={selected?.event.id ?? ''} onChange={(e) => setSelectedId(e.target.value)}>
-                {upcoming.map(({ day, event }) => <option key={event.id} value={event.id}>{dayNum(day)}. {month.format(noonUtc(day))} · {event.title}</option>)}
-              </select>
-            </label>
             <div className={s.eventList} role="group" aria-label="Velg arrangement">
               {upcoming.map(({ day, event }) => (
                 <button key={event.id} type="button" aria-pressed={selected?.event.id === event.id} onClick={() => setSelectedId(event.id)}>
@@ -91,7 +85,6 @@ function PhotoCalendar({ events, today }: { events: PublicEvent[]; today: string
                 </button>
               ))}
             </div>
-          </>
         )}
       </div>
       {selected ? <EventFeature key={`${selected.event.id}:${selected.event.image}`} event={selected.event} day={selected.day} /> : (
@@ -116,8 +109,4 @@ export function ForsideKalender({ events, today }: { events: PublicEvent[]; toda
       </div>
     </Reveal>
   );
-}
-
-export function MobilKalender({ events, today }: { events: PublicEvent[]; today: string }) {
-  return <div className={s.mobile} data-reveal><PhotoCalendar events={events} today={today} /></div>;
 }

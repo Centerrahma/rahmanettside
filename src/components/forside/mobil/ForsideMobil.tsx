@@ -5,7 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import type { PrayerSchedule } from '@/types/prayer';
 import type { PublicEvent } from '@/lib/arrangementer';
-import { MobilKalender } from '@/components/arrangementer/Kalender';
+import { ArrangementSkinne } from '@/components/arrangementer/Skinne';
 import Konvolutt from '@/components/sider/kontakt/Konvolutt';
 import Velger from '@/components/sider/stott/Velger';
 import { Recess } from '../gips/Gips';
@@ -16,8 +16,8 @@ import Rosett from './Rosett';
 import s from './mobil.module.css';
 
 /* The front page under the hero, on phones (desktop keeps Fellesskapet, StottOss and Besok):
+   Arrangementer — straight under the hero: the coming events as a row of cards that scrolls sideways;
    Vårt felleskap — one photo in a square recess carved into beige plaster, the groups open under it one at a time;
-   Arrangementer — a carved calendar and event picker, with a large attachment and invitation;
    Støtt moskeen — a green tadelakt plate between double gold rules, with the Vipps switch card;
    Besøk og kontakt oss — on cream plaster under a row of arches: the Friday prayer, then the Kontakt envelope.
    Each heading has a rosette over it. Reveals play once, as each part scrolls into view. */
@@ -92,18 +92,18 @@ export default function ForsideMobil({ jummah, events, today }: { jummah: Prayer
 
   return (
     <div className={`${s.root} ${events.length > 0 ? s.withEvents : ''}`} ref={root}>
+      {events.length > 0 && (
+        <section className={s.events} aria-labelledby="fm-ar">
+          <Head id="fm-ar" title="Arrangementer" lead="Det som skjer i moskeen de neste ukene." />
+          <ArrangementSkinne events={events} today={today} />
+          <Link className={`${s.creamBtn} ${s.allBtn}`} href="/arrangementer" data-reveal>Alle arrangementer</Link>
+        </section>
+      )}
+
       <section className={s.green} aria-labelledby="fm-fs">
         <Head id="fm-fs" title="Vårt felleskap" lead="Her lærer barn Koranen og arabisk, unge samles til sport og turer, og familier møtes." />
         <Grupper />
       </section>
-
-      {events.length > 0 && (
-        <section className={s.events} aria-labelledby="fm-ar">
-          <Head id="fm-ar" title="Arrangementer" lead="Velg en dag for å se hva som skjer." />
-          <MobilKalender events={events} today={today} />
-          <Link className={`${s.creamBtn} ${s.allBtn}`} href="/arrangementer" data-reveal>Alle arrangementer</Link>
-        </section>
-      )}
 
       <section className={s.plate} aria-labelledby="fm-st">
         <Head id="fm-st" title="Støtt moskeen" lead="Et fellesskap bæres av mange." />
